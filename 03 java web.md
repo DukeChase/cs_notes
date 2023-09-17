@@ -189,16 +189,11 @@ form标签就是表单
 <!DOCTYPE html>
 
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-
     <title>表单的显示</title>
-
 </head>
-
 <body>
-
     <form action="http://localhost:8080" method="post">
         <input type="hidden" name="action" value="login" />
         <h1 align="center">用户注册</h1>
@@ -336,8 +331,8 @@ CSS 和 HTML 的结合方式
 			1. `<script>`可以定义在html页面的任何地方。但是定义的位置会影响执行顺序。
 			2. `<script>`可以定义多个。
 2. 注释
-	1. 单行注释：//注释内容
-	2. 多行注释：/*注释内容*/
+	1. 单行注释：`//注释内容`
+	2. 多行注释：`/*注释内容*/`
 3. 数据类型：
 	1. 原始数据类型(基本数据类型)：
 		1. `number`：数字。 整数/小数/NaN(not a number 一个不是数字的数字类型)
@@ -393,15 +388,15 @@ CSS 和 HTML 的结合方式
 			* 表达式? 值1:值2;
 			* 判断表达式的值，如果是true则取值1，如果是false则取值2；
 6. 流程控制语句：
-	1. if...else...
-	2. switch:
-		* 在java中，switch语句可以接受的数据类型： byte int shor char,枚举(1.5) ,String(1.7)
+	1.  `if...else...`
+	2.  `switch:`
+		* 在`java`中，`switch`语句可以接受的数据类型：byte int short char,Enum(1.5) ,String(1.7)
 		* switch(变量):
 			case 值:
 		* 在JS中,switch语句可以接受任意的原始数据类型
-	3. while
-	4. do...while
-	5. for
+	3.  `while`
+	4.  `do...while`
+	5.  `for`
 
 ### 基本对象
 
@@ -414,7 +409,7 @@ CSS 和 HTML 的结合方式
 	3. 属性
 	4. 特点
 	5. 调用
-2. Array数组对象
+2. `Array`数组对象
 	```
 	var arr = new Array();
 	arr.push("apple");
@@ -422,13 +417,13 @@ CSS 和 HTML 的结合方式
 
 	var arr1 = ["car","dog","tiger"];
     ```
-3. Boolean对象
-4. Date 日期对象
-5. Math 数学对象
-6. Number对象
-7. String对象
-8. RegEXP 正则表达式对象
-9. Global对象
+3. `Boolean`对象
+4. `Date` 日期对象
+5. `Math` 数学对象
+6. `Number`对象
+7. `String`对象
+8. `RegEXP` 正则表达式对象
+9. `Global`对象
 ### 自定义对象
 1. 对象的定义：
 ```javascript
@@ -442,7 +437,11 @@ var 变量名 = new Object();
 ```
 
 2. {}花括号形式的自定义对象
+<<<<<<< HEAD
 ```javascript
+=======
+```js
+>>>>>>> db12fac (update java web)
 对象的定义：
 var 变量名 = {
 // 空对象
@@ -462,8 +461,8 @@ var 变量名 = {
 	* 将浏览器的各个组成部分封装成对象。
 2. 组成：
 	* `Window`：	窗口对象
-	* Navigator：浏览器对象       not importtan
-	* Screen：   显示器屏幕对象   not importtan
+	* `Navigator`：浏览器对象       not importtan
+	* `Screen`：   显示器屏幕对象   not importtan
 	* `History`：  历史记录对象
 	* `Location`： 地址栏对象
 3. `Window`：窗口对象
@@ -505,8 +504,8 @@ var 变量名 = {
         * window引用可以省略。 方法名();
 4. `Location`：地址栏对象
 	1. 创建(获取)：
-		1. `window.location`
-		2.`location`
+		 1. `window.location`
+		 2.`location`
 	2. 方法：
 		* `reload()`	重新加载当前文档。刷新
 	3. 属性
@@ -516,16 +515,16 @@ var 变量名 = {
         1. `window.history`
         2. `history`
     2. 方法：
-        * back()	加载 history 列表中的前一个 URL。
-        * forward()	加载 history 列表中的下一个 URL。
-        * go(参数)	加载 history 列表中的某个具体页面。
+        * `back()`	加载 history 列表中的前一个 URL。
+        * `forward()`	加载 history 列表中的下一个 URL。
+        * `go(参数)`	加载 history 列表中的某个具体页面。
             * 参数：
                 * 正数：前进几个历史记录
                 * 负数：后退几个历史记录
     3. 属性：
         * length	返回当前窗口历史列表中的 URL 数量。
 ### DOM
-* 概念： Document Object Model 文档对象模型
+* 概念： `Document Object Model`文档对象模型
 	* 将标记语言文档的各个组成部分，封装为对象。可以使用这些对象，对标记语言文档进行**CRUD**的动态操作
 
 * W3C DOM 标准被分为 3 个不同的部分：
@@ -625,7 +624,7 @@ DOM模型
 概念
 `$`是jQuery的核心函数，能完成jQuery的很多功能。` $()`就是调用`$`这个函数
 1. 传入参数为函数时
-	表示页面加载完成之后。相当于window.onload = function(){}
+	表示页面加载完成之后。相当于`window.onload = function(){}`
 2. 传入参数为 HTML 字符串时
 	会对我们创建这个HTML标签对象
 3. 传入参数为 **选择器字符串时**：
@@ -646,11 +645,12 @@ jQuery 对象转为 dom 对象（重点）
 - `jQuery 对象[下标]`取出相应的 DOM 对象(重点）
 
 `jQuery`选择器
-基本选择器
-层级选择器
-过滤选择器
+- 基本选择器
+- 层级选择器
+- 过滤选择器
 
 `jQuery`属性操作
+
 |属性|说明|  备注|
 |-----|----|----|
 |html()|它可以设置和获取起始标签和结束标签中的内容。|跟 dom 属性 innerHTML 一样。|
@@ -658,7 +658,6 @@ jQuery 对象转为 dom 对象（重点）
 |val()|它可以设置和获取表单项的 value 属性值。|跟 dom 属性 value 一样|
 |attr()| 设置和获取属性的值    |   |
 |prop()|    可以设置和获取属性的值                |                      |
-
 
 ## Tomcat
 
@@ -671,7 +670,6 @@ JavaWeb 是基于请求和响应来开发的。
 web服务器
 - 由 Apache 组织提供的一种 Web 服务器，提供对 jsp 和 Servlet 的支持。它是一种轻量级的 javaWeb 容器（服务器），也是当前应用最广的 JavaWeb 服务器（免费）。
 - Jboss：是一个遵从 JavaEE 规范的、开放源代码的、纯 Java 的 EJB 服务器，它支持所有的 JavaEE 规范（免费）。
-
 ## XML
 语法
 1. 文档声明
@@ -683,9 +681,9 @@ web服务器
 XML解析技术介绍
 DOM 和 sax
 第三方解析：
-- jdom
-- dom4j
-- pull
+- `jdom`
+- `dom4j`
+- `pull`
 
 ## Servlet1
 1. 什么是Servlet
@@ -695,12 +693,10 @@ DOM 和 sax
 
 手动实现Servlet程序
 1、编写一个类去实现 `Servlet` 接口
-
 2、实现 `service` 方法，处理请求，并响应数据
-
 3、到 web.xml 中去配置 servlet 程序的访问地址
 
-- web.xml
+- web.xml配置
 ```xml
 <!--context-param是上下文参数(它属于整个web工程)-->
     <context-param>
@@ -809,14 +805,10 @@ ServletConfig 类的三大作用
 ## HTTP协议
 什么是协议?
 
-协议是指双方，或多方，相互约定好，大家都需要遵守的规则，叫协议。
-
-所谓 HTTP 协议，就是指，客户端和服务器之间通信时，发送的数据，需要遵守的规则，叫 HTTP 协议。
-
+- 协议是指双方，或多方，相互约定好，大家都需要遵守的规则，叫协议。
+- 所谓 HTTP 协议，就是指，客户端和服务器之间通信时，发送的数据，需要遵守的规则，叫 HTTP 协议。
 HTTP 协议中的数据又叫报文。
-
 客户端给服务器发送数据叫**请求**。
-
 服务器给客户端回传数据叫**响应**。
 
 ### HTTP请求协议
@@ -867,6 +859,7 @@ HTTP 协议中的数据又叫报文。
 	4. 响应体  
 
 - 常用响应码说明
+
 |响应码|说明|
 |---|-----|
 |200|表示请求成功|
@@ -874,11 +867,10 @@ HTTP 协议中的数据又叫报文。
 |404|表示请求服务器已经收到了，但是你要的数据不存在（请求地址错误）|
 |500|表示服务器已经收到请求，但是服务器内部错误（代码错误）|
 
-
 ## HttpServletRequest & HttpServletResponse
 ### HttpServletRequest
 a) HttpServletRequest类的作用
-每次只要有请求进入 Tomcat 服务器，Tomcat 服务器就会把请求过来的 HTTP 协议信息解析好封装到`Request`对象中。然后传递到service方法（doGet和doPost）中给我们使用。我们可以通过HttpServletRequest对象，获取到所有请求的信息
+每次只要有请求进入 Tomcat 服务器，Tomcat 服务器就会把请求过来的 HTTP 协议信息解析好封装到`Request`对象中。然后传递到service方法（`doGet()`和`doPost()`）中给我们使用。我们可以通过HttpServletRequest对象，获取到所有请求的信息
 b) HttpServletRequest类的常用方法
 1. `getRequestURI()`      获取请求的资源路径
 2. `getRequestURL()`      获取请求的统一资源定位符（绝对路径）
@@ -948,12 +940,11 @@ resp.sendRedirect("http://localhost:8080");
 ```
 
 ## JSP
-jsp的全称是 java server pages。java的服务器页面。
-jsp的主要作用是代替Servlet程序回传html页面的数据。
+`JSP`的全称是`java server pages`。java的服务器页面。
+JSP的主要作用是代替Servlet程序回传html页面的数据。
 jsp本质是一个Servlet程序。
 `HttpJspServlet`继承了`HttpServlet`类。
 其底层实现，就是通过输出流，把 html 页面数据回传给客户端
-
 ### JSP的三种语法
 jsp文件头部声明介绍
 `<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>`
@@ -1115,7 +1106,7 @@ resp.getWriter().write("已经往 Session 中保存了数据");
 4. destroy 销毁
 	第 4 步，停止 web 工程的时候，就会执行（停止 web 工程，也会销毁 Filter 过滤器）
 
-FilterConfig类
+`FilterConfig`类
 
 Filter的拦截路径
 - 精确匹配
@@ -1127,8 +1118,6 @@ Filter的拦截路径
 JSON(JavaScripr Object Notation)
 
 - json的定义
-
-
 ```javascript
 var varname = {
 	"key1":value,
@@ -1146,7 +1135,6 @@ var jsonObj = {
 	"key5":{"key5_1" : 551,"key5_2" : "key5_2_value"},
 	"key6":[{"key6_1_1":6611,"key6_1_2":"key6_1_2_value"},
 		    {"key6_2_1":6621,"key6_2_2":"key6_2_2_value"}]
-
 			  };
 ```
 
@@ -1196,7 +1184,7 @@ AJAX即“Asynchronous Javascript And XML”（异步 JavaScript 和 XML），�
 
 ajax 是一种浏览器通过 js 异步发起请求，局部更新页面的技术。
 
-Ajax 请求的局部更新，浏览器地址栏不会发生变化
+Ajax 请求的局部更新，***浏览器地址栏不会发生变化***
 
 局部更新不会舍弃原来页面的内容
 
@@ -1207,7 +1195,7 @@ jQuery 中的AJAX
 |----|----|---|
 |url|表示请求的地址||
 |type|表示请求的类型 GET 或 POST 请求||
-|data|表示发送给服务器的数据|格式有两种：一 name=value&name=value  二 {key:value}|
+|data|表示发送给服务器的数据|格式有两种：1. name=value&name=value  2. {key:value}|
 |success|请求成功，响应的回调函数||
 |dataType|响应的数据类型|常用的数据类型有：text 表示纯文本xml 表示 xml 数据json 表示 json 对象|
 - `$.get(url,data,callback,type)`

@@ -423,8 +423,8 @@ for (元素的数据类型 变量 ：Collection集合或数组){
   * `public E remove(index)`
   * `public E set(int index ,E element)`
 List的子类
-  * ArrayList
-  * LinkedList
+  * `ArrayList`
+  * `LinkedList`
     * `public void addFirst(E e)`    
     * `public void addLast(E e)`
     * `public E getFirst()`
