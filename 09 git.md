@@ -39,3 +39,8 @@ git merge
 
 git branch
 
+git clone -b barnch-name  指定分支
+## 配置
+免密拉取 gitee   `git config --global credential.helper store `
+关闭ca认证  `sudo git config --system http.sslverify false`
+
