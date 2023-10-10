@@ -40,7 +40,14 @@ git merge
 git branch
 
 git clone -b barnch-name  指定分支
+
+git remote -v   查看git远程仓库地址
+git remote set-url origin 新地址    替换成新地址
 ## 配置
 免密拉取 gitee   `git config --global credential.helper store `
 关闭ca认证  `sudo git config --system http.sslverify false`
+
+git config --global http.sslverify false  
+
+
 
