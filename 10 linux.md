@@ -4,6 +4,12 @@
 ```
 文件所有者、群组和其他人所属   
 
+
+## 5.3 linux目录配置
+
+# 压缩
+压缩 `tar -zcvf   test.tar.gz test`
+解压 `tar -zxvf test.tar.gz`
 # shell
 数据流重定向
 stdout
@@ -32,3 +38,41 @@ find /home -name .bashrc &> list
 ```
 
 stdin
+
+命令行的执行的判断依据
+
+```
+;,
+sync; sync; shutdown -h now
+```
+
+`$?`  表示上一条指令的输出，执行成功则为0
+
+ 指令下达情况
+`cmd1 && cmd2` 
+1. 若 cmd1 执行完毕且正确执行（`$?=0`），则开始执 行 cmd2。
+2. 若 cmd1 执行完毕且为错误 （`$?≠0`），则 cmd2 不 执行。    
+
+
+`cmd1|| cmd2 ` 
+1. 若 cmd1 执行完毕且正确执行（`$?=0`），则 cmd2 不执行。
+
+2. 若 cmd1 执行完毕且为错误 （`$?≠0`），则开始执行 cmd2。
+
+
+
+```
+$?   指令回传值
+&&,
+
+||
+```
+
+管线命令
+`|`
+管线命令“ | ”仅 能处理经由前面一个指令传来的正确信息，也就是 standard output 的信 息，对于 stdandard error 并没有直接处理的能力
+- 管线命令仅会处理 standard output，对于 standard error output 会予 以忽略 
+- 管线命令必须要能够接受来自前一个指令的数据成为 standard input 继续处理才行。
+
+grep cut
+将一段数据经过分析后，取出 我们所想要的

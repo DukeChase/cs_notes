@@ -1,0 +1,2 @@
+https://wangdoc.com/javascript/
+
