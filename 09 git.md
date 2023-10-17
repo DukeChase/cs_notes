@@ -58,5 +58,6 @@ https://devconnected.com/how-to-checkout-git-tags/
 
 git config --global http.sslverify false  
 
+git config --local --list
 
 
