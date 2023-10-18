@@ -21,6 +21,8 @@ git reset
 
 git diff  一般用图形化工具
 
+[git diff 命令](https://blog.csdn.net/liuxiao723846/article/details/109689069)
+
 git push
 
 git pull
