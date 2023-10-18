@@ -25,6 +25,10 @@ RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
 
 `FROM`
 
+
+`COPY`
+如果源路径为文件夹，复制的时候不是直接复制该文件夹，而是将文件夹中的内容复制到目标路径
+
 `RUN`
 - shell 格式  `RUN <命令>`
 - exec格式`RUN ["可执行文件", "参数1", "参数2"]`
