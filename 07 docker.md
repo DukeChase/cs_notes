@@ -3,7 +3,6 @@ docker run -it --rm -p 4000:80 ccr.ccs.tencentyun.com/dockerpracticesig/docker_p
 
 docker run 
 ```
-
 Usage:  docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 
 Create and run a new container from an image
@@ -242,3 +241,10 @@ docker volume create my-vol
 
 
 [Mac 上构建Docker配置 linux/amd64](https://www.jianshu.com/p/3119635e2196)
+
+
+[Docker 深度清除镜像缓存](https://juejin.cn/post/7041119023286730782)
+
+Dockerfile中更换国内源[](https://blog.csdn.net/yyj108317/article/details/105984674)
+
+docker builder prune

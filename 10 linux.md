@@ -76,3 +76,5 @@ $?   指令回传值
 
 grep cut
 将一段数据经过分析后，取出 我们所想要的
+
+[# Linux命令之nohup详解](https://juejin.cn/post/6844903860272660494)
