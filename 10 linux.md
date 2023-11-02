@@ -35,6 +35,8 @@ find /home -name .bashrc > list_right 2> list_error
 stdout 和 stderr 输出到同一个文件list
 find /home -name .bashrc > list 2>&1 
 find /home -name .bashrc &> list
+
+nohup command >myout.file 2>&1 &
 ```
 
 stdin
@@ -61,10 +63,10 @@ sync; sync; shutdown -h now
 
 
 
-```
+```shell
 $?   指令回传值
-&&,
-
+&&
+,
 ||
 ```
 
