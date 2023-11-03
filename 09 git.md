@@ -33,7 +33,8 @@ git log
 
 git  rebase
 
-git checkout
+## git checkout
+git checkout -b 
 
 git switch
 

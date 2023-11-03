@@ -57,6 +57,8 @@ find /home -name .bashrc > list_right 2> list_error
 stdout 和 stderr 输出到同一个文件list
 find /home -name .bashrc > list 2>&1 
 find /home -name .bashrc &> list
+
+nohup command >myout.file 2>&1 &
 ```
 
 stdin
@@ -83,10 +85,10 @@ sync; sync; shutdown -h now
 
 
 
-```
+```shell
 $?   指令回传值
-&&,
-
+&&
+,
 ||
 ```
 
@@ -98,3 +100,5 @@ $?   指令回传值
 
 grep cut
 将一段数据经过分析后，取出 我们所想要的
+
+[# Linux命令之nohup详解](https://juejin.cn/post/6844903860272660494)
