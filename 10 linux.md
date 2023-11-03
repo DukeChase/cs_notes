@@ -10,6 +10,28 @@
 # 压缩
 压缩 `tar -zcvf   test.tar.gz test`
 解压 `tar -zxvf test.tar.gz`
+
+10 认识与学习BASH
+
+10.2 shell的变量功能
+```sh
+echo $PATH
+
+echo ${PATH}
+
+"myname=Vbird"
+unset
+
+
+export 
+```
+
+10.3 命令别名与历史命名
+```sh
+alias ll='ls -l'
+
+umalias ll
+```
 # shell
 数据流重定向
 stdout
