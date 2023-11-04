@@ -21,8 +21,8 @@ http://heavy_code_industry.gitee.io/code_heavy_industry/pro002-maven/
 
 ```xml
 <dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-core</artifactId>
-				<version>${atguigu.spring.version}</version>
-			</dependency>
+	<groupId>org.springframework</groupId>
+	<artifactId>spring-core</artifactId>
+	<version>${atguigu.spring.version}</version>
+</dependency>
 ```

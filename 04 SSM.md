@@ -97,7 +97,7 @@ System.out.println("结果："+result);
 * `SqlSessionFactory`： 是“生产”SqlSession的“工厂”
 * 工厂模式：如果创建某一个对象，使用的过程基本固定，那么我们就可以把创建这个对象的相关代码封装到一个“工厂类”中，以后都使用这个工厂类来“生产”我们需要的对象。
 
-### 增删改查
+### 4 增删改查
 
 ```xml
 <!--int insertUser();--> 
@@ -132,7 +132,7 @@ System.out.println("结果："+result);
 </select>
 ```
 
-### 获取参数值的两种方式
+### 5 获取参数值的两种方式
 MyBatis获取参数值的两种方式：`${}`和`#{}` 
 - `${}`的本质就是字符串拼接，`#{}`的本质就是占位符赋值  
 - `${}`使用字符串拼接的方式拼接sql，若为字符串类型或日期类型的字段进行赋值时，需要手动加单引号；但是`#{}`使用占位符赋值的方式拼接sql，此时为字符串类型或日期类型的字段进行赋值时，可以自动添加单引号
@@ -141,17 +141,16 @@ MyBatis获取参数值的两种方式：`${}`和`#{}`
 	此时可以使用`${}`和`#{}`以任意的名称获取参数的值，注意${}需要手动加单引号
 2. 多个字面量类型的参数
 	若mapper接口中的方法参数为多个时  
-	此时MyBatis会自动将这些参数放在一个map集合中，以arg0,arg1...为键，以参数为值；以param1,param2...为键，以参数为值；因此只需要通过`${}`和`#{}`访问map集合的键就可以获取相对应的值，注意`${}`需要手动加单引号
+	此时MyBatis会自动将这些参数放在一个map集合中，以`arg0,arg1...`为键，以参数为值；以`param1,param2...`为键，以参数为值；因此只需要通过`${}`和`#{}`访问map集合的键就可以获取相对应的值，注意`${}`需要手动加单引号
 3. map集合参数的类型
 	若mapper接口中的方法需要的参数为多个时，此时可以手动创建map集合，将这些数据放在map中只需要通过`${}`和`#{}`访问map集合的键就可以获取相对应的值，注意`${}`需要手动加单引号 
 4. 实体类类型的参数
 	若mapper接口中的方法参数为实体类对象时此时可以使用`${}`和`#{}`，通过访问实体类对象中的属性名获取属性值，注意`${}`需要手动加单引号
 5. 使用`@Param`标识参数
-	可以通过@Param注解标识mapper接口中的方法参数  
-	此时，会将这些参数放在map集合中，以@Param注解的value属性值为键，以参数为值；以param1,param2...为键，以参数为值；只需要通过${}和#{}访问map集合的键就可以获取相对应的值，  
-	注意${}需要手动加单引号
+	可以通过`@Param`注解标识mapper接口中的方法参数  
+	此时，会将这些参数放在map集合中，以@Param注解的value属性值为键，以参数为值；以`param1,param2...`为键，以参数为值；只需要通过`${}`和`#{}`访问map集合的键就可以获取相对应的值，注意`${}`需要手动加单引号
 
-### 各种查询功能
+### 6 各种查询功能
 1. 查询一个实体类对象
 ```java
 /**
@@ -271,22 +270,33 @@ select * from t_user
 </select>
 ```
 
-### 特殊SQL的执行
+### 7 特殊SQL的执行
 - 模糊查询
+```java
+/** 
+* 测试模糊查询 
+* @param mohu 
+* @return 
+* */ 
+List<User> testMohu(@Param("mohu") String mohu);
+```
 ```xml
 <!--List<User> testMohu(@Param("mohu") String mohu);-->
-
 <select id="testMohu" resultType="User">
-
-<!--select * from t_user where username like '%${mohu}%'-->
-
-<!--select * from t_user where username like concat('%',#{mohu},'%')-->
-
-select * from t_user where username like "%"#{mohu}"%"
-
+	<!--select * from t_user where username like '%${mohu}%'-->
+	<!--select * from t_user where username like concat('%',#{mohu},'%')-->
+	select * from t_user where username like "%"#{mohu}"%"
 </select>
 ```
 - 批量删除
+```java
+/** 
+* 批量删除 
+* @param ids 
+* @return 
+* */ 
+int deleteMore(@Param("ids") String ids);
+```
 ```xml
 <!--int deleteMore(@Param("ids") String ids);-->
 <delete id="deleteMore">
@@ -294,6 +304,14 @@ delete from t_user where id in (${ids})
 </delete>
 ```
 - 动态设置表名
+```java
+/** 
+* 动态设置表名，查询所有的用户信息 
+* @param tableName 
+* @return 
+* */ 
+List<User> getAllUser(@Param("tableName") String tableName);
+```
 ```xml
 <!--List<User> getAllUser(@Param("tableName") String tableName);-->
 <select id="getAllUser" resultType="User">
@@ -301,15 +319,29 @@ select * from ${tableName}
 </select>
 ```
 添加功能获取自增的组件
+```java
+/** 
+* 添加用户信息 
+* @param user 
+* @return 
+* useGeneratedKeys：设置使用自增的主键 
+* keyProperty：因为增删改有统一的返回值是受影响的行数，因此只能将获取的自增的主键放在传输的参 数user对象的某个属性中 */
+int insertUser(User user);
+```
+```xml
+<!--int insertUser(User user);--> 
+<insert id="insertUser" useGeneratedKeys="true" keyProperty="id"> 
+insert into t_user values(null,#{username},#{password},#{age},#{sex})
+</insert>
+```
+### 8 自定义映射resultMap
+8.1 resultMap处理字段和属性的映射关系
 
-### 自定义映射resultMap
+8.2 多对一映射处理
 
+8.3 一对多映射处理
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 20e5998209cc8d1f79e1a39460c278a0139a9ad1
-### 动态SQL
+### 9 动态SQL
 
 - `if`
 if标签可通过test属性的表达式进行判断，若表达式的结果为true，则标签中的内容会执行；反之标签中的内容不会执行
@@ -332,7 +364,7 @@ if标签可通过test属性的表达式进行判断，若表达式的结果为tr
 - `where`  
 where和if一般结合使用：  
 a>若where标签中的if条件都不满足，则where标签没有任何功能，即不会添加where关键字  
-b>若where标签中的if条件满足，则where标签会自动添加where关键字，并将条件最前方多余的and去掉
+b>若where标签中的if条件满足，则where标签会自动添加`where`关键字，并将条件最前方多余的and去掉
 
 注意：where标签不能去掉条件最后多余的and
 ```xml
@@ -354,10 +386,10 @@ b>若where标签中的if条件满足，则where标签会自动添加where关键�
 - `trim`  
 trim用于去掉或添加标签中的内容 
 常用属性：
-prefix：在trim标签中的内容的前面添加某些内容
-prefixOverrides：在trim标签中的内容的前面去掉某些内容
-suffix：在trim标签中的内容的后面添加某些内容
-suffixOverrides：在trim标签中的内容的后面去掉某些内容
+`prefix`：在trim标签中的内容的前面添加某些内容
+`prefixOverrides`：在trim标签中的内容的前面去掉某些内容
+`suffix`：在trim标签中的内容的后面添加某些内容
+`suffixOverrides`：在trim标签中的内容的后面去掉某些内容
 ```xml
 <select id="getEmpListByMoreTJ" resultType="Emp">
 	select * from t_emp
@@ -407,6 +439,7 @@ choose、when、 otherwise相当于if...else if..else
 	(null,#{emp.ename},#{emp.age},#{emp.sex},#{emp.email},null)
 	</foreach>
 </insert>
+
 <!--int deleteMoreByArray(int[] eids);-->
 <delete id="deleteMoreByArray">
 	delete from t_emp where
@@ -414,6 +447,7 @@ choose、when、 otherwise相当于if...else if..else
 	eid = #{eid}
 	</foreach>
 </delete>
+
 <!--int deleteMoreByArray(int[] eids);-->
 <delete id="deleteMoreByArray">
 	delete from t_emp where eid in
@@ -422,37 +456,37 @@ choose、when、 otherwise相当于if...else if..else
 	</foreach>
 </delete>
 ```
-<<<<<<< HEAD
+
+
 - `SQL片段`
-sql片段，可以记录一段公共sql片段，在使用的地方通过include标签进行引入
-=======
+
 SQL片段
 sql片段，可以记录一段公共sql片段，在使用的地方通过`include`标签进行引入
->>>>>>> 20e5998209cc8d1f79e1a39460c278a0139a9ad1
+
 ```xml
 <sql id="empColumns">
 	eid,ename,age,sex,did
 </sql>
 select <include refid="empColumns"></include> from t_emp
 ```
-### 缓存
+### 10 缓存
 一级缓存
 
-一级缓存是SqlSession级别的，通过同一个SqlSession查询的数据会被缓存，下次查询相同的数据，就会从缓存中直接获取，不会从数据库重新访问
+一级缓存是`SqlSession`级别的，通过同一个`SqlSession`查询的数据会被缓存，下次查询相同的数据，就会从缓存中直接获取，不会从数据库重新访问
 
 使一级缓存失效的四种情况：
 
-1) 不同的SqlSession对应不同的一级缓存
+1) 不同的`SqlSession`对应不同的一级缓存
 
-2) 同一个SqlSession但是查询条件不同
+2) 同一个`SqlSession`但是查询条件不同
 
-3) 同一个SqlSession两次查询期间执行了任何一次增删改操作
+3) 同一个`SqlSession`两次查询期间执行了任何一次增删改操作
 
-4) 同一个SqlSession两次查询期间手动清空了缓存
+4) 同一个`SqlSession`两次查询期间手动清空了缓存
 
 二级缓存
 
-二级缓存是SqlSessionFactory级别，通过同一个SqlSessionFactory创建的SqlSession查询的结果会被缓存；此后若再次执行相同的查询语句，结果就会从缓存中获取
+二级缓存是`SqlSessionFactory`级别，通过同一个`SqlSessionFactory`创建的`SqlSession`查询的结果会被缓存；此后若再次执行相同的查询语句，结果就会从缓存中获取
 
 二级缓存开启的条件：
 
@@ -465,14 +499,139 @@ d>查询的数据所转换的实体类类型必须实现序列化的接口
 两次查询之间执行了任意的增删改，会使一级和二级缓存同时失效
 
 
-
-
-### 逆向工程
+### 11 逆向工程
 正向工程：先创建Java实体类，由框架负责根据实体类生成数据库表。 Hibernate是支持正向工程的。
-逆向工程：先创建数据库表，由框架负责根据数据库表，反向生成如下资源：
+**逆向工程**：先创建数据库表，由框架负责根据数据库表，反向生成如下资源：
 - Java实体类
 - Mapper接口
 - Mapper映射文件
+
+创建逆向工程的步骤
+
+1. 添加依赖和插件
+```xml
+<!-- 依赖MyBatis核心包 -->
+
+<dependencies>
+
+<dependency>
+	<groupId>org.mybatis</groupId>
+	<artifactId>mybatis</artifactId>	
+	<version>3.5.7</version>
+</dependency> <!-- junit测试 -->
+
+<dependency>
+	<groupId>junit</groupId>
+	<artifactId>junit</artifactId>	
+	<version>4.12</version>
+	<scope>test</scope>
+</dependency>
+
+<!-- log4j日志 -->
+
+<dependency>
+	<groupId>log4j</groupId>
+	<artifactId>log4j</artifactId>
+	<version>1.2.17</version>
+</dependency>
+
+<dependency>
+	<groupId>mysql</groupId>
+	<artifactId>mysql-connector-java</artifactId>
+	<version>8.0.16</version>
+</dependency>
+
+</dependencies>
+
+<!-- 控制Maven在构建过程中相关配置 -->
+<build>
+	<!-- 构建过程中用到的插件 -->
+	<plugins>
+		<!-- 具体插件，逆向工程的操作是以构建过程中插件形式出现的 -->
+		<plugin>
+		<groupId>org.mybatis.generator</groupId>
+		<artifactId>mybatis-generator-maven-plugin</artifactId>
+		<version>1.3.0</version>
+		<!-- 插件的依赖 -->
+			<dependencies>
+				<!-- 逆向工程的核心依赖 -->
+				<dependency>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-core</artifactId>
+				<version>1.3.2</version>
+				</dependency>
+				<!-- MySQL驱动 -->	
+				<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>8.0.16</version>
+				</dependency>
+			</dependencies>
+		</plugin>
+	</plugins>
+
+</build>
+```
+2. 创建MyBatis的核心配置文件
+3. 创建逆向工程的配置文件
+文件名必须是generatorConfig.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!-targetRuntime: 执行生成的逆向工程的版本 MyBatis3Simple: 生成基本的CRUD（清新简洁版） MyBatis3: 生成带条件的CRUD（奢华尊享版） -->	
+	<context id="DB2Tables" targetRuntime="MyBatis3"> <!-- 数据库的连接信息 -->	
+		<jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+		connectionURL="jdbc:mysql://localhost:3306/mybatis? serverTimezone=UTC" userId="root"		
+		password="123456"> </jdbcConnection> <!-- javaBean的生成策略-->		
+		<javaModelGenerator targetPackage="com.atguigu.mybatis.pojo" targetProject=".\src\main\java">		
+		<property name="enableSubPackages" value="true" />	
+		<property name="trimStrings" value="true" />		
+		</javaModelGenerator> <!--	
+		SQL映射文件的生成策略 -->		
+		<sqlMapGenerator targetPackage="com.atguigu.mybatis.mapper"		
+		targetProject=".\src\main\resources">		
+		<property name="enableSubPackages" value="true" />		
+		</sqlMapGenerator> <!--		
+		Mapper接口的生成策略 -->		
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.atguigu.mybatis.mapper"		
+		targetProject=".\src\main\java">		
+		<property name="enableSubPackages" value="true" />		
+		</javaClientGenerator> <!--		
+		逆向分析的表 --> <!--		
+		tableName设置为*号，可以对应所有表，此时不写domainObjectName --> <!--		
+		domainObjectName属性指定生成出来的实体类的类名 -->		
+		<table tableName="t_emp" domainObjectName="Emp" />		
+		<table tableName="t_dept" domainObjectName="Dept" />	
+	</context>
+</generatorConfiguration>
+```
+4. 执行MBG插件的generate目标
+
+QCB查询
+```java
+@Test public void testMBG(){ 
+	try { 
+		InputStream is = Resources.getResourceAsStream("mybatis-config.xml"); 
+		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(is); 
+		SqlSession sqlSession = sqlSessionFactory.openSession(true); EmpMapper mapper = sqlSession.getMapper(EmpMapper.class); 
+		//查询所有数据 
+		/*List<Emp> list = mapper.selectByExample(null);
+		list.forEach(emp -> System.out.println(emp));*/
+		//根据条件查询 
+		/*EmpExample example = new EmpExample();
+		example.createCriteria().andEmpNameEqualTo("张 三").andAgeGreaterThanOrEqualTo(20); 
+		example.or().andDidIsNotNull(); List<Emp> list = mapper.selectByExample(example);
+		list.forEach(emp -> System.out.println(emp));*/
+
+		mapper.updateByPrimaryKeySelective(new Emp(1,"admin",22,null,"456@qq.com",3));
+		} catch (IOException e) { 
+		e.printStackTrace(); 
+		}
+}
+```
 ### 分页插件
 
 
