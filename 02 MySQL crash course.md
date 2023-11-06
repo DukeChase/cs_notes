@@ -58,6 +58,10 @@ where condition;
 
 ```sql
 and or in not
+
+SELECT column1, column2, ...
+FROM table_name
+WHERE column IN (value1, value2, ...);
 ```
 
 ## chapter8 用通配符进行过滤
