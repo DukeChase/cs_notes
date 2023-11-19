@@ -9,10 +9,118 @@ https://www.yuque.com/atguigu/springboot
 ## 1 Spring与SprinBoot
 
 ## 02 SpringBoot入门
+HelloWorld
+
+引入依赖
+```xml
+<parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.4.RELEASE</version>
+    </parent>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+    </dependencies>
+```
+创建主程序
+```java
+/**
+ * 主程序类
+ * @SpringBootApplication：这是一个SpringBoot应用
+ */
+@SpringBootApplication
+public class MainApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(MainApplication.class,args);
+    }
+}
+```
+编写业务
+```java
+@RestController
+public class HelloController {
+
+
+    @RequestMapping("/hello")
+    public String handle01(){
+        return "Hello, Spring Boot 2!";
+    }
+
+}
+```
+测试
+直接运行main方法
+
+简化配置
+
+简化部署
+```xml
+ <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+```
 ## 03 [自动配置原理](https://www.yuque.com/atguigu/springboot/qb7hy2)
 ### 1 SpringBoot特点
-依赖管理
-自动配置
+#### 1.1 依赖管理
+- 父项目做依赖管理
+```xml
+依赖管理    
+<parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.4.RELEASE</version>
+</parent>
+
+他的父项目
+ <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-dependencies</artifactId>
+    <version>2.3.4.RELEASE</version>
+  </parent>
+
+几乎声明了所有开发中常用的依赖的版本号,自动版本仲裁机制
+
+```
+
+- 发导入starter场景启动器
+```xml
+1、见到很多 spring-boot-starter-* ： *就某种场景
+2、只要引入starter，这个场景的所有常规需要的依赖我们都自动引入
+3、SpringBoot所有支持的场景
+https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot.html#using-boot-starter
+4、见到的  *-spring-boot-starter： 第三方为我们提供的简化开发的场景启动器。
+5、所有场景启动器最底层的依赖
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter</artifactId>
+  <version>2.3.4.RELEASE</version>
+  <scope>compile</scope>
+</dependency>
+```
+- 无需关注版本号，自动版本仲裁
+
+
+- 可以修改默认版本号
+```xml
+1、查看spring-boot-dependencies里面规定当前依赖的版本 用的 key。
+2、在当前项目里面重写配置
+    <properties>
+        <mysql.version>5.1.43</mysql.version>
+    </properties>
+```
+1.2 自动配置
 ### 2 容器功能
 #### 2.1 组件添加
 1. `@Configuration`     //告诉SpringBoot这是一个配置类 == 配置文件
@@ -22,7 +130,7 @@ https://www.yuque.com/atguigu/springboot
  * 1、配置类里面使用@Bean标注在方法上给容器注册组件，默认也是单实例的
  * 2、配置类本身也是组件
  * 3、proxyBeanMethods：代理bean的方法
- *      Full(proxyBeanMethods = true)、【保证每个@Bean方法被调用多少次返回的组件都是单实例的】
+ *      Full(proxyBeanMethods = true) 【保证每个@Bean方法被调用多少次返回的组件都是单实例的】
  *      Lite(proxyBeanMethods = false)【每个@Bean方法被调用多少次返回的组件都是新创建的】
  *      组件依赖必须使用Full模式默认。其他默认是否Lite模式
  */
@@ -80,7 +188,7 @@ public class MainApplication {
 }
 ```
 2. `@Bean、@Component、@Controller、@Service、@Repository` 
-//给容器中添加组件。以方法名作为组件的id。返回类型就是组件类型。返回的值，就是组件在容器中的实 例
+//给容器中添加组件。以方法名作为组件的id。返回类型就是组件类型。返回的值，就是组件在容器中的实例
 `@Bean("beanid")   // 自定义beanid`    默认单实例
 
 3. `@ComponentScan @Import`  
@@ -105,7 +213,35 @@ public class MyConfig {
 
 #### 2.2 原生配置文件导入
 1. `@ImportResource("classpath:beans.xml")`
- 
+
+```xml
+======================beans.xml=========================
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="haha" class="com.atguigu.boot.bean.User">
+        <property name="name" value="zhangsan"></property>
+        <property name="age" value="18"></property>
+    </bean>
+
+    <bean id="hehe" class="com.atguigu.boot.bean.Pet">
+        <property name="name" value="tomcat"></property>
+    </bean>
+</beans>
+```
+```java
+ @ImportResource("classpath:beans.xml")
+public class MyConfig {}
+
+======================测试=================
+        boolean haha = run.containsBean("haha");
+        boolean hehe = run.containsBean("hehe");
+        System.out.println("haha："+haha);//true
+        System.out.println("hehe："+hehe);//true
+```
 #### 2.3配置绑定
 如何使用Java读取到properties文件中的内容，并且把它封装到JavaBean中，以供随时使用；
 1. `@ConfigurationProperties`    必须是容器中的组件才有这个功能
@@ -145,15 +281,15 @@ private String brand;
 ```
 }
 2. `@EnableConfigurationProperties + @ConfigurationProperties`
-要在配置类里面写
-```java
-@Configuration
-@EnabelConfigrationProperties(Car.class)  //适合用在引用第三方包时，配置属性
-public class MyConfig{
 
+3. @Component + @ConfigurationProperties
+```java
+@EnableConfigurationProperties(Car.class)
+//1、开启Car配置绑定功能
+//2、把这个Car这个组件自动注册到容器中
+public class MyConfig {
 }
 ```
-
 ### 3 自动配置原理入门
 #### 3.1、引导加载自动配置类
 
@@ -398,19 +534,100 @@ SpringBoot默认会在底层配好所有的组件。但是如果用户自己配�
 	- 参照文档修改`配置项
 	
 	- [https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#common-application-properties](https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#common-application-properties)
-	- 自己分析。xx`xxProperties绑定了配置文件的哪些。
+	- 自己分析。`xxxxProperties绑定了配置文件的哪些。
 - 自定义加入或者替换组件
 	- @Bean、@Component。。。
 - 自定义器 **XXXXXCustomizer**；
 ## 04 开发小技巧
 1. Lombok
+```xml
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+
+idea中搜索安装lombok插件
+```
+```java
+===============================简化JavaBean开发===================================
+@NoArgsConstructor
+//@AllArgsConstructor
+@Data
+@ToString
+@EqualsAndHashCode
+public class User {
+
+    private String name;
+    private Integer age;
+
+    private Pet pet;
+
+    public User(String name,Integer age){
+        this.name = name;
+        this.age = age;
+    }
+
+
+}
+
+
+
+================================简化日志开发===================================
+@Slf4j
+@RestController
+public class HelloController {
+    @RequestMapping("/hello")
+    public String handle01(@RequestParam("name") String name){
+        
+        log.info("请求进来了....");
+        
+        return "Hello, Spring Boot 2!"+"你好："+name;
+    }
+}
+```
 2. dev-tools
-3. Spring Initailizer
+```xml
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+```
+
+3. Spring Initailizr（项目初始化向导）
+
 # 核心功能
-## 1 配置文件
+## 4 配置文件
+文件类型
 1. application.properties
 2. application.yaml
 yaml的写法
+字面量
+对象
+数组
+```java
+@Data
+public class Person {
+	
+	private String userName;
+	private Boolean boss;
+	private Date birth;
+	private Integer age;
+	private Pet pet;
+	private String[] interests;
+	private List<String> animal;
+	private Map<String, Object> score;
+	private Set<Double> salarys;
+	private Map<String, List<Pet>> allPets;
+}
+
+@Data
+public class Pet {
+	private String name;
+	private Double weight;
+}
+```
 
 ```yaml
 person:  
@@ -440,13 +657,40 @@ person:
     health: [{name: mario,weight: 47}]
 ```
 
-## 2 web开发
+2 配置提示
+自定义的类和配置文件绑定一般没有提示。
+```xml
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+
+ <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-configuration-processor</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+```
+## 5 web开发
 ### 1 springMVC 自动配置概览
 
 ### 2 简单功能分析
 
 ### 3 请求参数处理
-#### 请求映射
+#### 0 请求映射
 
 `@RequestMapping`
 
@@ -458,7 +702,7 @@ person:
 
 idea 快捷键  ctrl + h  显示继承树
 ctrl + f12  当前文件结构
-#### 普通参数与基本注解
+#### 1 普通参数与基本注解
 
 @PathVariable
 @RequestHeader
@@ -481,7 +725,92 @@ ctrl + f12  当前文件结构
 ### 5 视图解析与模版引擎
 
 ### 6 拦截器
+#### 1、HandlerInterceptor 接口
+```java
+/**
+ * 登录检查
+ * 1、配置好拦截器要拦截哪些请求
+ * 2、把这些配置放在容器中
+ */
+@Slf4j
+public class LoginInterceptor implements HandlerInterceptor {
 
+    /**
+     * 目标方法执行之前
+     * @param request
+     * @param response
+     * @param handler
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        String requestURI = request.getRequestURI();
+        log.info("preHandle拦截的请求路径是{}",requestURI);
+
+        //登录检查逻辑
+        HttpSession session = request.getSession();
+
+        Object loginUser = session.getAttribute("loginUser");
+
+        if(loginUser != null){
+            //放行
+            return true;
+        }
+
+        //拦截住。未登录。跳转到登录页
+        request.setAttribute("msg","请先登录");
+//        re.sendRedirect("/");
+        request.getRequestDispatcher("/").forward(request,response);
+        return false;
+    }
+
+    /**
+     * 目标方法执行完成以后
+     * @param request
+     * @param response
+     * @param handler
+     * @param modelAndView
+     * @throws Exception
+     */
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        log.info("postHandle执行{}",modelAndView);
+    }
+
+    /**
+     * 页面渲染以后
+     * @param request
+     * @param response
+     * @param handler
+     * @param ex
+     * @throws Exception
+     */
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        log.info("afterCompletion执行异常{}",ex);
+    }
+}
+```
+2 配置拦截器
+```java
+/**
+ * 1、编写一个拦截器实现HandlerInterceptor接口
+ * 2、拦截器注册到容器中（实现WebMvcConfigurer的addInterceptors）
+ * 3、指定拦截规则【如果是拦截所有，静态资源也会被拦截】
+ */
+@Configuration
+public class AdminWebConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoginInterceptor())
+                .addPathPatterns("/**")  //所有请求都被拦截包括静态资源
+                .excludePathPatterns("/","/login","/css/**","/fonts/**","/images/**","/js/**"); //放行的请求
+    }
+}
+```
 ### 7 文件上传
 
 ### 8 异常处理
@@ -492,7 +821,7 @@ ctrl + f12  当前文件结构
 
 ### 11 定制化原理
 
-## 数据访问
+## 6 数据访问
 
 ## 单元测试
 
