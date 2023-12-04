@@ -1513,14 +1513,12 @@ class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
 	* `@RequestMapping`标识一个方法：设置映射请求请求路径的具体信息  
 2. `@RequestMapping`注解value属性  
 	* 作用：通过请求的请求路径匹配请求  
-	* `value`属性是数组类型，即当前浏览器所发送请求的请求路径匹配`value`属性中的任何一个值  
-	* 则当前请求就会被注解所标识的方法进行处理  
+	* `value`属性是数组类型，即当前浏览器所发送请求的请求路径匹配`value`属性中的任何一个值 ，则当前请求就会被注解所标识的方法进行处理  
 3. `@RequestMapping`注解的`method`属性  
 	* 作用：通过请求的请求方式匹配请求  
 	* `method`属性是`RequestMethod`类型的数组，即当前浏览器所发送请求的请求方式匹配`method`属性中的任何一中请求方式  
 	* 则当前请求就会被注解所标识的方法进行处理  
-	* 若浏览器所发送的请求的请求路径和`@RequestMapping`注解`value`属性匹配，但是请求方式不匹配  
-	* 此时页面报错：`405 - Request method 'xxx' not supported`
+	* 若浏览器所发送的请求的请求路径和`@RequestMapping`注解`value`属性匹配，但是请求方式不匹配，此时页面报错：`405 - Request method 'xxx' not supported`
 	* 在@RequestMapping的基础上，结合请求方式的一些派生注解：  
 	* `@GetMapping,@PostMapping,@DeleteMapping,@PutMapping ` 
 4. `@RequestMapping`注解的`params`属性  

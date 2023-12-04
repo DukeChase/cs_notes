@@ -63,4 +63,6 @@ git config --global http.sslverify false
 
 git config --local --list
 
+git config --local user.name ffhuanghsb
+git config --local user.email ffhuanghsb@chinatelecom.cn
 
