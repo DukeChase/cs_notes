@@ -437,7 +437,6 @@ var 变量名 = new Object();
 ```
 
 2. {}花括号形式的自定义对象
-<<<<<<< HEAD
 ```javascript
 =======
 ```js
@@ -461,8 +460,8 @@ var 变量名 = {
 	* 将浏览器的各个组成部分封装成对象。
 2. 组成：
 	* `Window`：	窗口对象
-	* `Navigator`：浏览器对象       not importtan
-	* `Screen`：   显示器屏幕对象   not importtan
+	* `Navigator`：浏览器对象       not important
+	* `Screen`：   显示器屏幕对象   not important
 	* `History`：  历史记录对象
 	* `Location`： 地址栏对象
 3. `Window`：窗口对象
@@ -639,7 +638,7 @@ jQuery对象的本质是dom对象的数组+jQuery提供的一些列功能函数�
 
 dom 对象转化为 jQuery 对象（重点）
 - 先有 DOM 对象
-- `$( DOM 对象 )` 就可以转换成为 jQuery 对象
+- `$(DOM对象)` 就可以转换成为 jQuery 对象
 jQuery 对象转为 dom 对象（重点）
 - 先有 jQuery 对象
 - `jQuery 对象[下标]`取出相应的 DOM 对象(重点）
@@ -668,7 +667,7 @@ JavaWeb 是基于请求和响应来开发的。
 请求`Request`
 响应`Response`
 web服务器
-- 由 Apache 组织提供的一种 Web 服务器，提供对 jsp 和 Servlet 的支持。它是一种轻量级的 javaWeb 容器（服务器），也是当前应用最广的 JavaWeb 服务器（免费）。
+- tomcat: 由 Apache 组织提供的一种 Web 服务器，提供对 jsp 和 Servlet 的支持。它是一种轻量级的 javaWeb 容器（服务器），也是当前应用最广的 JavaWeb 服务器（免费）。
 - Jboss：是一个遵从 JavaEE 规范的、开放源代码的、纯 Java 的 EJB 服务器，它支持所有的 JavaEE 规范（免费）。
 ## XML
 语法
@@ -780,13 +779,13 @@ ServletConfig 类的三大作用
 `ServletConfig Servlet.getServletConfig()`
 
 ### ServletContext类
-1、`ServletContext` 是一个接口，它表示 `Servlet` 上下文对象
+1、`ServletContext` 是一个接口，它表示 `Servlet` 上下文对象。
 2、一个 web 工程，只有一个 `ServletContext` 对象实例。
 3、`ServletContext` 对象是一个域对象。
 4、`ServletContext` 是在 web 工程部署启动的时候创建。在 web 工程停止的时候销毁。
 
 什么是域对象?
-域对象，是可以像 Map 一样存取数据的对象，叫域对象。
+域对象，是可以像 Map 一样存取数据的对象，叫**域对象**。
 这里的域指的是存取数据的操作范围，整个 web 工程。
 
 |  |存数据|取数据|删除数据|
@@ -794,7 +793,7 @@ ServletConfig 类的三大作用
 |Map|put()|get()|remove()|
 |域对象|setAttribute()|getAttribute()|removeAttribute()|
 
-- ServeltContext类的四个作用
+- `ServeltContext`类的四个作用
 	1. 获取 web.xml 中配置的上下文参数 `context-param`
 	2. 获取当前的工程路径，格式: /工程路径
 	3. 获取工程部署后在服务器硬盘上的绝对路径
@@ -871,7 +870,7 @@ HTTP 协议中的数据又叫报文。
 ### HttpServletRequest
 a) HttpServletRequest类的作用
 每次只要有请求进入 Tomcat 服务器，Tomcat 服务器就会把请求过来的 HTTP 协议信息解析好封装到`Request`对象中。然后传递到service方法（`doGet()`和`doPost()`）中给我们使用。我们可以通过HttpServletRequest对象，获取到所有请求的信息
-b) HttpServletRequest类的常用方法
+b) `HttpServletRequest`类的常用方法
 1. `getRequestURI()`      获取请求的资源路径
 2. `getRequestURL()`      获取请求的统一资源定位符（绝对路径）
 3. `getRemoteHost()`      获取客户端的 ip 地址
@@ -1115,7 +1114,7 @@ Filter的拦截路径
 
 ## JSON AJAX
 ### JSON
-JSON(JavaScripr Object Notation)
+JSON(JavaScript Object Notation)
 
 - json的定义
 ```javascript
