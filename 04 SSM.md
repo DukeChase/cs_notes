@@ -1548,9 +1548,11 @@ class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
 ### SpringMVC获取请求参数
 
 - 通过控制器方法的行参获取请求参数
-- `@RequestParam`
+- GET `@RequestParam`
 - `@RequsetHeader`
 - `@CookieValue`
+- POST `@RequestBody`
+- `@PathVariable`
 
 
 - 通过POJO获取

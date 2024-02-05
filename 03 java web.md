@@ -363,7 +363,7 @@ CSS 和 HTML 的结合方式
                 * boolean转number：true转为1，false转为0
 	2. 算数运算符
 			+ - * / % ...
-	3. 赋值运算符
+	3.  赋值运算符
 			`= += -+....`
 	4. 比较运算符
 		- `> < >= <= == ===(全等于)`
@@ -424,6 +424,7 @@ CSS 和 HTML 的结合方式
 7. `String`对象
 8. `RegEXP` 正则表达式对象
 9. `Global`对象
+
 ### 自定义对象
 1. 对象的定义：
 ```javascript
@@ -436,12 +437,9 @@ var 变量名 = new Object();
 变量名.属性 / 函数名()
 ```
 
-2. {}花括号形式的自定义对象
+2. `{}`花括号形式的自定义对象
 ```javascript
-=======
-```js
->>>>>>> db12fac (update java web)
-对象的定义：
+// 对象的定义：
 var 变量名 = {
 // 空对象
 属性名：值,
@@ -454,6 +452,7 @@ var 变量名 = {
 对象的访问：
 变量名.属性 / 函数名();
 ```
+
 
 ### BOM
 1. 概念：`Browser Object Model `浏览器对象模型
@@ -499,12 +498,12 @@ var 变量名 = {
         2. 获取DOM对象
             `document`
     4. 特点
-        * Window对象不需要创建可以直接使用 window使用。 window.方法名();
+        * Window对象不需要创建可以直接使用 window使用。` window.methodName();`
         * window引用可以省略。 方法名();
 4. `Location`：地址栏对象
 	1. 创建(获取)：
-		 1. `window.location`
-		 2.`location`
+		1. `window.location`
+		2. `location`
 	2. 方法：
 		* `reload()`	重新加载当前文档。刷新
 	3. 属性
@@ -544,10 +543,10 @@ var 变量名 = {
 			2. `document`
 		2. 方法：
 			1. 获取Element对象：
-				1.`getElementById(elementId)`	： 根据id属性值获取元素对象。id属性值一般唯一
+				1.`getElementById(elementId)`	:  根据id属性值获取元素对象。id属性值一般唯一
 				2.`getElementsByTagName(tagname)`：根据元素名称获取元素对象们。返回值是一个数组
-				3.`getElementsByClassName(className)`:根据Class属性值获取元素对象们。返回值是一个数组
-				4.`getElementsByName(elementName)`: 根据name属性值获取元素对象们。返回值是一个数组
+				3.`getElementsByClassName(className)`: 根据Class属性值获取元素对象们。返回值是一个数组
+				4.`getElementsByName(elementName)`:  根据name属性值获取元素对象们。返回值是一个数组
 			2. 创建其他DOM对象：
 				 - `createAttribute(name)`
 				 - `createComment()`
