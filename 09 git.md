@@ -42,12 +42,13 @@ git merge
 
 git branch
 
-git clone -b barnch-name  指定分支
+git clone -b barnch-name  克隆指定分支
 
 git remote -v   查看git远程仓库地址
 git remote set-url origin 新地址    替换成新地址
 
-tag
+## tag
+
 https://www.liaoxuefeng.com/wiki/896043488029600/902335479936480
 https://blog.csdn.net/weixin_39642619/article/details/111223447
 https://blog.csdn.net/lovedingd/article/details/127568704

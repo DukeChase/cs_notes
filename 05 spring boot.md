@@ -1,8 +1,9 @@
  
-springboot特点
-依赖管理
 语雀地址
 https://www.yuque.com/atguigu/springboot
+
+springboot特点
+依赖管理
 
 # 基础入门
 

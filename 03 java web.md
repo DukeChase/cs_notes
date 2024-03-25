@@ -1178,7 +1178,7 @@ json在java中的操作。常见的有三种情况
 [尚硅谷ajax](https://www.bilibili.com/video/BV1Y7411K7zz?p=311)
 
 什么是AJAX
-AJAX即“Asynchronous Javascript And XML”（异步 JavaScript 和 XML），是**指一种创建交互式网页应用的网页开发技术**。
+AJAX即`Asynchronous Javascript And XML`（异步 JavaScript 和 XML），是**指一种创建交互式网页应用的网页开发技术**。
 
 ajax 是一种浏览器通过 js 异步发起请求，局部更新页面的技术。
 

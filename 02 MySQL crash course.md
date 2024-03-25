@@ -2,7 +2,7 @@
 
 DBMS 数据库管理系统
 
-* relation database
+* relation database  关系型数据库
 * NoSQL
 
 installation

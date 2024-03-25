@@ -26,3 +26,19 @@ http://heavy_code_industry.gitee.io/code_heavy_industry/pro002-maven/
 	<version>${atguigu.spring.version}</version>
 </dependency>
 ```
+
+# 依赖传递
+
+# 依赖冲突
+
+依赖调解原则
+第一声明优先原则
+路径近者优先原则
+
+
+排除依赖
+`exclusion`
+锁定版本
+
+`dependencyManagement`
+

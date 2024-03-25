@@ -22,7 +22,7 @@ public class SysRoleController {
     private SysRoleService sysRoleService;
 
     @ApiOperation(value = "获取全部角色列表")
-    @GetMapping("findAll")
+    @GetMapping("/findAll")
     public Result<List<SysRole>> findAll() {
         List<SysRole> roleList = sysRoleService.list();
         return Result.ok(roleList);
