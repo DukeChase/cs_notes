@@ -12,10 +12,10 @@ BaseMapper
 
 通用Service
 说明:
-- 通用 Service CRUD 封装IService接口，进一步封装 CRUD 采用 get 查询单行 remove 删除 list 查询集合 page 分页 前缀命名方式区分 Mapper 层避免混淆，
+- 通用 Service CRUD 封装`IService`接口，进一步封装 CRUD 采用 get 查询单行 remove 删除 list 查询集合 page 分页 前缀命名方式区分 Mapper 层避免混淆，
 - 泛型 T 为任意实体对象
-- 建议如果存在自定义通用 Service 方法的可能，请创建自己的 IBaseService 继承Mybatis-Plus 提供的基类
-- 官网地址：https://baomidou.com/pages/49cc81/#service-crud-%E6%8E%A5%E5%8F%A3
+- 建议如果存在自定义通用 `Service`方法的可能，请创建自己的 IBaseService 继承Mybatis-Plus 提供的基类
+- [官网地址](https://baomidou.com/pages/49cc81/#service-crud-%E6%8E%A5%E5%8F%A3)
 
 
 ```java
@@ -32,7 +32,7 @@ UserService {
 
 # 常用注解
 `@TableName`
-配置中可以设置同意前缀
+配置中可以设置统一前缀
 
 `@TableId`   value  指定主建字段      type  id自增算法     雪花算法
 

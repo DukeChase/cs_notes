@@ -95,7 +95,7 @@ $?   指令回传值
 
 管线命令
 `|`
-管线命令“ | ”仅 能处理经由前面一个指令传来的正确信息，也就是 standard output 的信 息，对于 stdandard error 并没有直接处理的能力
+管线命令“ | ”仅 能处理经由前面一个指令传来的正确信息，也就是 `standard output`的信 息，对于 stdandard error 并没有直接处理的能力
 - 管线命令仅会处理 standard output，对于 standard error output 会予 以忽略 
 - 管线命令必须要能够接受来自前一个指令的数据成为 standard input 继续处理才行。
 

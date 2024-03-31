@@ -2,7 +2,11 @@ http://heavy_code_industry.gitee.io/code_heavy_industry/pro002-maven/
 
 
 `-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true`
-
+```shell
+# -D 表示后面要附加命令的参数，字母 D 和后面的参数是紧挨着的，中间没有任何其它字符
+# maven.test.skip=true 表示在执行命令的过程中跳过测试
+mvn clean install -Dmaven.test.skip=true
+```
 # 继承
 
 父工程  打包方式  pom

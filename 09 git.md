@@ -1,17 +1,17 @@
-git init 
+`git init `
 工作区  暂存区   版本库
-git add 
-git ls-files  查看暂存区中的文件
+`git add `
+`git ls-files`  查看暂存区中的文件
 
 
-git rm  filename    把文件从工作区和暂存区同时删除
-git rm --cached filename  把文件从暂存区删除，但保留在当前工作区中
-git rm -r *  递归删除某个目录下的所有子目录和文件
+`git rm  filename`    把文件从工作区和暂存区同时删除
+`git rm --cached filename`  把文件从暂存区删除，但保留在当前工作区中
+`git rm -r *`  递归删除某个目录下的所有子目录和文件
 删除后不要忘记提交
 
-git commit
+`git commit`
 
-git reset    
+`git reset    `
 
 | 选项 | 作用|
 |------|------|
@@ -23,15 +23,15 @@ git diff  一般用图形化工具
 
 [git diff 命令](https://blog.csdn.net/liuxiao723846/article/details/109689069)
 
-git push
+`git push`
 
-git pull
+`git pull`
 
-git status
+`git status`
 
-git log
+`git log`
 
-git  rebase
+`git  rebase`
 
 ## git checkout
 git checkout -b 
@@ -60,10 +60,10 @@ https://devconnected.com/how-to-checkout-git-tags/
 免密拉取 gitee   `git config --global credential.helper store `
 关闭ca认证  `sudo git config --system http.sslverify false`
 
-git config --global http.sslverify false  
+`git config --global http.sslverify false  `
 
 git config --local --list
 
-git config --local user.name ffhuanghsb
+git config --local user.name huanghsb
 git config --local user.email ffhuanghsb@chinatelecom.cn
 
