@@ -9,10 +9,33 @@ reference 《java8实战》
 ## 3.4 使用函数式接口
 
 ### 3.4.1 Predicate
-
+```java
+@FunctionalInterface
+public interface Predicate<T>{
+	boolean test(T t);
+}
+```
 ### 3.4.2 Consumer
+```java
+@FunctionalInterface
+
+public interface Consumer<T>{
+
+void accept(T t);
+
+}
+```
 
 ### 3.4.3 Function
+```java
+@FunctionalInterface
+
+public interface Function<T, R>{
+
+R apply(T t);
+
+}
+```
 
 ## 3.6 方法引用
 
@@ -156,8 +179,26 @@ streamAPI
 
 # 第6章 用流搜集数据
 
+## 6.5 收集器接口
 `Collector`
+```java
+public interface Collector<T, A, R> {
 
+	Supplier<A> supplier();
+	
+	BiConsumer<A, T> accumulator();
+	
+	Function<A, R> finisher();
+	
+	BinaryOperator<A> combiner();
+	
+	Set<Characteristics> characteristics();
+
+}
+```
+- T是流中要收集的项目的泛型。 
+- A是累加器的类型，累加器是在收集过程中用于累积部分结果的对象。
+-  R是收集操作得到的对象（通常但并不一定是集合）的类型。
 # 第9章 默认方法
 
 接口中可以定义默认方法和静态方法。
