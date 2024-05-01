@@ -46,3 +46,22 @@ mvn clean install -Dmaven.test.skip=true
 
 `dependencyManagement`
 
+
+maven
+
+父pom 继承
+
+依赖传递 a 依赖b b依赖c
+
+dependencyManagement
+
+${kettle.version}
+
+坐标
+
+groupId
+
+artifactId
+
+version
+

@@ -1058,11 +1058,8 @@ JspRuntimeLibrary.include(request, response, "/include/footer.jsp", out, false);
 jsp标签-转发
 ```jsp
 <%--
-
 <jsp:forward page=""></jsp:forward> 是请求转发标签，它的功能就是请求转发
-
 page 属性设置请求转发的路径
-
 --%>
 <jsp:forward page="/scope2.jsp"></jsp:forward>
 ```
@@ -1206,19 +1203,6 @@ type   返回的数据类型
 url       请求的 url 地址
 data      发送给服务器的数据
 callback  成功的回调函数
-## Vue
-|指令|简写|描述|
-|---|----|----|
-|v-text|  |普通文本|
-|v-model|    | 双向绑定 |
-|v-html|    |真正的html|
-|v-on|   @  |  绑定事件|
-|v-show|    |    |
-|v-if|      |    |
-|v-for|      |    |
-|v-bind|  :  | 作用在html属性上|
-
-axios
 
 ## Redis
 
