@@ -1,13 +1,13 @@
  
 语雀地址
 https://www.yuque.com/atguigu/springboot
-
+b站：[【尚硅谷】SpringBoot2零基础入门教程（spring boot2干货满满）]( https://www.bilibili.com/video/BV19K4y1L7MT/?share_source=copy_web&vd_source=e65574be5c4ff436d099ae0526b97fd9)
 springboot特点
 依赖管理
 
 # 基础入门
 
-## 1 Spring与SprinBoot
+## 01 Spring与SpringBoot
 
 ## 02 SpringBoot入门
 HelloWorld
@@ -63,7 +63,7 @@ public class HelloController {
 
 简化部署
 ```xml
- <build>
+	 <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -539,7 +539,7 @@ SpringBoot默认会在底层配好所有的组件。但是如果用户自己配�
 - 自定义加入或者替换组件
 	- @Bean、@Component。。。
 - 自定义器 **XXXXXCustomizer**；
-## 04 开发小技巧
+### 04 开发小技巧
 1. Lombok
 ```xml
         <dependency>
@@ -572,8 +572,6 @@ public class User {
 
 }
 
-
-
 ================================简化日志开发===================================
 @Slf4j
 @RestController
@@ -599,8 +597,8 @@ public class HelloController {
 3. Spring Initailizr（项目初始化向导）
 
 # 核心功能
-## 4 配置文件
-文件类型
+## 04 配置文件
+### 1 文件类型
 1. application.properties
 2. application.yaml
 yaml的写法
@@ -658,7 +656,7 @@ person:
     health: [{name: mario,weight: 47}]
 ```
 
-2 配置提示
+### 2 配置提示
 自定义的类和配置文件绑定一般没有提示。
 ```xml
         <dependency>
@@ -685,10 +683,12 @@ person:
         </plugins>
     </build>
 ```
-## 5 web开发
+## 05 web开发
 ### 1 springMVC 自动配置概览
 
+
 ### 2 简单功能分析
+
 
 ### 3 请求参数处理
 #### 0 请求映射
@@ -812,7 +812,25 @@ public class AdminWebConfig implements WebMvcConfigurer {
     }
 }
 ```
+3 拦截器原理
+1、根据当前请求，找到**HandlerExecutionChain【**可以处理请求的handler以及handler的所有 拦截器】
+
+2、先来**顺序执行** 所有拦截器的 preHandle方法
+
+- 1、如果当前拦截器`prehandler`返回为true。则执行下一个拦截器的`preHandle`
+- 2、如果当前拦截器返回为`false`。直接 倒序执行所有已经执行了的拦截器的 `afterCompletion`；
+
+**3、如果任何一个拦截器返回false。直接跳出不执行目标方法**
+
+**4、所有拦截器都返回True。执行目标方法**
+
+**5、倒序执行所有拦截器的postHandle方法。**
+
+**6、前面的步骤有任何异常都会直接倒序触发** afterCompletion
+
+7、页面成功渲染完成以后，也会倒序触发 afterCompletion
 ### 7 文件上传
+
 
 ### 8 异常处理
 
@@ -822,7 +840,7 @@ public class AdminWebConfig implements WebMvcConfigurer {
 
 ### 11 定制化原理
 
-## 6 数据访问
+## 06 数据访问
 
 ## 单元测试
 

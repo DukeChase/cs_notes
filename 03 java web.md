@@ -30,8 +30,8 @@
 	ii. 事件属性： `onclick="alert('你好！');" ` 可以直接设置事件响应后的代码。  
 4. 标签又分为，单标签和双标签。
 	i. 单标签格式： <标签名 />  
-		br 换行  
-		hr 水平线  
+		`<br/>` 换行  
+		`<hr/>` 水平线  
 	ii. 双标签格式: <标签名> ...封装的数据...</标签名>  
 ### 常用标签
 - 超链接
@@ -65,12 +65,12 @@ li 是列表项
 - 表格标签
 需求1：做一个 带表头的 ，三行，三列的表格，并显示边框  
 需求2：修改表格的宽度，高度，表格的对齐方式，单元格间距。  
-- table 标签是表格标签
-	- border 设置表格标签
-	- width 设置表格宽度
-	- height 设置表格高度
-	- align 设置表格相对于页面的对齐方式
-	- cellspacing 设置单元格间距
+- `table` 标签是表格标签
+	- `border` 设置表格标签
+	- `width` 设置表格宽度
+	- `height` 设置表格高度
+	- `align` 设置表格相对于页面的对齐方式
+	- `cellspacing`设置单元格间距
 
 | 标签  | 意义        | 
 |----|--------|
@@ -170,16 +170,16 @@ li 是列表项
 - 表单标签
 表单就是 html 页面中,用来收集用户信息的所有元素集合.然后把这些信息发送给服务器。  
 form标签就是表单
-- `input type=text`     是文件输入框  value设置默认显示内容
-- `input type=password` 是密码输入框  value设置默认显示内容
-- `input type=radio`    是单选框    name属性可以对其进行分组
-- `checked="checked"`表示默认选中
-- `input type=checkbox` 是复选框   checked="checked"表示默认选中
-- `input type=reset`    是重置按钮      value属性修改按钮上的文本
-- `input type=submit `  是提交按钮      value属性修改按钮上的文本
-- `input type=button`   是按钮          value属性修改按钮上的文本
-- `input type=file `    是文件上传域
-- `input type=hidden`   是隐藏域    当我们要发送某些信息，而这些信息，不需要用户参与，就可以使用隐藏域（提交的时候同时发送给服务器）
+- `<input type=text>`     是文件输入框  value设置默认显示内容
+- `<input type=password>` 是密码输入框  value设置默认显示内容
+- `<input type=radio>`    是单选框    name属性可以对其进行分组
+- `<checked="checked">`表示默认选中
+- `<input type=checkbox>` 是复选框   checked="checked"表示默认选中
+- `<input type=reset>`    是重置按钮      value属性修改按钮上的文本
+- `<input type=submit>`  是提交按钮      value属性修改按钮上的文本
+- `<input type=button>`   是按钮          value属性修改按钮上的文本
+- `<input type=file>`    是文件上传域
+- `<input type=hidden>`   是隐藏域    当我们要发送某些信息，而这些信息，不需要用户参与，就可以使用隐藏域（提交的时候同时发送给服务器）
 - `select` 标签是下拉列表框
 - `option` 标签是下拉列表框中的选项 selected="selected"设置默认选中
 - `textarea` 表示多行文本输入框 （起始标签和结束标签中的内容是默认值）
@@ -247,9 +247,9 @@ form标签就是表单
 </body>
 </html>
 ```
-form 标签是表单标签
+`form` 标签是表单标签
 `action` 属性设置提交的服务器地址
-`method` 属性设置提交的方式 GET(默认值)或 POST
+`method` 属性设置提交的方式 `GET(默认值)`或 `POST`
 表单提交的时候，数据没有发送给服务器的三种情况：  
 1. 表单项没有 `name` 属性值
 2. 单选、复选（下拉列表中的 option 标签）都需要添加 `value` 属性，以便发送给服务器
@@ -268,11 +268,11 @@ form 标签是表单标签
 
 - 其他标签
 
-|标签|  说明  |
-|----|-------|
-|div | 默认独占一行|
-|span |它的长度是封装数据的长度|
-|p |段落标签 默认会在段落的上方或下方各空出一行来（如果已有就不再空）|
+| 标签   | 说明                                |
+| ---- | --------------------------------- |
+| div  | 默认独占一行                            |
+| span | 它的长度是封装数据的长度                      |
+| p    | 段落标签 默认会在段落的上方或下方各空出一行来（如果已有就不再空） |
 ## CSS层叠样式表
 选择器：浏览器根据“选择器”决定受 CSS 样式影响的 HTML 元素（标签）。  
 属性 (property) 是你要改变的样式名，并且每个属性都有一个值。  
@@ -335,9 +335,9 @@ CSS 和 HTML 的结合方式
 	2. 多行注释：`/*注释内容*/`
 3. 数据类型：
 	1. 原始数据类型(基本数据类型)：
-		1. `number`：数字。 整数/小数/NaN(not a number 一个不是数字的数字类型)
-		2. `string`：字符串。 字符串  "abc" "a" 'abc'
-		3. `boolean`: true和false
+		1. `number`：数字。 整数/小数/`NaN`(not a number 一个不是数字的数字类型)
+		2. `string`：字符串。 字符串  `"abc"` `"a"` `'abc'`
+		3. `boolean`: `true`和`false`
 		4. `null`：一个对象为空的占位符
 		5. `undefined`：未定义。如果一个变量没有给初始化值，则会被默认赋值为`undefined`
 	2. 引用数据类型：对象
@@ -390,10 +390,10 @@ CSS 和 HTML 的结合方式
 6. 流程控制语句：
 	1.  `if...else...`
 	2.  `switch:`
-		* 在`java`中，`switch`语句可以接受的数据类型：byte int short char,Enum(1.5) ,String(1.7)
+		* 在`java`中，`switch`语句可以接受的数据类型：`byte int short char,Enum(1.5) ,String(1.7)`
 		* switch(变量):
 			case 值:
-		* 在JS中,switch语句可以接受任意的原始数据类型
+		* 在JS中，`switch`语句可以接受任意的原始数据类型
 	3.  `while`
 	4.  `do...while`
 	5.  `for`
@@ -632,8 +632,8 @@ DOM模型
 4. 传入参数为DOM对象时：
 	会把这个 `dom` 对象转换为 `jQuery`对象
 
-jQuery对象和dom对象区分
-jQuery对象的本质是dom对象的数组+jQuery提供的一些列功能函数。
+`jQuery`对象和`dom`对象区分
+`jQuery`对象的本质是dom对象的数组+jQuery提供的一些列功能函数。
 
 dom 对象转化为 jQuery 对象（重点）
 - 先有 DOM 对象
@@ -692,9 +692,9 @@ DOM 和 sax
 手动实现Servlet程序
 1、编写一个类去实现 `Servlet` 接口
 2、实现 `service` 方法，处理请求，并响应数据
-3、到 web.xml 中去配置 servlet 程序的访问地址
+3、到 `web.xml` 中去配置 `servlet` 程序的访问地址
 
-- web.xml配置
+*web.xml配置*
 ```xml
 <!--context-param是上下文参数(它属于整个web工程)-->
     <context-param>
@@ -740,7 +740,7 @@ DOM 和 sax
     </servlet-mapping>
 ```
 
-- Servlet的生命周期
+*Servlet的生命周期*
 1. 执行Servlet构造器方法
 2. 执行init初始化方法
 	第一二步，是在第一次访问的时候创建`Servlet`程序会调用
@@ -1076,6 +1076,7 @@ EL 表达式主要是代替 jsp 页面中的表达式脚本在 jsp 页面中进�
 
 ### JSTL表达式
 
+
 ## Cookie and Session
 `resp.addCookie()`
 
@@ -1203,13 +1204,4 @@ type   返回的数据类型
 url       请求的 url 地址
 data      发送给服务器的数据
 callback  成功的回调函数
-
-## Redis
-
-数据类型
-字符串String
-散列表hash map
-列表List
-集合Set
-有序集合
 

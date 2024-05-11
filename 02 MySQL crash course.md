@@ -84,8 +84,9 @@ select * from table_name where columns  like '% love china';
 select * from table_name where regexp 'regexp_string';
 ```
 
-`LIKE `和 `regexp` 的重要区别  `LIKE` 匹配整个列，
-`regexp`在列值内进行匹配  `regexp`可以使用`^`和`$` 匹配整个列值
+`LIKE `和 `regexp` 的重要区别  
+- `LIKE` 匹配整个列，
+- `regexp`在列值内进行匹配  `regexp`可以使用`^`和`$` 匹配整个列值
 
 regexp 默认不区分大小写 ，为区分大小写，可以使用`BINARY`关键字   
 
