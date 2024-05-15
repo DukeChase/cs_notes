@@ -51,15 +51,46 @@ key的作用和原理
 
 
 ## Vue
-|指令|简写|描述|
-|---|----|----|
-|v-text|  |普通文本|
-|v-model|    | 双向绑定 |
-|v-html|    |真正的html|
-|v-on|   @  |  绑定事件|
-|v-show|    |    |
-|v-if|      |    |
-|v-for|      |    |
-|v-bind|  :  | 作用在html属性上|
+| 指令      | 简写  | 描述         |
+| ------- | --- | ---------- |
+| v-text  |     | 普通文本       |
+| v-model |     | 双向绑定       |
+| v-html  |     | 真正的html    |
+| v-on    | @   | 绑定事件       |
+| v-show  |     |            |
+| v-if    |     |            |
+| v-for   |     |            |
+| v-bind  | :   | 作用在html属性上 |
 
-axios
+
+生命周期
+
+挂载
+
+更新
+
+销毁
+
+组件
+
+vue脚手架
+
+render函数
+修改默认配置vueconfig.js
+
+ref属性
+
+props
+
+mixin
+
+插件
+
+scoped
+
+todo 案例
+
+组件间通信
+全局事件总线
+
+消息订阅与发布pubsub-js
