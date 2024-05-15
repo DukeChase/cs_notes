@@ -42,12 +42,12 @@ git merge
 
 git branch
 
-git clone -b barnch-name  克隆指定分支
+`git clone -b barnch-name`  克隆指定分支
 
 git remote -v   查看git远程仓库地址
 git remote set-url origin 新地址    替换成新地址
 
-## tag
+## tag 打标签
 
 https://www.liaoxuefeng.com/wiki/896043488029600/902335479936480
 https://blog.csdn.net/weixin_39642619/article/details/111223447
@@ -64,6 +64,6 @@ https://devconnected.com/how-to-checkout-git-tags/
 
 git config --local --list
 
-git config --local user.name huanghsb
-git config --local user.email ffhuanghsb@chinatelecom.cn
+git config --local user.name dukechase
+git config --local user.email  hsb2435@163.com
 

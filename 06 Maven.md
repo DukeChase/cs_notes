@@ -7,6 +7,8 @@ http://heavy_code_industry.gitee.io/code_heavy_industry/pro002-maven/
 # maven.test.skip=true 表示在执行命令的过程中跳过测试
 mvn clean install -Dmaven.test.skip=true
 ```
+
+
 # 继承
 
 父工程  打包方式  pom
@@ -40,6 +42,12 @@ mvn clean install -Dmaven.test.skip=true
 路径近者优先原则
 
 
+## pom.xml
+
+dependencyManagement
+
+dependencies
+
 排除依赖
 `exclusion`
 锁定版本
@@ -64,4 +72,15 @@ groupId
 artifactId
 
 version
+
+
+## settings.xml
+
+
+profile
+repositories
+activation
+
+`mvn -p -s `
+
 
