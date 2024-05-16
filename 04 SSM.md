@@ -6,7 +6,7 @@
 3. **Controller**：这是实际处理请求的组件。通常，你会在这里编写业务逻辑，处理用户输入，并与模型（Model）交互。
 4. **Model**：模型包含业务数据和业务逻辑。通常，模型数据会存储在数据库中，Controller会从模型中获取或更新数据。
 5. **View Resolver**：视图解析器负责解析逻辑视图名称到具体视图实现。例如，当Controller返回一个逻辑视图名称时，View Resolver会将其解析为具体的JSP页面、Thymeleaf模板等。
-6. **View**：视图负责渲染模型数据，以呈现给用户。在Spring MVC中，可以使用多种视图技术，如JSP、Thymeleaf、Freemarker等。
+6. **View**：视图负责渲染模型数据，以呈现给用户。在Spring MVC中，可以使用多种视图技术，如`JSP`、`Thymeleaf`、`Freemarker`等。
 
 整个处理流程大致如下：
 
@@ -1421,7 +1421,7 @@ public void beforeMethod(JoinPoint joinPoint){
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"  
          version="4.0">  
     <!--  
-        配置SpringMVC的前端控制器DispatcherServlet  
+        配置SpringMVC的前端控制器  DispatcherServlet  
         SpringMVC的配置文件默认的位置和名称：  
         位置：WEB-INF下  
         名称：<servlet-name>-servlet.xml，当前配置下的配置文件名为SpringMVC-servlet.xml
@@ -1508,7 +1508,7 @@ class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
 ```
 
 浏览器发送请求，若请求地址符合前端控制器的`url-pattern`，该请求就会被前端控制器`DispatcherServlet`处理。
-前端控制器会读取SpringMVC的核心配置文件，通过扫描组件找到控制器，将请求地址和控制器中@RequestMapping注解的value属性值进行匹配，若匹配成功，该注解所标识的控制器方法就是处理请求的方法。
+前端控制器会读取SpringMVC的核心配置文件，通过扫描组件找到控制器，将请求地址和控制器中`@RequestMapping`注解的`value`属性值进行匹配，若匹配成功，该注解所标识的控制器方法就是处理请求的方法。
 处理请求的方法需要返回一个字符串类型的视图名称，该视图名称会被***视图解析器***解析，加上前缀和后缀组成视图的路径，通过Thymeleaf对视图进行渲染，最终转发到视图所对应页面
 
 ## @RequestMapping注解
@@ -1568,11 +1568,11 @@ class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
 
 1. 通过servletAPI获取  
 	* 只需要在控制器方法的形参位置设置`HttpServletRequest`类型的形参  
-	* 就可以在控制器方法中使用request对象获取请求参数  
+	* 就可以在控制器方法中使用`request`对象获取请求参数  
 2. 通过控制器方法的形参获取  
 	* 只需要在控制器方法的形参位置，设置一个形参，形参的名字和请求参数的名字一致即可  
 3. `@RequestParam`：将请求参数和控制器方法的形参绑定  
-	* @RequestParam注解的三个属性：value、required、defaultValue  
+	* `@RequestParam`注解的三个属性：`value、required、defaultValue ` 
 	* `value`:设置和形参绑定的请求参数的名字  
 	* `required`:设置是否必须传输value所对应的请求参数  
 	* 默认值为true，表示value所对应的请求参数必须传输，否则页面报错：  
@@ -1627,13 +1627,13 @@ public String testApplication(HttpSession session){
 `InternalResourceViewResolver`   视图解析器
 
 `RedirectView`
-## RETFUL
+## RESTFUL
 
 REST：Representational State Transfer，表现层资源状态转移。
 
 SpringMVC 提供了 `HiddenHttpMethodFilter` 帮助我们将 POST 请求转换为 DELETE 或 PUT 请求
 
-HiddenHttpMethodFilter 处理put和delete请求的条件：
+`HiddenHttpMethodFilter` 处理put和delete请求的条件：
 
 1. 当前请求的请求方式必须为post
 2. 当前请求必须传输请求参数_method
@@ -1713,12 +1713,11 @@ HiddenHttpMethodFilter 处理put和delete请求的条件：
 ```
 ## RESTFul案例
 
+
 ## 9. SpringMVC处理ajax请求
 - `@RequestBody`
 
-
-
-- `ResponseBody`
+- `@ResponseBody`
 
 `@ResponseBody`用于标识一个控制器方法，可以将该方法的返回值直接作为响应报文的响应体响应到浏览器
 

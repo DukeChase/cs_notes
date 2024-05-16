@@ -1,7 +1,7 @@
  
-语雀地址
-https://www.yuque.com/atguigu/springboot
+
 b站：[【尚硅谷】SpringBoot2零基础入门教程（spring boot2干货满满）]( https://www.bilibili.com/video/BV19K4y1L7MT/?share_source=copy_web&vd_source=e65574be5c4ff436d099ae0526b97fd9)
+[语雀文档地址](https://www.yuque.com/atguigu/springboot) 
 springboot特点
 依赖管理
 
@@ -14,7 +14,7 @@ HelloWorld
 
 引入依赖
 ```xml
-<parent>
+	<parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.4.RELEASE</version>
@@ -95,7 +95,7 @@ public class HelloController {
 
 ```
 
-- 发导入starter场景启动器
+- 开发导入starter场景启动器
 ```xml
 1、见到很多 spring-boot-starter-* ： *就某种场景
 2、只要引入starter，这个场景的所有常规需要的依赖我们都自动引入
