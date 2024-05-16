@@ -3,11 +3,17 @@
 
 ES6 语法规范
 
-- 解构赋值、模板字符串、箭头函数
+- ·`let const`
+- 解构赋值
+- 模板字符串
+- 箭头函数
 
 ES6 模块化
 
-- 默认暴露、分别暴露、统一暴露、import 、export
+- 默认暴露
+- 分别暴露
+- 统一暴露
+- import 、export
 
 包管理器
 
@@ -22,9 +28,8 @@ ES6 模块化
 axios
 
 promise
-模版语法
 
-# vue
+# VUE
 
 模版语法
 
@@ -39,6 +44,13 @@ el 和 data 的两种写法
 绑定样式
 绑定class样式
 绑定style样式
+生命周期
+
+挂载
+
+更新
+
+销毁
 条件渲染
 列表渲染
 深度监视
@@ -91,21 +103,22 @@ packege.json
 
 ## ref属性
 
-props配置
+## props配置
 
-mixin混入
+## mixin混入
 
-插件
+## 插件
 
-scpoed
+## scpoed
 
-组件自定义事件
+## 组件自定义事件
 
-全局事件总线
+## 全局事件总线
 
-消息发布与订阅
+## 消息发布与订阅
+消息订阅与发布 `pubsub-js`
 
-配置代理服务器
+## 配置代理服务器
 ```json
 // vue.config.js
 {
@@ -139,38 +152,11 @@ scpoed
 }
 ```
 
-插槽
+## 插槽
 
-路由
+## 路由
 ## axios
-生命周期
 
-挂载
 
-更新
 
-销毁
 
-组件
-
-vue脚手架
-
-render函数
-修改默认配置vueconfig.js
-
-ref属性
-
-props
-
-mixin
-
-插件
-
-scoped
-
-todo 案例
-
-组件间通信
-全局事件总线
-
-消息订阅与发布pubsub-js
