@@ -31,14 +31,19 @@ promise
 
 el 和 data 的两种写法
 理解mvvm
-
+数据代理
+事件处理
 计算属性
 监听属性
-深度监视
-Vue.set
-
+绑定样式
 绑定class样式
 绑定style样式
+条件渲染
+列表渲染
+深度监视
+Vue.set
+收集表单数据
+
 条件渲染
 列表过滤
 key的作用和原理
@@ -51,6 +56,13 @@ key的作用和原理
 
 列表过滤
 
+过滤器
+内置指令
+自定义指令
+生命周期
+
+非单文件组件
+单文件组件
 
 ## Vue
 |指令|简写|描述|
@@ -64,4 +76,69 @@ key的作用和原理
 |v-for|      |    |
 |v-bind|  :  | 作用在html属性上|
 
-axios
+
+## 脚手架开发
+main.js 是项目的入口
+
+render函数完成了这个功能：将App组件放入容器中
+
+App.vue
+
+vue.config.js
+npm
+packege.json
+
+## ref属性
+
+props配置
+
+mixin混入
+
+插件
+
+scpoed
+
+组件自定义事件
+
+全局事件总线
+
+消息发布与订阅
+
+配置代理服务器
+```json
+// vue.config.js
+{
+	//开启代理服务器（方式一）
+	
+	/* devServer: {
+	
+	proxy: 'http://localhost:5000'
+	
+	}, */
+
+	//开启代理服务器（方式二）
+	
+	devServer: {
+		proxy: {
+			'/atguigu': {	
+			target: 'http://localhost:5000',		
+			pathRewrite:{'^/atguigu':''},			
+		// ws: true, //用于支持websocket		
+		// changeOrigin: true //用于控制请求头中的host值		
+		},		
+		'/demo': {		
+		target: 'http://localhost:5001',	
+		pathRewrite:{'^/demo':''},		
+		// ws: true, //用于支持websocket		
+		// changeOrigin: true //用于控制请求头中的host值	
+			}
+		}
+	
+	}
+}
+```
+
+插槽
+
+路由
+## axios
