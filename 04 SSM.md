@@ -28,10 +28,11 @@
 SSM 教程
 # MyBatis
 
-### MyBatis introduction
+### 1 MyBatis introduction
 
-### 搭建MyBatis的核心配置文件
-文件位置：`src/main/resource/mybatis_comfig.xml`    MyBatis核心配置文件
+### 2 搭建MyBatis
+的核心配置文件
+文件位置：`src/main/resource/mybatis_config.xml`    MyBatis核心配置文件
 
 ```xml
 <configuration> <!--设置连接数据库的环境--> 
@@ -98,7 +99,7 @@ SSM 教程
     </insert> 
 </mapper>
 ```
-4. Test
+4. 通过junit测试功能
 ```java
 //读取MyBatis的核心配置文件 
 InputStream is = Resources.getResourceAsStream("mybatis-config.xml"); 
@@ -124,6 +125,102 @@ System.out.println("结果："+result);
 * `SqlSession`：代表Java程序和数据库之间的会话。（HttpSession是Java程序和浏览器之间的会话）
 * `SqlSessionFactory`： 是“生产”SqlSession的“工厂”
 * 工厂模式：如果创建某一个对象，使用的过程基本固定，那么我们就可以把创建这个对象的相关代码封装到一个“工厂类”中，以后都使用这个工厂类来“生产”我们需要的对象。
+### 3 核心配置文件详解
+
+核心配置文件中的标签必须按照固定的顺序：
+`properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,objectWrapperFactory?,reflectorFactory?,plugins?,environments?,databaseIdProvider?,mappers?`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!--
+		MyBatis核心配置文件中，标签的顺序：
+		properties?,settings?,typeAliases?,typeHandlers?,
+		objectFactory?,objectWrapperFactory?,reflectorFactory?,
+		plugins?,environments?,databaseIdProvider?,mappers?
+	-->
+  <!--引入properties文件-->
+  <properties resource="jdbc.properties"/>
+  <!--设置类型别名-->
+  <typeAliases>
+    <!--
+		typeAlias：设置某个类型的别名
+		属性：
+		type：设置需要设置别名的类型
+		alias：设置某个类型的别名，若不设置该属性，那么该类型拥有默认的别名，即类名
+		且不区分大小写
+	-->
+    <!--<typeAlias type="com.atguigu.mybatis.pojo.User"></typeAlias>-->
+    <!--以包为单位，将包下所有的类型设置默认的类型别名，即类名且不区分大小写-->
+    <package name="com.atguigu.mybatis.pojo"/>
+  </typeAliases>
+	<!--
+		environments：配置多个连接数据库的环境
+		属性：
+		default：设置默认使用的环境的id
+	-->
+  <environments default="development">
+    <!--
+	environment：配置某个具体的环境
+	属性：
+	id：表示连接数据库的环境的唯一标识，不能重复
+	-->
+    <environment id="development">
+    <!--
+		transactionManager：设置事务管理方式
+		属性：
+		type="JDBC|MANAGED"
+		JDBC：表示当前环境中，执行SQL时，使用的是JDBC中原生的事务管理方式，事
+		务的提交或回滚需要手动处理
+		MANAGED：被管理，例如Spring
+	-->
+      <transactionManager type="JDBC"/>
+      <!--
+	dataSource：配置数据源
+	属性：
+	type：设置数据源的类型
+	type="POOLED|UNPOOLED|JNDI"
+	POOLED：表示使用数据库连接池缓存数据库连接
+	UNPOOLED：表示不使用数据库连接池
+	JNDI：表示使用上下文中的数据源
+	-->
+      <dataSource type="POOLED">
+        <!--设置连接数据库的驱动-->
+        <property name="driver" value="${jdbc.driver}"/>
+        <!--设置连接数据库的连接地址-->
+        <property name="url" value="${jdbc.url}"/>
+        <!--设置连接数据库的用户名-->
+        <property name="username" value="${jdbc.username}"/>
+        <!--设置连接数据库的密码-->
+        <property name="password" value="${jdbc.password}"/>
+      </dataSource>
+    </environment>
+    <environment id="test">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/ssmserverTimezone=UTC"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <!--引入映射文件-->
+  <mappers>
+    <!--<mapper resource="mappers/UserMapper.xml"/>-->
+    <!--
+		以包为单位引入映射文件
+		要求：
+		1、mapper接口所在的包要和映射文件所在的包一致
+		2、mapper接口要和映射文件的名字一致
+	-->
+    <package name="com.atguigu.mybatis.mapper"/>
+  </mappers>
+</configuration>
+```
 
 ### 4 增删改查
 
@@ -159,6 +256,13 @@ System.out.println("结果："+result);
     select * from t_user 
 </select>
 ```
+
+> 注意：
+1、查询的标签select必须设置属性resultType或resultMap，用于设置实体类和数据库表的映射
+关系
+resultType：自动映射，用于属性名和表中字段名一致的情况
+resultMap：自定义映射，用于一对多或多对一或字段名和属性名不一致的情况
+
 
 ### 5 获取参数值的两种方式
 MyBatis获取参数值的两种方式：`${}`和`#{}` 
@@ -287,11 +391,11 @@ Map<String, Object> getAllUserToMap();
 ```xml
 <!--Map<String, Object> getAllUserToMap();-->
 <!--
-{
-1={password=123456, sex=男, id=1, age=23, username=admin},
-2={password=123456, sex=男, id=2, age=23, username=张三},
-3={password=123456, sex=男, id=3, age=23, username=张三}
-}
+	{
+	1={password=123456, sex=男, id=1, age=23, username=admin},
+	2={password=123456, sex=男, id=2, age=23, username=张三},
+	3={password=123456, sex=男, id=3, age=23, username=张三}
+	}
 -->
 <select id="getAllUserToMap" resultType="map">
 select * from t_user
@@ -346,7 +450,7 @@ List<User> getAllUser(@Param("tableName") String tableName);
 select * from ${tableName}
 </select>
 ```
-添加功能获取自增的组件
+- 添加功能获取自增的组件
 ```java
 /** 
 * 添加用户信息 
@@ -364,6 +468,49 @@ insert into t_user values(null,#{username},#{password},#{age},#{sex})
 ```
 ### 8 自定义映射resultMap
 8.1 resultMap处理字段和属性的映射关系
+```xml
+
+<!--
+resultMap：设置自定义映射
+属性：
+id：表示自定义映射的唯一标识
+type：查询的数据要映射的实体类的类型
+子标签：
+id：设置主键的映射关系
+result：设置普通字段的映射关系
+association：设置多对一的映射关系
+collection：设置一对多的映射关系
+属性：
+property：设置映射关系中实体类中的属性名
+column：设置映射关系中表中的字段名
+-->
+
+<resultMap id="userMap" type="User">
+
+<id property="id" column="id"></id>
+
+<result property="userName" column="user_name"></result>
+
+<result property="password" column="password"></result>
+
+<result property="age" column="age"></result>
+
+<result property="sex" column="sex"></result>
+
+</resultMap>
+
+<!--List<User> testMohu(@Param("mohu") String mohu);-->
+
+<select id="testMohu" resultMap="userMap">
+
+<!--select * from t_user where username like '%${mohu}%'-->
+
+select id,user_name,password,age,sex from t_user where user_name like
+
+concat('%',#{mohu},'%')
+
+</select>
+```
 
 8.2 多对一映射处理
 
@@ -435,7 +582,7 @@ trim用于去掉或添加标签中的内容
 </select>
 ```
 - `choose when otherwise`
-choose、when、 otherwise相当于if...else if..else
+`choose、when、 otherwise`相当于`if...else if..else`
 ```xml
 <!--List<Emp> getEmpListByChoose(Emp emp);-->
 <select id="getEmpListByChoose" resultType="Emp">
@@ -498,7 +645,7 @@ sql片段，可以记录一段公共sql片段，在使用的地方通过`include
 select <include refid="empColumns"></include> from t_emp
 ```
 ### 10 缓存
-一级缓存
+#### 一级缓存
 
 一级缓存是`SqlSession`级别的，通过同一个`SqlSession`查询的数据会被缓存，下次查询相同的数据，就会从缓存中直接获取，不会从数据库重新访问
 
@@ -512,7 +659,7 @@ select <include refid="empColumns"></include> from t_emp
 
 4) 同一个`SqlSession`两次查询期间手动清空了缓存
 
-二级缓存
+#### 二级缓存
 
 二级缓存是`SqlSessionFactory`级别，通过同一个`SqlSessionFactory`创建的`SqlSession`查询的结果会被缓存；此后若再次执行相同的查询语句，结果就会从缓存中获取
 
@@ -526,6 +673,11 @@ d>查询的数据所转换的实体类类型必须实现序列化的接口
 使二级缓存失效的情况：
 两次查询之间执行了任意的增删改，会使一级和二级缓存同时失效
 
+#### 二级缓存的相关配置
+#### MyBatis缓存查询的顺序
+
+#### 整合第三方缓存EHCache
+
 
 ### 11 逆向工程
 正向工程：先创建Java实体类，由框架负责根据实体类生成数据库表。 Hibernate是支持正向工程的。
@@ -534,7 +686,7 @@ d>查询的数据所转换的实体类类型必须实现序列化的接口
 - Mapper接口
 - Mapper映射文件
 
-创建逆向工程的步骤
+#### 创建逆向工程的步骤
 
 1. 添加依赖和插件
 ```xml
@@ -662,9 +814,25 @@ QCB查询
 ```
 ### 分页插件
 
+pageHelper
+添加依赖
+```xml
+<dependency>
+	<groupId>com.github.pagehelper</groupId>
+	<artifactId>pagehelper</artifactId>
+	<version>5.2.0</version>
+</dependency>
+```
 
+配置分页插件
+```xml
+<plugins>
+	<!--设置分页插件-->
+	<plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+</plugins>
+```
 
-
+使用
 # Spring
 
 内容介绍
@@ -1832,7 +2000,7 @@ SpringMVC提供了一个处理控制器方法执行过程中所出现的异常�
 
 `SimpleMappingExceptionResolver`
 
-SpringMVC提供了自定义的异常处理器SimpleMappingExceptionResolver，使用方式：
+`SpringMVC`提供了自定义的异常处理器`SimpleMappingExceptionResolver`，使用方式：
 
 ## 注解配置springMVC
 
