@@ -152,7 +152,13 @@ packege.json
 }
 ```
 
+vue-resource
+
+
+
 ## 插槽
+
+## vuex
 
 ## 路由
 ## axios

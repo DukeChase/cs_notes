@@ -1581,46 +1581,78 @@ public void beforeMethod(JoinPoint joinPoint){
 
 ## 什么是MVC
 
+MVC是一种软件架构的思想，将软件按照模型、视图、控制器来划分
+M：Model，模型层，指工程中的JavaBean，作用是处理数据
+JavaBean分为两类：
+一类称为实体类Bean：专门存储业务数据的，如 Student、User 等
+一类称为业务处理 Bean：指 Service 或 Dao 对象，专门用于处理业务逻辑和数据访问。
+
+V：View，视图层，指工程中的html或jsp等页面，作用是与用户进行交互，展示数据
+C：Controller，控制层，指工程中的servlet，作用是接收请求和响应浏览器
+
+MVC的工作流程： 用户通过视图层发送请求到服务器，在服务器中请求被`Controller`接收，`Controller`调用相应的`Model`层处理请求，处理完毕将结果返回到Controller，Controller再根据请求处理的结果找到相应的View视图，渲染数据后最终响应给浏览器。
+
 ## 入门案例
+
+注册SpringMVC的前端控制器DispatcherServlet
 - 配置web.xml文件
+```
+配置SpringMVC的前端控制器  DispatcherServlet  
+SpringMVC的配置文件默认的位置和名称：  
+位置：WEB-INF下  
+名称：<servlet-name>-servlet.xml，当前配置下的配置文件名为SpringMVC-servlet.xml
+url-pattern中/和/*的区别：  
+/：匹配浏览器向服务器发送的所有请求（不包括.jsp）  
+/*：匹配浏览器向服务器发送的所有请求（包括.jsp）  
+jsp文件由tomcat的JspServlet处理
+```
+
 ```xml
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"  
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"  
          version="4.0">  
-    <!--  
-        配置SpringMVC的前端控制器  DispatcherServlet  
-        SpringMVC的配置文件默认的位置和名称：  
-        位置：WEB-INF下  
-        名称：<servlet-name>-servlet.xml，当前配置下的配置文件名为SpringMVC-servlet.xml
-        
-        url-pattern中/和/*的区别：  
-        /：匹配浏览器向服务器发送的所有请求（不包括.jsp）  
-        /*：匹配浏览器向服务器发送的所有请求（包括.jsp）  
-        jsp文件由tomcat的JspServlet处理
-    -->  
     <servlet>
         <servlet-name>SpringMVC</servlet-name>  
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>  
+	        <servlet-class>
+	        org.springframework.web.servlet.DispatcherServlet
+	        </servlet-class>  
         <!--设置SpringMVC配置文件的位置和名称-->  
         <init-param>  
             <param-name>contextConfigLocation</param-name>  
             <param-value>classpath:springmvc.xml</param-value>  
-        </init-param>        <!--将DispatcherServlet的初始化时间提前到服务器启动时-->  
-        <load-on-startup>1</load-on-startup>  
-    </servlet>    
-    <servlet-mapping>        
-	    <servlet-name>SpringMVC</servlet-name>  
-        <url-pattern>/</url-pattern>  
-    </servlet-mapping>  
+        </init-param>        
+      
+		<!--		
+		作为框架的核心组件，在启动过程中有大量的初始化操作要做		
+		而这些操作放在第一次请求时才执行会严重影响访问速度		
+		因此需要通过此标签将启动控制DispatcherServlet的初始化时间提前到服务器启动时
+		-->
+		<load-on-startup>1</load-on-startup>
+		</servlet>
+		<servlet-mapping>		
+		<servlet-name>springMVC</servlet-name>
+		<!--	
+		设置springMVC的核心控制器所能处理的请求的请求路径
+		/所匹配的请求可以是/login或.html或.js或.css方式的请求路径
+		但是/不能匹配.jsp请求路径的请求		
+		-->
+		<url-pattern>/</url-pattern>
 </web-app>
 
 ```
+
+
+`<url-pattern>`标签中使用`/`和`/*`的区别：
+`/`所匹配的请求可以是`/login`或`.html`或`.js`或`.css`方式的请求路径，但是`/`不能匹配`.jsp`请求路径的请求因此就可以避免在访问jsp页面时，该请求被DispatcherServlet处理，从而找不到相应的页面
+`/*`则能够匹配所有请求，例如在使用过滤器时，若需要对所有请求进行过滤，就需要使用`/*`的写法
+
 
 - 创建请求控制器
 由于前端控制器对浏览器发送的请求进行了统一的处理，但是具体的请求有不同的处理过程，因此需要创建处理具体请求的类，即***请求控制器***
 请求控制器中每一个处理请求的方法成为***控制器方法***
 因为SpringMVC的控制器由一个POJO（普通的Java类）担任，因此需要通过`@Controller`注解将其标识为一个***控制层组件***，交给Spring的IoC容器管理，此时SpringMVC才能够识别控制器的存在。
+
 ```java
 @Controller
 public class HelloController{
@@ -1675,6 +1707,7 @@ class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
 </mvc:annotation-driven>
 ```
 
+#### 总结
 浏览器发送请求，若请求地址符合前端控制器的`url-pattern`，该请求就会被前端控制器`DispatcherServlet`处理。
 前端控制器会读取SpringMVC的核心配置文件，通过扫描组件找到控制器，将请求地址和控制器中`@RequestMapping`注解的`value`属性值进行匹配，若匹配成功，该注解所标识的控制器方法就是处理请求的方法。
 处理请求的方法需要返回一个字符串类型的视图名称，该视图名称会被***视图解析器***解析，加上前缀和后缀组成视图的路径，通过Thymeleaf对视图进行渲染，最终转发到视图所对应页面
@@ -1717,22 +1750,7 @@ class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
 	* 需要在`@RequestMapping`注解的value属性中所设置的路径中，使用{xxx}的方式表示路径中的数据  
 	* 在通过`@PathVariable`注解，将占位符所标识的值和控制器方法的形参进行绑定
 
-### SpringMVC获取请求参数
-
-- 通过控制器方法的行参获取请求参数
-- GET `@RequestParam`
-- `@RequsetHeader`
-- `@CookieValue`
-- POST `@RequestBody`
-- `@PathVariable`
-
-
-- 通过POJO获取
-请求参数的名字与实体类属性名 一致
-
-- 解决获取请求路径的乱码问题
-配置spring的编码过滤器
-``
+## SpringMVC获取请求参数
 
 1. 通过servletAPI获取  
 	* 只需要在控制器方法的形参位置设置`HttpServletRequest`类型的形参  
@@ -1755,6 +1773,32 @@ class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
 7. 解决获取请求此参数的乱码问题      
 	* 在web.xml中配置Spring的编码过滤器`org.springframework.web.filter.CharacterEncondingFilter`
 
+web.xml文件
+```xml
+
+<filter>
+	<filter-name>CharacterEncodingFilter</filter-name>
+	
+	<filterclass>
+		org.springframework.web.filter.CharacterEncodingFilter
+	</filter-class>
+
+	<init-param>
+	<param-name>encoding</param-name>
+	<param-value>UTF-8</param-value>
+	</init-param>
+
+	<init-param>
+	<param-name>forceEncoding</param-name>
+	<param-value>true</param-value>
+	</init-param>
+</filter>
+
+<filter-mapping>
+	<filter-name>CharacterEncodingFilter</filter-name>
+	<url-pattern>/*</url-pattern>
+</filter-mapping>
+```
 ## 域对象共享数据
 * 向域对象共享数据：  
 1. 通过ModelAndView向请求域共享数据  
@@ -1893,7 +1937,7 @@ SpringMVC 提供了 `HiddenHttpMethodFilter` 帮助我们将 POST 请求转换�
 
 `@RestController`注解是springMVC提供的一个复合注解，标识在控制器的类上，就相当于为类添加了`@Controller`注解，并且为其中的每个方法添加了`@ResponseBody`注解
 
-## 文件下载和下载
+## 文件上传和下载
 
 - `ResponseEntity`用于控制器方法的返回值类型，该控制器方法的返回值就是响应到浏览器的响应报文使用ResponseEntity实现下载文件的功能
 
@@ -1990,7 +2034,48 @@ public class FileUpAndDownController {
 
 
 ## 拦截器
+### 拦截器的配置
+SpringMVC中的拦截器用于拦截控制器方法的执行
 
+SpringMVC中的拦截器需要实现HandlerInterceptor
+
+SpringMVC的拦截器必须在SpringMVC的配置文件中进行配置
+```xml
+<bean class="com.atguigu.interceptor.FirstInterceptor"></bean>
+
+<ref bean="firstInterceptor"></ref>
+
+<!-- 以上两种配置方式都是对DispatcherServlet所处理的所有的请求进行拦截 -->
+
+<mvc:interceptor>
+<mvc:mapping path="/**"/>
+<mvc:exclude-mapping path="/testRequestEntity"/>
+<ref bean="firstInterceptor"></ref>
+
+</mvc:interceptor>
+
+<!--
+以上配置方式可以通过ref或bean标签设置拦截器，通过mvc:mapping设置需要拦截的请求，通过
+mvc:exclude-mapping设置需要排除的请求，即不需要拦截的请求
+-->
+```
+### 拦截器的三个抽象方法
+SpringMVC中的拦截器有三个抽象方法：
+
+`preHandle`：控制器方法执行之前执行`preHandle()`，其`boolean`类型的返回值表示是否拦截或放行，返回true为放行，即调用控制器方法；返回false表示拦截，即不调用控制器方法
+
+`postHandle`：控制器方法执行之后执行`postHandle()`
+
+`afterCompletion`：处理完视图和模型数据，渲染视图完毕之后执行`afterCompletion()`
+
+### 多个拦截器执行顺序
+
+①若每个拦截器的preHandle()都返回true
+此时多个拦截器的执行顺序和拦截器在SpringMVC的配置文件的配置顺序有关：
+preHandle()会按照配置的顺序执行，而postHandle()和afterCompletion()会按照配置的反序执行
+
+②若某个拦截器的preHandle()返回了false
+preHandle()返回false和它之前的拦截器的preHandle()都会执行，postHandle()都不执行，返回false的拦截器之前的拦截器的afterCompletion()会执行
 
 ## 异常处理器
 
@@ -2003,6 +2088,7 @@ SpringMVC提供了一个处理控制器方法执行过程中所出现的异常�
 `SpringMVC`提供了自定义的异常处理器`SimpleMappingExceptionResolver`，使用方式：
 
 ## 注解配置springMVC
+
 
 ## springMVC 执行流程
 
