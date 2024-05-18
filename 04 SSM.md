@@ -2031,13 +2031,13 @@ SpringMVC提供了一个处理控制器方法执行过程中所出现的异常�
 DispatcherServlet 本质上是一个 Servlet，所以天然的遵循 Servlet 的生命周期。所以宏观上是 Servlet生命周期来进行调度。
 
 
-1 初始化`WebApplicationContext`
+1. 初始化`WebApplicationContext`
 所在类：`org.springframework.web.servlet.FrameworkServlet#initWebApplicationContext`
 
-2 创建`WebApplicationContext`
+2. 创建`WebApplicationContext`
 所在类：`org.springframework.web.servlet.FrameworkServlet#createWebApplicationContext`
 
-3 DispatcherServlet初始化策略
+3. DispatcherServlet初始化策略
 `FrameworkServlet`创建`WebApplicationContext`后，刷新容器，调用`onRefresh(wac)`，此方法在`DispatcherServlet`中进行了重写，调用了`initStrategies(context)`方法，初始化策略，即初始化DispatcherServlet的各个组件
 所在类：`org.springframework.web.servlet.DispatcherServlet#initStrategies`
 #### 14.3、DispatcherServlet调用组件处理请求
