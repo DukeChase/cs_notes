@@ -119,19 +119,23 @@ packege.json
 消息订阅与发布 `pubsub-js`
 
 ## 配置代理服务器
+
+### 方法一
+```json
+// vue.config.js
+{	
+//开启代理服务器（方式一）
+	devServer: {	
+	proxy: 'http://localhost:5000'
+	}
+}
+```
+### 方法二
+
 ```json
 // vue.config.js
 {
-	//开启代理服务器（方式一）
-	
-	/* devServer: {
-	
-	proxy: 'http://localhost:5000'
-	
-	}, */
-
 	//开启代理服务器（方式二）
-	
 	devServer: {
 		proxy: {
 			'/atguigu': {	
@@ -157,6 +161,18 @@ vue-resource
 
 
 ## 插槽
+
+### 作用
+
+### 分类
+
+### 使用方式
+
+默认插槽
+
+具名插槽
+
+作用域插槽
 
 ## vuex
 
