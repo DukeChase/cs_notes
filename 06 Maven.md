@@ -73,15 +73,19 @@ artifactId
 
 version
 
-propertities.value
-env.key
+
 ## settings.xml
 
 
 profile
-repositories
-activation
+`<repositories>`
+`<activation>`
+`<properties> <name> <value>`
+`propertities.value`
+`env.key`
+`<os>`
+`<file>`
 
-`mvn -p -s `
+`mvn -p -s`
 
 

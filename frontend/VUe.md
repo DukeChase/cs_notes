@@ -38,17 +38,11 @@ promise
 el 和 data 的两种写法
 ```javascript
 const v = new Vue({
-
-//el:'#root', //第一种写法
-
-data:{
-
-name:'尚硅谷'
-
-}
-
+	//el:'#root', //第一种写法
+	data:{
+		name:'尚硅谷'
+	}
 })
-
 v.mount('#root') //第二种写法
 ```
 
@@ -105,27 +99,24 @@ Vue.set
 ## 过滤器
 ## 内置指令
 ## 自定义指令
-需求1：定义一个v-big指令，和v-text功能类似，但会把绑定的数值放大10倍。
 
+需求1：定义一个v-big指令，和v-text功能类似，但会把绑定的数值放大10倍。
 需求2：定义一个v-fbind指令，和v-bind功能类似，但可以让其所绑定的input元素默认获取焦点。
 
 自定义指令总结：
-
 一、定义语法：
-
 (1).局部指令：
-
+```js
 new Vue({ new Vue({
 
 directives:{指令名:配置对象} 或 directives{指令名:回调函数}
 
 }) })
-
+```
 (2).全局指令：
-
+```js
 Vue.directive(指令名,配置对象) 或 Vue.directive(指令名,回调函数)
-
-  
+```
 
 二、配置对象中常用的3个回调：
 
@@ -139,34 +130,85 @@ Vue.directive(指令名,配置对象) 或 Vue.directive(指令名,回调函数)
 
 三、备注：
 
-1.指令定义时不加v-，但使用时要加v-；
-
-2.指令名如果是多个单词，要使用kebab-case命名方式，不要用camelCase命名。
+1. 指令定义时不加v-，但使用时要加v-；
+2. 指令名如果是多个单词，要使用kebab-case命名方式，不要用camelCase命名。
 生命周期
 
 ## 生命周期
 生命周期：
 
-1.又名：生命周期回调函数、生命周期函数、生命周期钩子。
+1. 又名：生命周期回调函数、生命周期函数、生命周期钩子。
+2. 是什么：Vue在关键时刻帮我们调用的一些特殊名称的函数。
+3. 生命周期函数的名字不可更改，但函数的具体内容是程序员根据需求编写的。
+4. 生命周期函数中的this指向是vm 或 组件实例对象。
 
-2.是什么：Vue在关键时刻帮我们调用的一些特殊名称的函数。
+`mounted` //Vue完成模板的解析并把初始的真实DOM元素放入页面后（挂载完毕）调用mounted
 
-3.生命周期函数的名字不可更改，但函数的具体内容是程序员根据需求编写的。
+```js
+new Vue({
+            el:'#root',
+            // template:`
+            //  <div>
+            //      <h2>当前的n值是：{{n}}</h2>
+            //      <button @click="add">点我n+1</button>
+            //  </div>
+            // `,
+            data:{
+                n:1
+            },
+            methods: {
+                add(){
+                    console.log('add')
+                    this.n++
+                },
+                bye(){
+                    console.log('bye')
+                    this.$destroy()
+                }
+            },
+            watch:{
+                n(){
+                    console.log('n变了')
+                }
+            },
+            beforeCreate() {
+                console.log('beforeCreate')
+            },
 
-4.生命周期函数中的this指向是vm 或 组件实例对象。
+            created() {
+                console.log('created')
+            },
+            beforeMount() {
+                console.log('beforeMount')
+            },
+            mounted() {
+                console.log('mounted')
+            },
+            beforeUpdate() {
+                console.log('beforeUpdate')
+            },
+            updated() {
+                console.log('updated')
+            },
+            beforeDestroy() {
+                console.log('beforeDestroy')
+            },
+            destroyed() {
+                console.log('destroyed')
+            },
+        })
+```
+常用的生命周期钩子：
+1. mounted: 发送ajax请求、启动定时器、绑定自定义事件、订阅消息等【初始化操作】。
+2. beforeDestroy: 清除定时器、解绑自定义事件、取消订阅消息等【收尾工作】。
 
-mounted
-//Vue完成模板的解析并把初始的真实DOM元素放入页面后（挂载完毕）调用mounted
+关于销毁Vue实例
+1. 销毁后借助Vue开发者工具看不到任何信息。
+2. 销毁后自定义事件会失效，但原生DOM事件依然有效。
+3. 一般不会在beforeDestroy操作数据，因为即便操作数据，也不会再触发更新流程了。
+## 非单文件组件
 
-挂载
-
-更新
-
-销毁
-
-非单文件组件
-
-单文件组件
+## 单文件组件
 
 ## Vue
 | 指令      | 简写  | 描述         |
@@ -190,7 +232,7 @@ App.vue
 
 vue.config.js
 vue inspect > output.js
-npm  类似于`mavne`，是js依赖包的管理工具
+npm  类似于`maven`，是js依赖包的管理工具
 `packege.json`  类似与maven 项目中的pom.xml  定义了项目的依赖等信息
 ```json
 {  
@@ -213,74 +255,52 @@ npm  类似于`mavne`，是js依赖包的管理工具
 ## props配置
 
 ## mixin混入
+`Vue.mixin`
 
 ## 插件
+plugin.js
 ```js
 export default {
-
-install(Vue,x,y,z){
-
-console.log(x,y,z)
-
-//全局过滤器
-
-Vue.filter('mySlice',function(value){
-return value.slice(0,4)
-})
-
-//定义全局指令
-Vue.directive('fbind',{
-//指令与元素成功绑定时（一上来）
-bind(element,binding){
-element.value = binding.value
-},
-
-//指令所在元素被插入页面时
-
-inserted(element,binding){
-
-element.focus()
-
-},
-
-//指令所在的模板被重新解析时
-
-update(element,binding){
-
-element.value = binding.value
-
-}
-
-})
-
-  
-
-//定义混入
-
-Vue.mixin({
-
-data() {
-
-return {
-
-x:100,
-
-y:200
-
-}
-
-},
-
-})
-
-//给Vue原型上添加一个方法（vm和vc就都能用了）
-Vue.prototype.hello = ()=>{alert('你好啊')}
-
-}
-
+    install(Vue,x,y,z){
+        console.log(x,y,z)
+        //全局过滤器
+        Vue.filter('mySlice',function(value){
+            return value.slice(0,4)
+        }) 
+        //定义全局指令
+        Vue.directive('fbind',{
+            //指令与元素成功绑定时（一上来）
+            bind(element,binding){
+                element.value = binding.value
+            },
+            //指令所在元素被插入页面时
+            inserted(element,binding){
+                element.focus()
+            },
+            //指令所在的模板被重新解析时
+            update(element,binding){
+                element.value = binding.value
+            }
+        })
+        //定义混入
+        Vue.mixin({
+            data() {
+                return {
+                    x:100,
+                    y:200
+                }
+            },
+        })
+        //给Vue原型上添加一个方法（vm和vc就都能用了）
+        Vue.prototype.hello = ()=>{alert('你好啊')}
+    }
 }
 ```
 
+```js
+import plugins from './plugins'
+Vue.use(plug)
+```
 ## scpoed
 
 ## 本地存储
@@ -306,7 +326,7 @@ new Vue({
 })
 ```
 
-在组件上定义$on 和 $emit方法进行数据传输
+在组件上定义`$on` 和 `$emit`方法进行数据传输
 ## 消息发布与订阅
 消息订阅与发布 `pubsub-js`
 
@@ -331,16 +351,16 @@ new Vue({
 	devServer: {
 		proxy: {
 			'/atguigu': {	
-			target: 'http://localhost:5000',		
-			pathRewrite:{'^/atguigu':''},			
-		// ws: true, //用于支持websocket		
-		// changeOrigin: true //用于控制请求头中的host值		
-		},		
-		'/demo': {		
-		target: 'http://localhost:5001',	
-		pathRewrite:{'^/demo':''},		
-		// ws: true, //用于支持websocket		
-		// changeOrigin: true //用于控制请求头中的host值	
+				target: 'http://localhost:5000',		
+				pathRewrite:{'^/atguigu':''},			
+				// ws: true, //用于支持websocket		
+				// changeOrigin: true //用于控制请求头中的host值		
+			},		
+			'/demo': {		
+				target: 'http://localhost:5001',	
+				pathRewrite:{'^/demo':''},		
+				// ws: true, //用于支持websocket		
+				// changeOrigin: true //用于控制请求头中的host值	
 			}
 		}
 	
@@ -368,11 +388,11 @@ vue-resource
 作用域插槽
 
 ## Vuex
-dispatch
-action  用于响应组件中的动作
-action中调用commit
-mutation  用于操作数据（state）
-state  用于存储数据
+`dispatch`
+`action`  用于响应组件中的动作
+`action`中调用`commit`
+`mutation`  用于操作数据（state）
+`state`  用于存储数据
 
 ## 路由
 ## Axios
