@@ -73,7 +73,8 @@ artifactId
 
 version
 
-
+propertities.value
+env.key
 ## settings.xml
 
 
