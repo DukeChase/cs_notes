@@ -33,6 +33,8 @@ mvn clean install -Dmaven.test.skip=true
 </dependency>
 ```
 
+应用properties中的属性 properties.value
+引用环境变量中的属性  env.key
 # 依赖传递
 
 # 依赖冲突
@@ -73,8 +75,6 @@ artifactId
 
 version
 
-propertities.value
-env.key
 ## settings.xml
 
 
