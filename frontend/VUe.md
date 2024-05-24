@@ -221,6 +221,7 @@ new Vue({
 | v-if    |     |            |
 | v-for   |     |            |
 | v-bind  | :   | 作用在html属性上 |
+|         |     |            |
 
 
 ## 脚手架开发
@@ -251,8 +252,35 @@ npm  类似于`maven`，是js依赖包的管理工具
 }
 ```
 ## ref属性
-
+在模版标签内 添加`ref`属性
+在vm实例内部可以通过`this.$refs.name`获得真实的dom对象或组件实例对象。
 ## props配置
+子组件接收props的几种方式
+```js
+		//简单声明接收
+        // props:['name','age','sex']
+        //接收的同时对数据进行类型限制
+        /* props:{
+            name:String,
+            age:Number,
+            sex:String
+        } */
+        //接收的同时对数据：进行类型限制+默认值的指定+必要性的限制
+        props:{
+            name:{
+                type:String, //name的类型是字符串
+                required:true, //name是必要的
+            },
+            age:{
+                type:Number,
+                default:99 //默认值
+            },
+            sex:{
+                type:String,
+                required:true
+            }
+        }
+```
 
 ## mixin混入
 `Vue.mixin`
@@ -338,7 +366,7 @@ new Vue({
 {	
 //开启代理服务器（方式一）
 	devServer: {	
-	proxy: 'http://localhost:5000'
+		proxy: 'http://localhost:5000'
 	}
 }
 ```
