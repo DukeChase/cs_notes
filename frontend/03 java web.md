@@ -1,3 +1,5 @@
+# ref 
+[尚硅谷最新版JavaWeb全套教程,javaweb零基础入门完整版]( https://www.bilibili.com/video/BV1Y7411K7zz/?share_source=copy_web&vd_source=e65574be5c4ff436d099ae0526b97fd9)
 # HTML CSS
 
 ## HTML
@@ -659,7 +661,7 @@ jQuery 对象转为 dom 对象（重点）
 
 ## Tomcat
 
-java web 概念
+**java web** 概念
 JavaWeb 是指，所有通过 Java 语言编写可以通过浏览器访问的程序的总称，叫 JavaWeb。
 
 JavaWeb 是基于请求和响应来开发的。
@@ -678,12 +680,15 @@ web服务器
 
 XML解析技术介绍
 DOM 和 sax
+1. dom 解析技术是 W3C 组织制定的，而所有的编程语言都对这个解析技术使用了自己语言的特点进行实现。 Java 对 dom 技术解析标记也做了实现。
+2. sun 公司在 JDK5 版本对 dom 解析技术进行升级：SAX（ Simple API for XML ） SAX 解析，它跟 W3C 制定的解析不太一样。它是以类似事件机制通过回调告诉用户当前正在解析的内容。 它是一行一行的读取 xml 文件进行解析的。不会创建大量的 dom 对象。 所以它在解析 xml 的时候，在内存的使用上。和性能上。都优于 Dom 解析。
 第三方解析：
 - `jdom`
 - `dom4j`
-- `pull`
+- `pull` 用于安卓
 
 ## Servlet1
+### Servlet技术
 1. 什么是Servlet
 	1. Servlet 是 JavaEE 规范之一。规范就是接口
 	2. Servlet 就 JavaWeb 三大组件之一。JavaWeb***三大组件***分别是：**Servlet程序、Filter 过滤器、Listener监听器**。 
@@ -766,7 +771,26 @@ ServletConfig 类的三大作用
 1. 可以获取 `Servlet` 程序的别名 `servlet-name` 的值
 2. 获取初始化参数 `init-param`
 3. 获取 `ServletContext` 对象
+```java
+@Override
+public void init(ServletConfig servletConfig) throws ServletException {
+System.out.println("2 init 初始化方法");
 
+// 1、可以获取 Servlet 程序的别名 servlet-name 的值
+System.out.println("HelloServlet 程序的别名是:" + servletConfig.getServletName());
+
+// 2、获取初始化参数 init-param
+System.out.println("初始化参数 username 的值是;" + servletConfig.getInitParameter("username"));
+
+System.out.println("初始化参数 url 的值是;" + servletConfig.getInitParameter("url"));
+
+// 3、获取 ServletContext 对象
+
+System.out.println(servletConfig.getServletContext());
+
+}
+```
+重写init方法一定要调用父类的init方法
 ```java
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -793,14 +817,14 @@ ServletConfig 类的三大作用
 |域对象|setAttribute()|getAttribute()|removeAttribute()|
 
 - `ServeltContext`类的四个作用
-	1. 获取 web.xml 中配置的上下文参数 `context-param`
-	2. 获取当前的工程路径，格式: /工程路径
+	1. 获取 `web.xml `中配置的上下文参数 `context-param`
+	2. 获取当前的工程路径，格式: `/工程路径`
 	3. 获取工程部署后在服务器硬盘上的绝对路径
 	4. 像 Map 一样存取数据
 
 - `ServletConetx getServletContext()`
 
-## HTTP协议
+### HTTP协议
 什么是协议?
 
 - 协议是指双方，或多方，相互约定好，大家都需要遵守的规则，叫协议。
@@ -864,11 +888,10 @@ HTTP 协议中的数据又叫报文。
 |302|表示请求重定向|
 |404|表示请求服务器已经收到了，但是你要的数据不存在（请求地址错误）|
 |500|表示服务器已经收到请求，但是服务器内部错误（代码错误）|
-
-## HttpServletRequest & HttpServletResponse
+## Serverlet2
 ### HttpServletRequest
-a) HttpServletRequest类的作用
-每次只要有请求进入 Tomcat 服务器，Tomcat 服务器就会把请求过来的 HTTP 协议信息解析好封装到`Request`对象中。然后传递到service方法（`doGet()`和`doPost()`）中给我们使用。我们可以通过HttpServletRequest对象，获取到所有请求的信息
+a) `HttpServletRequest`类的作用
+每次只要有请求进入 Tomcat 服务器，Tomcat 服务器就会把请求过来的 HTTP 协议信息解析好封装到`Request`对象中。然后传递到service方法（`doGet()`和`doPost()`）中给我们使用。我们可以通过`HttpServletRequest`对象，获取到所有请求的信息
 b) `HttpServletRequest`类的常用方法
 1. `getRequestURI()`      获取请求的资源路径
 2. `getRequestURL()`      获取请求的统一资源定位符（绝对路径）
@@ -882,8 +905,9 @@ b) `HttpServletRequest`类的常用方法
 10. `getRequestDispacher()`获取请求转发对象
 c) 如何获取请求参数
 	上述5和6  
-d) doGet请求中的中文乱码
-e) doPost请求中的中文乱码
+d) `doGet`请求中的中文乱码
+
+e) `doPost`请求中的中文乱码
 
 e) 请求的转发
 请求转发是指，服务器收到请求后，从一次资源跳转到另一个资源的操作叫请求转发。
@@ -893,6 +917,9 @@ RequestDispatcher requestDispatcher = req.getRequestDispatcher("/servlet2");
 requestDispatcher.forward(req,resp);
 ```
 
+f)base标签的作用
+g)web中的相对路径和绝对路径
+h)web 中 / 斜杠的不同意义
 ### HttpServletResponse
 a) `HttpServletResponse` 类的作用
 `HttpServletResponse` 类和 `HttpServletRequest` 类一样。每次请求进来，Tomcat 服务器都会创建一个 `Response` 对象传递给 `Servlet` 程序去使用。`HttpServletRequest` 表示请求过来的信息，`HttpServletResponse` 表示所有响应的信息，我们如果需要设置返回给客户端的信息，都可以通过 `HttpServletResponse` 对象来进行设置
@@ -1065,7 +1092,53 @@ page 属性设置请求转发的路径
 ```
 
 ### Listener
+1. Listener 监听器它是 JavaWeb 的三大组件之一。 JavaWeb 的三大组件分别是：Servlet 程序、 Filter 过滤器、 Listener 监 听器。
+2. Listener 它是 JavaEE 的规范，就是接口
+3.  监听器的作用是，监听某种事物的变化。然后通过回调函数，反馈给客户（程序）去做一些相应的处理。
+`ServletContextListener `它可以监听` ServletContext `对象的创建和销毁。 `ServletContext` 对象在 web 工程启动的时候创建，在 web 工程停止的时候销毁。
 
+监听到创建和销毁之后都会分别调用 ServletContextListener 监听器的方法反馈。
+```java
+
+public interface ServletContextListener extends EventListener {
+	/**
+	* 在 ServletContext 对象创建之后马上调用，做初始化
+	*/
+	public void contextInitialized(ServletContextEvent sce);
+	
+	/**
+	* 在 ServletContext 对象销毁之后调用
+	*/
+	public void contextDestroyed(ServletContextEvent sce);
+
+}
+```
+如何使用 ServletContextListener 监听器监听 ServletContext 对象。 使用步骤如下：
+1、 编写一个类去实现 ServletContextListener 
+2、 实现其两个回调方法 
+3、 到 web.xml 中去配置监听器
+
+```java
+public class MyServletContextListenerImpl implements ServletContextListener {
+
+	@Override	
+	public void contextInitialized(ServletContextEvent sce) {	
+		System.out.println("ServletContext 对象被创建了");
+	}
+	
+	@Override	
+	public void contextDestroyed(ServletContextEvent sce) {	
+		System.out.println("ServletContext 对象被销毁了");	
+	}
+}
+```
+web.xml 配置
+```xml
+<!--配置监听器-->
+<listener>
+	<listener-class>com.atguigu.listener.MyServletContextListenerImpl</listener-class>
+</listener>
+```
 ## EL表达式JSTL表达式
 ### EL表达式
 
