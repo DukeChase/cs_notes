@@ -1589,16 +1589,16 @@ public void beforeMethod(JoinPoint joinPoint){
 
 ## 什么是MVC
 
-MVC是一种软件架构的思想，将软件按照模型、视图、控制器来划分
+MVC是一种软件架构的思想，将软件按照**模型、视图、控制器**来划分
 M：Model，模型层，指工程中的JavaBean，作用是处理数据
 JavaBean分为两类：
-一类称为实体类Bean：专门存储业务数据的，如 Student、User 等
-一类称为业务处理 Bean：指 Service 或 Dao 对象，专门用于处理业务逻辑和数据访问。
+* 一类称为实体类Bean：专门存储业务数据的，如 Student、User 等
+* 一类称为业务处理 Bean：指 Service 或 Dao 对象，专门用于处理业务逻辑和数据访问。
 
 V：View，视图层，指工程中的html或jsp等页面，作用是与用户进行交互，展示数据
 C：Controller，控制层，指工程中的servlet，作用是接收请求和响应浏览器
 
-MVC的工作流程： 用户通过视图层发送请求到服务器，在服务器中请求被`Controller`接收，`Controller`调用相应的`Model`层处理请求，处理完毕将结果返回到Controller，Controller再根据请求处理的结果找到相应的View视图，渲染数据后最终响应给浏览器。
+MVC的工作流程： 用户通过**视图层**发送请求到服务器，在服务器中请求被`Controller`接收，`Controller`调用相应的`Model`层处理请求，处理完毕将结果返回到Controller，Controller再根据请求处理的结果找到相应的View视图，渲染数据后最终响应给浏览器。
 
 ## 入门案例
 
@@ -1779,11 +1779,10 @@ class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
 	* 需要在控制器方法的形参位置设置实体类类型的形参，要保证实体类中的属性的属性名和请求参数的名字一致  
 	* 可以通过实体类类型的形参获取请求参数  
 7. 解决获取请求此参数的乱码问题      
-	* 在web.xml中配置Spring的编码过滤器`org.springframework.web.filter.CharacterEncondingFilter`
+	* 在`web.xml`中配置Spring的编码过滤器`org.springframework.web.filter.CharacterEncondingFilter`
 
 web.xml文件
 ```xml
-
 <filter>
 	<filter-name>CharacterEncodingFilter</filter-name>
 	
@@ -1792,13 +1791,12 @@ web.xml文件
 	</filter-class>
 
 	<init-param>
-	<param-name>encoding</param-name>
-	<param-value>UTF-8</param-value>
+		<param-name>encoding</param-name>
+		<param-value>UTF-8</param-value>
 	</init-param>
-
 	<init-param>
-	<param-name>forceEncoding</param-name>
-	<param-value>true</param-value>
+		<param-name>forceEncoding</param-name>
+		<param-value>true</param-value>
 	</init-param>
 </filter>
 
@@ -1809,13 +1807,14 @@ web.xml文件
 ```
 ## 域对象共享数据
 * 向域对象共享数据：  
-1. 通过ModelAndView向请求域共享数据  
-	* 使用ModelAndView时，可以使用其Model功能向请求域共享数据  
+1. 使用ServletAPI向request域对象共享数据
+2. 通过`ModelAndView`向请求域共享数据  
+	* 使用`ModelAndView`时，可以使用其Model功能向请求域共享数据  
 	* 使用View功能设置逻辑视图，但是控制器方法一定要将`ModelAndView`作为方法的返回值  
-2. 使用Model向请求域共享数据  
-3. 使用ModelMap向请求域共享数据  
-4. 使用map向请求域共享数据  
-5. Model和ModelMap和map的关系  
+3. 使用`Model`向请求域共享数据  
+4. 使用`ModelMap`向请求域共享数据  
+5. 使用`map`向请求域共享数据  
+6. `Model`和`ModelMap`和`map`的关系  
 	* 其实在底层中，这些类型的形参最终都是通过`BindingAwareModelMap`创建  
 	* `public class BindingAwareModelMap extends ExtendedModelMap {} ` 
 	* `public class ExtendedModelMap extends ModelMap implements Model {}`  
@@ -1841,6 +1840,9 @@ public String testApplication(HttpSession session){
 ```
 
 ## springMVC的视图
+SpringMVC中的视图是View接口，视图的作用渲染数据，将模型Model中的数据展示给用户
+当工程引入jstl的依赖，转发视图会自动转换为JstlView
+若使用的视图技术为`Thymeleaf`，在SpringMVC的配置文件中配置了`Thymeleaf`的视图解析器，由此视 图解析器解析之后所得到的是`ThymeleafView`
 
 `thymeleafView`
 
@@ -1849,14 +1851,14 @@ public String testApplication(HttpSession session){
 `RedirectView`
 ## RESTFUL
 
-REST：Representational State Transfer，表现层资源状态转移。
+REST：`Representational State Transfer`，表现层资源状态转移。
 
 SpringMVC 提供了 `HiddenHttpMethodFilter` 帮助我们将 POST 请求转换为 DELETE 或 PUT 请求
 
 `HiddenHttpMethodFilter` 处理put和delete请求的条件：
 
-1. 当前请求的请求方式必须为post
-2. 当前请求必须传输请求参数_method
+1. 当前请求的请求方式必须为`post`
+2. 当前请求必须传输请求参数`_method`
 
 满足以上条件，`HiddenHttpMethodFilter` 过滤器就会将当前请求的请求方式转换为
 请求参数`_method`的值，因此请求参数`_method`的值才是最终的请求方式
@@ -1945,7 +1947,7 @@ SpringMVC 提供了 `HiddenHttpMethodFilter` 帮助我们将 POST 请求转换�
 
 `@RestController`注解是springMVC提供的一个复合注解，标识在控制器的类上，就相当于为类添加了`@Controller`注解，并且为其中的每个方法添加了`@ResponseBody`注解
 
-## 文件上传和下载
+## 10 文件上传和下载
 
 - `ResponseEntity`用于控制器方法的返回值类型，该控制器方法的返回值就是响应到浏览器的响应报文使用ResponseEntity实现下载文件的功能
 
@@ -2041,7 +2043,7 @@ public class FileUpAndDownController {
 ```
 
 
-## 拦截器
+## 11 拦截器
 ### 拦截器的配置
 SpringMVC中的拦截器用于拦截控制器方法的执行
 
@@ -2085,7 +2087,7 @@ preHandle()会按照配置的顺序执行，而postHandle()和afterCompletion()�
 ②若某个拦截器的preHandle()返回了false
 preHandle()返回false和它之前的拦截器的preHandle()都会执行，postHandle()都不执行，返回false的拦截器之前的拦截器的afterCompletion()会执行
 
-## 异常处理器
+## 12 异常处理器
 
 SpringMVC提供了一个处理控制器方法执行过程中所出现的异常的接口：`HandlerExceptionResolver`
 
@@ -2095,10 +2097,10 @@ SpringMVC提供了一个处理控制器方法执行过程中所出现的异常�
 
 `SpringMVC`提供了自定义的异常处理器`SimpleMappingExceptionResolver`，使用方式：
 
-## 注解配置springMVC
+## 13 注解配置springMVC
 
 
-## springMVC 执行流程
+## 14 springMVC 执行流程
 
 #### 14.1、SpringMVC常用组件
 
