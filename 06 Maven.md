@@ -91,3 +91,23 @@ profile
 `mvn -p -s`
 
 
+[mavne versions  介绍](https://www.mojohaus.org/versions/versions-maven-plugin/index.html)
+mvn versions:set
+
+mvn versions:commit
+
+```xml
+<build>
+2    <plugins>
+3        <plugin>
+4            <groupId>org.codehaus.mojo</groupId>
+5            <artifactId>versions-maven-plugin</artifactId>
+6            <version>2.7</version> <!-- 请检查最新版本 -->
+7            <configuration>
+8                <!-- 可选的配置参数 -->
+9            </configuration>
+10        </plugin>
+11    </plugins>
+12</build>
+```
+
