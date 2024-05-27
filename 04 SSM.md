@@ -2147,11 +2147,11 @@ SpringMVC提供了一个处理控制器方法执行过程中所出现的异常�
 
 #### 14.4、SpringMVC的执行流程
 
-1) 用户向服务器发送请求，请求被SpringMVC 前端控制器 DispatcherServlet捕获。
+1) 用户向服务器发送请求，请求被`SpringMVC `前端控制器 `DispatcherServlet`捕获。
 
-2) DispatcherServlet对请求URL进行解析，得到请求资源标识符（URI），判断请求URI对应的映射：
+2) `DispatcherServlet`对请求URL进行解析，得到请求资源标识符（URI），判断请求URI对应的映射：
 	a) 不存在
-		i. 再判断是否配置了mvc:default-servlet-handler
+		i. 再判断是否配置了`mvc:default-servlet-handler`
 		ii. 如果没配置，则控制台报映射查找不到，客户端展示404错误	
 		iii. 如果有配置，则访问目标资源（一般为静态资源，如：JS,CSS,HTML），找不到客户端也会展示404错误
 	b) 存在则执行下面的流程
