@@ -422,15 +422,10 @@ jQuery 由 John Resig 于 2006 年创建。它旨在处理浏览器不兼容性�
 指令是带有 v- 前缀的特殊属性。
 
 * 使用 v-html 指令用于输出 html 代码
-
 * v-if
-
 * v-else
-
 * v-else-if
-
 * v-show
-
 * v-for
 
 循环使用 v-for 指令。

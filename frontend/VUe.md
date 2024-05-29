@@ -32,7 +32,7 @@ promise
 # VUE basic
 
 ## 模版语法
-
+`{{msg}}`
 ## 数据绑定
 
 el 和 data 的两种写法
@@ -63,16 +63,71 @@ new Vue({
 })
 ```
 ## 理解mvvm
+model
+view
+model-view
 ## 数据代理
+
 ## 事件处理
+1. 使用`v-on:xxx` 或 `@xxx `绑定事件，其中`xxx`是事件名；
+2. 事件的回调需要配置在`methods`对象中，最终会在vm上；
+3. `methods`中配置的函数，不要用箭头函数！否则this就不是vm了；
+4. `methods`中配置的函数，都是被Vue所管理的函数，this的指向是vm 或 组件实例对象；
+5. `@click="demo"` 和 `@click="demo($event)"` 效果一致，但后者可以传参；
 ## 计算属性
+computed
+```js
+export default {
+  data() {
+    return { a: 1 }
+  },
+  computed: {
+    // 只读
+    aDouble() {
+      return this.a * 2
+    },
+    // 可写
+    aPlus: {
+      get() {
+        return this.a + 1
+      },
+      set(v) {
+        this.a = v - 1
+      }
+    }
+  },
+  created() {
+    console.log(this.aDouble) // => 2
+    console.log(this.aPlus) // => 2
+
+    this.aPlus = 3
+    console.log(this.a) // => 2
+    console.log(this.aDouble) // => 4
+  }
+}
+```
+
 ## 监视属性
+watch
+deep
+immediate
 深度监视
 ## 绑定样式
-绑定class样式
-绑定style样式
+
+1. class样式
+	写法`:class="xxx"` xxx可以是字符串、对象、数组。
+	字符串写法适用于：类名不确定，要动态获取。
+	对象写法适用于：要绑定多个样式，个数不确定，名字也不确定。
+	数组写法适用于：要绑定多个样式，个数确定，名字也确定，但不确定用不用。
+2. style样式
+
+`:style="{fontSize: xxx}"`其中xxx是动态值。
+
+`:style="[a,b]"`其中a、b是样式对象。
 
 ## 条件渲染
+v-if
+v-show
 ## 列表渲染
 v-for指令:
 
@@ -95,9 +150,20 @@ Vue.set
 
 
 
-
 ## 过滤器
+定义：对要显示的数据进行特定格式化后再显示（适用于一些简单逻辑的处理）。
+语法：
+1. 注册过滤器：`Vue.filter(name,callback)` 或 `new Vue{filters:{}}`
+2. 使用过滤器：`{{ xxx | 过滤器名}} 或 v-bind:属性 = "xxx | 过滤器名"`
+备注：
+1. 过滤器也可以接收额外参数、多个过滤器也可以串联
+2. 并没有改变原本的数据, 是产生新的对应的数据
 ## 内置指令
+v-text
+v-html
+v-clock
+v-once
+v-pre
 ## 自定义指令
 
 需求1：定义一个v-big指令，和v-text功能类似，但会把绑定的数值放大10倍。
@@ -121,26 +187,20 @@ Vue.directive(指令名,配置对象) 或 Vue.directive(指令名,回调函数)
 二、配置对象中常用的3个回调：
 
 (1).bind：指令与元素成功绑定时调用。
-
 (2).inserted：指令所在元素被插入页面时调用。
-
 (3).update：指令所在模板结构被重新解析时调用。
 
-  
-
 三、备注：
-
 1. 指令定义时不加v-，但使用时要加v-；
 2. 指令名如果是多个单词，要使用kebab-case命名方式，不要用camelCase命名。
 生命周期
 
 ## 生命周期
 生命周期：
-
 1. 又名：生命周期回调函数、生命周期函数、生命周期钩子。
 2. 是什么：Vue在关键时刻帮我们调用的一些特殊名称的函数。
 3. 生命周期函数的名字不可更改，但函数的具体内容是程序员根据需求编写的。
-4. 生命周期函数中的this指向是vm 或 组件实例对象。
+4. 生命周期函数中的`this`指向是`vm` 或 组件实例对象`vc`。
 
 `mounted` //Vue完成模板的解析并把初始的真实DOM元素放入页面后（挂载完毕）调用mounted
 
@@ -199,13 +259,13 @@ new Vue({
         })
 ```
 常用的生命周期钩子：
-1. mounted: 发送ajax请求、启动定时器、绑定自定义事件、订阅消息等【初始化操作】。
-2. beforeDestroy: 清除定时器、解绑自定义事件、取消订阅消息等【收尾工作】。
+1. `mounted:` 发送ajax请求、启动定时器、绑定自定义事件、订阅消息等【初始化操作】。
+2. `beforeDestroy`: 清除定时器、解绑自定义事件、取消订阅消息等【收尾工作】。
 
 关于销毁Vue实例
 1. 销毁后借助Vue开发者工具看不到任何信息。
 2. 销毁后自定义事件会失效，但原生DOM事件依然有效。
-3. 一般不会在beforeDestroy操作数据，因为即便操作数据，也不会再触发更新流程了。
+3. 一般不会在`beforeDestroy`操作数据，因为即便操作数据，也不会再触发更新流程了。
 ## 非单文件组件
 
 ## 单文件组件
