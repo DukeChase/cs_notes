@@ -2047,21 +2047,18 @@ public class FileUpAndDownController {
 ### 拦截器的配置
 SpringMVC中的拦截器用于拦截控制器方法的执行
 
-SpringMVC中的拦截器需要实现HandlerInterceptor
+SpringMVC中的拦截器需要实现`HandlerInterceptor`
 
 SpringMVC的拦截器必须在SpringMVC的配置文件中进行配置
 ```xml
 <bean class="com.atguigu.interceptor.FirstInterceptor"></bean>
-
 <ref bean="firstInterceptor"></ref>
-
 <!-- 以上两种配置方式都是对DispatcherServlet所处理的所有的请求进行拦截 -->
 
 <mvc:interceptor>
-<mvc:mapping path="/**"/>
-<mvc:exclude-mapping path="/testRequestEntity"/>
-<ref bean="firstInterceptor"></ref>
-
+	<mvc:mapping path="/**"/>
+	<mvc:exclude-mapping path="/testRequestEntity"/>
+	<ref bean="firstInterceptor"></ref>
 </mvc:interceptor>
 
 <!--
@@ -2082,10 +2079,10 @@ SpringMVC中的拦截器有三个抽象方法：
 
 ①若每个拦截器的preHandle()都返回true
 此时多个拦截器的执行顺序和拦截器在SpringMVC的配置文件的配置顺序有关：
-preHandle()会按照配置的顺序执行，而postHandle()和afterCompletion()会按照配置的反序执行
+`preHandle()`会按照配置的顺序执行，而`postHandle()`和`afterCompletion()`会按照配置的反序执行
 
 ②若某个拦截器的preHandle()返回了false
-preHandle()返回false和它之前的拦截器的preHandle()都会执行，postHandle()都不执行，返回false的拦截器之前的拦截器的afterCompletion()会执行
+`preHandle()`返回false和它之前的拦截器的`preHandle()`都会执行，`postHandle()`都不执行，返回false的拦截器之前的拦截器的afterCompletion()会执行
 
 ## 12 异常处理器
 

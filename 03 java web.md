@@ -668,8 +668,8 @@ JavaWeb 是基于请求和响应来开发的。
 请求`Request`
 响应`Response`
 web服务器
-- tomcat: 由 Apache 组织提供的一种 Web 服务器，提供对 jsp 和 Servlet 的支持。它是一种轻量级的 javaWeb 容器（服务器），也是当前应用最广的 JavaWeb 服务器（免费）。
-- Jboss：是一个遵从 JavaEE 规范的、开放源代码的、纯 Java 的 EJB 服务器，它支持所有的 JavaEE 规范（免费）。
+- `tomcat`: 由 Apache 组织提供的一种 Web 服务器，提供对 jsp 和 Servlet 的支持。它是一种轻量级的 javaWeb 容器（服务器），也是当前应用最广的 JavaWeb 服务器（免费）。
+- `Jboss`：是一个遵从 JavaEE 规范的、开放源代码的、纯 Java 的 EJB 服务器，它支持所有的 JavaEE 规范（免费）。
 ## XML
 语法
 1. 文档声明
@@ -679,7 +679,7 @@ web服务器
 5. 文本区域（CDATA区）
 
 XML解析技术介绍
-DOM 和 sax
+`DOM` 和 `sax`
 1. dom 解析技术是 W3C 组织制定的，而所有的编程语言都对这个解析技术使用了自己语言的特点进行实现。 Java 对 dom 技术解析标记也做了实现。
 2. sun 公司在 JDK5 版本对 dom 解析技术进行升级：SAX（ Simple API for XML ） SAX 解析，它跟 W3C 制定的解析不太一样。它是以类似事件机制通过回调告诉用户当前正在解析的内容。 它是一行一行的读取 xml 文件进行解析的。不会创建大量的 dom 对象。 所以它在解析 xml 的时候，在内存的使用上。和性能上。都优于 Dom 解析。
 第三方解析：
@@ -701,12 +701,11 @@ DOM 和 sax
 
 *web.xml配置*
 ```xml
-<!--context-param是上下文参数(它属于整个web工程)-->
+	<!--context-param是上下文参数(它属于整个web工程)-->
     <context-param>
         <param-name>username</param-name>
         <param-value>context</param-value>
     </context-param>
-      <!--context-param是上下文参数(它属于整个web工程)-->
     <context-param>
         <param-name>password</param-name>
         <param-value>root</param-value>
@@ -759,7 +758,7 @@ DOM 和 sax
 	2. 根据业务需要重写 `doGet()` 或 `doPost()` 方法
 	3. 到 web.xml 中的配置`Servlet`程序的访问地址
 
-- [HttpServlet源码分析](https://blog.csdn.net/molu1991/article/details/123943821)
+- [HttpServlet源码分析](https://www.cnblogs.com/fxust/p/7944242.html)
 
 ### ServletConfig类
 `ServletConfig` 类从类名上来看，就知道是 `Servlet` 程序的配置信息类。
