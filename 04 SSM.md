@@ -2,16 +2,16 @@
 当一个请求到达基于Java的Spring框架时，它会经历以下几个主要部分：
 
 1. **DispatcherServlet**：这是Spring MVC的核心组件，负责接收所有的HTTP请求并分发给相应的处理器。它充当前端控制器，是整个请求处理流程的起点。
-2. **Handler Mapping**：这部分负责根据请求URL找到对应的处理器（Controller）。Spring MVC支持多种Handler Mapping实现，如BeanNameUrlHandlerMapping、SimpleUrlHandlerMapping等。
+2. **Handler Mapping**：这部分负责根据请求URL找到对应的处理器（Controller）。Spring MVC支持多种Handler Mapping实现，如`BeanNameUrlHandlerMapping`、`SimpleUrlHandlerMapping`等。
 3. **Controller**：这是实际处理请求的组件。通常，你会在这里编写业务逻辑，处理用户输入，并与模型（Model）交互。
 4. **Model**：模型包含业务数据和业务逻辑。通常，模型数据会存储在数据库中，Controller会从模型中获取或更新数据。
-5. **View Resolver**：视图解析器负责解析逻辑视图名称到具体视图实现。例如，当Controller返回一个逻辑视图名称时，View Resolver会将其解析为具体的JSP页面、Thymeleaf模板等。
+5. **View Resolver**：视图解析器负责解析逻辑视图名称到具体视图实现。例如，当Controller返回一个逻辑视图名称时，`View Resolver`会将其解析为具体的JSP页面、Thymeleaf模板等。
 6. **View**：视图负责渲染模型数据，以呈现给用户。在Spring MVC中，可以使用多种视图技术，如`JSP`、`Thymeleaf`、`Freemarker`等。
 
 整个处理流程大致如下：
 
 1. 用户发送HTTP请求到`DispatcherServlet`。
-2.` DispatcherServlet`将请求发送给合适的`Handler Mapping`。
+2. `DispatcherServlet`将请求发送给合适的`Handler Mapping`。
 3. `Handler Mapping`找到处理该请求的`Controller`。
 4. `DispatcherServlet`将请求发送给找到的`Controller`。
 5. `Controller`处理请求，与Model交互，并返回一个逻辑视图名称。
