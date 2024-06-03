@@ -75,39 +75,93 @@ model-view
 4. `methods`中配置的函数，都是被Vue所管理的函数，this的指向是vm 或 组件实例对象；
 5. `@click="demo"` 和 `@click="demo($event)"` 效果一致，但后者可以传参；
 ## 计算属性
-computed
-```js
-export default {
-  data() {
-    return { a: 1 }
-  },
-  computed: {
-    // 只读
-    aDouble() {
-      return this.a * 2
-    },
-    // 可写
-    aPlus: {
-      get() {
-        return this.a + 1
-      },
-      set(v) {
-        this.a = v - 1
-      }
-    }
-  },
-  created() {
-    console.log(this.aDouble) // => 2
-    console.log(this.aPlus) // => 2
 
-    this.aPlus = 3
-    console.log(this.a) // => 2
-    console.log(this.aDouble) // => 4
-  }
-}
+计算属性：
+1. 定义：要用的属性不存在，要通过已有属性计算得来。
+2. 原理：底层借助了`Objcet.defineproperty`方法提供的`getter`和`setter`。
+3. get函数什么时候执行？
+	1. 初次读取时会执行一次。
+	2. 当依赖的数据发生改变时会被再次调用。
+4. 优势：与methods实现相比，内部有缓存机制（复用），效率更高，调试方便。
+5. 备注：
+	1. 计算属性最终会出现在vm上，直接读取使用即可。
+	2. 如果计算属性要被修改，那必须写set函数去响应修改，且set中要引起计算时依赖的数据发生改变
+	
+```js
+const vm = new Vue({
+	el:'#root',
+	data:{
+		firstName:'张',
+		lastName:'三',
+	},
+
+computed:{
+	//完整写法
+	/* fullName:{
+	get(){
+	console.log('get被调用了')
+	return this.firstName + '-' + this.lastName
+	},
+	set(value){
+	console.log('set',value)
+	const arr = value.split('-')
+	this.firstName = arr[0]
+	this.lastName = arr[1]
+	}
+	} */
+	//简写
+	fullName(){
+		console.log('get被调用了')
+		return this.firstName + '-' + this.lastName
+		}
+	}
+})
 ```
 
 ## 监视属性
+监视属性watch：
+1. 当被监视的属性变化时, 回调函数自动调用, 进行相关操作
+2. 监视的属性必须存在，才能进行监视！！
+3. 监视的两种写法：
+	1. new Vue时传入watch配置
+	2. 通过vm.$watch监视
+
+```js
+const vm = new Vue({
+	el:'#root',
+	data:{
+		isHot:true,
+	},
+	computed:{
+	info(){
+		return this.isHot ? '炎热' : '凉爽'
+	}
+	},
+
+	methods: {
+		changeWeather(){
+		this.isHot = !this.isHot
+		}
+	},
+	/* watch:{
+		isHot:{
+			immediate:true, //初始化时让handler调用一下
+			//handler什么时候调用？当isHot发生改变时。
+			handler(newValue,oldValue){
+			console.log('isHot被修改了',newValue,oldValue)
+			}
+		}
+	} */
+})
+vm.$watch('isHot',{
+	immediate:true, //初始化时让handler调用一下
+	//handler什么时候调用？当isHot发生改变时。
+	handler(newValue,oldValue){
+	console.log('isHot被修改了',newValue,oldValue)
+}
+
+})
+```
 watch
 deep
 immediate
@@ -146,8 +200,27 @@ key的作用和原理
 列表过滤
 
 Vue.set
-## 收集表单数据
 
+Vue监视数据的原理：
+
+1. vue会监视data中所有层次的数据。
+2. 如何监测对象中的数据？
+	1. 通过setter实现监视，且要在new Vue时就传入要监测的数据。
+		(1).对象中后追加的属性，Vue默认不做响应式处理
+		(2).如需给后添加的属性做响应式，请使用如下API：
+		`Vue.set(target，propertyName/index，value)` 或	
+		`vm.$set(target，propertyName/index，value)`
+3. 如何监测数组中的数据？
+	通过包裹数组更新元素的方法实现，本质就是做了两件事：
+	(1).调用原生对应的方法对数组进行更新。
+	(2).重新解析模板，进而更新页面。
+4. 在Vue修改数组中的某个元素一定要用如下方法：
+	1. 使用这些API:`push()、pop()、shift()、unshift()、splice()、sort()、reverse()`
+	2. `Vue.set() `或 `vm.$set()`
+
+特别注意：Vue.set() 和 vm.$set() 不能给vm 或 vm的根数据对象 添加属性！！！
+
+## 收集表单数据
 
 
 ## 过滤器
