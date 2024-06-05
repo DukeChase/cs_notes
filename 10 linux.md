@@ -103,3 +103,5 @@ grep cut
 将一段数据经过分析后，取出 我们所想要的
 
 [# Linux命令之nohup详解](https://juejin.cn/post/6844903860272660494)
+
+[Linux nohup后台启动/ 后台启动命令中nohup 、&、重定向的使用](https://blog.csdn.net/weixin_49114503/article/details/134266408)
