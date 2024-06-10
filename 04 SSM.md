@@ -1602,19 +1602,16 @@ MVC的工作流程： 用户通过**视图层**发送请求到服务器，在服
 
 ## 入门案例
 
-注册SpringMVC的前端控制器DispatcherServlet
-- 配置web.xml文件
-```
-配置SpringMVC的前端控制器  DispatcherServlet  
+注册SpringMVC的前端控制器`DispatcherServlet`
+配置SpringMVC的前端控制器  `DispatcherServlet`
 SpringMVC的配置文件默认的位置和名称：  
 位置：WEB-INF下  
-名称：<servlet-name>-servlet.xml，当前配置下的配置文件名为SpringMVC-servlet.xml
-url-pattern中/和/*的区别：  
-/：匹配浏览器向服务器发送的所有请求（不包括.jsp）  
-/*：匹配浏览器向服务器发送的所有请求（包括.jsp）  
+名称：`<servlet-name>-servlet.xml`，当前配置下的配置文件名为`SpringMVC-servlet.xml`
+url-pattern中`/`和`/*`的区别：  
+`/`：匹配浏览器向服务器发送的所有请求（不包括.jsp）  
+`/*`：匹配浏览器向服务器发送的所有请求（包括.jsp）  
 jsp文件由tomcat的JspServlet处理
-```
-
+- 配置web.xml文件
 ```xml
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"  
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
@@ -1629,16 +1626,16 @@ jsp文件由tomcat的JspServlet处理
         <init-param>  
             <param-name>contextConfigLocation</param-name>  
             <param-value>classpath:springmvc.xml</param-value>  
-        </init-param>        
-      
+        </init-param>         
 		<!--		
 		作为框架的核心组件，在启动过程中有大量的初始化操作要做		
 		而这些操作放在第一次请求时才执行会严重影响访问速度		
 		因此需要通过此标签将启动控制DispatcherServlet的初始化时间提前到服务器启动时
 		-->
 		<load-on-startup>1</load-on-startup>
-		</servlet>
-		<servlet-mapping>		
+	</servlet>
+		
+	<servlet-mapping>		
 		<servlet-name>springMVC</servlet-name>
 		<!--	
 		设置springMVC的核心控制器所能处理的请求的请求路径
@@ -1646,6 +1643,7 @@ jsp文件由tomcat的JspServlet处理
 		但是/不能匹配.jsp请求路径的请求		
 		-->
 		<url-pattern>/</url-pattern>
+	</servlet-mapping>
 </web-app>
 
 ```
@@ -1654,7 +1652,6 @@ jsp文件由tomcat的JspServlet处理
 `<url-pattern>`标签中使用`/`和`/*`的区别：
 `/`所匹配的请求可以是`/login`或`.html`或`.js`或`.css`方式的请求路径，但是`/`不能匹配`.jsp`请求路径的请求因此就可以避免在访问jsp页面时，该请求被DispatcherServlet处理，从而找不到相应的页面
 `/*`则能够匹配所有请求，例如在使用过滤器时，若需要对所有请求进行过滤，就需要使用`/*`的写法
-
 
 - 创建请求控制器
 由于前端控制器对浏览器发送的请求进行了统一的处理，但是具体的请求有不同的处理过程，因此需要创建处理具体请求的类，即***请求控制器***
