@@ -673,10 +673,10 @@ select <include refid="empColumns"></include> from t_emp
 
 二级缓存开启的条件：
 
-a>在核心配置文件中，设置全局配置属性cacheEnabled="true"，默认为true，不需要设置
-b>在映射文件中设置标签<cache/>
-c>二级缓存必须在SqlSession关闭或提交之后有效
-d>查询的数据所转换的实体类类型必须实现序列化的接口
+1. 在核心配置文件中，设置全局配置属性cacheEnabled="true"，默认为true，不需要设置
+2. 在映射文件中设置标签<cache/>
+3. 二级缓存必须在SqlSession关闭或提交之后有效
+4. 查询的数据所转换的实体类类型必须实现序列化的接口
 
 使二级缓存失效的情况：
 两次查询之间执行了任意的增删改，会使一级和二级缓存同时失效
