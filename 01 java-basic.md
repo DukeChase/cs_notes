@@ -1148,13 +1148,13 @@ Interger.valueOf()
 ## 基础
 
 SQL分类
-- DDL(Data Definition Language)数据定义语言
+- `DDL(Data Definition Language)`数据定义语言
 	用来定义数据库对象：数据库，表，列等。关键字：`create`, `drop`,`alter` 等
-- DML(Data Manipulation Language)数据操作语言
+- `DML(Data Manipulation Language)`数据操作语言
 	用来对数据库中表的数据进行增删改。关键字：`insert`, `delete`, `update` 等
-- DQL(Data Query Language)数据查询语言
+- `DQL(Data Query Language)`数据查询语言
 	用来查询数据库中表的记录(数据)。关键字：`select`, `where` 等
-- DCL(Data Control Language)数据控制语言(了解)
+- `DCL(Data Control Language)`数据控制语言(了解)
 ## 查询 约束 设计
 ### 查询
 
@@ -1317,53 +1317,54 @@ ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) 
 
 ### 事务
 
-1. 事务基本介绍
-	1. 概念
-		- 如果一个包含多个步骤的业务操作，被事务管理，那么这些操作要么同时成功，要么同时失败。
-	2. 操作：
-        1. 开启事务： start transaction;
-        2. 回滚：rollback;
-        3. 提交：commit;
-    3. 例子：
-		```sql
-        CREATE TABLE account (
-            id INT PRIMARY KEY AUTO_INCREMENT,
-            NAME VARCHAR(10),
-            balance DOUBLE
-        );
-        -- 添加数据
-        INSERT INTO account (NAME, balance) VALUES ('zhangsan', 1000), ('lisi', 1000);
-        SELECT * FROM account;
-        UPDATE account SET balance = 1000;
-        
-        -- 张三给李四转账 500 元
-        -- 0. 开启事务
-        START TRANSACTION;
-        -- 1. 张三账户 -500
-        UPDATE account SET balance = balance - 500 WHERE NAME = 'zhangsan';
-        -- 2. 李四账户 +500
-        -- 出错了...
-        UPDATE account SET balance = balance + 500 WHERE NAME = 'lisi';
+#### 事务基本介绍
+1. 概念
+	- 如果一个包含多个步骤的业务操作，被事务管理，那么这些操作要么同时成功，要么同时失败。
+2. 操作：
+	1. 开启事务： start transaction;
+	2. 回滚：rollback;
+	3. 提交：commit;
+3. 例子：
+	```sql
+	CREATE TABLE account (
+		id INT PRIMARY KEY AUTO_INCREMENT,
+		NAME VARCHAR(10),
+		balance DOUBLE
+	);
+	
+	-- 添加数据
+	INSERT INTO account (NAME, balance) VALUES ('zhangsan', 1000), ('lisi', 1000);
+	SELECT * FROM account;
+	UPDATE account SET balance = 1000;
+	
+	-- 张三给李四转账 500 元
+	-- 0. 开启事务
+	START TRANSACTION;
+	-- 1. 张三账户 -500
+	UPDATE account SET balance = balance - 500 WHERE NAME = 'zhangsan';
+	-- 2. 李四账户 +500
+	-- 出错了...
+	UPDATE account SET balance = balance + 500 WHERE NAME = 'lisi';
 
-        -- 发现执行没有问题，提交事务
-        COMMIT;
+	-- 发现执行没有问题，提交事务
+	COMMIT;
 
-        -- 发现出问题了，回滚事务
-        ROLLBACK;
-		```
-	4. MySQL数据库中事务默认自动提交
-        * 事务提交的两种方式：
-            * 自动提交：
-                * mysql就是自动提交的
-                * 一条DML(增删改)语句会自动提交一次事务。
-            * 手动提交：
-                * Oracle 数据库默认是手动提交事务
-                * 需要先开启事务，再提交
-        * 修改事务的默认提交方式：
-            * 查看事务的默认提交方式：`SELECT @@autocommit; -- 1 代表自动提交  0 代表手动提交`
-            * 修改默认提交方式： `set @@autocommit = 0;`
+	-- 发现出问题了，回滚事务
+	ROLLBACK;
+	```
+4. MySQL数据库中事务默认自动提交
+	* 事务提交的两种方式：
+		* 自动提交：
+			* mysql就是自动提交的
+			* 一条DML(增删改)语句会自动提交一次事务。
+		* 手动提交：
+			* Oracle 数据库默认是手动提交事务
+			* 需要先开启事务，再提交
+	* 修改事务的默认提交方式：
+		* 查看事务的默认提交方式：`SELECT @@autocommit; -- 1 代表自动提交  0 代表手动提交`
+		* 修改默认提交方式： `set @@autocommit = 0;`
 
-2. 事务的四大特征
+#### 事务的四大特征
 **ACID**，是指数据库管理系统（DBMS）在写入或更新资料的过程中，为保证**事务**（transaction）是正确可靠的，所必须具备的四个特性：
 - 原子性（atomicity，或称不可分割性）、
 - 一致性（consistency）、
@@ -1375,12 +1376,86 @@ ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) 
 **索引**
 
 
-# JDBC
+# JDBC核心技术
 
 [JDBC笔记_清风徐来ya的博客-CSDN博客](https://blog.csdn.net/weixin_45775746/article/details/108890862)
 
 Java DataBase Connectivity 
 
+### 数据库链接概述
+
+### 获取数据库连接
+```java
+	@Test
+    public  void testConnection5() throws Exception {
+    	//1.加载配置文件
+        InputStream is = ConnectionTest.class.getClassLoader().getResourceAsStream("jdbc.properties");
+        Properties pros = new Properties();
+        pros.load(is);
+        
+        //2.读取配置信息
+        String user = pros.getProperty("user");
+        String password = pros.getProperty("password");
+        String url = pros.getProperty("url");
+        String driverClass = pros.getProperty("driverClass");
+
+        //3.加载驱动
+        Class.forName(driverClass);
+
+        //4.获取连接
+        Connection conn = DriverManager.getConnection(url,user,password);
+        System.out.println(conn);
+
+    }
+
+```
+### PreparedStatement  ResultSet  ResultSetMetaData
+
+### 数据库事务
+
+```java
+public void testJDBCTransaction() {
+	Connection conn = null;
+	try {
+		// 1.获取数据库连接
+		conn = JDBCUtils.getConnection();
+		// 2.开启事务
+		conn.setAutoCommit(false);
+		// 3.进行数据库操作
+		String sql1 = "update user_table set balance = balance - 100 where user = ?";
+		update(conn, sql1, "AA");
+
+		// 模拟网络异常
+		//System.out.println(10 / 0);
+
+		String sql2 = "update user_table set balance = balance + 100 where user = ?";
+		update(conn, sql2, "BB");
+		// 4.若没有异常，则提交事务
+		conn.commit();
+	} catch (Exception e) {
+		e.printStackTrace();
+		// 5.若有异常，则回滚事务
+		try {
+			conn.rollback();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+    } finally {
+        try {
+			//6.恢复每次DML操作的自动提交功能
+			conn.setAutoCommit(true);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        //7.关闭连接
+		JDBCUtils.closeResource(conn, null, null); 
+    }  
+}
+
+
+```
+
+### 数据库连接池
 c3p0
 德鲁伊
 JDBCTemplate

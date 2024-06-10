@@ -527,7 +527,7 @@ concat('%',#{mohu},'%')
 ### 9 动态SQL
 
 - `if`
-if标签可通过test属性的表达式进行判断，若表达式的结果为true，则标签中的内容会执行；反之标签中的内容不会执行
+`if`标签可通过test属性的表达式进行判断，若表达式的结果为true，则标签中的内容会执行；反之标签中的内容不会执行
 ```xml
 <!--List<Emp> getEmpListByCondition(Emp emp);-->
 
@@ -545,9 +545,9 @@ if标签可通过test属性的表达式进行判断，若表达式的结果为tr
 </select>
 ```
 - `where`  
-where和if一般结合使用：  
-a>若where标签中的if条件都不满足，则where标签没有任何功能，即不会添加where关键字  
-b>若where标签中的if条件满足，则where标签会自动添加`where`关键字，并将条件最前方多余的and去掉
+`where`和`if`一般结合使用：  
+1. 若`where`标签中的if条件都不满足，则where标签没有任何功能，即不会添加where关键字  
+2. 若`where`标签中的if条件满足，则where标签会自动添加`where`关键字，并将条件最前方多余的and去掉
 
 注意：where标签不能去掉条件最后多余的and
 ```xml
@@ -567,7 +567,7 @@ b>若where标签中的if条件满足，则where标签会自动添加`where`关�
 </select>
 ```
 - `trim`  
-trim用于去掉或添加标签中的内容 
+`trim`用于去掉或添加标签中的内容 
 常用属性：
 `prefix`：在trim标签中的内容的前面添加某些内容
 `prefixOverrides`：在trim标签中的内容的前面去掉某些内容
