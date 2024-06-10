@@ -91,10 +91,10 @@ profile
 `mvn -p -s`
 
 
-[mavne versions  介绍](https://www.mojohaus.org/versions/versions-maven-plugin/index.html)
-mvn versions:set
+[maven versions  介绍](https://www.mojohaus.org/versions/versions-maven-plugin/index.html)
+`mvn versions:set`
 
-mvn versions:commit
+`mvn versions:commit`
 
 ```xml
 <build>
