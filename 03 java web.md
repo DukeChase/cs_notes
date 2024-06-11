@@ -2,7 +2,6 @@
 [尚硅谷最新版JavaWeb全套教程,javaweb零基础入门完整版]( https://www.bilibili.com/video/BV1Y7411K7zz/?share_source=copy_web&vd_source=e65574be5c4ff436d099ae0526b97fd9)
 # HTML CSS
 
-## HTML
 
 ```html
 <!DOCTYPE html>
@@ -35,7 +34,7 @@
 		`<br/>` 换行  
 		`<hr/>` 水平线  
 	ii. 双标签格式: <标签名> ...封装的数据...</标签名>  
-### 常用标签
+## 常用标签
 - 超链接
 ```html
 <a href="http://localhost:8080">百度</a><br/>
@@ -170,7 +169,7 @@ li 是列表项
 ```
 
 - 表单标签
-表单就是 html 页面中,用来收集用户信息的所有元素集合.然后把这些信息发送给服务器。  
+表单就是 html 页面中,用来收集用户信息的所有元素集合，然后把这些信息发送给服务器。  
 form标签就是表单
 - `<input type=text>`     是文件输入框  value设置默认显示内容
 - `<input type=password>` 是密码输入框  value设置默认显示内容
@@ -321,8 +320,8 @@ CSS 和 HTML 的结合方式
 `width:19px`
 `height:20px`
 
-## JavaScript
-### 基本语法
+# JavaScript
+## 基本语法
 
 1. 与html结合方式
 	1. 内部JS：
@@ -400,7 +399,7 @@ CSS 和 HTML 的结合方式
 	4.  `do...while`
 	5.  `for`
 
-### 基本对象
+## 基本对象
 
 1. Function 函数（方法）对象
 	1. 创建方式
@@ -427,7 +426,7 @@ CSS 和 HTML 的结合方式
 8. `RegEXP` 正则表达式对象
 9. `Global`对象
 
-### 自定义对象
+## 自定义对象
 1. 对象的定义：
 ```javascript
 var 变量名 = new Object();
@@ -456,7 +455,7 @@ var 变量名 = {
 ```
 
 
-### BOM
+## BOM
 1. 概念：`Browser Object Model `浏览器对象模型
 	* 将浏览器的各个组成部分封装成对象。
 2. 组成：
@@ -523,7 +522,7 @@ var 变量名 = {
                 * 负数：后退几个历史记录
     3. 属性：
         * length	返回当前窗口历史列表中的 URL 数量。
-### DOM
+## DOM
 * 概念： `Document Object Model`文档对象模型
 	* 将标记语言文档的各个组成部分，封装为对象。可以使用这些对象，对标记语言文档进行**CRUD**的动态操作
 
@@ -575,18 +574,18 @@ var 变量名 = {
 	3. 控制元素样式
 		1. 使用元素的style属性来设置  
 			如：
-			```javascript
-			//修改样式方式1
-		        div1.style.border = "1px solid red";
-		        div1.style.width = "200px";
-		        //font-size--> fontSize
-		        div1.style.fontSize = "20px";
-			``` 
+		```javascript
+		//修改样式方式1
+			div1.style.border = "1px solid red";
+			div1.style.width = "200px";
+			//font-size--> fontSize
+			div1.style.fontSize = "20px";
+		``` 
 		2. 提前定义好类选择器的样式，通过元素的className属性来设置其class属性值。
 
 DOM模型
 
-### 事件监听机制
+## 事件监听机制
 * 概念：某些组件被执行了某些操作后，触发某些代码的执行。	
 	* 事件：某些操作。如： 单击，双击，键盘按下了，鼠标移动了
 	* 事件源：组件。如： 按钮 文本输入框...
@@ -620,7 +619,7 @@ DOM模型
 			1. `onsubmit`	确认按钮被点击。
 			2. `onreset`	重置按钮被点击。
 
-## JQuery
+# JQuery
 概念
 `$`是jQuery的核心函数，能完成jQuery的很多功能。` $()`就是调用`$`这个函数
 1. 传入参数为函数时
@@ -659,7 +658,7 @@ jQuery 对象转为 dom 对象（重点）
 |attr()| 设置和获取属性的值    |   |
 |prop()|    可以设置和获取属性的值                |                      |
 
-## Tomcat
+# Tomcat
 
 **java web** 概念
 JavaWeb 是指，所有通过 Java 语言编写可以通过浏览器访问的程序的总称，叫 JavaWeb。
@@ -670,7 +669,7 @@ JavaWeb 是基于请求和响应来开发的。
 web服务器
 - `tomcat`: 由 Apache 组织提供的一种 Web 服务器，提供对 jsp 和 Servlet 的支持。它是一种轻量级的 javaWeb 容器（服务器），也是当前应用最广的 JavaWeb 服务器（免费）。
 - `Jboss`：是一个遵从 JavaEE 规范的、开放源代码的、纯 Java 的 EJB 服务器，它支持所有的 JavaEE 规范（免费）。
-## XML
+# XML
 语法
 1. 文档声明
 2. 元素
@@ -687,8 +686,8 @@ XML解析技术介绍
 - `dom4j`
 - `pull` 用于安卓
 
-## Servlet1
-### Servlet技术
+# Servlet1
+## Servlet技术
 1. 什么是Servlet
 	1. Servlet 是 JavaEE 规范之一。规范就是接口
 	2. Servlet 就 JavaWeb 三大组件之一。JavaWeb***三大组件***分别是：**Servlet程序、Filter 过滤器、Listener监听器**。 
@@ -760,7 +759,7 @@ XML解析技术介绍
 
 - [HttpServlet源码分析](https://www.cnblogs.com/fxust/p/7944242.html)
 
-### ServletConfig类
+## ServletConfig类
 `ServletConfig` 类从类名上来看，就知道是 `Servlet` 程序的配置信息类。
 `Servlet` 程序和 `ServletConfig` 对象都是由 Tomcat 负责创建，我们负责使用。
 
@@ -800,7 +799,7 @@ System.out.println(servletConfig.getServletContext());
 
 `ServletConfig Servlet.getServletConfig()`
 
-### ServletContext类
+## ServletContext类
 1、`ServletContext` 是一个接口，它表示 `Servlet` 上下文对象。
 2、一个 web 工程，只有一个 `ServletContext` 对象实例。
 3、`ServletContext` 对象是一个域对象。
@@ -823,7 +822,7 @@ System.out.println(servletConfig.getServletContext());
 
 - `ServletConetx getServletContext()`
 
-### HTTP协议
+## HTTP协议
 什么是协议?
 
 - 协议是指双方，或多方，相互约定好，大家都需要遵守的规则，叫协议。
@@ -832,7 +831,7 @@ HTTP 协议中的数据又叫报文。
 客户端给服务器发送数据叫**请求**。
 服务器给客户端回传数据叫**响应**。
 
-### HTTP请求协议
+## HTTP请求协议
 
 - GET请求
 	1. 请求行  
@@ -868,7 +867,7 @@ HTTP 协议中的数据又叫报文。
 		7. 在浏览器地址栏中输入地址后敲回车
 	- POST 请求有哪些：
 		1. form 标签 `method=post`
-### HTTP响应协议
+## HTTP响应协议
 - 响应的HTTP协议
 	1. 响应行
 	   1. 响应协议和版本号
@@ -887,8 +886,8 @@ HTTP 协议中的数据又叫报文。
 |302|表示请求重定向|
 |404|表示请求服务器已经收到了，但是你要的数据不存在（请求地址错误）|
 |500|表示服务器已经收到请求，但是服务器内部错误（代码错误）|
-## Serverlet2
-### HttpServletRequest
+# Serverlet2
+## HttpServletRequest
 a) `HttpServletRequest`类的作用
 每次只要有请求进入 Tomcat 服务器，Tomcat 服务器就会把请求过来的 HTTP 协议信息解析好封装到`Request`对象中。然后传递到service方法（`doGet()`和`doPost()`）中给我们使用。我们可以通过`HttpServletRequest`对象，获取到所有请求的信息
 b) `HttpServletRequest`类的常用方法
@@ -919,7 +918,7 @@ requestDispatcher.forward(req,resp);
 f)base标签的作用
 g)web中的相对路径和绝对路径
 h)web 中 / 斜杠的不同意义
-### HttpServletResponse
+## HttpServletResponse
 a) `HttpServletResponse` 类的作用
 `HttpServletResponse` 类和 `HttpServletRequest` 类一样。每次请求进来，Tomcat 服务器都会创建一个 `Response` 对象传递给 `Servlet` 程序去使用。`HttpServletRequest` 表示请求过来的信息，`HttpServletResponse` 表示所有响应的信息，我们如果需要设置返回给客户端的信息，都可以通过 `HttpServletResponse` 对象来进行设置
 
@@ -963,13 +962,13 @@ resp.setHeader("Location", "http://localhost:8080");
 resp.sendRedirect("http://localhost:8080");
 ```
 
-## JSP
+# JSP
 `JSP`的全称是`java server pages`。java的服务器页面。
 JSP的主要作用是代替Servlet程序回传html页面的数据。
 jsp本质是一个Servlet程序。
 `HttpJspServlet`继承了`HttpServlet`类。
 其底层实现，就是通过输出流，把 html 页面数据回传给客户端
-### JSP的三种语法
+## JSP的三种语法
 jsp文件头部声明介绍
 `<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>`
 这是jsp文件的头声明。表示这是jsp页面。
@@ -1022,7 +1021,7 @@ jsp中有三种注释：
 		<%-- jsp注释 --%>
 		jsp注释可以注掉jsp中所有内容，在jsp翻译的时候会被完全忽略掉
 
-### jsp九大内置对象
+## jsp九大内置对象
 
 | 对象|作用|
 | --------|--------|
@@ -1037,7 +1036,7 @@ jsp中有三种注释：
 |`page`|  表示当前 `Servlet` 对象实例（无用，用它不如使用 this 对象）。|
 
 九大内置对象，都是我们可以在【代码脚本】中或【表达式脚本】中直接使用的对象。
-### jsp四大域对象
+## jsp四大域对象
 | 对象|作用|
 |-----| ----|
 |`pageContex(PageContextImpl类)` |    当前jsp页面范围内有效|
@@ -1045,7 +1044,7 @@ jsp中有三种注释：
 |`session(HttpSession类)` |           一次会话范围内有效（打开浏览器访问服务器，知道关闭浏览器）|
 |`application(ServletContext类)` |    整个web工程范围内都有效（只要web工程不停止，数据都在）|
 
-### JSP常用标签
+## JSP常用标签
 - jsp 静态包含
 ```jsp
 <%--
@@ -1090,13 +1089,13 @@ page 属性设置请求转发的路径
 <jsp:forward page="/scope2.jsp"></jsp:forward>
 ```
 
-### Listener
+# Listener
 1. Listener 监听器它是 JavaWeb 的三大组件之一。 JavaWeb 的三大组件分别是：Servlet 程序、 Filter 过滤器、 Listener 监 听器。
 2. Listener 它是 JavaEE 的规范，就是接口
 3.  监听器的作用是，监听某种事物的变化。然后通过回调函数，反馈给客户（程序）去做一些相应的处理。
 `ServletContextListener `它可以监听` ServletContext `对象的创建和销毁。 `ServletContext` 对象在 web 工程启动的时候创建，在 web 工程停止的时候销毁。
 
-监听到创建和销毁之后都会分别调用 ServletContextListener 监听器的方法反馈。
+监听到创建和销毁之后都会分别调用 `ServletContextListener` 监听器的方法反馈。
 ```java
 
 public interface ServletContextListener extends EventListener {
@@ -1112,10 +1111,10 @@ public interface ServletContextListener extends EventListener {
 
 }
 ```
-如何使用 ServletContextListener 监听器监听 ServletContext 对象。 使用步骤如下：
-1、 编写一个类去实现 ServletContextListener 
+如何使用 `ServletContextListener `监听器监听 `ServletContext `对象。 使用步骤如下：
+1、 编写一个类去实现 `ServletContextListener `
 2、 实现其两个回调方法 
-3、 到 web.xml 中去配置监听器
+3、 到` web.xml `中去配置监听器
 
 ```java
 public class MyServletContextListenerImpl implements ServletContextListener {
@@ -1138,18 +1137,18 @@ web.xml 配置
 	<listener-class>com.atguigu.listener.MyServletContextListenerImpl</listener-class>
 </listener>
 ```
-## EL表达式JSTL表达式
-### EL表达式
+# EL表达式JSTL表达式
+## EL表达式
 
 EL 表达式主要是代替 jsp 页面中的表达式脚本在 jsp 页面中进行数据的输出。
 
 因为 EL 表达式在输出数据的时候，要比 jsp 的表达式脚本要简洁很多。
 格式：`${expression}`
 
-### JSTL表达式
+## JSTL表达式
 
 
-## Cookie and Session
+# Cookie and Session
 `resp.addCookie()`
 
 `request.getCookie()`
@@ -1163,7 +1162,7 @@ req.getSession().setAttribute("key1", "value1");
 
 resp.getWriter().write("已经往 Session 中保存了数据");
 ```
-## Filter
+# Filter
 `Filter` 的生命周期包含几个方法
 
 1. 构造器方法
@@ -1181,8 +1180,8 @@ Filter的拦截路径
 - 目录匹配
 - 后缀名匹配
 
-## JSON AJAX
-### JSON
+# JSON AJAX
+## JSON
 JSON(JavaScript Object Notation)
 
 - json的定义
@@ -1244,7 +1243,7 @@ json在java中的操作。常见的有三种情况
 2、java 对象 list 集合和 json 的转换
 3、map 对象和 json 的转换
 
-### AJAX
+## AJAX
 [尚硅谷ajax](https://www.bilibili.com/video/BV1Y7411K7zz?p=311)
 
 什么是AJAX

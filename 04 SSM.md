@@ -527,7 +527,7 @@ concat('%',#{mohu},'%')
 ### 9 动态SQL
 
 - `if`
-if标签可通过test属性的表达式进行判断，若表达式的结果为true，则标签中的内容会执行；反之标签中的内容不会执行
+`if`标签可通过test属性的表达式进行判断，若表达式的结果为true，则标签中的内容会执行；反之标签中的内容不会执行
 ```xml
 <!--List<Emp> getEmpListByCondition(Emp emp);-->
 
@@ -545,9 +545,9 @@ if标签可通过test属性的表达式进行判断，若表达式的结果为tr
 </select>
 ```
 - `where`  
-where和if一般结合使用：  
-a>若where标签中的if条件都不满足，则where标签没有任何功能，即不会添加where关键字  
-b>若where标签中的if条件满足，则where标签会自动添加`where`关键字，并将条件最前方多余的and去掉
+`where`和`if`一般结合使用：  
+1. 若`where`标签中的if条件都不满足，则where标签没有任何功能，即不会添加where关键字  
+2. 若`where`标签中的if条件满足，则where标签会自动添加`where`关键字，并将条件最前方多余的and去掉
 
 注意：where标签不能去掉条件最后多余的and
 ```xml
@@ -567,7 +567,7 @@ b>若where标签中的if条件满足，则where标签会自动添加`where`关�
 </select>
 ```
 - `trim`  
-trim用于去掉或添加标签中的内容 
+`trim`用于去掉或添加标签中的内容 
 常用属性：
 `prefix`：在trim标签中的内容的前面添加某些内容
 `prefixOverrides`：在trim标签中的内容的前面去掉某些内容
@@ -673,10 +673,10 @@ select <include refid="empColumns"></include> from t_emp
 
 二级缓存开启的条件：
 
-a>在核心配置文件中，设置全局配置属性cacheEnabled="true"，默认为true，不需要设置
-b>在映射文件中设置标签<cache/>
-c>二级缓存必须在SqlSession关闭或提交之后有效
-d>查询的数据所转换的实体类类型必须实现序列化的接口
+1. 在核心配置文件中，设置全局配置属性cacheEnabled="true"，默认为true，不需要设置
+2. 在映射文件中设置标签<cache/>
+3. 二级缓存必须在SqlSession关闭或提交之后有效
+4. 查询的数据所转换的实体类类型必须实现序列化的接口
 
 使二级缓存失效的情况：
 两次查询之间执行了任意的增删改，会使一级和二级缓存同时失效
@@ -1602,19 +1602,16 @@ MVC的工作流程： 用户通过**视图层**发送请求到服务器，在服
 
 ## 入门案例
 
-注册SpringMVC的前端控制器DispatcherServlet
-- 配置web.xml文件
-```
-配置SpringMVC的前端控制器  DispatcherServlet  
+注册SpringMVC的前端控制器`DispatcherServlet`
+配置SpringMVC的前端控制器  `DispatcherServlet`
 SpringMVC的配置文件默认的位置和名称：  
 位置：WEB-INF下  
-名称：<servlet-name>-servlet.xml，当前配置下的配置文件名为SpringMVC-servlet.xml
-url-pattern中/和/*的区别：  
-/：匹配浏览器向服务器发送的所有请求（不包括.jsp）  
-/*：匹配浏览器向服务器发送的所有请求（包括.jsp）  
+名称：`<servlet-name>-servlet.xml`，当前配置下的配置文件名为`SpringMVC-servlet.xml`
+url-pattern中`/`和`/*`的区别：  
+`/`：匹配浏览器向服务器发送的所有请求（不包括.jsp）  
+`/*`：匹配浏览器向服务器发送的所有请求（包括.jsp）  
 jsp文件由tomcat的JspServlet处理
-```
-
+- 配置web.xml文件
 ```xml
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"  
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
@@ -1629,16 +1626,16 @@ jsp文件由tomcat的JspServlet处理
         <init-param>  
             <param-name>contextConfigLocation</param-name>  
             <param-value>classpath:springmvc.xml</param-value>  
-        </init-param>        
-      
+        </init-param>         
 		<!--		
 		作为框架的核心组件，在启动过程中有大量的初始化操作要做		
 		而这些操作放在第一次请求时才执行会严重影响访问速度		
 		因此需要通过此标签将启动控制DispatcherServlet的初始化时间提前到服务器启动时
 		-->
 		<load-on-startup>1</load-on-startup>
-		</servlet>
-		<servlet-mapping>		
+	</servlet>
+		
+	<servlet-mapping>		
 		<servlet-name>springMVC</servlet-name>
 		<!--	
 		设置springMVC的核心控制器所能处理的请求的请求路径
@@ -1646,6 +1643,7 @@ jsp文件由tomcat的JspServlet处理
 		但是/不能匹配.jsp请求路径的请求		
 		-->
 		<url-pattern>/</url-pattern>
+	</servlet-mapping>
 </web-app>
 
 ```
@@ -1654,7 +1652,6 @@ jsp文件由tomcat的JspServlet处理
 `<url-pattern>`标签中使用`/`和`/*`的区别：
 `/`所匹配的请求可以是`/login`或`.html`或`.js`或`.css`方式的请求路径，但是`/`不能匹配`.jsp`请求路径的请求因此就可以避免在访问jsp页面时，该请求被DispatcherServlet处理，从而找不到相应的页面
 `/*`则能够匹配所有请求，例如在使用过滤器时，若需要对所有请求进行过滤，就需要使用`/*`的写法
-
 
 - 创建请求控制器
 由于前端控制器对浏览器发送的请求进行了统一的处理，但是具体的请求有不同的处理过程，因此需要创建处理具体请求的类，即***请求控制器***
@@ -1715,7 +1712,7 @@ class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
 </mvc:annotation-driven>
 ```
 
-#### 总结
+## 案例总结
 浏览器发送请求，若请求地址符合前端控制器的`url-pattern`，该请求就会被前端控制器`DispatcherServlet`处理。
 前端控制器会读取SpringMVC的核心配置文件，通过扫描组件找到控制器，将请求地址和控制器中`@RequestMapping`注解的`value`属性值进行匹配，若匹配成功，该注解所标识的控制器方法就是处理请求的方法。
 处理请求的方法需要返回一个字符串类型的视图名称，该视图名称会被***视图解析器***解析，加上前缀和后缀组成视图的路径，通过Thymeleaf对视图进行渲染，最终转发到视图所对应页面
@@ -1933,7 +1930,7 @@ SpringMVC 提供了 `HiddenHttpMethodFilter` 帮助我们将 POST 请求转换�
     <url-pattern>/</url-pattern>  
 </servlet-mapping>
 ```
-## RESTFul案例
+## RESTFUL案例
 
 
 ## 9. SpringMVC处理ajax请求
