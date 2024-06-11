@@ -111,3 +111,9 @@ mvn versions:commit
 12</build>
 ```
 
+## scope
+
+runtime
+test
+provided
+option
