@@ -602,10 +602,63 @@ public static void MultiThreadRunnableTest(){
 ### 线程安全
 
 线程同步
-当我们使用多线程访问同一资源时，且多个线程中对资源有写操作，就容易出行线程安全问题
+当我们使用多线程访问同一资源时，且多个线程中对资源有写操作，就容易出现线程安全问题
 - 同步代码块 `synchronize`
+```java
+synchronized(同步锁){ 
+	//需要同步操作的代码 
+}
+```
 - 同步方法 `synchronize`
+```java
+// 对于非static方法，锁对象是this
+// 对于static方法,我们使用当前方法所在类的字节码对象(类名.class)。
+public synchronized void method(){ 
+	// 可能会产生线程安全问题的代码 
+}
+```
 - 锁机制
+```java
+/**
+java.util.concurrent.locks.Lock机制提供了比synchronized代码块和synchronized方法更广泛的锁定操作, 同步代码块/同步方法具有的功能Lock都有,除此之外更强大,更体现面向对象。
+Lock锁也称同步锁，加锁与释放锁方法化了，如下：
+**/
+//加同步锁。 
+public void lock() 
+// 释放同步锁。
+public void unlock()
+```
+```java
+public class Ticket implements Runnable{ 
+	private int ticket = 100;
+	Lock lock = new ReentrantLock(); 
+	
+	/* * 执行卖票操作 */ 
+	@Override public void run() {
+	
+		//每个窗口卖票的操作
+		//窗口 永远开启
+		while(true){
+		lock.lock();
+		if(ticket>0){
+			//有票 可以卖 
+			//出票操作 
+			//使用sleep模拟一下出票时间 
+			try { Thread.sleep(50); } 
+			catch (InterruptedException e) { 
+			// TODO Auto‐generated catch block 
+			e.printStackTrace(); 
+			} 
+			//获取当前线程对象的名字 
+			String name = Thread.currentThread().getName();
+			System.out.println(name+"正在卖:"+ticket‐‐);
+		} 
+		lock.unlock();
+		}
+	}
+
+}
+```
 
 ### 线程状态
 
