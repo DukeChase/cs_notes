@@ -111,3 +111,9 @@ profile
 12</build>
 ```
 
+## scope
+
+runtime
+test
+provided
+option
