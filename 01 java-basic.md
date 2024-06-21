@@ -659,7 +659,11 @@ public class Ticket implements Runnable{
 
 }
 ```
-
+- `ReentrantLock`
+- Semaphore
+- CountDownLatch
+- CyclicBarrier
+- Phaser
 ### 线程状态
 
 | 线程状态          | 导致状态发生条件                                                                                                      |

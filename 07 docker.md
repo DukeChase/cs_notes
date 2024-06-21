@@ -2,7 +2,7 @@ docker run -it --rm -p 4000:80 ccr.ccs.tencentyun.com/dockerpracticesig/docker_p
 
 
 docker run 
-```sh
+```shell
 Usage:  docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 
 Create and run a new container from an image
