@@ -141,6 +141,22 @@ public class HelloController {
 	- 无需以前的包扫描配置
 	- 想要改变扫描路径，@SpringBootApplication(scanBasePackages=**"com.atguigu"**)
 		- 或者@ComponentScan 指定扫描路径
+
+```java
+@SpringBootApplication
+等同于
+@SpringBootConfiguration
+@EnableAutoConfiguration
+@ComponentScan("com.atguigu.boot")
+```
+
+- 各种配置拥有默认值
+	- 默认配置最终都是映射到某个类上，如：`MultipartProperties` `xxProperties ` 
+	- 配置文件的值最终会绑定某个类（`xxPropertites`）上，这个类会在容器中创建对象
+- 按需加载所有自动配置项
+	- 非常多的starter
+	- 引入了哪些场景这个场景的自动配置才会开启
+	- SpringBoot所有的自动配置功能都在`spring-boot-autoconfigure` 包里面
 ### 2 容器功能
 #### 2.1 组件添加
 1. `@Configuration`     //告诉SpringBoot这是一个配置类 == 配置文件
@@ -173,7 +189,9 @@ public class MyConfig {
     }
 }
 
+```
 
+```java
 ################################@Configuration测试代码如下########################################
 @SpringBootConfiguration
 @EnableAutoConfiguration
@@ -266,35 +284,13 @@ public class MyConfig {}
 如何使用Java读取到properties文件中的内容，并且把它封装到JavaBean中，以供随时使用；
 1. `@ConfigurationProperties`    必须是容器中的组件才有这个功能
 ```java
+@Data
 @Component
 @ConfigurationProperties(prefix="mycar")
 public class Car{
 private String brand;
+    private String brand;
     private Integer price;
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    @Override
-    public String toString() {
-        return "Car{" +
-                "brand='" + brand + '\'' +
-                ", price=" + price +
-                '}';
-    }
 }
 
 
@@ -302,7 +298,7 @@ private String brand;
 }
 2. `@EnableConfigurationProperties + @ConfigurationProperties`
 
-3. @Component + @ConfigurationProperties
+3. `@Component + @ConfigurationProperties`
 ```java
 @EnableConfigurationProperties(Car.class)
 //1、开启Car配置绑定功能
