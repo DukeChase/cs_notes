@@ -160,16 +160,15 @@ public class HelloController {
 ### 2 容器功能
 #### 2.1 组件添加
 1. `@Configuration`     //告诉SpringBoot这是一个配置类 == 配置文件
+Configuration使用示例
+1. 配置类里面使用@Bean标注在方法上给容器注册组件，默认也是单实例的
+2. 配置类本身也是组件
+3. proxyBeanMethods：代理bean的方法
+	* Full(proxyBeanMethods = true) 【保证每个@Bean方法被调用多少次返回的组件都是单实例的】
+	* Lite(proxyBeanMethods = false)【每个@Bean方法被调用多少次返回的组件都是新创建的】
+	* 组件依赖必须使用Full模式默认。其他默认是否Lite模式
+ 
 ```java
-#############################Configuration使用示例######################################################
-/**
- * 1、配置类里面使用@Bean标注在方法上给容器注册组件，默认也是单实例的
- * 2、配置类本身也是组件
- * 3、proxyBeanMethods：代理bean的方法
- *      Full(proxyBeanMethods = true) 【保证每个@Bean方法被调用多少次返回的组件都是单实例的】
- *      Lite(proxyBeanMethods = false)【每个@Bean方法被调用多少次返回的组件都是新创建的】
- *      组件依赖必须使用Full模式默认。其他默认是否Lite模式
- */
 @Configuration(proxyBeanMethods = false) //告诉SpringBoot这是一个配置类 == 配置文件
 public class MyConfig {
     /**
@@ -227,16 +226,16 @@ public class MainApplication {
 ```
 2. `@Bean、@Component、@Controller、@Service、@Repository` 
 //给容器中添加组件。以方法名作为组件的id。返回类型就是组件类型。返回的值，就是组件在容器中的实例
-`@Bean("beanid")   // 自定义beanid`    默认单实例
+`@Bean("beanid")   // 自定义beanid`    默认单实例 
 
 3. `@ComponentScan @Import`  
 `@Import({User.class, DBHelper.class})`
- * 给容器中自动创建出这两个类型的组件、默认组件的名字就是全类名
+ * 给容器中自动创建出这两个类型的组件、默认组件的名字就是全类名（调用无参数构造器 ）
 ```java
 @Import({User.class, DBHelper.class})
 @Configuration(proxyBeanMethods = false) //告诉SpringBoot这是一个配置类 == 配置文件
 public class MyConfig {
-}
+} 
 ```
 4. `@Conditional`
 @Conditional 条件装配：满足Conditional指定的条件，则进行组件注入
@@ -274,6 +273,9 @@ public class MyConfig {
  @ImportResource("classpath:beans.xml")
 public class MyConfig {}
 
+```
+
+```java
 ======================测试=================
         boolean haha = run.containsBean("haha");
         boolean hehe = run.containsBean("hehe");
@@ -284,20 +286,35 @@ public class MyConfig {}
 如何使用Java读取到properties文件中的内容，并且把它封装到JavaBean中，以供随时使用；
 1. `@ConfigurationProperties`    必须是容器中的组件才有这个功能
 ```java
+/**
+ * 只有在容器中的组件，才会拥有SpringBoot提供的强大功能
+ */  
 @Data
 @Component
 @ConfigurationProperties(prefix="mycar")
 public class Car{
-private String brand;
-    private String brand;
+	private String brand;
     private Integer price;
 }
-
 
 ```
 }
 2. `@EnableConfigurationProperties + @ConfigurationProperties`
+```java
+@ConfigurationProperties(prefix = "mycar")  
+public class Car {  
+  
+    private String brand;  
+    private Integer price;  
+}
+```
+```java
+@Configuration
+@EnableConfigurationProperties(Car.class)
+public class MyConfig{
 
+}
+```
 3. `@Component + @ConfigurationProperties`
 ```java
 @EnableConfigurationProperties(Car.class)
@@ -327,7 +344,7 @@ public @interface SpringBootApplication{}
 
 @Configuration。代表当前是一个配置类
 
-2、`@ComponentScan`
+2、`@ComponentScan`  包扫描 
 
 
 指定扫描哪些，Spring注解；
@@ -512,7 +529,7 @@ xxxxAutoConfiguration
 	@ConditionalOnBean(MultipartResolver.class)  //容器中有这个类型组件
 	@ConditionalOnMissingBean(name = DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME) //容器中没有这个名字 multipartResolver 的组件
 	public MultipartResolver multipartResolver(MultipartResolver resolver) {
-		//给@Bean标注的方法传入了对象参数，这个参数的值就会从容器中找。
+		//给@Bean标注的方法传入了对象参数，这个参数的值就会从容器中找。 
 		//SpringMVC multipartResolver。防止有些用户配置的文件上传解析器不符合规范
 		// Detect if the user has created a MultipartResolver but named it incorrectly
 		return resolver;
@@ -520,7 +537,7 @@ xxxxAutoConfiguration
 给容器中加入了文件上传解析器；
 ```
 
-SpringBoot默认会在底层配好所有的组件。但是如果用户自己配置了以用户的优先
+SpringBoot默认会在底层配好所有的组件。但是如果用户自己配置了以用户的优先 
 
 ```java
 @Bean
