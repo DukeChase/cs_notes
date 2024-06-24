@@ -562,14 +562,14 @@ SpringBoot默认会在底层配好所有的组件。但是如果用户自己配�
 	- [https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot.html#using-boot-starter](https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot.html#using-boot-starter)
 - 查看自动配置了哪些（选做）
 	- 自己分析，引入场景对应的自动配置一般都生效了
-	- 配置文件中debug=true开启自动配置报告。Negative（不生效）\Positive（生效）
+	- 配置文件中`debug=true`开启自动配置报告。Negative（不生效）\Positive（生效）
 - 是否需要修改
 	- 参照文档修改`配置项
 	
 	- [https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#common-application-properties](https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#common-application-properties)
 	- 自己分析。`xxxxProperties绑定了配置文件的哪些。
 - 自定义加入或者替换组件
-	- @Bean、@Component。。。
+	- `@Bean`  `@Component`。。。
 - 自定义器 **XXXXXCustomizer**；
 ### 04 开发小技巧
 1. Lombok
@@ -718,7 +718,18 @@ person:
 ## 05 web开发
 ### 1 springMVC 自动配置概览
 
+#### 静态资源目录
+只要静态资源放在类路径下： called `/static` (or `/public` or `/resources` or `/META-INF/resources`
 
+访问 ： 当前项目根路径/ + 静态资源名
+
+原理： 静态映射/**。
+
+请求进来，先去找Controller看能不能处理。不能处理的所有请求又都交给静态资源处理器。静态资源也找不到则响应404页面
+
+#### 欢迎页支持
+
+#### 自定义 `Favicon`
 ### 2 简单功能分析
 
 
@@ -751,6 +762,17 @@ ctrl + f12  当前文件结构
 #### POJO封装过程
 
 #### 参数处理原理
+- HandlerMapping中找到能处理请求的Handler（Controller.method()）
+- 为当前Handler 找一个适配器 HandlerAdapter； `RequestMappingHandlerAdapter`
+- 适配器执行目标方法并确定方法参数的每一个值
+
+
+1 handleAdapter
+2 执行目标方法
+3 参数解析器-HandlerMethodArgumentResolver
+4 返回值处理器
+5 如何确定目标方法每一个参数的值
+
 
 ### 4 数据响应与内容协商
 
