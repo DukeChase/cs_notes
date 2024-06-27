@@ -79,7 +79,7 @@ public ConstructorName(){
 ## 1. Scanner Random ArrayList
 
 
-KIOXIA/java/00 讲义+笔记+资料--黑马程序员/01Java基础/03.会员版(2.0)-就业课(2.0)-常用API第一部分/07.【Scanner类、Random类、ArrayList类】
+`00 讲义+笔记+资料--黑马程序员/01Java基础/03.会员版(2.0)-就业课(2.0)-常用API第一部分/07.【Scanner类、Random类、ArrayList类】`
 ### Scanner
 
 ```java
@@ -112,7 +112,7 @@ ArrayList<String> list = new ArrayList<>(); // 泛型
 
 ## 2. String类、static、Arrays类、Math类
 
-day08【String类、static、Arrays类、Math类】.pdf
+`day08【String类、static、Arrays类、Math类】.pdf`
 
 ### String
 [String性能提升10倍的几个方法](https://mp.weixin.qq.com/s/KRRLt0EaIwDEPCTGvqnWJA)

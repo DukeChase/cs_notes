@@ -52,8 +52,8 @@ dependencies
 
 排除依赖
 `exclusion`
-锁定版本
 
+锁定版本
 `dependencyManagement`
 
 
