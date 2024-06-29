@@ -175,13 +175,13 @@ immediate
 	数组写法适用于：要绑定多个样式，个数确定，名字也确定，但不确定用不用。
 2. style样式
 
-`:style="{fontSize: xxx}"`其中xxx是动态值。
+`:style="{fontSize: xxx}"` 其中xxx是动态值。
 
-`:style="[a,b]"`其中a、b是样式对象。
+`:style="[a,b]"` 其中a、b是样式对象。
 
 ## 条件渲染
-v-if
-v-show
+`v-if`
+`v-show`
 ## 列表渲染
 v-for指令:
 
@@ -275,6 +275,17 @@ Vue.directive(指令名,配置对象) 或 Vue.directive(指令名,回调函数)
 3. 生命周期函数的名字不可更改，但函数的具体内容是程序员根据需求编写的。
 4. 生命周期函数中的`this`指向是`vm` 或 组件实例对象`vc`。
 
+- 初始化显示
+	- beforeCreate
+	- created
+	- beforeCreated
+	- mounted
+- 更新状态
+	- beforeUpdate
+	- updated
+- 销毁
+	- beforeDestroy
+	- destroyed
 `mounted` //Vue完成模板的解析并把初始的真实DOM元素放入页面后（挂载完毕）调用mounted
 
 ```js
@@ -339,9 +350,15 @@ new Vue({
 1. 销毁后借助Vue开发者工具看不到任何信息。
 2. 销毁后自定义事件会失效，但原生DOM事件依然有效。
 3. 一般不会在`beforeDestroy`操作数据，因为即便操作数据，也不会再触发更新流程了。
+
+# 第2章 组件化编程
 ## 非单文件组件
 
 ## 单文件组件
+- 组成
+	- 模版 template
+	- js
+	- 样式css
 
 ## Vue
 | 指令      | 简写  | 描述         |
@@ -357,7 +374,16 @@ new Vue({
 |         |     |            |
 
 
+# 第3章 使用Vue脚手架
 ## 脚手架开发
+初始化脚手架
+`npm install -g @vue/cli`
+`vue create projectname`
+`npm run serve`
+`npm inspect -> output.js
+`
+模版项目结构
+![](https://duke-1258882975.cos.ap-guangzhou.myqcloud.com/picture/202406291050014.png)
 `main.js` 是项目的入口
 
 `render`函数完成了这个功能：将App组件放入容器中
@@ -385,7 +411,7 @@ npm  类似于`maven`，是js依赖包的管理工具
 }
 ```
 ## ref属性
-在模版标签内 添加`ref`属性
+在模版标签内 添加`ref`属性   给节点打标签
 在vm实例内部可以通过`this.$refs.name`获得真实的dom对象或组件实例对象。
 ## props配置
 子组件接收props的几种方式
@@ -419,6 +445,8 @@ npm  类似于`maven`，是js依赖包的管理工具
 `Vue.mixin`
 
 ## 插件
+1. Vue 插件是一个包含 install 方法的对象
+2. 通过 install 方法给 Vue 或 Vue 实例添加方法, 定义全局指令等
 plugin.js
 ```js
 export default {
@@ -462,6 +490,16 @@ export default {
 import plugins from './plugins'
 Vue.use(plug)
 ```
+
+todo案例
+
+
+组件化编码流程（通用）
+1. 实现静态组件：抽取组件，使用组件实现静态页面效果
+2. 展示动态数据
+	1. 数据的类型、名称是什么
+	2. 数据存储在哪个组件
+3. 交互--从绑定事件监听开始
 ## scpoed
 
 ## 本地存储
@@ -473,8 +511,30 @@ sessionStorage.setItem
 sessionStorage.getItem
 ```
 ## 组件自定义事件
+绑定事件监听
+```js
+<Header @addTodo="addTodo"/>
 
+或者
+
+<Header ref="header"/> 
+this.$refs.header.$on('addTodo', this.addTodo)
+```
+触发事件
+`this.$emit('addTodo', todo)`
 ## 全局事件总线
+1. Vue 原型对象上包含事件处理的方法
+	1.  $on(eventName, listener): 绑定自定义事件监听
+	2. $emit(eventName, data): 分发自定义事件
+	3. $off(eventName): 解绑自定义事件监听
+	4. $once(eventName, listener): 绑定事件监听, 但只能处理一次
+2. 所有组件实例对象的原型对象的原型对象就是 Vue 的原型对象
+	1. 所有组件对象都能看到 Vue 原型对象上的属性和方法
+	2. `Vue.prototype.$bus = new Vue()`, 所有的组件对象都能看到`$bus` 这个属性 对象
+3. 全局事件总线
+	1. 包含事件处理相关方法的对象(只有一个)
+	2. 所有的组件都可以得到
+
 ```javascript
 //创建vm
 new Vue({
@@ -488,10 +548,32 @@ new Vue({
 ```
 
 在组件上定义`$on` 和 `$emit`方法进行数据传输
+指定事件总线对象
+```js
+new Vue({
+	beforeCreate () { // 尽量早的执行挂载全局事件总线对象的操作 
+	Vue.prototype.$globalEventBus = this 
+	}, 
+}).$mount('#root')
+```
+绑定事件
+```js
+this.$globalEventBus.$on('deleteTodo', this.deleteTodo)
+```
+分发时间
+```js
+this.$globalEventBus.$emit('deleteTodo', this.index)
+```
+解绑事件
+```js
+this.$globalEventBus.$off('deleteTodo')
+```
 ## 消息发布与订阅
 消息订阅与发布 `pubsub-js`
 
+# 第4章 Vue中的ajax
 ## 配置代理服务器
+解决浏览器 跨域问题
 
 ### 方法一
 ```json
@@ -535,7 +617,7 @@ vue-resource
 ## 插槽
 
 ### 作用
-
+父组件向子组件传递带数据的标签，当一个组件有不确定的结构时, 就需要使用 slot 技术，注意：插槽内容是在父组件中编译后, 再传递给子组件的。
 ### 分类
 
 ### 使用方式
@@ -548,14 +630,54 @@ vue-resource
 
 作用域插槽
 
-## Vuex
+# 第5章 Vuex
+
+概念：专门在 Vue 中实现集中式状态（数据）管理的一个 Vue 插件，对 vue 应 用中多个组件的共享状态进行集中式的管理（读/写），也是一种组件间通信的方 式，且适用于任意组件间通信。
+
+什么时候用Vuex
+1. 多个组件依赖于同一状态
+2. 来自不同组件的行为需要变更同一状态
+
+Vuex工作原理图
+![](https://duke-1258882975.cos.ap-guangzhou.myqcloud.com/picture/202406291119772.png)
+
+1. `state`  用于存储数据
+2. `action`中调用`commit`
+3. `mutation`  用于操作数据（state）
+
 `dispatch`
 `action`  用于响应组件中的动作
-`action`中调用`commit`
-`mutation`  用于操作数据（state）
-`state`  用于存储数据
 
-## 路由
+
+
+# 第 6 章：vue-router
+## 6.1 相关理解
+### 6.1.1 vue-router 的理解
+
+vue 的一个插件库，专门用来实现 SPA 应用
+### 6.1.2 对 SPA 应用的理解
+
+1. 单页 Web 应用（single page web application，SPA）。
+2. 整个应用只有一个完整的页面。
+3. 点击页面中的导航链接不会刷新页面，只会做页面的局部更新。
+4. 数据需要通过 ajax 请求获取。
+### 6.1.3 路由的理解
+1. 什么是路由?
+	1. 一个路由就是一组映射关系（key - value）
+	2. key 为路径, value 可能是 function 或 component
+2. 路由分类
+	1. 后端路由：
+		1.  理解：value 是 function, 用于处理客户端提交的请求。
+		2. 工作过程：服务器接收到一个请求时, 根据请求路径找到匹配的函数 来处理请求, 返回响应数据。
+	2. 前端路由：
+		1. 理解：value 是 component，用于展示页面内容。
+		2. 工作过程：当浏览器的路径改变时, 对应的组件就会显示。
+
+## 基本路由
+总结：编写使用路由的3步
+1. 定义路由组件
+2. 注册路由
+3. 使用路由
 ## Axios
 
 

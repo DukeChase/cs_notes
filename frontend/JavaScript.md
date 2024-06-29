@@ -1,4 +1,4 @@
-来源：[w3cschool js教程](https://www.w3school.com.cn/js/index.asp)
+来源：[`w3cschool js教程`](https://www.w3school.com.cn/js/index.asp)
 # js注释
 
 ```javascript
@@ -7,8 +7,14 @@
 ```
 
 # js变量
+```js
+var x = 7;
+var y = 8;
+var z = x + y;
+```
 
 # js let
+作用域问题
 
 # js const
 
@@ -181,9 +187,10 @@ var person = {
 
 ## 对象构造器
 
-### this关键词
 
-对象定义
+### this关键词
+在函数定义中，`this` 引用该函数的“拥有者”。
+### 对象定义
 
 ## JS对象原型
 
