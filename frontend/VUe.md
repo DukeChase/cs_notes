@@ -648,6 +648,14 @@ Vuex工作原理图
 `dispatch`
 `action`  用于响应组件中的动作
 
+getters
+mapState
+mapGettes
+mapActions
+mapMutations
+
+
+模块化+命名空间
 
 
 # 第 6 章：vue-router
@@ -678,6 +686,14 @@ vue 的一个插件库，专门用来实现 SPA 应用
 1. 定义路由组件
 2. 注册路由
 3. 使用路由
+
+
+相关 API：
+1. `this.$router.push(path)`: 相当于点击路由链接(可以返回到当前路由界面)
+2. `this.$router.replace(path)`: 用新路由替换当前路由(不可以返回到当前路由界面)
+3. `this.$router.back()`: 请求(返回)上一个记录路由
+4. `this.$router.go(-1)`: 请求(返回)上一个记录路由
+5. `this.$router.go(1)`: 请求下一个记录路由
 ## Axios
 
 
