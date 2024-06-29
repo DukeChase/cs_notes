@@ -1,3 +1,7 @@
+WebApplicationInitializer
+
+spring cloud alibaba  官方教程
+https://sca.aliyun.com/learn/spring/?spm=0.29160081.0.0.3bc47d61E0FwPl
 
 当一个请求到达基于Java的Spring框架时，它会经历以下几个主要部分：
 
