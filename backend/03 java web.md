@@ -24,16 +24,16 @@
 
 标签介绍
 1. 标签的格式:
-	<标签名>封装的数据</标签名>
+	- `<标签名>封装的数据</标签名>`
 2. 标签名大小写不敏感。
 3. 标签拥有自己的属性。
 	i. 分为基本属性：`bgcolor="red" `            可以修改简单的样式效果  
 	ii. 事件属性： `onclick="alert('你好！');" ` 可以直接设置事件响应后的代码。  
 4. 标签又分为，单标签和双标签。
-	i. 单标签格式： <标签名 />  
+	i. 单标签格式： `<标签名 />`  
 		`<br/>` 换行  
 		`<hr/>` 水平线  
-	ii. 双标签格式: <标签名> ...封装的数据...</标签名>  
+	ii. 双标签格式:` <标签名> ...封装的数据...</标签名>`  
 ## 常用标签
 - 超链接
 ```html
@@ -174,7 +174,6 @@ form标签就是表单
 - `<input type=text>`     是文件输入框  value设置默认显示内容
 - `<input type=password>` 是密码输入框  value设置默认显示内容
 - `<input type=radio>`    是单选框    name属性可以对其进行分组
-- `<checked="checked">`表示默认选中
 - `<input type=checkbox>` 是复选框   checked="checked"表示默认选中
 - `<input type=reset>`    是重置按钮      value属性修改按钮上的文本
 - `<input type=submit>`  是提交按钮      value属性修改按钮上的文本
@@ -274,7 +273,7 @@ form标签就是表单
 | div  | 默认独占一行                            |
 | span | 它的长度是封装数据的长度                      |
 | p    | 段落标签 默认会在段落的上方或下方各空出一行来（如果已有就不再空） |
-## CSS层叠样式表
+# CSS层叠样式表
 选择器：浏览器根据“选择器”决定受 CSS 样式影响的 HTML 元素（标签）。  
 属性 (property) 是你要改变的样式名，并且每个属性都有一个值。  
 属性和值被冒号分开，并由花括号包围，这样就组成了一个完整的样式声明（declaration），例如：
@@ -765,7 +764,7 @@ XML解析技术介绍
 
 Servlet 程序默认是第一次访问的时候创建，`ServletConfig`是每个 `Servlet` 程序创建时，就创建一个对应的 `ServletConfig` 对象。
 
-ServletConfig 类的三大作用
+`ServletConfig` 类的三大作用
 1. 可以获取 `Servlet` 程序的别名 `servlet-name` 的值
 2. 获取初始化参数 `init-param`
 3. 获取 `ServletContext` 对象
