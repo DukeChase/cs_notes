@@ -375,6 +375,8 @@ new Vue({
 
 
 # 第3章 使用Vue脚手架
+
+使用vue.config.js可以对脚手架进行个性化定制，详情见：[Vue-Cli](https://cli.vuejs.org/zh)
 ## 脚手架开发
 初始化脚手架
 `npm install -g @vue/cli`
