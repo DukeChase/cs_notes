@@ -2186,3 +2186,7 @@ Handler对象对应的拦截器），最后以`HandlerExecutionChain`执行链�
 11) 将渲染结果返回给客户端
 
 # SSM整合
+
+spring 配置文件默认位置和名称：
+/WEB-INF/applicationContext.xml
+可通过上下文自定义spring配置文件的位置和名称
