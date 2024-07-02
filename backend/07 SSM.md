@@ -39,13 +39,14 @@ https://sca.aliyun.com/learn/spring/?spm=0.29160081.0.0.3bc47d61E0FwPl
 #### 2.1创建MyBatis核心配置文件
 文件位置：`src/main/resource/mybatis_config.xml`    `MyBatis`核心配置文件
 
+>习惯上命名为mybatis-config.xml，这个文件名仅仅只是建议，并非强制要求。将来整合Spring之后，这个配置文件可以省略，所以大家操作时可以直接复制、粘贴。
+>核心配置文件主要用于配置连接数据库的环境以及MyBatis的全局配置信息核心配置文件存放的位置是src/main/resources目录下
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration
-
-PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-
-"http://mybatis.org/dtd/mybatis-3-config.dtd">
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
   <!--设置连接数据库的环境-->
   <environments default="development">
@@ -905,7 +906,7 @@ ApplicationContext的主要实现类
 |WebApplicationContext|专门为 Web 应用准备，基于 Web 环境创建 IOC 容器对象，并将对象引入存入 ServletContext 域中。|
 
 ### 基于XML管理bean
-`G:\01 尚硅谷\SSM资料`
+
 #### 1、入门案例
 1. 引入依赖
 2. 创建类
@@ -967,14 +968,14 @@ public void testHelloWorld(){
 ```
 
 #### 5、特殊值处理
-null值
+- null值
 ```xml
 <property name="name">
 	<null />
 </property>
 ```
 
-xml实体
+- xml实体
 ```xml
 <!-- 小于号在XML文档中用来定义标签的开始，不能随便使用 -->
 
@@ -982,7 +983,7 @@ xml实体
 
 <property name="expression" value="a < b"/>
 ```
-CDATA节
+- CDATA节
 ```xml
 <property name="expression">
 	<!-- 解决方案二：使用CDATA节 -->
@@ -1230,8 +1231,8 @@ public void testDataSource() throws SQLException {
 - IOC容器关闭
 #### 13、FactoryBean
 
-FactoryBean是Spring提供的一种整合第三方框架的常用机制。和普通的bean不同，配置一个FactoryBean类型的bean，在获取bean的时候得到的并不是class属性中配置的这个类的对象，而是
-getObject()方法的返回值。通过这种机制，Spring可以帮我们把复杂组件创建的详细过程和繁琐细节都屏蔽起来，只把最简洁的使用界面展示给我们。
+`FactoryBean`是Spring提供的一种整合第三方框架的常用机制。和普通的bean不同，配置一个`FactoryBean`类型的`bean`，在获取`bean`的时候得到的并不是`class`属性中配置的这个类的对象，而是
+`getObject()`方法的返回值。通过这种机制，Spring可以帮我们把复杂组件创建的详细过程和繁琐细节都屏蔽起来，只把最简洁的使用界面展示给我们。
 将来我们整合Mybatis时，Spring就是通过FactoryBean机制来帮我们创建SqlSessionFactory对象的。
 ```java
 
@@ -1239,12 +1240,11 @@ public class UserFactoryBean implements FactoryBean<User> {
 	`@Override
 	public User getObject() throws Exception {
 	return new User();
-}
+	}
 	@Override	
 	public Class<?> getObjectType() {
 	return User.class;
-}
-
+	}
 }
 ```
 
@@ -1278,13 +1278,15 @@ public void testUserFactoryBean(){
 <bean id="userController"
 class="com.atguigu.autowire.xml.controller.UserController" autowire="byType">
 </bean>
+
 <bean id="userService"
 class="com.atguigu.autowire.xml.service.impl.UserServiceImpl" autowire="byType">
 </bean>
+
 <bean id="userDao" class="com.atguigu.autowire.xml.dao.impl.UserDaoImpl"></bean>
 ````
 2. 自动装配方式：`byName`
-将自动装配的属性的属性名，作为bean的id在IOC容器中匹配相对应的bean进行赋值  
+将自动装配的属性的属性名，作为bean的`id`在IOC容器中匹配相对应的bean进行赋值  
 ```xml
 <bean id="userController"
 class="com.atguigu.autowire.xml.controller.UserController" autowire="byName">
@@ -1351,21 +1353,23 @@ expression="com.atguigu.controller.UserController"/>-->
 ```
 #### 基于注解的自动装配
 
-导入依赖
-```
+1. 导入依赖
+```xml
 <dependencies>  
     <!-- 基于Maven依赖传递性，导入spring-context依赖即可导入当前所需所有jar包 -->  
     <dependency>  
         <groupId>org.springframework</groupId>  
         <artifactId>spring-context</artifactId>  
         <version>5.3.1</version>  
-    </dependency>    <!-- junit测试 -->  
+    </dependency>    
+    <!-- junit测试 -->  
     <dependency>  
         <groupId>junit</groupId>  
         <artifactId>junit</artifactId>  
         <version>4.12</version>  
         <scope>test</scope>  
-    </dependency></dependencies>
+    </dependency>
+</dependencies>
 ```
 
 
@@ -1375,21 +1379,21 @@ expression="com.atguigu.controller.UserController"/>-->
 - `Repository`
 
 
-②`@Autowired注解`
+2. `@Autowired`注解
 
-* 通过注解+扫描所配置的bean的id，默认值为类的小驼峰，即类名的首字母为小写的结果  
-* 可以通过标识组件的注解的value属性值设置bean的自定义的id  
-*  
-* @Autowired:实现自动装配功能的注解  
-1. @Autowired注解能够标识的位置  
+* 通过注解+扫描所配置的`bean`的`id`，默认值为类的小驼峰，即类名的首字母为小写的结果  
+* 可以通过标识组件的注解的`value`属性值设置bean的自定义的id  
+
+* `@Autowired`:实现自动装配功能的注解  
+1. `@Autowired`注解能够标识的位置  
 	* a>标识在成员变量上，此时不需要设置成员变量的set方法  
 	* b>标识在set方法上  
 	* c>标识在为当前成员变量赋值的有参构造上  
-2. @Autowired注解的原理  
-	* a>默认通过`byType`的方式，在IOC容器中通过类型匹配某个`bean`为属性赋值  
-	* b>若有多个类型匹配的`bean`，此时会自动转换为`byName`的方式实现自动装配的效果，即将要赋值的属性的属性名作为`bean`的id匹配某个`bean`为属性赋值  
-	* c>若`byType`和`byName`的方式都无妨实现自动装配，即IOC容器中有多个类型匹配的bean 且这些bean的id和要赋值的属性的属性名都不一致，此时抛异常：`NoUniqueBeanDefinitionException`  
-	* d>此时可以在要赋值的属性上，添加一个注解`@Qualifier`通过该注解的`value`属性值，指定某个`bean`的`id`，将这个`bean`为属性赋值  
+2. `@Autowired`注解的原理  
+	* 默认通过`byType`的方式，在IOC容器中通过类型匹配某个`bean`为属性赋值  
+	* 若有多个类型匹配的`bean`，此时会自动转换为`byName`的方式实现自动装配的效果，即将要赋值的属性的属性名作为`bean`的id匹配某个`bean`为属性赋值  
+	* 若`byType`和`byName`的方式都无妨实现自动装配，即IOC容器中有多个类型匹配的bean 且这些bean的id和要赋值的属性的属性名都不一致，此时抛异常：`NoUniqueBeanDefinitionException`  
+	* 此时可以在要赋值的属性上，添加一个注解`@Qualifier`通过该注解的`value`属性值，指定某个`bean`的`id`，将这个`bean`为属性赋值  
 
 * 注意：若IOC容器中没有任何一个类型匹配的bean，此时抛出异常：`NoSuchBeanDefinitionException ` 
 * 在`@Autowired`注解中有个属性`required`，默认值为true，要求必须完成自动装配  
@@ -1400,8 +1404,7 @@ expression="com.atguigu.controller.UserController"/>-->
 二十三种设计模式中的一种，属于结构型模式。它的作用就是通过提供一个*代理类*，让我们在调用目标方法的时候，不再是直接对目标方法进行调用，而是通过代理类间接调用。让不属于目标方法核心逻辑的代码从目标方法中剥离出来——*解耦*。调用目标方法时先调用代理对象的方法，减少对目标方法的调用和打扰，同时让附加功能能够集中在一起也有利于统一维护。
 
 ### AOP概念及相关术语
-概述  
-AOP（Aspect Oriented Programming）是一种设计思想，是软件设计领域中的面向切面编程，它是面向对象编程的一种补充和完善，它以通过*预编译方式和运行期动态代理方式*实现，在不修改源代码的情况下给程序动态统一添加额外功能的一种技术。
+概述：AOP（Aspect Oriented Programming）是一种设计思想，是软件设计领域中的面向切面编程，它是面向对象编程的一种补充和完善，它以通过*预编译方式和运行期动态代理方式*实现，在不修改源代码的情况下给程序动态统一添加额外功能的一种技术。
 
 相关术语
 1. 横向关注点
@@ -1532,10 +1535,10 @@ com.atguigu.aop.annotation.CalculatorImpl.*(..))", throwing = "ex")
 在spring的配置文件中配置：
 ```xml
 <!--
-基于注解的AOP的实现：
-1、将目标对象和切面交给IOC容器管理（注解+扫描）
-2、开启AspectJ的自动代理，为目标对象自动生成代理
-3、将切面类通过注解@Aspect标识
+	基于注解的AOP的实现：
+	1、将目标对象和切面交给IOC容器管理（注解+扫描）
+	2、开启AspectJ的自动代理，为目标对象自动生成代理
+	3、将切面类通过注解@Aspect标识
 -->
 <context:component-scan base-package="com.atguigu.aop.annotation">
 </context:component-scan>
@@ -1590,6 +1593,144 @@ public void beforeMethod(JoinPoint joinPoint){
 ## 声明式事务
 
 
+### JdbcTemplate
+
+### 声明式事务概念
+
+编程式事务
+```java
+Connection conn = ...;
+try {
+// 开启事务：关闭事务的自动提交conn.setAutoCommit(false);
+// 核心操作
+// 提交事务
+conn.commit();
+}catch(Exception e){
+// 回滚事务
+conn.rollBack();
+}finally{
+conn.close();
+}
+```
+声明式事务
+既然事务控制的代码有规律可循，代码的结构基本是确定的，所以框架就可以将固定模式的代码抽取出来，进行相关的封装。
+封装起来后，我们只需要在配置文件中进行简单的配置即可完成操作。
+好处1：提高开发效率
+好处2：消除了冗余的代码
+好处3：框架会综合考虑相关领域中在实际开发环境下有可能遇到的各种问题，进行了健壮性、性
+能等各个方面的优化
+所以，我们可以总结下面两个概念：
+编程式：自己写代码实现功能
+声明式：通过配置让框架实现功能
+
+
+### 基于注解的声明式事务
+
+#### 准备工作
+```xml
+<!-- 基于Maven依赖传递性，导入spring-context依赖即可导入当前所需所有jar包 -->  
+<dependency>  
+    <groupId>org.springframework</groupId>  
+    <artifactId>spring-context</artifactId>  
+    <version>5.3.1</version>  
+</dependency>  
+<!-- Spring 持久化层支持jar包 -->  
+<!-- Spring 在执行持久化层操作、与持久化层技术进行整合过程中，需要使用orm、jdbc、tx三个  
+jar包 -->  
+<!-- 导入 orm 包就可以通过 Maven 的依赖传递性把其他两个也导入 -->  
+<dependency>  
+    <groupId>org.springframework</groupId>  
+    <artifactId>spring-orm</artifactId>  
+    <version>5.3.1</version>  
+</dependency>  
+<!-- Spring 测试相关 -->  
+<dependency>  
+    <groupId>org.springframework</groupId>  
+    <artifactId>spring-test</artifactId>  
+    <version>5.3.1</version>  
+</dependency>  
+<!-- junit测试 -->  
+<dependency>  
+    <groupId>junit</groupId>  
+    <artifactId>junit</artifactId>  
+    <version>4.13.2</version>  
+    <scope>test</scope>  
+</dependency>  
+<!-- MySQL驱动 -->  
+<dependency>  
+    <groupId>mysql</groupId>  
+    <artifactId>mysql-connector-java</artifactId>  
+    <version>8.0.16</version>  
+</dependency>  
+<!-- 数据源 -->  
+<dependency>  
+    <groupId>com.alibaba</groupId>  
+    <artifactId>druid</artifactId>  
+    <version>1.0.31</version>  
+</dependency>  
+<!-- spring-aspects会帮我们传递过来aspectjweaver -->  
+<dependency>  
+    <groupId>org.springframework</groupId>  
+    <artifactId>spring-aspects</artifactId>  
+    <version>5.3.1</version>  
+</dependency>
+
+```
+#### 加入事务
+1. 添加事务配置
+```xml
+<bean id="transactionManager"
+class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+<property name="dataSource" ref="dataSource"></property>
+</bean>
+<!
+开启事务的注解驱动
+通过注解@Transactional所标识的方法或标识的类中所有的方法，都会被事务管理器管理事务
+>
+<! transaction manager属性的默认值是transactionManager，如果事务管理器bean的id正好就
+是这个默认值，则可以省略这个属性 >
+<tx:annotation driven transaction manager="transactionManager" />
+```
+2. 添加事务注解
+因为service层表示业务逻辑层，一个方法表示一个完成的功能，因此处理事务一般在`service`层处理
+在`BookServiceImpl`的`buybook()`添加注解`@Transactional`
+
+@Transactional注解标识的位置
+@Transactional标识在方法上，咋只会影响该方法
+@Transactional标识的类上，咋会影响类中所有的方法
+
+#### 事务属性：只读
+`@Transactional(readOnly = true)`
+#### 事务属性：超时
+`@Transactional(timeout = 3)`
+#### 事务属性：回滚策略
+声明式事务默认只针对运行时异常回滚，编译时异常不回滚。
+可以通过@Transactional中相关属性设置回滚策略
+rollbackFor属性：需要设置一个Class类型的对象
+rollbackForClassName属性：需要设置一个字符串类型的全类名
+noRollbackFor属性：需要设置一个Class类型的对象
+rollbackFor属性：需要设置一个字符串类型的全类名
+
+#### 事务属性：事务隔离级别
+数据库系统必须具有隔离并发运行各个事务的能力，使它们不会相互影响，避免各种并发问题。一个事务与其他事务隔离的程度称为隔离级别。SQL标准中规定了多种事务隔离级别，不同隔离级别对应不同的干扰程度，隔离级别越高，数据一致性就越好，但并发性越弱。
+隔离级别一共有四种：
+- 读未提交：READ UNCOMMITTED
+允许Transaction01读取Transaction02未提交的修改。
+- 读已提交：READ COMMITTED、
+要求Transaction01只能读取Transaction02已提交的修改。
+- 可重复读：REPEATABLE READ
+确保Transaction01可以多次从一个字段中读取到相同的值，即Transaction01执行期间禁止其它事务对这个字段进行更新。
+- 串行化：SERIALIZABLE
+确保Transaction01可以多次从一个表中读取到相同的行，在Transaction01执行期间，禁止其它事务对这个表进行添加、更新、删除操作。可以避免任何并发问题，但性能十分低下。
+
+```java
+@Transactional(isolation = Isolation.DEFAULT)//使用数据库默认的隔离级别
+@Transactional(isolation = Isolation.READ UNCOMMITTED)//读未提交@Transactional(isolation = Isolation.READ COMMITTED)//读已提交@Transactional(isolation = Isolation.REPEATABLE READ)//可重复读@Transactional(isolation = Isolation.SERIALIZABLE)//串行化
+```
+
+#### 事务属性：事务传播行为
+@Transactional(propagation = Propagation.REQUIRED)，
+@Transactional(propagation = Propagation.REQUIRES_NEW)
 # SpringMVC
 
 ## 什么是MVC
@@ -1722,7 +1863,7 @@ class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
 ## 案例总结
 浏览器发送请求，若请求地址符合前端控制器的`url-pattern`，该请求就会被前端控制器`DispatcherServlet`处理。
 **前端控制器会读取SpringMVC的核心配置文件**，通过扫描组件找到控制器，将请求地址和控制器中`@RequestMapping`注解的`value`属性值进行匹配，若匹配成功，该注解所标识的控制器方法就是处理请求的方法。
-处理请求的方法需要返回一个字符串类型的视图名称，该视图名称会被***视图解析器***解析，加上前缀和后缀组成视图的路径，通过Thymeleaf对视图进行渲染，最终转发到视图所对应页面
+处理请求的方法需要返回一个字符串类型的视图名称，该视图名称会被***视图解析器***解析，加上前缀和后缀组成视图的路径，通过`Thymeleaf`对视图进行渲染，最终转发到视图所对应页面
 
 ## @RequestMapping注解
 1. `@RequestMapping`注解标识的位置  
@@ -2124,8 +2265,8 @@ SpringMVC提供了一个处理控制器方法执行过程中所出现的异常�
 - `View`：视图
 作用：将模型数据通过页面展示给用户
 #### 14.2、DispatcherServlet初始化过程
-P174   javax.servlet.Servlet  https://www.bilibili.com/video/BV1Ya411S7aT/?p=174
-
+P174     https://www.bilibili.com/video/BV1Ya411S7aT/?p=174
+javax.servlet.Servlet
 
 `DispatcherServlet` 本质上是一个`Servlet`，所以天然的遵循 `Servlet` 的生命周期。所以宏观上是 Servlet生命周期来进行调度。(从`javax.servlet.Servlet`的`init`方法开始向下看)
 
@@ -2189,4 +2330,4 @@ Handler对象对应的拦截器），最后以`HandlerExecutionChain`执行链�
 
 spring 配置文件默认位置和名称：
 /WEB-INF/applicationContext.xml
-可通过上下文自定义spring配置文件的位置和名称
+	可通过上下文自定义spring配置文件的位置和名称   
