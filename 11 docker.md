@@ -190,14 +190,14 @@ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
 
 ## Dockerfile
 
-使用dockerfile 定制镜像
+使用`dockerfile`定制镜像
 
 ```dockerfile
 FROM nginx
 RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
 ```
 
-`FROM`
+`FROM`  --platform=linux64
 
 
 `COPY`
@@ -225,7 +225,7 @@ RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
 ## 进入容器
 `docker container attach`    _注意：_ 如果从这个 stdin 中 exit，会导致容器的停止。
 
-`docker container exec -itd containerID bin/bash`
+`docker container exec -itd containerID /bin/bash`
 
 `docker container rm containerid`
 

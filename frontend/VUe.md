@@ -658,17 +658,21 @@ Vuex工作原理图
 2. `action`中调用`commit`
 3. `mutation`  用于操作数据（state）
 
-`dispatch`
+组件中`this.$store.dispatch`  触发`action`
 `action`  用于响应组件中的动作
 
-getters
+`getters`
+
+
 mapState
 mapGettes
 mapActions
-mapMutations
+mapMutations 
 
 
 模块化+命名空间
+
+`namespaced`
 
 
 # 第 6 章：vue-router
