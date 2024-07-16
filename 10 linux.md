@@ -1,4 +1,79 @@
 reference: 鸟哥的linux私房菜
+
+# shell 
+
+```bash
+cat /etc/shells
+
+echo $SHELL
+
+#!/bin/bash
+
+x = 1
+y = "this is a string"
+echo $x
+echo $y
+
+arr = (1 2 3 4)
+echo ${arr[@]}
+echo ${arr[0]}
+
+
+files = $(ls)
+echo ${files[@]}
+
+
+
+export MY_ENV=1000
+echo $MY_ENV
+
+# 默认值  但不赋值
+echo ${var1:-"hello1"}
+# 默认值 且赋值
+echo ${var2:="hello2"}
+
+# 脚本名称
+echo $0
+# 脚本第一个参数
+echo $1
+echo $2
+echo $3
+# 脚本参数个数
+echo $#
+
+a=1
+b=2
+if [ $a -gt $b]; then
+	echo "a 更大"
+else
+	echo "a 更小"
+fi
+
+
+for num in 1 2 3 4 5; do
+	echo "this is : $num"
+done
+
+for file in $(ls); do
+	echo $file
+done
+
+num=1
+while (($num<5)); do
+	echo $num
+	let "num++"
+done
+
+function bidaxiao(){
+	if [ $1 -gt $2 ]; then
+		echo "big"
+	else
+		echo "small"
+	fi
+}
+
+bidaxiao 1 3
+```
 # 权限
 ```
 -rw-r--r--. 1 root root  376 7月  20 10:44 web.xml

@@ -704,6 +704,34 @@ vue 的一个插件库，专门用来实现 SPA 应用
 2. 注册路由
 3. 使用路由
 
+路由组件 的切换会导致旧组件的销毁和组件的创建（生命周期）
+
+嵌套（多级）路由
+
+路由的query参数
+
+命名路由
+name
+params参数
+
+路由props
+
+编程式路由导航
+
+缓存路由组件
+`<keepAlive>`
+两个新的生命周期钩子
+
+路由守卫
+
+router.beforeEach
+```
+router.afterEach
+```
+
+beforeEnter
+
+
 
 相关 API：
 1. `this.$router.push(path)`: 相当于点击路由链接(可以返回到当前路由界面)
@@ -711,7 +739,14 @@ vue 的一个插件库，专门用来实现 SPA 应用
 3. `this.$router.back()`: 请求(返回)上一个记录路由
 4. `this.$router.go(-1)`: 请求(返回)上一个记录路由
 5. `this.$router.go(1)`: 请求下一个记录路由
+
+
+
 ## Axios
+
+
+
+
 
 
 
