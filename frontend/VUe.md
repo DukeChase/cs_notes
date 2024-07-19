@@ -64,16 +64,80 @@ new Vue({
 ```
 ## 理解mvvm
 model
-view
+
 model-view
+
+view
 ## 数据代理
+
+### Object.defineProperty
+
+```js
+let number = 18
+let person = {
+	name:'张三',
+	sex:'男',
+}
+Object.defineProperty(person,'age',{
+	// value:18,
+	// enumerable:true, //控制属性是否可以枚举，默认值是false
+	// writable:true, //控制属性是否可以被修改，默认值是false
+	// configurable:true //控制属性是否可以被删除，默认值是false
+	//当有人读取person的age属性时，get函数(getter)就会被调用，且返回值就是age的值
+	
+	get(){
+	console.log('有人读取age属性了')
+	return number
+	},
+	//当有人修改person的age属性时，set函数(setter)就会被调用，且会收到修改的具体值
+	
+	set(value){
+	console.log('有人修改了age属性，且值是',value)
+	number = value
+}
+})
+console.log(Object.keys(person))
+```
+
+`Object.keys`不会输出defineProperty的属性
+
+
+数据代理：通过一个对象代理对另一个对象中属性的操作
 
 ## 事件处理
 1. 使用`v-on:xxx` 或 `@xxx `绑定事件，其中`xxx`是事件名；
 2. 事件的回调需要配置在`methods`对象中，最终会在vm上；
-3. `methods`中配置的函数，不要用箭头函数！否则this就不是vm了；
-4. `methods`中配置的函数，都是被Vue所管理的函数，this的指向是vm 或 组件实例对象；
+3. `methods`中配置的函数，不要用箭头函数！否则`this`就不是`vm`了；
+4. `methods`中配置的函数，都是被Vue所管理的函数，`this`的指向是`vm` 或 组件实例对象；
 5. `@click="demo"` 和 `@click="demo($event)"` 效果一致，但后者可以传参；
+
+### Vue中的事件修饰符：
+
+1. `prevent`：阻止默认事件（常用）；
+2. `stop`：阻止事件冒泡（常用）；
+3. `once`：事件只触发一次（常用）；
+4. `capture`：使用事件的捕获模式；
+5. `self`：只有event.target是当前操作的元素时才触发事件；
+6. `passive`：事件的默认行为立即执行，无需等待事件回调执行完毕；
+
+### 键盘事件
+1. Vue中常用的按键别名：
+	- 回车 => enter
+	- 删除 => delete (捕获“删除”和“退格”键)
+	- 退出 => esc
+	- 空格 => space
+	- 换行 => tab (特殊，必须配合keydown去使用)
+	- 上 => up
+	- 下 => down
+	- 左 => left
+	- 右 => right
+1. Vue未提供别名的按键，可以使用按键原始的key值去绑定，但注意要转为kebab-case（短横线命名）
+2. 系统修饰键（用法特殊）：ctrl、alt、shift、meta
+(1).配合keyup使用：按下修饰键的同时，再按下其他键，随后释放其他键，事件才被触发。
+(2).配合keydown使用：正常触发事件。
+4. 也可以使用keyCode去指定具体的按键（不推荐）
+
+5. Vue.config.keyCodes.自定义键名 = 键码，可以去定制按键别名
 ## 计算属性
 
 计算属性：
@@ -92,79 +156,93 @@ const vm = new Vue({
 	el:'#root',
 	data:{
 		firstName:'张',
-		lastName:'三',
+		lastName:'三'
 	},
-
-computed:{
-	//完整写法
-	/* fullName:{
-	get(){
-	console.log('get被调用了')
-	return this.firstName + '-' + this.lastName
-	},
-	set(value){
-	console.log('set',value)
-	const arr = value.split('-')
-	this.firstName = arr[0]
-	this.lastName = arr[1]
-	}
-	} */
-	//简写
-	fullName(){
-		console.log('get被调用了')
-		return this.firstName + '-' + this.lastName
+	computed:{
+		//完整写法
+		fullName:{
+			get(){
+				console.log('get被调用了')
+				return this.firstName + '-' + this.lastName
+			},
+			set(value){
+				console.log('set',value)
+				const arr = value.split('-')
+				this.firstName = arr[0]
+				this.lastName = arr[1]
+			}，
+		},
+		//简写
+		fullName(){
+			console.log('get被调用了')
+			return this.firstName + '-' + this.lastName
 		}
 	}
 })
 ```
 
 ## 监视属性
-监视属性watch：
+监视属性`watch`：
 1. 当被监视的属性变化时, 回调函数自动调用, 进行相关操作
 2. 监视的属性必须存在，才能进行监视！！
 3. 监视的两种写法：
-	1. new Vue时传入watch配置
-	2. 通过vm.$watch监视
+	1. `new Vue`时传入`watch`配置
+	2. 通过`vm.$watch`监视
 
 ```js
 const vm = new Vue({
 	el:'#root',
 	data:{
 		isHot:true,
+		numbers:{
+			a:1,
+			b:1,
+			c:{
+			d:{
+				e:100
+			}
+		}}	
 	},
 	computed:{
 	info(){
 		return this.isHot ? '炎热' : '凉爽'
 	}
 	},
-
 	methods: {
 		changeWeather(){
 		this.isHot = !this.isHot
 		}
 	},
-	/* watch:{
+	watch:{
 		isHot:{
 			immediate:true, //初始化时让handler调用一下
 			//handler什么时候调用？当isHot发生改变时。
 			handler(newValue,oldValue){
 			console.log('isHot被修改了',newValue,oldValue)
 			}
+		},
+		numbers:{
+			deep: ture,
+			hadler(){
+				console.log('numbers changed!')
+			}
 		}
-	} */
+	}
 })
+```
+
+```js
 vm.$watch('isHot',{
 	immediate:true, //初始化时让handler调用一下
 	//handler什么时候调用？当isHot发生改变时。
 	handler(newValue,oldValue){
 	console.log('isHot被修改了',newValue,oldValue)
 }
-
 })
 ```
 watch
-deep
-immediate
+`deep`
+`immediate`
 深度监视
 ## 绑定样式
 
@@ -182,22 +260,87 @@ immediate
 ## 条件渲染
 `v-if`
 `v-show`
+
+1. v-if
+	- `v-if="表达式"`
+	- `v-else-if="表达式"`
+	- `v-else="表达式"`
+
+- 适用于：切换频率较低的场景。
+- 特点：不展示的DOM元素直接被移除。
+- 注意：`v-if`可以和:`v-else-if`、`v-else`一起使用，但要求结构不能被“打断”。
+
+2. v-show
+	- v-show="表达式"
+	- 适用于：切换频率较高的场景。
+	- 特点：不展示的DOM元素未被移除，仅仅是使用样式隐藏掉
+
+3. 备注：使用v-if的时，元素可能无法获取到，而使用v-show一定可以获取到。
 ## 列表渲染
 v-for指令:
 
 1. 用于展示列表数据
-2. 语法：`v-for="(item, index) in xxx" :key="yyy"`
+2. 语法：`v-for="(item, index) in items" :key="item.id"`
 3. 可遍历：数组、对象、字符串（用的很少）、指定次数（用的很少）
-
-key的作用和原理
 
 ```html
 <li v-for:"(p,index) in persons" :key="p.id">
 	{{p.name}} --- {{p.age}}
 <li>
 ```
+key的作用和原理
+
+面试题：react、vue中的key有什么作用？（key的内部原理）
+
+1. 虚拟DOM中key的作用：
+key是虚拟DOM对象的标识，当数据发生变化时，Vue会根据【新数据】生成【新的虚拟DOM】,
+随后Vue进行【新虚拟DOM】与【旧虚拟DOM】的差异比较，比较规则如下：
+
+2. 对比规则：
+	1. 旧虚拟DOM中找到了与新虚拟DOM相同的key：
+		1. 若虚拟DOM中内容没变, 直接使用之前的真实DOM！
+		2. 若虚拟DOM中内容变了, 则生成新的真实DOM，随后替换掉页面中之前的真实DOM。
+	2. 旧虚拟DOM中未找到与新虚拟DOM相同的key，创建新的真实DOM，随后渲染到到页面。
+
+3. 用index作为key可能会引发的问题：
+	1. 若对数据进行：逆序添加、逆序删除等破坏顺序操作:会产生没有必要的真实DOM更新 ==> 界面效果没问题, 但效率低。
+	2. 如果结构中还包含输入类的DOM：会产生错误DOM更新 ==> 界面有问题。
+4. 开发中如何选择key?:
+	1. 最好使用每条数据的唯一标识作为key, 比如id、手机号、身份证号、学号等唯一值。
+	2. 如果不存在对数据的逆序添加、逆序删除等破坏顺序操作，仅用于渲染列表用于展示，使用index作为key是没有问题的。
+
 
 列表过滤
+
+```js
+new Vue({
+el:'#root',
+	data:{
+	keyWord:'',
+	persons:[
+	{id:'001',name:'马冬梅',age:19,sex:'女'},
+	{id:'002',name:'周冬雨',age:20,sex:'女'},
+	{id:'003',name:'周杰伦',age:21,sex:'男'},
+	{id:'004',name:'温兆伦',age:22,sex:'男'}	
+	]
+},
+
+computed:{
+	filPerons(){
+	return this.persons.filter((p)=>{
+		return p.name.indexOf(this.keyWord) !== -1
+	})
+	if(this.sortType){
+		arr.sort((p1,p2)=>{
+		return this.sortType === 1 ? p2.age-p1.age : p1.age-p2.age
+		})
+	}
+	return arr
+}
+}
+
+})
+```
 
 Vue.set
 
@@ -205,20 +348,20 @@ Vue监视数据的原理：
 
 1. vue会监视data中所有层次的数据。
 2. 如何监测对象中的数据？
-	1. 通过setter实现监视，且要在new Vue时就传入要监测的数据。
+	1. 通过`setter`实现监视，且要在`new Vue`时就传入要监测的数据。
 		(1).对象中后追加的属性，Vue默认不做响应式处理
 		(2).如需给后添加的属性做响应式，请使用如下API：
 		`Vue.set(target，propertyName/index，value)` 或	
 		`vm.$set(target，propertyName/index，value)`
 3. 如何监测数组中的数据？
 	通过包裹数组更新元素的方法实现，本质就是做了两件事：
-	(1).调用原生对应的方法对数组进行更新。
-	(2).重新解析模板，进而更新页面。
+	1. 调用原生对应的方法对数组进行更新。
+	2. 重新解析模板，进而更新页面。
 4. 在Vue修改数组中的某个元素一定要用如下方法：
 	1. 使用这些API:`push()、pop()、shift()、unshift()、splice()、sort()、reverse()`
 	2. `Vue.set() `或 `vm.$set()`
 
-特别注意：Vue.set() 和 vm.$set() 不能给vm 或 vm的根数据对象 添加属性！！！
+特别注意：`Vue.set()` 和 `vm.$set()` 不能给vm 或 vm的根数据对象 添加属性！！！
 
 ## 收集表单数据
 
@@ -232,19 +375,19 @@ Vue监视数据的原理：
 1. 过滤器也可以接收额外参数、多个过滤器也可以串联
 2. 并没有改变原本的数据, 是产生新的对应的数据
 ## 内置指令
-v-text
-v-html
-v-clock
-v-once
-v-pre
+`v-text`
+`v-html`
+`v-clock`
+`v-once`
+`v-pre`
 ## 自定义指令
 
-需求1：定义一个v-big指令，和v-text功能类似，但会把绑定的数值放大10倍。
-需求2：定义一个v-fbind指令，和v-bind功能类似，但可以让其所绑定的input元素默认获取焦点。
+需求1：定义一个`v-big`指令，和`v-text`功能类似，但会把绑定的数值放大10倍。
+需求2：定义一个`v-fbind`指令，和`v-bind`功能类似，但可以让其所绑定的input元素默认获取焦点。
 
 自定义指令总结：
 一、定义语法：
-(1).局部指令：
+1. 局部指令：
 ```js
 new Vue({ new Vue({
 
@@ -252,21 +395,21 @@ directives:{指令名:配置对象} 或 directives{指令名:回调函数}
 
 }) })
 ```
-(2).全局指令：
+
+2. 全局指令：
 ```js
 Vue.directive(指令名,配置对象) 或 Vue.directive(指令名,回调函数)
 ```
 
 二、配置对象中常用的3个回调：
 
-(1).bind：指令与元素成功绑定时调用。
-(2).inserted：指令所在元素被插入页面时调用。
-(3).update：指令所在模板结构被重新解析时调用。
+1. `bind`：指令与元素成功绑定时调用。
+2. `inserted`：指令所在元素被插入页面时调用。
+3. `update`：指令所在模板结构被重新解析时调用。
 
 三、备注：
 1. 指令定义时不加v-，但使用时要加v-；
-2. 指令名如果是多个单词，要使用kebab-case命名方式，不要用camelCase命名。
-生命周期
+2. 指令名如果是多个单词，要使用`kebab-case`命名方式，不要用`camelCase`命名。
 
 ## 生命周期
 生命周期：
@@ -276,71 +419,71 @@ Vue.directive(指令名,配置对象) 或 Vue.directive(指令名,回调函数)
 4. 生命周期函数中的`this`指向是`vm` 或 组件实例对象`vc`。
 
 - 初始化显示
-	- beforeCreate
-	- created
-	- beforeCreated
-	- mounted
+	- `beforeCreate`
+	- `created`
+	- `beforeCreated`
+	- `mounted`
 - 更新状态
-	- beforeUpdate
-	- updated
+	- `beforeUpdate`
+	- `updated`
 - 销毁
-	- beforeDestroy
-	- destroyed
+	- `beforeDestroy`
+	- `destroyed`
 `mounted` //Vue完成模板的解析并把初始的真实DOM元素放入页面后（挂载完毕）调用mounted
 
 ```js
 new Vue({
-            el:'#root',
-            // template:`
-            //  <div>
-            //      <h2>当前的n值是：{{n}}</h2>
-            //      <button @click="add">点我n+1</button>
-            //  </div>
-            // `,
-            data:{
-                n:1
-            },
-            methods: {
-                add(){
-                    console.log('add')
-                    this.n++
-                },
-                bye(){
-                    console.log('bye')
-                    this.$destroy()
-                }
-            },
-            watch:{
-                n(){
-                    console.log('n变了')
-                }
-            },
-            beforeCreate() {
-                console.log('beforeCreate')
-            },
+	el:'#root',
+	// template:`
+	//  <div>
+	//      <h2>当前的n值是：{{n}}</h2>
+	//      <button @click="add">点我n+1</button>
+	//  </div>
+	// `,
+	data:{
+		n:1
+	},
+	methods: {
+		add(){
+			console.log('add')
+			this.n++
+		},
+		bye(){
+			console.log('bye')
+			this.$destroy()
+		}
+	},
+	watch:{
+		n(){
+			console.log('n变了')
+		}
+	},
+	beforeCreate() {
+		console.log('beforeCreate')
+	},
 
-            created() {
-                console.log('created')
-            },
-            beforeMount() {
-                console.log('beforeMount')
-            },
-            mounted() {
-                console.log('mounted')
-            },
-            beforeUpdate() {
-                console.log('beforeUpdate')
-            },
-            updated() {
-                console.log('updated')
-            },
-            beforeDestroy() {
-                console.log('beforeDestroy')
-            },
-            destroyed() {
-                console.log('destroyed')
-            },
-        })
+	created() {
+		console.log('created')
+	},
+	beforeMount() {
+		console.log('beforeMount')
+	},
+	mounted() {
+		console.log('mounted')
+	},
+	beforeUpdate() {
+		console.log('beforeUpdate')
+	},
+	updated() {
+		console.log('updated')
+	},
+	beforeDestroy() {
+		console.log('beforeDestroy')
+	},
+	destroyed() {
+		console.log('destroyed')
+	},
+})
 ```
 常用的生命周期钩子：
 1. `mounted:` 发送ajax请求、启动定时器、绑定自定义事件、订阅消息等【初始化操作】。
@@ -356,9 +499,9 @@ new Vue({
 
 ## 单文件组件
 - 组成
-	- 模版 template
-	- js
-	- 样式css
+	- 模版 `template`
+	- `js`
+	- 样式`css`
 
 ## Vue
 | 指令      | 简写  | 描述         |
@@ -371,8 +514,6 @@ new Vue({
 | v-if    |     |            |
 | v-for   |     |            |
 | v-bind  | :   | 作用在html属性上 |
-|         |     |            |
-
 
 # 第3章 使用Vue脚手架
 
