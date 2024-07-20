@@ -554,44 +554,46 @@ npm  类似于`maven`，是js依赖包的管理工具
 }
 ```
 ## ref属性
-在模版标签内 添加`ref`属性   给节点打标签
+在模版标签或html标签内 添加`ref`属性   给节点打标签
 在vm实例内部可以通过`this.$refs.name`获得真实的dom对象或组件实例对象。
 ## props配置
+父组件中使用组件名创建子组件实，通过标签属性传值。
 子组件接收props的几种方式
 ```js
-		//简单声明接收
-        // props:['name','age','sex']
-        //接收的同时对数据进行类型限制
-        /* props:{
-            name:String,
-            age:Number,
-            sex:String
-        } */
-        //接收的同时对数据：进行类型限制+默认值的指定+必要性的限制
-        props:{
-            name:{
-                type:String, //name的类型是字符串
-                required:true, //name是必要的
-            },
-            age:{
-                type:Number,
-                default:99 //默认值
-            },
-            sex:{
-                type:String,
-                required:true
-            }
-        }
+	//简单声明接收
+	// props:['name','age','sex']
+	//接收的同时对数据进行类型限制
+	/* props:{
+		name:String,
+		age:Number,
+		sex:String
+	} */
+	//接收的同时对数据：进行类型限制+默认值的指定+必要性的限制
+	props:{
+		name:{
+			type:String, //name的类型是字符串
+			required:true, //name是必要的
+		},
+		age:{
+			type:Number,
+			default:99 //默认值
+		},
+		sex:{
+			type:String,
+			required:true
+		}
+	}
 ```
 
-## mixin混入
+## `mixin`混入(合)
 1. 功能：可以把多个组件共用的配置提取成一个混入对象
 2. 使用方式：
     - 第一步定义mixin混合：
     ```
     {
         data(){....},
-        methods:{....}
+        methods:{....},
+        create:{ ... }
         ....
     }
     ```
@@ -601,7 +603,7 @@ npm  类似于`maven`，是js依赖包的管理工具
 ## 插件
 1. Vue 插件是一个包含 install 方法的对象
 2. 通过 install 方法给 Vue 或 Vue 实例添加方法, 定义全局指令等
-plugin.js
+`plugin.js`
 ```js
 export default {
     install(Vue,x,y,z){
@@ -678,10 +680,10 @@ this.$refs.header.$on('addTodo', this.addTodo)
 `this.$emit('addTodo', todo)`
 ## 全局事件总线
 1. Vue 原型对象上包含事件处理的方法
-	1.  $on(eventName, listener): 绑定自定义事件监听
-	2. $emit(eventName, data): 分发自定义事件
-	3. $off(eventName): 解绑自定义事件监听
-	4. $once(eventName, listener): 绑定事件监听, 但只能处理一次
+	1.  `$on(eventName, listener)`: 绑定自定义事件监听
+	2. `$emit(eventName, data)`: 分发自定义事件
+	3. `$off(eventName)`: 解绑自定义事件监听
+	4. `$once(eventName, listener)`: 绑定事件监听, 但只能处理一次
 2. 所有组件实例对象的原型对象的原型对象就是 Vue 的原型对象
 	1. 所有组件对象都能看到 Vue 原型对象上的属性和方法
 	2. `Vue.prototype.$bus = new Vue()`, 所有的组件对象都能看到`$bus` 这个属性 对象
@@ -714,7 +716,7 @@ new Vue({
 ```js
 this.$globalEventBus.$on('deleteTodo', this.deleteTodo)
 ```
-分发时间
+触发事件
 ```js
 this.$globalEventBus.$emit('deleteTodo', this.index)
 ```
@@ -788,11 +790,11 @@ vue-resource
 
 概念：专门在 Vue 中实现集中式状态（数据）管理的一个 Vue 插件，对 vue 应 用中多个组件的共享状态进行集中式的管理（读/写），也是一种组件间通信的方 式，且适用于任意组件间通信。
 
-什么时候用Vuex
+什么时候用`Vuex`
 1. 多个组件依赖于同一状态
 2. 来自不同组件的行为需要变更同一状态
 
-Vuex工作原理图
+`Vuex`工作原理图
 ![](https://duke-1258882975.cos.ap-guangzhou.myqcloud.com/picture/202406291119772.png)
 
 1. `state`  用于存储数据
@@ -805,10 +807,73 @@ Vuex工作原理图
 `getters`
 
 
-mapState
-mapGettes
-mapActions
-mapMutations 
+- `mapState`
+- `mapGettes`
+- `mapActions`
+- `mapMutations`
+```js
+import {mapState,mapGetters,mapMutations,mapActions} from 'vuex'
+export default {
+	name:'Count',
+	data() {
+		return {
+			n:1, //用户选择的数字
+		}
+	},
+	computed:{
+	//靠程序员自己亲自去写计算属性
+	/* sum(){
+	return this.$store.state.sum
+	},
+	school(){
+	return this.$store.state.school
+	},
+	subject(){
+	return this.$store.state.subject
+	}, */
+	//借助mapState生成计算属性，从state中读取数据。（对象写法）
+	// ...mapState({he:'sum',xuexiao:'school',xueke:'subject'}),
+	//借助mapState生成计算属性，从state中读取数据。（数组写法）
+	...mapState(['sum','school','subject']),
+	
+	/* ******************************************************************** */
+	/* bigSum(){
+	
+	return this.$store.getters.bigSum
+	}, */
+	//借助mapGetters生成计算属性，从getters中读取数据。（对象写法）
+	// ...mapGetters({bigSum:'bigSum'})
+	//借助mapGetters生成计算属性，从getters中读取数据。（数组写法）
+	...mapGetters(['bigSum'])
+	},
+	methods: {
+		//程序员亲自写方法
+		/* increment(){
+		this.$store.commit('JIA',this.n)
+		},
+		decrement(){
+		this.$store.commit('JIAN',this.n)
+		}, */
+		//借助mapMutations生成对应的方法，方法中会调用commit去联系mutations(对象写法)
+		...mapMutations({increment:'JIA',decrement:'JIAN'}),
+		//借助mapMutations生成对应的方法，方法中会调用commit去联系mutations(数组写法)
+		// ...mapMutations(['JIA','JIAN']),
+		/* ************************************************* */
+		//程序员亲自写方法
+		/* incrementOdd(){
+		this.$store.dispatch('jiaOdd',this.n)
+		},
+		incrementWait(){
+		this.$store.dispatch('jiaWait',this.n)
+		}, */
+		//借助mapActions生成对应的方法，方法中会调用dispatch去联系actions(对象写法)
+		...mapActions({incrementOdd:'jiaOdd',incrementWait:'jiaWait'})
+		//借助mapActions生成对应的方法，方法中会调用dispatch去联系actions(数组写法)
+		// ...mapActions(['jiaOdd','jiaWait'])
+	},
+
+}
+```
 
 
 模块化+命名空间
@@ -840,39 +905,211 @@ vue 的一个插件库，专门用来实现 SPA 应用
 		2. 工作过程：当浏览器的路径改变时, 对应的组件就会显示。
 
 ## 基本路由
+
+路由器 `router`
+路由 `route`
+很多组`route` 组成了一个`router`
 总结：编写使用路由的3步
 1. 定义路由组件
 2. 注册路由
-3. 使用路由
+4. 使用路由
 
-路由组件 的切换会导致旧组件的销毁和组件的创建（生命周期）
+```js
+//创建并暴露一个路由器
+
+export default new VueRouter({
+routes:[
+	{
+		path:'/about',
+		component:About
+	},
+	{
+		path:'/home',
+		component:Home
+	}
+	]
+})
+```
+
+```html
+<router-link class="list-group-item" active-class="active" to="/home">Home</router-link>
+
+<router-view></router-view>
+```
+
 
 嵌套（多级）路由
+```js
+//创建并暴露一个路由器
+
+export default new VueRouter({
+	routes:[
+		{
+			path:'/about',
+			component:About
+		},
+		{
+			path:'/home',
+			component:Home,
+			children:[
+				{
+					path:'news',  // 子路由不用斜杠开头
+					component:News,
+				},
+				{
+					path:'message',
+					component:Message,
+				}
+			]
+		}
+	]
+})
+```
 
 路由的query参数
+```html
+<!-- 跳转路由并携带query参数，to的字符串写法 -->
+<!-- <router-link :to="`/home/message/detail?id=${m.id}&title=${m.title}`">{{m.title}}</router-link>&nbsp;&nbsp; -->
+<!-- 跳转路由并携带query参数，to的对象写法 -->
 
+<router-link :to="{
+		path:'/home/message/detail',
+		query:{
+		id:m.id,
+		title:m.title
+	}
+}">
+{{m.title}}
+</router-link>
+```
 命名路由
 name
-params参数
+```html
+<!-- 跳转路由并携带query参数，to的字符串写法 -->
+<!-- <router-link :to="`/home/message/detail?id=${m.id}&title=${m.title}`">{{m.title}}</router-link>&nbsp;&nbsp; -->
+<!-- 跳转路由并携带query参数，to的对象写法 -->
+<router-link :to="{
+	name:'xiangqing',
+	query:{
+	id:m.id,
+	title:m.title
+}
+}">
+{{m.title}}
+</router-link>
+```
+params参数   pathparameter
+```html
+<!-- 跳转路由并携带params参数，to的字符串写法 -->
+<!-- <router-link :to="`/home/message/detail/${m.id}/${m.title}`">{{m.title}}</router-link>&nbsp;&nbsp; -->
+<!-- 跳转路由并携带params参数，to的对象写法 -->
 
+<router-link :to="{
+	name:'xiangqing',
+	params:{
+	id:m.id,
+	title:m.title
+}
+}">
+{{m.title}}
+</router-link>
+```
 路由props
+```js
+//props的第一种写法，值为对象，该对象中的所有key-value都会以props的形式传给Detail组件。
+// props:{a:1,b:'hello'}
+//props的第二种写法，值为布尔值，若布尔值为真，就会把该路由组件收到的所有params参数，以props的形式传给Detail组件。
+// props:true
+//props的第三种写法，值为函数
+props($route){
+	return {
+		id:$route.query.id,
+		title:$route.query.title,
+		a:1,
+		b:'hello'
+	}
+}
+```
+
+router-link的replaces属性
 
 编程式路由导航
 
 缓存路由组件
 `<keepAlive>`
+
+路由组件 的切换会导致旧组件的销毁和组件的创建（生命周期）
 两个新的生命周期钩子
+`activate`   `deactivate`
 
 路由守卫
 
-router.beforeEach
+全局路由守卫
+```js
+//全局前置路由守卫————初始化的时候被调用、每次路由切换之前被调用
+router.beforeEach((to,from,next)=>{
+console.log('前置路由守卫',to,from)
+	if(to.meta.isAuth){ //判断是否需要鉴权
+		if(localStorage.getItem('school')==='atguigu'){
+		next()
+		}else{
+		alert('学校名不对，无权限查看！')
+		}
+	}else{
+		next()
+	}
+})
+
+//全局后置路由守卫————初始化的时候被调用、每次路由切换之后被调用
+router.afterEach((to,from)=>{
+console.log('后置路由守卫',to,from)
+document.title = to.meta.title || '硅谷系统'
+})
 ```
-router.afterEach
+
+独享路由守卫   单独在路由守卫中配置
+```js
+{
+	name:'xinwen',
+	path:'news',
+	component:News,
+	meta:{isAuth:true,title:'新闻'},
+	beforeEnter: (to, from, next) => {
+		console.log('独享路由守卫',to,from)
+		if(to.meta.isAuth){ //判断是否需要鉴权
+			if(localStorage.getItem('school')==='atguigu'){
+				next()
+			}else{
+				alert('学校名不对，无权限查看！')
+			}
+		}else{
+			next()
+		}
+	}
+}
 ```
 
-beforeEnter
-
-
+组件内路由守卫
+```js
+//通过路由规则，进入该组件时被调用
+beforeRouteEnter (to, from, next) {
+	console.log('About--beforeRouteEnter',to,from)
+	if(to.meta.isAuth){ //判断是否需要鉴权
+		if(localStorage.getItem('school')==='atguigu'){
+			next()
+		}else{
+			alert('学校名不对，无权限查看！')
+		}
+	}else{
+	next()
+	}
+},
+//通过路由规则，离开该组件时被调用
+beforeRouteLeave (to, from, next) {
+	console.log('About--beforeRouteLeave',to,from)
+	next()
+}
+```
 
 相关 API：
 1. `this.$router.push(path)`: 相当于点击路由链接(可以返回到当前路由界面)
@@ -881,7 +1118,7 @@ beforeEnter
 4. `this.$router.go(-1)`: 请求(返回)上一个记录路由
 5. `this.$router.go(1)`: 请求下一个记录路由
 
-
+history模式和hash模式
 
 ## Axios
 
