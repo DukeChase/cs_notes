@@ -14,6 +14,19 @@ y = "this is a string"
 echo $x
 echo $y
 
+[dmtsai@study ~]$ name=VBird 
+[dmtsai@study ~]$ echo $name 
+VBird
+
+[dmtsai@study ~]$ myname="$name its me"
+
+[dmtsai@study ~]$ echo $myname 
+VBird its me 
+
+[dmtsai@study ~]$ myname='$name its me' 
+[dmtsai@study ~]$ echo $myname 
+$name its me
+
 arr = (1 2 3 4)
 echo ${arr[@]}
 echo ${arr[0]}
