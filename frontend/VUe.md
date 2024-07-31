@@ -31,8 +31,48 @@ promise
 
 # VUE basic
 
+## 初识Vue
+1. 想让Vue工作，就必须创建一个Vue实例，且要传入一个配置对象；
+2. root容器里的代码依然符合html规范，只不过混入了一些特殊的Vue语法；
+3. root容器里的代码被称为【Vue模板】；
+4. Vue实例和容器是一一对应的；
+5. 真实开发中只有一个Vue实例，并且会配合着组件一起使用；
+6. `{{xxx}}`中的`xxx`要写js表达式，且xxx可以自动读取到data中的所有属性；
+7. 一旦data中的数据发生改变，那么页面中用到该数据的地方也会自动更新；
+
+
+注意区分：js表达式 和 js代码(语句)
+1. 表达式：一个表达式会产生一个值，可以放在任何一个需要值的地方：
+	-  `a`
+	- `a+b`
+	-  `demo(1)`
+	- `x === y ? 'a' : 'b'`
+
+2. js代码(语句)
+	- ` if(){}`
+	- `for(){}`
 ## 模版语法
-`{{msg}}`
+
+Vue模板语法有2大类：
+
+1. 插值语法：
+	- 功能：用于解析标签体内容。
+	- 写法：{{xxx}}，xxx是js表达式，且可以直接读取到data中的所有属性。
+
+2. 指令语法：
+	- 功能：用于解析标签（包括：标签属性、标签体内容、绑定事件.....）。
+	- 举例：`v-bind:href="xxx" `或 简写为` :href="xxx"`，xxx同样要写`js`表达式，且可以直接读取到data中的所有属性。
+	- 备注：Vue中有很多的指令，且形式都是：v-????，此处我们只是拿v-bind举个例子。
+```html
+<div id="root">
+	<h1>插值语法</h1>
+	<h3>你好，{{name}}</h3>
+	<hr/>
+	<h1>指令语法</h1>
+	<a v-bind:href="school.url.toUpperCase()" x="hello">点我去{{school.name}}学习1</a>
+	<a :href="school.url" x="hello">点我去{{school.name}}学习2</a>
+</div>
+```
 ## 数据绑定
 
 el 和 data 的两种写法
@@ -57,7 +97,7 @@ new Vue({
 	data(){
 		console.log('@@@',this) //此处的this是Vue实例对象
 		return{
-		name:'尚硅谷'
+			name:'尚硅谷'
 		}
 	}
 })
@@ -94,7 +134,7 @@ Object.defineProperty(person,'age',{
 	set(value){
 	console.log('有人修改了age属性，且值是',value)
 	number = value
-}
+	}
 })
 console.log(Object.keys(person))
 ```
@@ -133,20 +173,20 @@ console.log(Object.keys(person))
 	- 右 => right
 1. Vue未提供别名的按键，可以使用按键原始的key值去绑定，但注意要转为kebab-case（短横线命名）
 2. 系统修饰键（用法特殊）：ctrl、alt、shift、meta
-(1).配合keyup使用：按下修饰键的同时，再按下其他键，随后释放其他键，事件才被触发。
-(2).配合keydown使用：正常触发事件。
-4. 也可以使用keyCode去指定具体的按键（不推荐）
+	1. 配合keyup使用：按下修饰键的同时，再按下其他键，随后释放其他键，事件才被触发。
+	2. 配合keydown使用：正常触发事件。
+3. 也可以使用keyCode去指定具体的按键（不推荐）
 
-5. Vue.config.keyCodes.自定义键名 = 键码，可以去定制按键别名
+4. `Vue.config.keyCodes.自定义键名 = 键码`，可以去定制按键别名
 ## 计算属性
 
 计算属性：
 1. 定义：要用的属性不存在，要通过已有属性计算得来。
 2. 原理：底层借助了`Objcet.defineproperty`方法提供的`getter`和`setter`。
-3. get函数什么时候执行？
+3. `get`函数什么时候执行？
 	1. 初次读取时会执行一次。
 	2. 当依赖的数据发生改变时会被再次调用。
-4. 优势：与methods实现相比，内部有缓存机制（复用），效率更高，调试方便。
+4. 优势：与`methods`实现相比，内部有缓存机制（复用），效率更高，调试方便。
 5. 备注：
 	1. 计算属性最终会出现在vm上，直接读取使用即可。
 	2. 如果计算属性要被修改，那必须写set函数去响应修改，且set中要引起计算时依赖的数据发生改变
@@ -245,7 +285,6 @@ watch
 `immediate`
 深度监视
 ## 绑定样式
-
 1. class样式
 	写法`:class="xxx"` xxx可以是字符串、对象、数组。
 	字符串写法适用于：类名不确定，要动态获取。
@@ -265,7 +304,6 @@ watch
 	- `v-if="表达式"`
 	- `v-else-if="表达式"`
 	- `v-else="表达式"`
-
 - 适用于：切换频率较低的场景。
 - 特点：不展示的DOM元素直接被移除。
 - 注意：`v-if`可以和:`v-else-if`、`v-else`一起使用，但要求结构不能被“打断”。
@@ -278,7 +316,6 @@ watch
 3. 备注：使用v-if的时，元素可能无法获取到，而使用v-show一定可以获取到。
 ## 列表渲染
 v-for指令:
-
 1. 用于展示列表数据
 2. 语法：`v-for="(item, index) in items" :key="item.id"`
 3. 可遍历：数组、对象、字符串（用的很少）、指定次数（用的很少）
@@ -314,31 +351,28 @@ key是虚拟DOM对象的标识，当数据发生变化时，Vue会根据【新�
 
 ```js
 new Vue({
-el:'#root',
+	el:'#root',
 	data:{
-	keyWord:'',
-	persons:[
-	{id:'001',name:'马冬梅',age:19,sex:'女'},
-	{id:'002',name:'周冬雨',age:20,sex:'女'},
-	{id:'003',name:'周杰伦',age:21,sex:'男'},
-	{id:'004',name:'温兆伦',age:22,sex:'男'}	
-	]
-},
-
-computed:{
-	filPerons(){
-	return this.persons.filter((p)=>{
-		return p.name.indexOf(this.keyWord) !== -1
-	})
-	if(this.sortType){
-		arr.sort((p1,p2)=>{
-		return this.sortType === 1 ? p2.age-p1.age : p1.age-p2.age
+		keyWord:'',
+		persons:[
+		{id:'001',name:'马冬梅',age:19,sex:'女'},
+		{id:'002',name:'周冬雨',age:20,sex:'女'},
+		{id:'003',name:'周杰伦',age:21,sex:'男'},
+		{id:'004',name:'温兆伦',age:22,sex:'男'}	]
+	},
+	
+	computed:{
+		filPerons(){
+		return this.persons.filter((p)=>{
+			return p.name.indexOf(this.keyWord) !== -1
 		})
+		if(this.sortType){
+			arr.sort((p1,p2)=>{
+			return this.sortType === 1 ? p2.age-p1.age : p1.age-p2.age
+			})
+		}
+		return arr
 	}
-	return arr
-}
-}
-
 })
 ```
 
@@ -349,8 +383,8 @@ Vue监视数据的原理：
 1. vue会监视data中所有层次的数据。
 2. 如何监测对象中的数据？
 	1. 通过`setter`实现监视，且要在`new Vue`时就传入要监测的数据。
-		(1).对象中后追加的属性，Vue默认不做响应式处理
-		(2).如需给后添加的属性做响应式，请使用如下API：
+		1. 对象中后追加的属性，Vue默认不做响应式处理
+		2. 如需给后添加的属性做响应式，请使用如下API：
 		`Vue.set(target，propertyName/index，value)` 或	
 		`vm.$set(target，propertyName/index，value)`
 3. 如何监测数组中的数据？
@@ -364,7 +398,7 @@ Vue监视数据的原理：
 特别注意：`Vue.set()` 和 `vm.$set()` 不能给vm 或 vm的根数据对象 添加属性！！！
 
 ## 收集表单数据
-
+todo
 
 ## 过滤器
 定义：对要显示的数据进行特定格式化后再显示（适用于一些简单逻辑的处理）。
@@ -418,14 +452,18 @@ Vue.directive(指令名,配置对象) 或 Vue.directive(指令名,回调函数)
 3. 生命周期函数的名字不可更改，但函数的具体内容是程序员根据需求编写的。
 4. 生命周期函数中的`this`指向是`vm` 或 组件实例对象`vc`。
 
+[vue 生命周期钩子](https://v2.cn.vuejs.org/v2/api/#%E9%80%89%E9%A1%B9-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90)
 - 初始化显示
 	- `beforeCreate`
 	- `created`
-	- `beforeCreated`
+	- `beforeMount`
 	- `mounted`
 - 更新状态
 	- `beforeUpdate`
 	- `updated`
+- 激活
+	- `activated`   被 keep-alive 缓存的组件激活时调用。
+	- `deactivated`    被 keep-alive 缓存的组件失活时调用。
 - 销毁
 	- `beforeDestroy`
 	- `destroyed`
