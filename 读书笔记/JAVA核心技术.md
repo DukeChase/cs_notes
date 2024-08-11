@@ -1,7 +1,7 @@
 # 第9章 集合
 ## 集合框架
 
-Queue接口   LinkedList  `ArrayDeque`
+Queue接口   `LinkedList ` `ArrayDeque`
 Collection 接口
 迭代器
 泛型实用方法
