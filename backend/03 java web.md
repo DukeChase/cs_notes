@@ -914,9 +914,9 @@ RequestDispatcher requestDispatcher = req.getRequestDispatcher("/servlet2");
 requestDispatcher.forward(req,resp);
 ```
 
-f)base标签的作用
-g)web中的相对路径和绝对路径
-h)web 中 / 斜杠的不同意义
+f) base标签的作用
+g) web中的相对路径和绝对路径
+h) web 中 / 斜杠的不同意义
 ## HttpServletResponse
 a) `HttpServletResponse` 类的作用
 `HttpServletResponse` 类和 `HttpServletRequest` 类一样。每次请求进来，Tomcat 服务器都会创建一个 `Response` 对象传递给 `Servlet` 程序去使用。`HttpServletRequest` 表示请求过来的信息，`HttpServletResponse` 表示所有响应的信息，我们如果需要设置返回给客户端的信息，都可以通过 `HttpServletResponse` 对象来进行设置
@@ -970,17 +970,17 @@ jsp本质是一个Servlet程序。
 ## JSP的三种语法
 jsp文件头部声明介绍
 `<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>`
-这是jsp文件的头声明。表示这是jsp页面。
-`language` 属性      值只能是 java。 表示翻译的得到的是 java 语言的
-`contentType`属性   设置响应头 contentType 的内容
+这是jsp文件的头声明。表示这是`jsp`页面。
+`language` 属性      值只能是 `java`。 表示翻译的得到的是` java `语言的
+`contentType`属性   设置响应头 `contentType` 的内容
 `pageEncoding`属性  设置当前 jsp 页面的编码
-`import` 属性       给当前 jsp 页面导入需要使用的类包
+`import` 属性       给当前` jsp `页面导入需要使用的类包
 `autoFlush` 属性    设置是否自动刷新 out 的缓冲区，默认为 true
-`buffer` 属性       设置 out 的缓冲区大小。默认为 8KB
+`buffer` 属性       设置 `out` 的缓冲区大小。默认为 8KB
 `errorPage` 属性    设置当前 jsp 发生错误后，需要跳转到哪个页面去显示错误信息
 `isErrorPage` 属性   设置当前 jsp 页面是否是错误页面。是的话，就可以使用 exception 异常对象
-`session` 属性     设置当前 jsp 页面是否获取 `session` 对象,默认为 `true`
-`extends` 属性     给服务器厂商预留的 jsp 默认翻译的 servlet 继承于什么类
+`session` 属性     设置当前 `jsp` 页面是否获取 `session` 对象,默认为 `true`
+`extends` 属性     给服务器厂商预留的 `jsp` 默认翻译的 `servlet` 继承于什么类
 
 jsp中的三种脚本介绍
 1. 声明脚本（声明脚本）
@@ -1010,29 +1010,29 @@ jsp中的三种脚本介绍
 	所以 service 方法中可以写的 java 代码，都可以书写到代码脚本中
 jsp中有三种注释：
 	1、html注释 
-		<!--  html注释  -->
-		html注释翻译之后会在_jspService()方法以out.write输出到页面
+		`<!--  html注释  -->`
+		html注释翻译之后会在_`jspService()`方法以`out.write`输出到页面
 	2、java注释 
-		// 单行注释
-		/*  多行注释 */
+		`// 单行注释`
+		`/*  多行注释 */`
 		java的多行注释在翻译之后在翻译到servlet程序的源代码中
 	3、jsp注释 
-		<%-- jsp注释 --%>
+		`<%-- jsp注释 --%>`
 		jsp注释可以注掉jsp中所有内容，在jsp翻译的时候会被完全忽略掉
 
 ## jsp九大内置对象
 
-| 对象|作用|
-| --------|--------|
-|`request`|请求对象，可以获取请求信息|
-|`response` |    响应对象。可以设置响应信息|
-|`pageContext` | 当前页面上下文对象。可以在当前上下文保存属性信息|
-|`session`      |会话对象。可以获取会话信息。|
-|`exception` |   异常对象只有在 jsp 页面的 page 指令中设置 `isErrorPage="true"` 的时候才会存在|
-|`application`  |`ServletContext` 对象实例，可以获取整个工程的一些信息。|
-|`config` |  `ServletConfig` 对象实例，可以获取 `Servlet` 的配置信息|
-|`out`  |输出流|
-|`page`|  表示当前 `Servlet` 对象实例（无用，用它不如使用 this 对象）。|
+| 对象            | 作用                                                      |
+| ------------- | ------------------------------------------------------- |
+| `request`     | 请求对象，可以获取请求信息                                           |
+| `response`    | 响应对象。可以设置响应信息                                           |
+| `pageContext` | 当前页面上下文对象。可以在当前上下文保存属性信息                                |
+| `session`     | 会话对象。可以获取会话信息。                                          |
+| `exception`   | 异常对象只有在 jsp 页面的 page 指令中设置 `isErrorPage="true"` 的时候才会存在 |
+| `application` | `ServletContext` 对象实例，可以获取整个工程的一些信息。                    |
+| `config`      | `ServletConfig` 对象实例，可以获取 `Servlet` 的配置信息               |
+| `out`         | 输出流                                                     |
+| `page`        | 表示当前 `Servlet` 对象实例（无用，用它不如使用 this 对象）。                 |
 
 九大内置对象，都是我们可以在【代码脚本】中或【表达式脚本】中直接使用的对象。
 ## jsp四大域对象
@@ -1061,8 +1061,7 @@ file 属性指定你要包含的 jsp 页面的路径
 ```jsp
 <%--
 <jsp:include page=""></jsp:include>
-这是动态包含
-page 属性是指定你要包含的 jsp 页面的路径
+这是动态包含 page 属性是指定你要包含的 jsp 页面的路径
 动态包含也可以像静态包含一样。把被包含的内容执行输出到包含位置
 动态包含的特点：
 1、动态包含会把包含的 jsp 页面也翻译成为 java 代码
@@ -1165,16 +1164,16 @@ resp.getWriter().write("已经往 Session 中保存了数据");
 `Filter` 的生命周期包含几个方法
 
 1. 构造器方法
-2. init 初始化方法
+2. ` init `初始化方法
 	第 1，2 步，在 web 工程启动的时候执行（Filter 已经创建）
-3. doFilter 过滤方法
+3. `doFilter` 过滤方法
 	第 3 步，每次拦截到请求，就会执行
-4. destroy 销毁
+4. `destroy` 销毁
 	第 4 步，停止 web 工程的时候，就会执行（停止 web 工程，也会销毁 Filter 过滤器）
 
 `FilterConfig`类
 
-Filter的拦截路径
+`Filter`的拦截路径
 - 精确匹配
 - 目录匹配
 - 后缀名匹配
@@ -1207,33 +1206,34 @@ var jsonObj = {
 - json的访问
 ```javascript
 alert(typeof(jsonObj));// object json 就是一个对象
-alert(jsonObj.key1); //12
+alert(jsonObj.key1); // 12
 alert(jsonObj.key2); // abc
 alert(jsonObj.key3); // true
 alert(jsonObj.key4);// 得到数组[11,"arr",false]
+
 // json 中 数组值的遍历
 for(var i = 0; i < jsonObj.key4.length; i++) {
-alert(jsonObj.key4[i]);
+	alert(jsonObj.key4[i]);
 }
-alert(jsonObj.key5.key5_1);//551
-alert(jsonObj.key5.key5_2);//key5_2_value
+alert(jsonObj.key5.key5_1); // 551
+alert(jsonObj.key5.key5_2); // key5_2_value
 alert( jsonObj.key6 );// 得到 json 数组
 // 取出来每一个元素都是 json 对象
 var jsonItem = jsonObj.key6[0];
 // alert( jsonItem.key6_1_1 ); //6611
-alert( jsonItem.key6_1_2 ); //key6_1_2_value
+alert( jsonItem.key6_1_2 ); // key6_1_2_value
 ```
 
-json的两个常用方法
-json 的存在有两种形式。
-一种是：对象的形式存在，我们叫它 json 对象。
-一种是：字符串的形式存在，我们叫它 json 字符串。
+`json`的两个常用方法
+`json` 的存在有两种形式。
+一种是：对象的形式存在，我们叫它 `json` 对象。
+一种是：字符串的形式存在，我们叫它 `json` 字符串。
 
-一般我们要操作 json 中的数据的时候，需要 json 对象的格式。
-一般我们要在客户端和服务器之间进行数据交换的时候，使用 json 字符串。
+一般我们要操作 `json` 中的数据的时候，需要 `json` 对象的格式。
+一般我们要在客户端和服务器之间进行数据交换的时候，使用 `json` 字符串。
 
-`JSON.stringify()`   把 json 对象转换成为 json 字符串
-`JSON.parse()`      把 json 字符串转换成为 json 对象
+`JSON.stringify()`   把 `json` 对象转换成为` json` 字符串
+`JSON.parse()`      把` json` 字符串转换成为` json` 对象
 
 - json在java中的使用
 `gson.jar`
