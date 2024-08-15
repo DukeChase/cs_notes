@@ -649,13 +649,13 @@ jQuery 对象转为 dom 对象（重点）
 
 `jQuery`属性操作
 
-|属性|说明|  备注|
-|-----|----|----|
-|html()|它可以设置和获取起始标签和结束标签中的内容。|跟 dom 属性 innerHTML 一样。|
-|text()|它可以设置和获取起始标签和结束标签中的文本。|跟 dom 属性 innerText 一样。|
-|val()|它可以设置和获取表单项的 value 属性值。|跟 dom 属性 value 一样|
-|attr()| 设置和获取属性的值    |   |
-|prop()|    可以设置和获取属性的值                |                      |
+| 属性       | 说明                      | 备注                     |
+| -------- | ----------------------- | ---------------------- |
+| `html()` | 它可以设置和获取起始标签和结束标签中的内容。  | 跟 dom 属性 innerHTML 一样。 |
+| `text()` | 它可以设置和获取起始标签和结束标签中的文本。  | 跟 dom 属性 innerText 一样。 |
+| `val()`  | 它可以设置和获取表单项的 value 属性值。 | 跟 dom 属性 value 一样      |
+| `attr()` | 设置和获取属性的值               |                        |
+| `prop()` | 可以设置和获取属性的值             |                        |
 
 # Tomcat
 
@@ -743,12 +743,12 @@ XML解析技术介绍
 ```
 
 *Servlet的生命周期*
-1. 执行Servlet构造器方法
-2. 执行init初始化方法
+1. 执行`Servlet`构造器方法
+2. 执行`init`初始化方法
 	第一二步，是在第一次访问的时候创建`Servlet`程序会调用
 3. 执行`service`方法
 	第三步，每次访问都会调用
-4. 执行destroy销毁方法
+4. 执行`destroy`销毁方法
 	第四步，在web工程停止的时候调用
 
 - 通过继承`HttpServlet`实现`Servlet`程序
@@ -787,7 +787,7 @@ System.out.println(servletConfig.getServletContext());
 
 }
 ```
-重写init方法一定要调用父类的init方法
+重写`init`方法一定要调用父类的`init`方法
 ```java
     @Override
     public void init(ServletConfig config) throws ServletException {

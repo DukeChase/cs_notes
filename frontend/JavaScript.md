@@ -114,7 +114,8 @@ var z = x(4, 3);
 
 函数表达式
 ```javascript
-var x = function(){ return a*b}
+// 函数表达式 要以分号结尾
+var x = function(){ return a*b};
 ```
 ## 函数提升
 
@@ -281,11 +282,11 @@ JavaScript数值始终是64位的浮点数
 
 ## JS数字方法
 
-* toString()
-* toExponential()
-* toFixed()
-* toPrecision()
-* valueOf()
+* `toString()`
+* `toExponential()`
+*` toFixed()`
+* ` toPrecision()
+* `valueOf()`
 
 # JS数组
 
@@ -309,19 +310,20 @@ JavaScript数值始终是64位的浮点数
 # JS 类
 
 # JS Async
+
 # JavaScript HTML DOM
 **通过 HTML DOM，JavaScript 能够访问和改变 HTML 文档的所有元素。**
 
 
 # JS Browser BOM
-**浏览器对象模型（==B==rowser ==O==bject ==M==odel (BOM)）允许 JavaScript 与浏览器对话。**
+**浏览器对象模型（Browser Object Model (BOM)）允许 JavaScript 与浏览器对话。**
 
 
 ## window
 
 ## screen
 
-## Lccation
+## Location
 
 ## History
 
@@ -429,11 +431,11 @@ jQuery 由 John Resig 于 2006 年创建。它旨在处理浏览器不兼容性�
 指令是带有 v- 前缀的特殊属性。
 
 * 使用 v-html 指令用于输出 html 代码
-* v-if
-* v-else
-* v-else-if
-* v-show
-* v-for
+* `v-if`
+* `v-else`
+* `v-else-if`
+* `v-show`
+* `v-for`
 
 循环使用 v-for 指令。
 
