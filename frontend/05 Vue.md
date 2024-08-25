@@ -1,22 +1,23 @@
+参考资料
+- [尚硅谷-vue 课程](https://www.bilibili.com/video/BV1Zy4y1K7SH/?share_source=copy_web&vd_source=e65574be5c4ff436d099ae0526b97fd9)
+- [vu2 api doc](https://cn.vuejs.org/api/)
+- [vue2 router](https://router.vuejs.org/zh)
 
-**学习 Vue 之前需要掌握的 JavaScript 基础知识**
+
+**学习 Vue 之前需要掌握的 JavaScript 基础知识[[04 ES6]]**
 
 ES6 语法规范
-
 - `let const`
 - 解构赋值
 - 模板字符串
 - 箭头函数
-
 ES6 模块化
-
 - 默认暴露
 - 分别暴露
 - 统一暴露
 - import 、export
 
 包管理器
-
 - npm、yarn 或者是 cnpm
 
 原型、原型链（重点）
@@ -25,9 +26,9 @@ ES6 模块化
 
 - 过滤数组、加工数组、筛选最值
 
-axios
+- `axios`
 
-promise
+- `promise`
 
 # VUE basic
 
@@ -414,6 +415,18 @@ todo
 `v-clock`
 `v-once`
 `v-pre`
+
+| 指令      | 简写  | 描述         |
+| ------- | --- | ---------- |
+| v-text  |     | 普通文本       |
+| v-model |     | 双向绑定       |
+| v-html  |     | 真正的html    |
+| v-on    | @   | 绑定事件       |
+| v-show  |     |            |
+| v-if    |     |            |
+| v-for   |     |            |
+| v-bind  | :   | 作用在html属性上 |
+
 ## 自定义指令
 
 需求1：定义一个`v-big`指令，和`v-text`功能类似，但会把绑定的数值放大10倍。
@@ -541,28 +554,18 @@ new Vue({
 	- `js`
 	- 样式`css`
 
-## Vue
-| 指令      | 简写  | 描述         |
-| ------- | --- | ---------- |
-| v-text  |     | 普通文本       |
-| v-model |     | 双向绑定       |
-| v-html  |     | 真正的html    |
-| v-on    | @   | 绑定事件       |
-| v-show  |     |            |
-| v-if    |     |            |
-| v-for   |     |            |
-| v-bind  | :   | 作用在html属性上 |
 
 # 第3章 使用Vue脚手架
 
 使用vue.config.js可以对脚手架进行个性化定制，详情见：[Vue-Cli](https://cli.vuejs.org/zh)
 ## 脚手架开发
 初始化脚手架
+
 `npm install -g @vue/cli`
 `vue create projectname`
 `npm run serve`
 `npm inspect -> output.js
-`
+
 模版项目结构
 ![](https://duke-1258882975.cos.ap-guangzhou.myqcloud.com/picture/202406291050014.png)
 `main.js` 是项目的入口
@@ -626,17 +629,18 @@ npm  类似于`maven`，是js依赖包的管理工具
 ## `mixin`混入(合)
 1. 功能：可以把多个组件共用的配置提取成一个混入对象
 2. 使用方式：
-    - 第一步定义mixin混合：
-    ```
-    {
-        data(){....},
-        methods:{....},
-        create:{ ... }
-        ....
-    }
-    ```
-    - 第二步使用混入：    
-	    ​ 全局混入：`Vue.mixin(xxx)`​ 局部混入：`mixins:['xxx']`
+- 第一步定义mixin混合：
+```js
+{
+	data(){....},
+	methods:{....},
+	create:{ ... }
+	....
+}
+```
+-  第二步使用混入：    
+	- 全局混入：`Vue.mixin(xxx)`​ 
+	- 局部混入：`mixins:['xxx']`
 
 ## 插件
 1. Vue 插件是一个包含 install 方法的对象
@@ -714,6 +718,7 @@ sessionStorage.getItem
 <Header ref="header"/> 
 this.$refs.header.$on('addTodo', this.addTodo)
 ```
+
 触发事件
 `this.$emit('addTodo', todo)`
 ## 全局事件总线
@@ -742,7 +747,7 @@ new Vue({
 ```
 
 在组件上定义`$on` 和 `$emit`方法进行数据传输
-指定事件总线对象
+1. 指定事件总线对象
 ```js
 new Vue({
 	beforeCreate () { // 尽量早的执行挂载全局事件总线对象的操作 
@@ -750,15 +755,15 @@ new Vue({
 	}, 
 }).$mount('#root')
 ```
-绑定事件
+2. 绑定事件
 ```js
 this.$globalEventBus.$on('deleteTodo', this.deleteTodo)
 ```
-触发事件
+3. 触发事件
 ```js
 this.$globalEventBus.$emit('deleteTodo', this.index)
 ```
-解绑事件
+4. 解绑事件
 ```js
 this.$globalEventBus.$off('deleteTodo')
 ```
@@ -839,7 +844,22 @@ vue-resource
 2. `action`中调用`commit`
 3. `mutation`  用于操作数据（state）
 
-组件中`this.$store.dispatch`  触发`action`
+组件中`this.$store.dispatch（'actionName',data）`  触发`action`
+
+```js
+mutations: {
+	SET_TOKEN: (state, token){
+		state.token = token
+	}
+}
+
+actions = {
+	login({ commit }, userInfo){
+		// do something
+		commit('mutationName',data)
+	}
+} 
+```
 `action`  用于响应组件中的动作
 
 `getters`
@@ -923,7 +943,7 @@ export default {
 ## 6.1 相关理解
 ### 6.1.1 vue-router 的理解
 
-vue 的一个插件库，专门用来实现 SPA 应用
+Vue 的一个插件库，专门用来实现 SPA 应用
 ### 6.1.2 对 SPA 应用的理解
 
 1. 单页 Web 应用（single page web application，SPA）。
@@ -970,7 +990,10 @@ routes:[
 ```
 
 ```html
-<router-link class="list-group-item" active-class="active" to="/home">Home</router-link>
+<router-link class="list-group-item" 
+			 active-class="active" 
+			 to="/home">Home
+</router-link>
 
 <router-view></router-view>
 ```
@@ -1004,25 +1027,27 @@ export default new VueRouter({
 })
 ```
 
-路由的query参数
-```html
+- 路由的`query`参数
+```vue
 <!-- 跳转路由并携带query参数，to的字符串写法 -->
 <!-- <router-link :to="`/home/message/detail?id=${m.id}&title=${m.title}`">{{m.title}}</router-link>&nbsp;&nbsp; -->
 <!-- 跳转路由并携带query参数，to的对象写法 -->
 
-<router-link :to="{
+<router-link 
+		:to="{
 		path:'/home/message/detail',
 		query:{
-		id:m.id,
-		title:m.title
-	}
-}">
+				id:m.id,
+				title:m.title
+			}
+		}">
 {{m.title}}
 </router-link>
 ```
-命名路由
+
+- 命名路由
 name
-```html
+```vue
 <!-- 跳转路由并携带query参数，to的字符串写法 -->
 <!-- <router-link :to="`/home/message/detail?id=${m.id}&title=${m.title}`">{{m.title}}</router-link>&nbsp;&nbsp; -->
 <!-- 跳转路由并携带query参数，to的对象写法 -->
@@ -1036,8 +1061,9 @@ name
 {{m.title}}
 </router-link>
 ```
-params参数   pathparameter
-```html
+
+- params参数   pathparameter
+```vue
 <!-- 跳转路由并携带params参数，to的字符串写法 -->
 <!-- <router-link :to="`/home/message/detail/${m.id}/${m.title}`">{{m.title}}</router-link>&nbsp;&nbsp; -->
 <!-- 跳转路由并携带params参数，to的对象写法 -->
@@ -1052,7 +1078,7 @@ params参数   pathparameter
 {{m.title}}
 </router-link>
 ```
-路由props
+- 路由props
 ```js
 //props的第一种写法，值为对象，该对象中的所有key-value都会以props的形式传给Detail组件。
 // props:{a:1,b:'hello'}
@@ -1069,7 +1095,7 @@ props($route){
 }
 ```
 
-router-link的replaces属性
+router-link的`replaces`属性
 
 编程式路由导航
 
