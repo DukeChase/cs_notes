@@ -163,21 +163,20 @@ console.log(Object.keys(person))
 
 ### 键盘事件
 1. Vue中常用的按键别名：
-	- 回车 => enter
-	- 删除 => delete (捕获“删除”和“退格”键)
-	- 退出 => esc
-	- 空格 => space
-	- 换行 => tab (特殊，必须配合keydown去使用)
-	- 上 => up
-	- 下 => down
-	- 左 => left
-	- 右 => right
+	- 回车 => `enter`
+	- 删除 => `delete` (捕获“删除”和“退格”键)
+	- 退出 => `esc`
+	- 空格 => `space`
+	- 换行 => `tab `(特殊，必须配合keydown去使用)
+	- 上 => `up`
+	- 下 => `down`
+	- 左 => `left`
+	- 右 => `right`
 1. Vue未提供别名的按键，可以使用按键原始的key值去绑定，但注意要转为kebab-case（短横线命名）
-2. 系统修饰键（用法特殊）：ctrl、alt、shift、meta
-	1. 配合keyup使用：按下修饰键的同时，再按下其他键，随后释放其他键，事件才被触发。
-	2. 配合keydown使用：正常触发事件。
-3. 也可以使用keyCode去指定具体的按键（不推荐）
-
+2. 系统修饰键（用法特殊）：`ctrl`、`alt`、`shift`、`meta`
+	1. 配合`keyup`使用：按下修饰键的同时，再按下其他键，随后释放其他键，事件才被触发。
+	2. 配合`keydown`使用：正常触发事件。
+3. 也可以使用`keyCode`去指定具体的按键（不推荐）
 4. `Vue.config.keyCodes.自定义键名 = 键码`，可以去定制按键别名
 ## 计算属性
 
@@ -416,17 +415,18 @@ todo
 `v-once`
 `v-pre`
 
-| 指令      | 简写  | 描述         |
-| ------- | --- | ---------- |
-| v-text  |     | 普通文本       |
-| v-model |     | 双向绑定       |
-| v-html  |     | 真正的html    |
-| v-on    | @   | 绑定事件       |
-| v-show  |     |            |
-| v-if    |     |            |
-| v-for   |     |            |
-| v-bind  | :   | 作用在html属性上 |
+| 指令      | 简写  | 描述         | eg                               |
+| ------- | --- | ---------- | -------------------------------- |
+| v-text  |     | 普通文本       |                                  |
+| v-model |     | 双向绑定       |                                  |
+| v-html  |     | 真正的html    | `<span v-html="rawHtml"></span>` |
+| v-on    | @   | 绑定事件       |                                  |
+| v-show  |     |            |                                  |
+| v-if    |     |            |                                  |
+| v-for   |     |            |                                  |
+| v-bind  | :   | 作用在html属性上 |                                  |
 
+修饰符
 ## 自定义指令
 
 需求1：定义一个`v-big`指令，和`v-text`功能类似，但会把绑定的数值放大10倍。
@@ -465,6 +465,8 @@ Vue.directive(指令名,配置对象) 或 Vue.directive(指令名,回调函数)
 3. 生命周期函数的名字不可更改，但函数的具体内容是程序员根据需求编写的。
 4. 生命周期函数中的`this`指向是`vm` 或 组件实例对象`vc`。
 
+![](https://v2.cn.vuejs.org/images/lifecycle.png)
+
 [vue 生命周期钩子](https://v2.cn.vuejs.org/v2/api/#%E9%80%89%E9%A1%B9-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90)
 - 初始化显示
 	- `beforeCreate`
@@ -481,6 +483,7 @@ Vue.directive(指令名,配置对象) 或 Vue.directive(指令名,回调函数)
 	- `beforeDestroy`
 	- `destroyed`
 `mounted` //Vue完成模板的解析并把初始的真实DOM元素放入页面后（挂载完毕）调用mounted
+
 
 ```js
 new Vue({
@@ -709,17 +712,17 @@ sessionStorage.setItem
 sessionStorage.getItem
 ```
 ## 组件自定义事件
-绑定事件监听
+1. 绑定事件监听
 ```js
 <Header @addTodo="addTodo"/>
-
+```
 或者
-
+```
 <Header ref="header"/> 
 this.$refs.header.$on('addTodo', this.addTodo)
 ```
 
-触发事件
+2. 触发事件
 `this.$emit('addTodo', todo)`
 ## 全局事件总线
 1. Vue 原型对象上包含事件处理的方法
@@ -769,6 +772,10 @@ this.$globalEventBus.$off('deleteTodo')
 ```
 ## 消息发布与订阅
 消息订阅与发布 `pubsub-js`
+
+## nextTick
+
+https://v2.cn.vuejs.org/v2/api/#vm-nextTick
 
 # 第4章 Vue中的ajax
 ## 配置代理服务器
@@ -822,7 +829,7 @@ vue-resource
 ### 使用方式
 
 默认插槽
-```
+```vue
 <slot>
 ```
 具名插槽
@@ -847,28 +854,74 @@ vue-resource
 组件中`this.$store.dispatch（'actionName',data）`  触发`action`
 
 ```js
-mutations: {
-	SET_TOKEN: (state, token){
-		state.token = token
-	}
+//准备actions——用于响应组件中的动作
+const actions = {
+    /* jia(context,value){
+        console.log('actions中的jia被调用了')
+        context.commit('JIA',value)
+    },
+    jian(context,value){
+        console.log('actions中的jian被调用了')
+        context.commit('JIAN',value)
+    }, */
+    jiaOdd(context,value){
+        console.log('actions中的jiaOdd被调用了')
+        if(context.state.sum % 2){
+            context.commit('JIA',value)
+        }
+    },
+    jiaWait(context,value){
+        console.log('actions中的jiaWait被调用了')
+        setTimeout(()=>{
+            context.commit('JIA',value)
+        },500)
+    }
 }
 
-actions = {
-	login({ commit }, userInfo){
-		// do something
-		commit('mutationName',data)
-	}
-} 
+//准备mutations——用于操作数据（state）
+const mutations = {
+    JIA(state,value){
+        console.log('mutations中的JIA被调用了')
+        state.sum += value
+    },
+    JIAN(state,value){
+        console.log('mutations中的JIAN被调用了')
+        state.sum -= value
+    }
+}
+//准备state——用于存储数据
+const state = {
+    sum:0 //当前的和
+}
+
+//创建并暴露store
+export default new Vuex.Store({
+    actions,
+    mutations,
+    state,
+    getters
+})
 ```
 `action`  用于响应组件中的动作
 
-`getters`
+## Getters
 
+```js
+//准备getters——用于将state中的数据进行加工
+const getters = {
+    bigSum(state){
+        return state.sum*10
+    }
+}
+```
 
+## mapState  mapState
 - `mapState`
 - `mapGettes`
+## mapActions mapMutations
 - `mapActions`
 - `mapMutations`
+
 ```js
 import {mapState,mapGetters,mapMutations,mapActions} from 'vuex'
 export default {
@@ -881,13 +934,13 @@ export default {
 	computed:{
 	//靠程序员自己亲自去写计算属性
 	/* sum(){
-	return this.$store.state.sum
+		return this.$store.state.sum
 	},
 	school(){
-	return this.$store.state.school
+		return this.$store.state.school
 	},
 	subject(){
-	return this.$store.state.subject
+		return this.$store.state.subject
 	}, */
 	//借助mapState生成计算属性，从state中读取数据。（对象写法）
 	// ...mapState({he:'sum',xuexiao:'school',xueke:'subject'}),
@@ -896,8 +949,7 @@ export default {
 	
 	/* ******************************************************************** */
 	/* bigSum(){
-	
-	return this.$store.getters.bigSum
+		return this.$store.getters.bigSum
 	}, */
 	//借助mapGetters生成计算属性，从getters中读取数据。（对象写法）
 	// ...mapGetters({bigSum:'bigSum'})
@@ -907,10 +959,10 @@ export default {
 	methods: {
 		//程序员亲自写方法
 		/* increment(){
-		this.$store.commit('JIA',this.n)
+			this.$store.commit('JIA',this.n)
 		},
 		decrement(){
-		this.$store.commit('JIAN',this.n)
+			this.$store.commit('JIAN',this.n)
 		}, */
 		//借助mapMutations生成对应的方法，方法中会调用commit去联系mutations(对象写法)
 		...mapMutations({increment:'JIA',decrement:'JIAN'}),
@@ -922,7 +974,7 @@ export default {
 		this.$store.dispatch('jiaOdd',this.n)
 		},
 		incrementWait(){
-		this.$store.dispatch('jiaWait',this.n)
+			this.$store.dispatch('jiaWait',this.n)
 		}, */
 		//借助mapActions生成对应的方法，方法中会调用dispatch去联系actions(对象写法)
 		...mapActions({incrementOdd:'jiaOdd',incrementWait:'jiaWait'})
@@ -934,9 +986,8 @@ export default {
 ```
 
 
-模块化+命名空间
-
-`namespaced`
+## vuex模块化编码
+`namespaced: true`
 
 
 # 第 6 章：vue-router
@@ -1096,17 +1147,33 @@ props($route){
 ```
 
 router-link的`replaces`属性
+- 类型: `boolean`
+- 默认值: `false`
+    设置 `replace` 属性的话，当点击时，会调用 `router.replace()` 而不是 `router.push()`，于是导航后不会留下 history 记录。
+```vue
+<router-link :to="{ path: '/abc'}" replace></router-link>
+```
 
 编程式路由导航
+在组件方法中`this.$router.push()`
+ - `router.push(location, onComplete?, onAbort?)`
+ - `router.replace(location, onComplete?, onAbort?)`
 
+相关 API：
+1. `this.$router.push(path)`: 相当于点击路由链接(可以返回到当前路由界面)
+2. `this.$router.replace(path)`: 用新路由替换当前路由(不可以返回到当前路由界面)
+3. `this.$router.back()`: 请求(返回)上一个记录路由
+4. `this.$router.go(-1)`: 请求(返回)上一个记录路由
+5. `this.$router.go(1)`: 请求下一个记录路由
 缓存路由组件
 `<keepAlive>`
 
 路由组件 的切换会导致旧组件的销毁和组件的创建（生命周期）
 两个新的生命周期钩子
-`activate`   `deactivate`
+- `activate`   
+- `deactivate`
 
-路由守卫
+## 路由守卫
 
 全局路由守卫
 ```js
@@ -1131,7 +1198,7 @@ document.title = to.meta.title || '硅谷系统'
 })
 ```
 
-独享路由守卫   单独在路由守卫中配置
+独享路由守卫   单独在路由守卫中配置(router里的一个配置项)
 ```js
 {
 	name:'xinwen',
@@ -1175,16 +1242,12 @@ beforeRouteLeave (to, from, next) {
 }
 ```
 
-相关 API：
-1. `this.$router.push(path)`: 相当于点击路由链接(可以返回到当前路由界面)
-2. `this.$router.replace(path)`: 用新路由替换当前路由(不可以返回到当前路由界面)
-3. `this.$router.back()`: 请求(返回)上一个记录路由
-4. `this.$router.go(-1)`: 请求(返回)上一个记录路由
-5. `this.$router.go(1)`: 请求下一个记录路由
 
 history模式和hash模式
 
 ## Axios
+
+
 
 
 

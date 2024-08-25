@@ -11,7 +11,7 @@
 
 `git commit`
 
-`git reset    `
+`git reset`
 
 | 选项 | 作用|
 |------|------|
