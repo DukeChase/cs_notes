@@ -37,8 +37,8 @@ mvn groupId:artifactId:goal -P=-profile-1,-profile-2,-?profile-3
 </dependency>
 ```
 
-应用properties中的属性 properties.value
-引用环境变量中的属性  env.key
+应用`properties`中的属性 `properties.value`
+引用环境变量中的属性  `env.key`
 # 依赖传递
 
 # 依赖冲突

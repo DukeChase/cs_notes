@@ -54,6 +54,10 @@ https://blog.csdn.net/weixin_39642619/article/details/111223447
 https://blog.csdn.net/lovedingd/article/details/127568704
 https://blog.csdn.net/weixin_43715214/article/details/131059079
 
+
+```
+git push origin --tags
+```
 git fetch --all --tags
 https://devconnected.com/how-to-checkout-git-tags/
 ## 配置
