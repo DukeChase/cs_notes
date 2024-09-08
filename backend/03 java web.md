@@ -919,12 +919,14 @@ g) web中的相对路径和绝对路径
 h) web 中 / 斜杠的不同意义
 ## HttpServletResponse
 a) `HttpServletResponse` 类的作用
-`HttpServletResponse` 类和 `HttpServletRequest` 类一样。每次请求进来，Tomcat 服务器都会创建一个 `Response` 对象传递给 `Servlet` 程序去使用。`HttpServletRequest` 表示请求过来的信息，`HttpServletResponse` 表示所有响应的信息，我们如果需要设置返回给客户端的信息，都可以通过 `HttpServletResponse` 对象来进行设置
+`HttpServletResponse` 类和 `HttpServletRequest` 类一样。每次请求进来，Tomcat 服务器都会创建一个 `Response` 对象传递给 `Servlet` 程序去使用。
+`HttpServletRequest` 表示请求过来的信息，
+`HttpServletResponse` 表示所有响应的信息，我们如果需要设置返回给客户端的信息，都可以通过 `HttpServletResponse` 对象来进行设置
 
 b) 两个输出流的说明。  
 - `ServletOutputStream getOutputStream()` 常用于下载
 - `PrintWriter getWriter()`  常用于回传数据（常用）
-两个流同时只能使用一个。
+**两个流同时只能使用一个**。
 使用了字节流，就不能再使用字符流，反之亦然，否则就会报错。
 c) 如何往客户端回传数据
 ```java
@@ -1088,7 +1090,8 @@ page 属性设置请求转发的路径
 ```
 
 # Listener
-1. Listener 监听器它是 JavaWeb 的三大组件之一。 JavaWeb 的三大组件分别是：Servlet 程序、 Filter 过滤器、 Listener 监 听器。
+1. Listener 监听器它是 JavaWeb 的三大组件之一。
+	- JavaWeb 的三大组件分别是：Servlet 程序、 Filter 过滤器、 Listener 监 听器。
 2. Listener 它是 JavaEE 的规范，就是接口
 3.  监听器的作用是，监听某种事物的变化。然后通过回调函数，反馈给客户（程序）去做一些相应的处理。
 `ServletContextListener `它可以监听` ServletContext `对象的创建和销毁。 `ServletContext` 对象在 web 工程启动的时候创建，在 web 工程停止的时候销毁。
