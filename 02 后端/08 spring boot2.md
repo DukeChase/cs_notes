@@ -900,3 +900,10 @@ public class AdminWebConfig implements WebMvcConfigurer {
 ## 指标监控
 
 ## 原理解析
+
+
+
+# 其他
+
+- [SpringBoot配置文件加载和生效顺序](https://mp.weixin.qq.com/s/g7S-C5-Ca5NeTzTIvIk_ug)
+- [RocketMQTemplate 常用方法详解](https://mp.weixin.qq.com/s/21eUWf4lrs6Mdz37z9VisQ)

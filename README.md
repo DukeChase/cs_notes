@@ -11,7 +11,7 @@
 
 #### 使用说明
 
-使用Markdown编辑器打开。本人使用Obsidian进行记录。
+使用Markdown编辑器打开。推荐使用Obsidian进行查看。
 
 
 #### 参与贡献
