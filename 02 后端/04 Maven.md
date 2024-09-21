@@ -121,3 +121,11 @@ runtime
 test
 provided
 option
+
+
+
+
+- **maven使用assembly插件打包zip/tar** [https://blog.csdn.net/qq_17303159/article/details/123996669](https://blog.csdn.net/qq_17303159/article/details/123996669)
+- [https://blog.csdn.net/qq_44795091/article/details/130327247](https://blog.csdn.net/qq_44795091/article/details/130327247) **maven工程多模块、项目打包问题**
+- 【Maven】多模块项目打包最佳实践 [https://www.cnblogs.com/slankka/p/17474587.html](https://www.cnblogs.com/slankka/p/17474587.html)
+- **maven的命令-deploy** [https://blog.csdn.net/aaaaa2428572/article/details/108402495](https://blog.csdn.net/aaaaa2428572/article/details/108402495)
