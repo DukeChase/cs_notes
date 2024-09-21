@@ -107,17 +107,20 @@ function functionName (arg1, arg2){
 }
 ```
 
-```javascript
-var x = function (a, b) {return a * b};
-var z = x(4, 3);
-```
-
 函数表达式
 ```javascript
 // 函数表达式 要以分号结尾
 var x = function(){ return a*b};
 ```
+
+```javascript
+var x = function (a, b) {return a * b};
+var z = x(4, 3);
+```
+
+
 ## 函数提升
+
 
 ## 函数调用
 
@@ -165,7 +168,7 @@ const x = (x, y) =>{return x * Y };
 
 ## 函数参数
 
-arguments对象
+`arguments`对象
 
 # JS对象
 ```javascript
