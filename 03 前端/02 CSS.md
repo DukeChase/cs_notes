@@ -1,8 +1,4 @@
-[MDN CSS](ttps://developer.mozilla.org/zh-CN/docs/Learn/CSS)
-
-
-
-
+[MDN CSS](https://developer.mozilla.org/zh-CN/docs/Learn/CSS)
 
 
 ## 选择器

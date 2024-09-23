@@ -2,12 +2,9 @@
 
 - SqlSessionFactory
 - SqlSession
-
-
-b站课程链接[【【尚硅谷】MyBatis零基础入门教程（细致全面，快速上手）】](https://www.bilibili.com/video/BV1VP4y1c7j7)
-
-[`mybatis` markdown笔记 ：](https://blog.csdn.net/qq_19387933/article/details/123256034)
-[`mybatis` 官方文档](https://mybatis.org/mybatis-3/zh_CN/index.html)
+- b站课程链接[【【尚硅谷】MyBatis零基础入门教程（细致全面，快速上手）】](https://www.bilibili.com/video/BV1VP4y1c7j7)
+- [`MyBatis` markdown笔记 ：](https://blog.csdn.net/qq_19387933/article/details/123256034)
+- [`MyBatis` 官方文档](https://mybatis.org/mybatis-3/zh_CN/index.html)
 # 缓存
 一级缓存
 

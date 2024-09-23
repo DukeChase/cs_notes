@@ -188,17 +188,17 @@ ORDER BY vend_name;
 MySQL  使用`yyyy-mm-dd`
 
 ### 数值处理函数
-|函数|说明 |
-|--|--|
-|Abs()||
-|Cos()||
-|Exp()||
-|Mod()||
-|Pi()||
-|Rand()||
-|Sin()||
-|Sqrt()||
-|Tan()||
+| 函数     | 说明  |
+| ------ | --- |
+| Abs()  |     |
+| Cos()  |     |
+| Exp()  |     |
+| Mod()  |     |
+| Pi()   |     |
+| Rand() |     |
+| Sin()  |     |
+| Sqrt() |     |
+| Tan()  |     |
 
 ## chapter12 汇总数据
 

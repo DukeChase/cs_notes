@@ -1,4 +1,6 @@
-http://heavy_code_industry.gitee.io/code_heavy_industry/pro002-maven/
+ref:
+- http://heavy_code_industry.gitee.io/code_heavy_industry/pro002-maven/
+- [maven official documentation](https://maven.apache.org/guides/index.html)
 
 
 `-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true`
@@ -122,7 +124,14 @@ test
 provided
 option
 
-
+```xml
+<!-- spring-boot-devtools -->  
+<dependency>  
+    <groupId>org.springframework.boot</groupId>  
+    <artifactId>spring-boot-devtools</artifactId>  
+    <optional>true</optional> <!-- 表示依赖不会传递 -->  
+</dependency>
+```
 
 
 - **maven使用assembly插件打包zip/tar** [https://blog.csdn.net/qq_17303159/article/details/123996669](https://blog.csdn.net/qq_17303159/article/details/123996669)

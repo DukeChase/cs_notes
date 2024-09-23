@@ -1,10 +1,6 @@
 [【尚硅谷】SpringMVC教程丨一套快速上手spring mvc](https://www.bilibili.com/video/BV1Ry4y1574R/?share_source=copy_web&vd_source=e65574be5c4ff436d099ae0526b97fd9)
 
 
-
-
-
-
 以下内容转自[代码重工](https://www.wolai.com/v5E85rk51yosqcED7kbkcd)
 # 启动过程
 
@@ -25,13 +21,12 @@
 
 ### ②调用线路图
 
-调用线路图所示是方法调用的顺序，但是实际运行的时候本质上都是调用 DispatcherServlet 对象的方法。包括这里涉及到的接口的方法，也不是去调用接口中的『抽象方法』。毕竟抽象方法是没法执行的。抽象方法一定是在某个实现类中有具体实现才能被调用。
+调用线路图所示是方法调用的顺序，但是实际运行的时候本质上都是调用 `DispatcherServlet` 对象的方法。包括这里涉及到的接口的方法，也不是去调用接口中的『抽象方法』。毕竟抽象方法是没法执行的。抽象方法一定是在某个实现类中有具体实现才能被调用。
 
-而对于最终的实现类：DispatcherServlet 来说，所有父类的方法最后也都是在 DispatcherServlet 对象中被调用的。
+而对于最终的实现类：`DispatcherServlet` 来说，所有父类的方法最后也都是在 `DispatcherServlet` 对象中被调用的。
 
 
 ![](https://duke-1258882975.cos.ap-guangzhou.myqcloud.com/picture/202407061116628.png)
-
 
 
 3、IOC 容器创建
