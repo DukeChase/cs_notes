@@ -1,6 +1,12 @@
+- [官方文档](https://baomidou.com/)
+
 ```xml
 <-- 依赖 -->
-
+<dependency>
+	<groupId>com.baomidou</groupId>
+	<artifactId>mybatis-plus</artifactId>
+	<version>3.5.7</version>
+</dependency>
 ```
 # 日志
 

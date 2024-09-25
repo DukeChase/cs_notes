@@ -179,6 +179,47 @@ public interface Collector<T, A, R> {
 接口中可以定义默认方法和静态方法。
 
 
+
+# 第10章 用Optional取代null
+
+
+```java
+Optional.empty();
+
+
+Optional.of(car);
+
+Optional.ofNullable(car);
+
+
+```
+
+
+```
+String name = null;
+if(insurance != null){
+name = insurance.getName();
+}
+
+
+Optional<Insurance> optInsurance = Optional.ofNullable(insurance);
+Optional<String> name = optInsurance.map(Insurance::getName);
+```
+
+```java
+orElse(T other)
+
+orElseGet(Supplier<? extends T> other)是orElse方法的延迟调用版，Supplier
+方法只有在Optional对象不含值时才执行调用。
+
+ifPresent(Consumer<? super T>)
+```
+
+```
+filter()如果值存在并且满足提供的谓词，就返回包含该值的 Optional 对象；否则返回一个空的
+Optional 对象
+```
+
 # 第12章 新的日期和时间API
 
 ## 12.1 LocalDate、LocalTime、Instant、Duration 以及 Period

@@ -380,12 +380,10 @@ select database ();  -- 显示当前使用的数据库
 - 更新表定义使用ALTER TABLE
 ```sql
 -- 增加列
-ALTER TABLE vendors
-ADD vend_phone CHAR(20);
+ALTER TABLE vendors ADD vend_phone CHAR(20);
 
 -- 删除列
-ALTER TABLE vendors
-DROP COLUMNS vend_phone;
+ALTER TABLE vendors DROP COLUMNS vend_phone;
 ```
 
 ### 删除表
