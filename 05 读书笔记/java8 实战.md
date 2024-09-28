@@ -178,8 +178,34 @@ public interface Collector<T, A, R> {
 
 接口中可以定义默认方法和静态方法。
 
+```java
+
+public interface Sized {
+	int size();
+	default isEmpty(){
+		return size == 0;
+	}
+}
+```
+
+可选方法
+```
+interface Iterator<T> {
+	boolean hasNext();
+	T next();
+	default void remove() {
+		throw new UnsupportedOperationException();
+	}
+}
+```
 
 
+解决冲突的规则
+
+- 类中的方法优先级最高 类或父类中声明的方法的优先级高于任何声明为默认方法的优
+先级
+- 如果无法依据第一条进行判断，那么子接口的优先级更高：函数签名相同时，优先选择拥有最具体实现的默认方法的接口，即如果B继承了A，那么B就比A更加具体。
+- 最后，如果还是无法判断，继承了多个接口的类必须通过显式覆盖和调用期望的方法，显式地选择使用哪一个默认方法的实现。
 # 第10章 用Optional取代null
 
 
@@ -220,6 +246,10 @@ filter()如果值存在并且满足提供的谓词，就返回包含该值的 Op
 Optional 对象
 ```
 
+# 第11章 CompletableFuture：组合式异步编程
+
+
+
 # 第12章 新的日期和时间API
 
 ## 12.1 LocalDate、LocalTime、Instant、Duration 以及 Period
@@ -238,17 +268,19 @@ LocalDateTime
 
 `TemporalAdjuster`接口
 
-
-
 格式化以及解析日期时间对象
 
-`DateTimeFormatter`
+```
+LocalDate date = LocalDate.of(2014, 3, 18);
+String s1 = date.format(DateTimeFormatter.BASIC_ISO_DATE); // 20140318
+String s2 = date.format(DateTimeFormatter.ISO_LOCAL_DATE); // 2014-03-18
+```
+
 ```java
-LocalDate.now();
-
-LocalDate.parse();
-
-localDate.format();
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+LocalDate date1 = LocalDate.of(2014, 3, 18);
+String formattedDate = date1.format(formatter);
+LocalDate date2 = LocalDate.parse(formattedDate, formatter);
 ```
 
 ## 12.3 处理不同的时区和历法
