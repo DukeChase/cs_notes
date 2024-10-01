@@ -117,7 +117,8 @@ ArrayList<String> list = new ArrayList<>(); // 泛型
 ### String
 [String性能提升10倍的几个方法](https://mp.weixin.qq.com/s/KRRLt0EaIwDEPCTGvqnWJA)
 
-官方为我们提供了两种字符串拼加的方案：`StringBuffer` 和 `StringBuilder`，
+官方为我们提供了两种字符串拼加的方案：
+`StringBuffer` 和 `StringBuilder`，
 其中 `StringBuilder` 为非线程安全的，而 `StringBuffer` 则是线程安全的。
 
 1. 概述
@@ -459,13 +460,13 @@ List的子类
 
 ### 可变参数
 
-`修饰符 返回值类型 methodName(参数类型... 形参名){ }`
+1. `修饰符 返回值类型 methodName(参数类型... 形参名){ }`
 ```java
 public static int getSum(int ... arr){
 
 }
 ```
-`修饰符 返回值类型 methodName(参数类型[] 形参名){ }`
+2. `修饰符 返回值类型 methodName(参数类型[] 形参名){ }`
 
 后面这种定义，在调用时必须传递**数组**，而前者可以**直接传递数据**即可
 
@@ -605,7 +606,7 @@ public static void MultiThreadRunnableTest(){
 当我们使用多线程访问同一资源时，且多个线程中对资源有写操作，就容易出现线程安全问题
 - 同步代码块 `synchronize`
 ```java
-synchronized(同步锁){ 
+synchronized(锁对象){ 
 	//需要同步操作的代码 
 }
 ```
@@ -619,10 +620,10 @@ public synchronized void method(){
 ```
 - 锁机制
 ```java
-/**
-java.util.concurrent.locks.Lock机制提供了比synchronized代码块和synchronized方法更广泛的锁定操作, 同步代码块/同步方法具有的功能Lock都有,除此之外更强大,更体现面向对象。
-Lock锁也称同步锁，加锁与释放锁方法化了，如下：
-**/
+/ **
+ * java.util.concurrent.locks.Lock机制提供了比synchronized代码块和synchronized方法更  * 广泛的锁定操作, 同步代码块/同步方法具有的功能Lock都有,除此之外更强大,更体现面向对象。
+ * Lock锁也称同步锁，加锁与释放锁方法化了，如下：
+*/
 //加同步锁。 
 public void lock() 
 // 释放同步锁。
@@ -705,40 +706,27 @@ public class Ticket implements Runnable{
 ### File类
 
 1. 构造方法
-
- `public File(String pathname)` ：通过将给定的路径名字符串转换为抽象路径名来创建新的 File实例。
-
-`public File(String parent, String child)` ：从父路径名字符串和子路径名字符串创建新的 File实例。
-
-`public File(File parent, String child)` ：从父抽象路径名和子路径名字符串创建新的 File实例
-
-2. 常用方法
-
-获取功能的方法
-
-* `public String getAbsolutePath()`：返回此File的绝对路径名字符串
-* `public String getPath() `：将此File转换为路径名字符串。
-* `public String getName()` ：返回由此File表示的文件或目录的名称。
-* `public long length()`：返回由此File表示的文件的长度。
-
-绝对路径和相对路径
-
-判断功能的方法
-
-* `public boolean exists() `：此File表示的文件或目录是否实际存在。
-* `public boolean isDirectory() `：此File表示的是否为目录。
-* `public boolean isFile()`：此File表示的是否为文件。
-
-创建删除功能的方法
-
-* `public boolean createNewFile()` ：当且仅当具有该名称的文件尚不存在时，创建一个新的空文件。
-* `public boolean delete()` ：删除由此File表示的文件或目录。
-* `public boolean mkdir() `：创建由此File表示的目录。
-* `public boolean mkdirs()`：创建由此File表示的目录，包括任何必需但不存在的父目录。
-
-3. 目录的遍历
-* `public String[] list()` 返回一个String数组，表示该File目录中的所有子文件或目录。
-* `public File listFiles()`返回一个File数组，表示该File目录中的所有的子文件或目录。
+	- `public File(String pathname)` ：通过将给定的路径名字符串转换为抽象路径名来创建新的 File实例。
+	- `public File(String parent, String child)` ：从父路径名字符串和子路径名字符串创建新的 File实例。
+	- `public File(File parent, String child)` ：从父抽象路径名和子路径名字符串创建新的 File实例
+2. 常用方法  
+	1. 获取功能的方法  绝对路径和相对路径
+		* `public String getAbsolutePath()`：返回此File的绝对路径名字符串
+		* `public String getPath() `：将此File转换为路径名字符串。
+		* `public String getName()` ：返回由此File表示的文件或目录的名称。
+		* `public long length()`：返回由此File表示的文件的长度。
+	2. 判断功能的方法
+		* `public boolean exists() `：此File表示的文件或目录是否实际存在。
+		* `public boolean isDirectory() `：此File表示的是否为目录。
+		* `public boolean isFile()`：此File表示的是否为文件。
+	3. 创建删除功能的方法
+		* `public boolean createNewFile()` ：当且仅当具有该名称的文件尚不存在时，创建一个新的空文件。
+		* `public boolean delete()` ：删除由此File表示的文件或目录。
+		* `public boolean mkdir() `：创建由此File表示的目录。
+		* `public boolean mkdirs()`：创建由此File表示的目录，包括任何必需但不存在的父目录。
+	4. 目录的遍历
+		* `public String[] list()` 返回一个String数组，表示该File目录中的所有子文件或目录。
+		* `public File listFiles()`返回一个File数组，表示该File目录中的所有的子文件或目录。
 
 ### 递归
 
@@ -755,7 +743,7 @@ public class Ticket implements Runnable{
 
 #### 字节输出流
 
-java.io.OutputStream 抽象类是表示字节输出流的所有类的超类，将指定的字节信息写出到目的地。它定义了字节输出流的基本共性功能方法。
+`java.io.OutputStream` 抽象类是表示字节输出流的所有类的超类，将内存中指定的字节信息写出到目的地。它定义了字节输出流的基本共性功能方法。
 
 * `public void close()`
 * `public void flush()` 刷新此输出流并强制任何缓冲的输出字节被写出。
@@ -831,8 +819,6 @@ public class FISRead {
    * `void close() `关闭此流，但要先刷新它。
    
    `FileWriter`  `Writer`的实现类
-
-
 
 ### 属性集
 
@@ -1070,7 +1056,6 @@ public enum SeasonEnum {
 
 3. 给方法加`@Test`
 4. 导入junit依赖环境
-
     * 判定结果：
         * 红色：失败
         * 绿色：成功
@@ -1083,58 +1068,46 @@ public enum SeasonEnum {
 ## 反射
 
 * 获取Class对象的方式：
-  
   1. Class.forName("全类名")：将字节码文件加载进内存，返回Class对象
-     
      - 多用于配置文件，将类名定义在配置文件中。读取文件，加载类
-  
   2. 类名.class：通过类名的属性class获取
-     
      - 多用于参数的传递
-  
-  3. 对象.getClass()：getClass()方法在Object类中定义着。
-     
+  3. 对象.getClass()：`getClass()`方法在Object类中定义着。
      - 多用于对象的获取字节码的方式
 
-* 结论： 同一个字节码文件(*.class)在一次程序运行过程中，只会被加载一次，不论通过哪一种方式获取的Class对象都是同一个
+* 结论： 同一个字节码文件`(*.class)`在一次程序运行过程中，只会被加载一次，不论通过哪一种方式获取的Class对象都是同一个
 
 * **Class对象**功能：
-  
-  * 获取功能：
-    
-    1. 获取成员变量们
-       * `Field[] getFields()` ：获取所有public修饰的成员变量
-       * `Field getField(String name)`   获取指定名称的 public修饰的成员变量
-       * `Field[] getDeclaredFields()`  获取所有的成员变量，不考虑修饰符
-       * `Field getDeclaredField(String name)  `
-    2. 获取构造方法们
-       * `Constructor<?>[] getConstructors()  `
-       * `Constructor<T> getConstructor(类<?>... parameterTypes)  `
-       * `Constructor<T> getDeclaredConstructor(类<?>... parameterTypes)  `
-       * `Constructor<?>[] getDeclaredConstructors()  `
-    3. 获取成员方法们：
-       * `Method[] getMethods()  `
-       * `Method getMethod(String name, 类<?>... parameterTypes)  `
-       * `Method[] getDeclaredMethods()  `
-       * `Method getDeclaredMethod(String name, 类<?>... parameterTypes)  `
-    4. 获取全类名    
-       * `String getName()`
-
+	* 获取功能：
+	    1. 获取成员变量们
+		       * `Field[] getFields()` ：获取所有public修饰的成员变量
+		       * `Field getField(String name)`   获取指定名称的 public修饰的成员变量
+		       * `Field[] getDeclaredFields()`  获取所有的成员变量，不考虑修饰符
+		       * `Field getDeclaredField(String name)  `
+	    1. 获取构造方法们
+		       * `Constructor<?>[] getConstructors()  `
+		       * `Constructor<T> getConstructor(类<?>... parameterTypes)  `
+		       * `Constructor<T> getDeclaredConstructor(类<?>... parameterTypes)  `
+		       * `Constructor<?>[] getDeclaredConstructors()  `
+	    1. 获取成员方法们：
+		       * `Method[] getMethods()  `
+		       * `Method getMethod(String name, 类<?>... parameterTypes)  `
+		       * `Method[] getDeclaredMethods()  `
+		       * `Method getDeclaredMethod(String name, 类<?>... parameterTypes)  `
+	    1. 获取全类名    
+		       * `String getName()`
 * Field：成员变量
-  
-  * 操作：
-    1. 设置值
-       * `void set(Object obj, Object value)  `
-    2. 获取值
-       * `get(Object obj)`
-    3. 忽略访问权限修饰符的安全检查
-       * `setAccessible(true)`:暴力反射
-
+	  * 操作：
+	    1. 设置值
+	       * `void set(Object obj, Object value)  `
+	    2. 获取值
+	       * `get(Object obj)`
+	    3. 忽略访问权限修饰符的安全检查
+	       * `setAccessible(true)`:暴力反射
 * Constructor:构造方法
   * 创建对象：
     * `T newInstance(Object... initargs)  `
     * 如果使用空参数构造方法创建对象，操作可以简化：Class对象的newInstance方法
-
 * Method：方法对象
   * 执行方法：
     * `Object invoke(Object obj, Object... args)`
@@ -1168,7 +1141,6 @@ public enum SeasonEnum {
 		```
     * 本质：注解本质上就是一个接口，该接口默认继承`Annotation`接口
         * `public interface MyAnno extends java.lang.annotation.Annotation {}`
-
     * 属性：接口中的抽象方法
         * 要求：
             1. 属性的返回值类型有下列取值
@@ -1181,7 +1153,6 @@ public enum SeasonEnum {
                 1. 如果定义属性时，使用default关键字给属性默认初始化值，则使用注解时，可以不进行属性的赋值。
                 2. 如果只有一个属性需要赋值，并且属性的名称是value，则value可以省略，直接定义值即可。
                 3. 数组赋值时，值使用`{}`包裹。如果数组中只有一个值，则{}可以省略
-
 * 元注解：用于描述注解的注解
             * `@Target`：描述注解能够作用的位置
                 * `ElementType`取值：
@@ -1315,7 +1286,6 @@ ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) 
 	ALTER TABLE 表名 ADD CONSTRAINT 外键名称  
 	FOREIGN KEY (外键字段名称) REFERENCES 主表名称(主表列名称) ON UPDATE CASCADE ON DELETE CASCADE ;
 	```
-	
 2. 分类：  
 	1. 级联更新：`ON UPDATE CASCADE`  
 	2. 级联删除：`ON DELETE CASCADE`
@@ -1412,7 +1382,7 @@ ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) 
 4. MySQL数据库中事务默认自动提交
 	* 事务提交的两种方式：
 		* 自动提交：
-			* mysql就是自动提交的
+			* `mysql`就是自动提交的
 			* 一条DML(增删改)语句会自动提交一次事务。
 		* 手动提交：
 			* Oracle 数据库默认是手动提交事务
@@ -1512,6 +1482,43 @@ public void testJDBCTransaction() {
 
 ```
 
+#### 3.4 ResultSet与ResultSetMetaData
+3.4.1 ResultSet
+查询需要调用PreparedStatement 的 executeQuery() 方法，查询结果是一个ResultSet 对象
+
+ResultSet 对象以逻辑表格的形式封装了执行数据库操作的结果集，ResultSet 接口由数据库厂商提供实现
+
+ResultSet 返回的实际上就是一张数据表。有一个指针指向数据表的第一条记录的前面。
+
+ResultSet 对象维护了一个指向当前数据行的游标，初始的时候，游标在第一行之前，可以通过 ResultSet 对象的 next() 方法移动到下一行。调用 next()方法检测下一行是否有效。若有效，该方法返回 true，且指针下移。相当于Iterator对象的 hasNext() 和 next() 方法的结合体。
+
+当指针指向一行时, 可以通过调用 getXxx(int index) 或 getXxx(int columnName) 获取每一列的值。
+
+例如: getInt(1), getString(“name”)
+注意：Java与数据库交互涉及到的相关Java API中的索引都从1开始。
+ResultSet 接口的常用方法：
+- boolean next()
+- getString()
+…
+
+3.4.2 ResultSetMetaData
+可用于获取关于 ResultSet 对象中列的类型和属性信息的对象
+
+ResultSetMetaData meta = rs.getMetaData();
+
+getColumnName(int column)：获取指定列的名称
+
+getColumnLabel(int column)：获取指定列的别名
+
+getColumnCount()：返回当前 ResultSet 对象中的列数。
+
+getColumnTypeName(int column)：检索指定列的数据库特定的类型名称。
+
+getColumnDisplaySize(int column)：指示指定列的最大标准宽度，以字符为单位。
+
+isNullable(int column)：指示指定列中的值是否可以为 null。
+
+isAutoIncrement(int column)：指示是否自动为指定列进行编号，这样这些列仍然是只读的。
 ### 数据库连接池
 c3p0
 德鲁伊

@@ -72,7 +72,23 @@ git config --local user.name dukechase
 git config --local user.email  hsb2435@163.com
 
 
-
-
 # [Git 多用户配置](https://www.cnblogs.com/cangqinglang/p/12462272.html "发布于 2020-03-11 14:35")
 
+```
+Host github
+HostName github.com
+User jitwxs
+IdentityFile ~/.ssh/id_rsa_github
+
+Host gitlab
+HostName gitlab.mygitlab.com
+User lemon
+IdentityFile ~/.ssh/id_rsa_gitlab
+```
+
+```
+~/.ssh  ssh -T git@github
+Hi jitwxs! You've successfully authenticated, but GitHub does not provide shell access.
+~/.ssh  ssh -T git@gitlab
+Welcome to GitLab, @lemon!
+```
