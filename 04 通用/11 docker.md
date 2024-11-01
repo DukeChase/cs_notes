@@ -5,7 +5,7 @@
 
 `docker run `
 
-```shell
+```bash
 Usage:  docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 
 Create and run a new container from an image

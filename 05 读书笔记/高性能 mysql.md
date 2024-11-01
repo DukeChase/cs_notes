@@ -31,8 +31,8 @@
 
 ### 4.1.3 字符串类型
 
-- varchar和 char 类型
-- blob 和text 类型
+- `varchar`和 `char` 类型
+- `blob` 和`text` 类型
 
 ### 4.1.4 日期和时间类型
 
