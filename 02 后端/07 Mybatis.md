@@ -26,3 +26,28 @@ StatementHandler
 ### 3、Mybatis 插件机制
 
 如果想编写自己的 Mybatis 插件可以通过实现 `org.apache.ibatis.plugin.Interceptor` 接口来完成，表示对 `Mybatis` 常规操作进行拦截，加入自定义逻辑。
+
+
+
+mybatis include 高级使用
+https://blog.csdn.net/m0_67318913/article/details/136595480
+
+```xml
+  <sql id="Param_Block">
+  	${user}.id,
+  	${user}.name,
+    ${user}.phone
+  </sql>
+<select>
+SELECT
+		<include refid="Param_Block">
+			<property name="user" value="s"/>
+		</include>
+    FROM
+    	store s
+    WHERE
+    	s.store_sn = #{storeSn}
+</select>
+	
+
+```

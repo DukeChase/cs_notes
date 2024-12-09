@@ -45,9 +45,9 @@ mvn groupId:artifactId:goal -P=-profile-1,-profile-2,-?profile-3
 
 # 依赖冲突
 
-依赖调解原则
-第一声明优先原则
-路径近者优先原则
+- 依赖调解原则
+- 第一声明优先原则
+- 路径近者优先原则
 
 
 ## pom.xml
