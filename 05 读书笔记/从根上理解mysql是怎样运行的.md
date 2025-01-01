@@ -33,7 +33,7 @@ COLLATE 比校规则名;
 磁盘和内存交互的基本单位 大小 16kb  
 
 4种行格式  
-COMPACT、 REDUNDANT、 DYNAMIC 和 COMPRESSED.
+ COMPACT、 REDUNDANT、 DYNAMIC 和 COMPRESSED.
 
 ```sql
 CREATE TABLE 表名 (列的信息) ROW_FORMAT 行格式名称;
@@ -58,6 +58,8 @@ ALTRE TABEL tabel_name ROW_FORMAT= 行格式名称;
 
 # 第5章 盛放记录的大盒子-InnoDB数据页结构
 ## 5.1 不同类型的页简介
+
+index 页 （数据页）
 
 ## 5.2 数据页结构快揽
 | 名称               | 中文名           | 占用空间大小 | 简单描述       |
