@@ -1136,7 +1136,7 @@ web.xml 配置
 	<listener-class>com.atguigu.listener.MyServletContextListenerImpl</listener-class>
 </listener>
 ```
-# EL表达式JSTL表达式
+# EL表达式 JSTL表达式
 ## EL表达式
 
 EL 表达式主要是代替 jsp 页面中的表达式脚本在 jsp 页面中进行数据的输出。
@@ -1249,7 +1249,7 @@ json在java中的操作。常见的有三种情况
 什么是AJAX
 AJAX即`Asynchronous Javascript And XML`（异步 JavaScript 和 XML），是**指一种创建交互式网页应用的网页开发技术**。
 
-ajax 是一种浏览器通过 js 异步发起请求，局部更新页面的技术。
+`ajax`是一种浏览器通过 js 异步发起请求，局部更新页面的技术。
 
 Ajax 请求的局部更新，***浏览器地址栏不会发生变化***
 
@@ -1258,21 +1258,21 @@ Ajax 请求的局部更新，***浏览器地址栏不会发生变化***
 jQuery 中的AJAX
 - `$.ajax(url,type,data,success,dataType)`
 
-|参数|意义|备注|
-|----|----|---|
-|url|表示请求的地址||
-|type|表示请求的类型 GET 或 POST 请求||
-|data|表示发送给服务器的数据|格式有两种：1. name=value&name=value  2. {key:value}|
-|success|请求成功，响应的回调函数||
-|dataType|响应的数据类型|常用的数据类型有：text 表示纯文本xml 表示 xml 数据json 表示 json 对象|
+| 参数       | 意义                    | 备注                                              |
+| -------- | --------------------- | ----------------------------------------------- |
+| url      | 表示请求的地址               |                                                 |
+| type     | 表示请求的类型 GET 或 POST 请求 |                                                 |
+| data     | 表示发送给服务器的数据           | 格式有两种：1. name=value&name=value  2. {key:value}  |
+| success  | 请求成功，响应的回调函数          |                                                 |
+| dataType | 响应的数据类型               | 常用的数据类型有：text 表示纯文本xml 表示 xml 数据json 表示 json 对象 |
 - `$.get(url,data,callback,type)`
 - `$.post(url,data,callback,type)`
-url    请求的 url 地址
-data   发送的数据
-callback   成功的回调函数
-type   返回的数据类型
+	- url    请求的 url 地址
+	- data   发送的数据
+	- callback   成功的回调函数
+	- type   返回的数据类型
 - `$.getJSON(url,data,callback)`
-url       请求的 url 地址
-data      发送给服务器的数据
-callback  成功的回调函数
+	- url       请求的 url 地址
+	- data      发送给服务器的数据
+	- callback  成功的回调函数
 
