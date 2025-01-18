@@ -67,7 +67,7 @@ protected WebApplicationContext createWebApplicationContext(@Nullable Applicatio
 
 ## 4、将 IOC 容器对象存入应用域
 
-所在类：org.springframework.web.servlet.FrameworkServlet
+所在类：`org.springframework.web.servlet.FrameworkServlet`
 
 ```java
 protected WebApplicationContext initWebApplicationContext() {
@@ -116,7 +116,7 @@ protected WebApplicationContext initWebApplicationContext() {
 
 ## 5、请求映射初始化
 
-FrameworkServlet.createWebApplicationContext()→configureAndRefreshWebApplicationContext()→wac.refresh()→触发刷新事件→org.springframework.web.servlet.DispatcherServlet.initStrategies()→org.springframework.web.servlet.DispatcherServlet.initHandlerMappings()
+`FrameworkServlet.createWebApplicationContext()`→`configureAndRefreshWebApplicationContext()`→`wac.refresh()`→触发刷新事件→`org.springframework.web.servlet.DispatcherServlet.initStrategies()`→`org.springframework.web.servlet.DispatcherServlet.initHandlerMappings()`
 
 ![](https://duke-1258882975.cos.ap-guangzhou.myqcloud.com/picture/202407061119937.png)
 
@@ -124,11 +124,11 @@ FrameworkServlet.createWebApplicationContext()→configureAndRefreshWebApplicati
 
 整个启动过程我们关心如下要点：
 
-- DispatcherServlet 本质上是一个 Servlet，所以天然的遵循 Servlet 的生命周期。所以宏观上是 Servlet 生命周期来进行调度。
-- DispatcherServlet 的父类是 FrameworkServlet。
-    - FrameworkServlet 负责框架本身相关的创建和初始化。
-    - DispatcherServlet 负责请求处理相关的初始化。
-- FrameworkServlet 创建 IOC 容器对象之后会存入应用域。
-- FrameworkServlet 完成初始化会调用 IOC 容器的刷新方法。
+- `DispatcherServlet` 本质上是一个 `Servlet`，所以天然的遵循` Servlet `的生命周期。所以宏观上是 `Servlet` 生命周期来进行调度。
+- `DispatcherServlet` 的父类是 `FrameworkServlet`。
+    - `FrameworkServlet `负责框架本身相关的创建和初始化。
+    - `DispatcherServlet `负责请求处理相关的初始化。
+- `FrameworkServlet` 创建 IOC 容器对象之后会存入应用域。
+- `FrameworkServlet` 完成初始化会调用 IOC 容器的刷新方法。
 - 刷新方法完成触发刷新事件，在刷新事件的响应函数中，调用 DispatcherServlet 的初始化方法。
-- 在 DispatcherServlet 的初始化方法中初始化了请求映射等。
+- 在 `DispatcherServlet` 的初始化方法中初始化了请求映射等。
