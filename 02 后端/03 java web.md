@@ -1,5 +1,5 @@
-# ref 
-[尚硅谷最新版JavaWeb全套教程,javaweb零基础入门完整版]( https://www.bilibili.com/video/BV1Y7411K7zz/?share_source=copy_web&vd_source=e65574be5c4ff436d099ae0526b97fd9)
+# 参考
+- [尚硅谷最新版JavaWeb全套教程,javaweb零基础入门完整版]( https://www.bilibili.com/video/BV1Y7411K7zz/?share_source=copy_web&vd_source=e65574be5c4ff436d099ae0526b97fd9)
 # HTML CSS
 
 
@@ -27,13 +27,15 @@
 	- `<标签名>封装的数据</标签名>`
 2. 标签名大小写不敏感。
 3. 标签拥有自己的属性。
-	i. 分为基本属性：`bgcolor="red" `            可以修改简单的样式效果  
-	ii. 事件属性： `onclick="alert('你好！');" ` 可以直接设置事件响应后的代码。  
+	1.  分为基本属性：`bgcolor="red" `            可以修改简单的样式效果  
+	2. 事件属性： `onclick="alert('你好！');" ` 可以直接设置事件响应后的代码。  
 4. 标签又分为，单标签和双标签。
-	i. 单标签格式： `<标签名 />`  
-		`<br/>` 换行  
-		`<hr/>` 水平线  
-	ii. 双标签格式:` <标签名> ...封装的数据...</标签名>`  
+	1. 单标签格式： 
+		- `<标签名/>`  
+		- `<br/>` 换行  
+		- `<hr/>` 水平线  
+	2.  双标签格式:
+		- ` <标签名> ...封装的数据...</标签名>`  
 ## 常用标签
 - 超链接
 ```html
@@ -58,14 +60,12 @@ li 是列表项
 		<li>小沈阳</li>
 		<li>宋小宝</li>
 	</ul>
-
 </body>
 ```
 - img标签
-
 - 表格标签
-需求1：做一个 带表头的 ，三行，三列的表格，并显示边框  
-需求2：修改表格的宽度，高度，表格的对齐方式，单元格间距。  
+	- 需求1：做一个 带表头的 ，三行，三列的表格，并显示边框  
+	- 需求2：修改表格的宽度，高度，表格的对齐方式，单元格间距。  
 - `table` 标签是表格标签
 	- `border` 设置表格标签
 	- `width` 设置表格宽度
@@ -73,13 +73,13 @@ li 是列表项
 	- `align` 设置表格相对于页面的对齐方式
 	- `cellspacing`设置单元格间距
 
-| 标签  | 意义        | 
-|----|--------|
-|tr  |  是行标签|
-|th|  是表头标签|
-|td|  是单元格标签|
-|	|align 设置单元格文本对齐方式|
-|   |b 是加粗标签|
+| 标签  | 意义                |     |
+| --- | ----------------- | --- |
+| tr  |   是行标签            |     |
+| th  |  是表头标签            |     |
+| td  |  是单元格标签           |     |
+|     | align 设置单元格文本对齐方式 |     |
+|     | b 是加粗标签           |     |
 
 ```html
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -90,9 +90,7 @@ li 是列表项
     <title>表格标签</title>
 </head>
 <body>
-<!--
-    
-    -->
+<!--    -->
 <table align="center" border="1" width="300" height="300" cellspacing="0">
     <tr>
         <th>1.1</th>
@@ -273,6 +271,8 @@ form标签就是表单
 | div  | 默认独占一行                            |
 | span | 它的长度是封装数据的长度                      |
 | p    | 段落标签 默认会在段落的上方或下方各空出一行来（如果已有就不再空） |
+
+
 # CSS层叠样式表
 选择器：浏览器根据“选择器”决定受 CSS 样式影响的 HTML 元素（标签）。  
 属性 (`property`) 是你要改变的样式名，并且每个属性都有一个值。  
@@ -319,6 +319,7 @@ CSS 和 HTML 的结合方式
 `width:19px`
 `height:20px`
 
+
 # JavaScript
 ## 基本语法
 
@@ -335,7 +336,7 @@ CSS 和 HTML 的结合方式
 	2. 多行注释：`/*注释内容*/`
 3. 数据类型：
 	1. 原始数据类型(基本数据类型)：
-		1. `number`：数字。 整数/小数/`NaN`(not a number 一个不是数字的数字类型)
+		1. `number`：数字。 整数、小数、`NaN`(not a number 一个不是数字的数字类型)
 		2. `string`：字符串。 字符串  `"abc"` `"a"` `'abc'`
 		3. `boolean`: `true`和`false`
 		4. `null`：一个对象为空的占位符
@@ -349,22 +350,22 @@ CSS 和 HTML 的结合方式
 	* 语法：
 		* `var 变量名 = 初始化值;`
 	* `typeof`运算符：获取变量的类型。
-		* 注：null运算后得到的是object
+		* 注：`null`运算后得到的是`object`
 5. 运算符
 	1. 一元运算符：只有一个运算数的运算符
-		- ++，-- ， +(正号)  
-		* ++ --: 自增(自减)
-			* ++(--) 在前，先自增(自减)，再运算
-			* ++(--) 在后，先运算，再自增(自减)
-		* +(-)：正负号
+		- `++`，`--` ， `+`(正号)  
+		* `++` `--``: 自增(自减)
+			* `++(--)` 在前，先自增(自减)，再运算
+			* `++(--)` 在后，先运算，再自增(自减)
+		* `+(-)`：正负号
 		* 注意：在JS中，如果运算数不是运算符所要求的类型，那么js引擎会自动的将运算数进行类型转换
-            * 其他类型转number：
-                * string转number：按照字面值转换。如果字面值不是数字，则转为NaN（不是数字的数字）
-                * boolean转number：true转为1，false转为0
+            * 其他类型转`number`：
+                * `string`转`number`：按照字面值转换。如果字面值不是数字，则转为NaN（不是数字的数字）
+                * `boolean`转`number`：`true`转为1，`false`转为0
 	2. 算数运算符
-			+ - * / % ...
+		- `+ - * / % `
 	3.  赋值运算符
-			`= += -+....`
+		- `= += -+....`
 	4. 比较运算符
 		- `> < >= <= == ===(全等于)`
 		* 比较方式
@@ -375,15 +376,15 @@ CSS 和 HTML 的结合方式
 	5. 逻辑运算符
 		- `&&  ||  !`
 		- 其他类型转`boolean`：
-			1. `number`：0或NaN为假，其他为真
-			2. `string`：除了空字符串("")，其他都是true
+			1. `number`：`0`或`NaN`为假，其他为真
+			2. `string`：除了空字符串(`""`)，其他都是true
 			3. `null`&`undefined`:都是false
 			4. 对象：所有对象都为true	
 	6. 三元运算符
-		? : 表达式
-		`var a = 3;`
-		`var b = 4;`
-		`var c = a > b ? 1:0;`
+		- `? :` 表达式
+		- `var a = 3;`
+		- `var b = 4;`
+		- `var c = a > b ? 1:0;`
 		* 语法：
 			* 表达式? 值1:值2;
 			* 判断表达式的值，如果是true则取值1，如果是false则取值2；
@@ -400,7 +401,7 @@ CSS 和 HTML 的结合方式
 
 ## 基本对象
 
-1. Function 函数（方法）对象
+1. `Function` 函数（方法）对象
 	1. 创建方式
 		1. `var fun = new Function(形式列表参数，方法体)`   不重要
 		2. `function 方法名称(形式参数列表){方法体}`
@@ -659,10 +660,10 @@ jQuery 对象转为 dom 对象（重点）
 
 # Tomcat
 
-**java web** 概念
-JavaWeb 是指，所有通过 Java 语言编写可以通过浏览器访问的程序的总称，叫 JavaWeb。
+**Java Web** 概念
+JavaWeb 是指，所有通过 Java 语言编写可以通过浏览器访问的程序的总称，叫 **JavaWeb**。
 
-JavaWeb 是基于请求和响应来开发的。
+JavaWeb 是**基于请求和响应**来开发的。
 请求`Request`
 响应`Response`
 web服务器
@@ -679,7 +680,7 @@ web服务器
 XML解析技术介绍
 `DOM` 和 `sax`
 1. dom 解析技术是 W3C 组织制定的，而所有的编程语言都对这个解析技术使用了自己语言的特点进行实现。 Java 对 dom 技术解析标记也做了实现。
-2. sun 公司在 JDK5 版本对 dom 解析技术进行升级：SAX（ Simple API for XML ） SAX 解析，它跟 W3C 制定的解析不太一样。它是以类似事件机制通过回调告诉用户当前正在解析的内容。 它是一行一行的读取 xml 文件进行解析的。不会创建大量的 dom 对象。 所以它在解析 xml 的时候，在内存的使用上。和性能上。都优于 Dom 解析。
+2. SUN 公司在 JDK5 版本对 dom 解析技术进行升级：SAX（ Simple API for XML ） SAX 解析，它跟 W3C 制定的解析不太一样。它是以类似事件机制通过回调告诉用户当前正在解析的内容。 它是一行一行的读取 xml 文件进行解析的。不会创建大量的 dom 对象。 所以它在解析 xml 的时候，在内存的使用上。和性能上。都优于 Dom 解析。
 第三方解析：
 - `jdom`
 - `dom4j`
@@ -687,7 +688,7 @@ XML解析技术介绍
 
 # Servlet1
 ## Servlet技术
-1. 什么是Servlet
+1. 什么是`Servlet`
 	1. Servlet 是 JavaEE 规范之一。规范就是接口
 	2. Servlet 就 JavaWeb 三大组件之一。JavaWeb***三大组件***分别是：**Servlet程序、Filter 过滤器、Listener监听器**。 
 	3. Servlet 是运行在服务器上的一个java小程序，它可以接收客户端发送过来的请求，并响应数据给客户端。
@@ -697,7 +698,7 @@ XML解析技术介绍
 2、实现 `service` 方法，处理请求，并响应数据
 3、到 `web.xml` 中去配置 `servlet` 程序的访问地址
 
-*web.xml配置*
+**web.xml配置**
 ```xml
 	<!--context-param是上下文参数(它属于整个web工程)-->
     <context-param>
@@ -818,7 +819,6 @@ System.out.println(servletConfig.getServletContext());
 	2. 获取当前的工程路径，格式: `/工程路径`
 	3. 获取工程部署后在服务器硬盘上的绝对路径
 	4. 像 Map 一样存取数据
-
 - `ServletConetx getServletContext()`
 
 ## HTTP协议
@@ -838,14 +838,14 @@ HTTP 协议中的数据又叫报文。
 		2. 请求资源路径               `[+?+请求参数]`
 		3. 请求的协议版本号            `HTTP/1.1`
 	2. 请求头
-	   1. key:value
+		   1. key:value
 - POST请求
 	1. 请求行  
-	   1. 请求方式                     POST  
-	   2. 请求的资源路径               `[+?+请求参数]`
-	   3. 请求的协议的版本号            HTTP/1.1
+		   1. 请求方式                     POST  
+		   2. 请求的资源路径               `[+?+请求参数]`
+		3. 请求的协议的版本号            HTTP/1.1
 	2. 请求头
-	   1. key:value
+		   1. key:value
 	3. 空行
 	4. 请求体  就是发生给服务器的数据
 
@@ -869,11 +869,11 @@ HTTP 协议中的数据又叫报文。
 ## HTTP响应协议
 - 响应的HTTP协议
 	1. 响应行
-	   1. 响应协议和版本号
-	   2. 响应状态码
-	   3. 响应状态描述符
+		   1. 响应协议和版本号
+		   2. 响应状态码
+		   3. 响应状态描述符
 	2. 响应头
-	   - key:value
+		- key:value
 	3. 空行
 	4. 响应体  
 
@@ -887,54 +887,52 @@ HTTP 协议中的数据又叫报文。
 |500|表示服务器已经收到请求，但是服务器内部错误（代码错误）|
 # Serverlet2
 ## HttpServletRequest
-a) `HttpServletRequest`类的作用
-每次只要有请求进入 Tomcat 服务器，Tomcat 服务器就会把请求过来的 HTTP 协议信息解析好封装到`Request`对象中。然后传递到service方法（`doGet()`和`doPost()`）中给我们使用。我们可以通过`HttpServletRequest`对象，获取到所有请求的信息
-b) `HttpServletRequest`类的常用方法
-1. `getRequestURI()`      获取请求的资源路径
-2. `getRequestURL()`      获取请求的统一资源定位符（绝对路径）
-3. `getRemoteHost()`      获取客户端的 ip 地址
-4. `String getHeader(String s)`         获取请求头
-5. `String gerParamerter(String s)`      获取请求的参数
-6. `String[] getParameterValues(String s)`  获取请求的参数（多个值的时候使用）
-7. `String getMethod()`          获取请求的方式 GET 或 POST
-8. `setAttribute()`       设置域数据
-9. `getAttribute()`       获取域数据
-10. `getRequestDispacher()`获取请求转发对象
-c) 如何获取请求参数
+1.  `HttpServletRequest`类的作用
+	- 每次只要有请求进入 Tomcat 服务器，Tomcat 服务器就会把请求过来的 HTTP 协议信息解析好封装到`Request`对象中。然后传递到service方法（`doGet()`和`doPost()`）中给我们使用。我们可以通过`HttpServletRequest`对象，获取到所有请求的信息
+2. `HttpServletRequest`类的常用方法
+	1. `getRequestURI()`      获取请求的资源路径
+	2. `getRequestURL()`      获取请求的统一资源定位符（绝对路径）
+	3. `getRemoteHost()`      获取客户端的 ip 地址
+	4. `String getHeader(String s)`         获取请求头
+	5. `String gerParamerter(String s)`      获取请求的参数
+	6. `String[] getParameterValues(String s)`  获取请求的参数（多个值的时候使用）
+	7. `String getMethod()`          获取请求的方式 GET 或 POST
+	8. `setAttribute()`       设置域数据
+	9. `getAttribute()`       获取域数据
+	10. `getRequestDispacher()`获取请求转发对象
+3. 如何获取请求参数
 	上述5和6  
-d) `doGet`请求中的中文乱码
+4.  `doGet`请求中的中文乱码
+5. `doPost`请求中的中文乱码
+6.  请求的转发
+	- 请求转发是指，服务器收到请求后，从一次资源跳转到另一个资源的操作叫请求转发。
+7.  base标签的作用
+8. web中的相对路径和绝对路径
+9. web 中 / 斜杠的不同意义
 
-e) `doPost`请求中的中文乱码
 
-e) 请求的转发
-请求转发是指，服务器收到请求后，从一次资源跳转到另一个资源的操作叫请求转发。
+请求转发
 ```java
 RequestDispatcher requestDispatcher = req.getRequestDispatcher("/servlet2");
 // 走向 Sevlet2（柜台 2）
 requestDispatcher.forward(req,resp);
 ```
-
-f) base标签的作用
-g) web中的相对路径和绝对路径
-h) web 中 / 斜杠的不同意义
 ## HttpServletResponse
-a) `HttpServletResponse` 类的作用
-`HttpServletResponse` 类和 `HttpServletRequest` 类一样。每次请求进来，Tomcat 服务器都会创建一个 `Response` 对象传递给 `Servlet` 程序去使用。
-`HttpServletRequest` 表示请求过来的信息，
-`HttpServletResponse` 表示所有响应的信息，我们如果需要设置返回给客户端的信息，都可以通过 `HttpServletResponse` 对象来进行设置
-
-b) 两个输出流的说明。  
-- `ServletOutputStream getOutputStream()` 常用于下载
-- `PrintWriter getWriter()`  常用于回传数据（常用）
-**两个流同时只能使用一个**。
-使用了字节流，就不能再使用字符流，反之亦然，否则就会报错。
-c) 如何往客户端回传数据
+1. `HttpServletResponse` 类的作用
+	- `HttpServletResponse` 类和 `HttpServletRequest` 类一样。每次请求进来，Tomcat 服务器都会创建一个 `Response` 对象传递给 `Servlet` 程序去使用。
+	- `HttpServletRequest` 表示请求过来的信息，
+	- `HttpServletResponse` 表示所有响应的信息，我们如果需要设置返回给客户端的信息，都可以通过 `HttpServletResponse` 对象来进行设置
+2. 两个输出流的说明。  
+	- `ServletOutputStream getOutputStream()` 常用于下载
+	- `PrintWriter getWriter()`  常用于回传数据（常用）
+	- **两个流同时只能使用一个**。使用了字节流，就不能再使用字符流，反之亦然，否则就会报错。
+1.  如何往客户端回传数据
 ```java
 	// 向客户端回传数据
     PrintWriter writer = resp.getWriter();
     writer.wrire("response's content");
 ```
-d) 响应的乱码解决
+4. 响应的乱码解决
 - 方案一  不推荐
 ```java
 // 设置服务器字符集为 UTF-8
@@ -949,7 +947,7 @@ resp.setHeader("Content-Type", "text/html; charset=UTF-8");
 resp.setContentType("text/html; charset=UTF-8");
 ```
 
-e) 请求重定向
+5. 请求重定向
 - 第一种方案(不推荐)：
 ```java
 // 设置响应状态码 302 ，表示重定向，（已搬迁）
@@ -973,54 +971,54 @@ jsp本质是一个Servlet程序。
 jsp文件头部声明介绍
 `<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>`
 这是jsp文件的头声明。表示这是`jsp`页面。
-`language` 属性      值只能是 `java`。 表示翻译的得到的是` java `语言的
-`contentType`属性   设置响应头 `contentType` 的内容
-`pageEncoding`属性  设置当前 jsp 页面的编码
-`import` 属性       给当前` jsp `页面导入需要使用的类包
-`autoFlush` 属性    设置是否自动刷新 out 的缓冲区，默认为 true
-`buffer` 属性       设置 `out` 的缓冲区大小。默认为 8KB
-`errorPage` 属性    设置当前 jsp 发生错误后，需要跳转到哪个页面去显示错误信息
-`isErrorPage` 属性   设置当前 jsp 页面是否是错误页面。是的话，就可以使用 exception 异常对象
-`session` 属性     设置当前 `jsp` 页面是否获取 `session` 对象,默认为 `true`
-`extends` 属性     给服务器厂商预留的 `jsp` 默认翻译的 `servlet` 继承于什么类
+- `language` 属性      值只能是 `java`。 表示翻译的得到的是` java `语言的
+- `contentType`属性   设置响应头 `contentType` 的内容
+- `pageEncoding`属性  设置当前 jsp 页面的编码
+- `import` 属性       给当前` jsp `页面导入需要使用的类包
+- `autoFlush` 属性    设置是否自动刷新 out 的缓冲区，默认为 true
+- `buffer` 属性       设置 `out` 的缓冲区大小。默认为 8KB
+- `errorPage` 属性    设置当前 jsp 发生错误后，需要跳转到哪个页面去显示错误信息
+- `isErrorPage` 属性   设置当前 jsp 页面是否是错误页面。是的话，就可以使用 exception 异常对象
+- `session` 属性     设置当前 `jsp` 页面是否获取 `session` 对象,默认为 `true`
+- `extends` 属性     给服务器厂商预留的 `jsp` 默认翻译的 `servlet` 继承于什么类
 
 jsp中的三种脚本介绍
 1. 声明脚本（声明脚本）
-	`<%! java code %>`
-	在声明脚本块中，我们可以干 4 件事情
-	1. 我们可以定义全局变量。
-	2. 定义 static 静态代码块
-	3. 定义方法
-	4. 定义内部类
-	几乎可以写在类的内部写的代码，都可以通过声明脚本来实现
+	- `<%! java code %>`
+	- 在声明脚本块中，我们可以干 4 件事情
+		1. 我们可以定义全局变量。
+		2. 定义 static 静态代码块
+		3. 定义方法
+		4. 定义内部类
+	- 几乎可以写在类的内部写的代码，都可以通过声明脚本来实现
 2. 表达式脚本(重点，常用)
-	`<%= expression here %>`
-	表达式脚本 用于向页面输出内容。
-	表达式脚本 翻译到 Servlet 程序的 service 方法中 以 out.print() 打印输出
-	out 是 jsp 的一个内置对象，用于生成 html 的源代码
-	注意：表达式不要以分号结尾，否则会报错
-	表达式脚本可以输出任意类型。
-	比如：
-	1.输出整型
-	2.输出浮点型
-	3.输出字符串
-	4.输出对象
+	- `<%= expression here %>`
+	- 表达式脚本 用于向页面输出内容。
+	- 表达式脚本 翻译到 `Servlet` 程序的 `service` 方法中 以`out.print()`打印输出
+	- `out` 是 jsp 的一个内置对象，用于生成 html 的源代码
+	- 注意：表达式不要以分号结尾，否则会报错
+	- 表达式脚本可以输出任意类型。
+	- 比如：
+		1. 输出整型
+		2. 输出浮点型
+		3. 输出字符串
+		4. 输出对象
 3. 代码脚本(重点，常用)
-	`<% java code here %>`
-	代码脚本里可以书写任意的 java 语句。
-	代码脚本的内容都会被翻译到 `service` 方法中。
-	所以 service 方法中可以写的 java 代码，都可以书写到代码脚本中
-jsp中有三种注释：
-	1、html注释 
-		`<!--  html注释  -->`
-		html注释翻译之后会在_`jspService()`方法以`out.write`输出到页面
-	2、java注释 
-		`// 单行注释`
-		`/*  多行注释 */`
-		java的多行注释在翻译之后在翻译到servlet程序的源代码中
-	3、jsp注释 
-		`<%-- jsp注释 --%>`
-		jsp注释可以注掉jsp中所有内容，在jsp翻译的时候会被完全忽略掉
+	- `<% java code here %>`
+	- 代码脚本里可以书写任意的 java 语句。
+	- 代码脚本的内容都会被翻译到 `service` 方法中。
+	- 所以 service 方法中可以写的 java 代码，都可以书写到代码脚本中
+4. jsp中有三种注释：
+	1. html注释 
+		- `<!--  html注释  -->`
+		- html注释翻译之后会在_`jspService()`方法以`out.write`输出到页面
+	2. java注释 
+		- `// 单行注释`
+		- `/*  多行注释 */`
+		- java的多行注释在翻译之后在翻译到servlet程序的源代码中
+	3. jsp注释 
+		- `<%-- jsp注释 --%>`
+		- jsp注释可以注掉jsp中所有内容，在jsp翻译的时候会被完全忽略掉
 
 ## jsp九大内置对象
 
@@ -1090,9 +1088,9 @@ page 属性设置请求转发的路径
 ```
 
 # Listener
-1. Listener 监听器它是 JavaWeb 的三大组件之一。
+1. `Listener` 监听器它是 JavaWeb 的三大组件之一。
 	- JavaWeb 的三大组件分别是：Servlet 程序、 Filter 过滤器、 Listener 监 听器。
-2. Listener 它是 JavaEE 的规范，就是接口
+2. `Listener` 它是 JavaEE 的规范，就是接口
 3.  监听器的作用是，监听某种事物的变化。然后通过回调函数，反馈给客户（程序）去做一些相应的处理。
 `ServletContextListener `它可以监听` ServletContext `对象的创建和销毁。 `ServletContext` 对象在 web 工程启动的时候创建，在 web 工程停止的时候销毁。
 
