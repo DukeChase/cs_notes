@@ -189,7 +189,7 @@ try (SqlSession session = sqlSessionFactory.openSession()) {
 如果想编写自己的 Mybatis 插件可以通过实现 `org.apache.ibatis.plugin.Interceptor` 接口来完成，表示对 `Mybatis` 常规操作进行拦截，加入自定义逻辑。
 
 
-
+# 其他
 mybatis include 高级使用
 https://blog.csdn.net/m0_67318913/article/details/136595480
 
@@ -209,8 +209,6 @@ SELECT
     WHERE
     	s.store_sn = #{storeSn}
 </select>
-	
-
 ```
 
 

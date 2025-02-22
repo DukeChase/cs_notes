@@ -74,21 +74,38 @@ git config --local user.email  hsb2435@163.com
 
 # [Git 多用户配置](https://www.cnblogs.com/cangqinglang/p/12462272.html)
 
+### 各部分含义：
+
+1. **`Host gitee`**
+    - 定义了一个别名 `gitee`，表示你可以通过这个别名来简化对 Gitee 的连接。
+    - 当你在命令行中使用 `ssh gitee` 或与 Gitee 相关的 Git 操作时，SSH 客户端会根据这个别名查找对应的配置。
+2. **`HostName gitee.com`**
+    - 指定了实际的目标主机地址，这里是 `gitee.com`。
+    - 当你使用别名 `gitee` 时，SSH 客户端会将它解析为 `gitee.com`。
+3. **`Port 22`**
+    - 指定了连接到目标主机时使用的端口号，默认情况下，SSH 使用的是 22 端口。
+    - 如果 Gitee 使用非标准端口，则可以在这里修改为其他值。
+4. **`IdentityFile ~/.ssh/gitee_id_rsa`**
+    
+    - 指定了用于身份验证的私钥文件路径。
+    - 在这里，`~/.ssh/gitee_id_rsa` 是一个私钥文件，SSH 客户端会用它来验证你的身份，以便成功连接到 Gitee。
+
 ```
 Host github
 HostName github.com
-User jitwxs
 IdentityFile ~/.ssh/id_rsa_github
 
 Host gitlab
 HostName gitlab.mygitlab.com
-User lemon
 IdentityFile ~/.ssh/id_rsa_gitlab
 ```
 
-```
-~/.ssh  ssh -T git@github
+测试连接
+```bash
+ssh -T git@github
 Hi jitwxs! You've successfully authenticated, but GitHub does not provide shell access.
-~/.ssh  ssh -T git@gitlab
+```
+```bash
+ssh -T git@gitlab
 Welcome to GitLab, @lemon!
 ```

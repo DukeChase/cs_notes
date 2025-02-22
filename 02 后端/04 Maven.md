@@ -8,7 +8,7 @@
 # -D 表示后面要附加命令的参数，字母 D 和后面的参数是紧挨着的，中间没有任何其它字符
 # maven.test.skip=true 表示在执行命令的过程中跳过测试
 
-mvn clean install -Dmaven.test.skip=true -P=-profile1
+
 
 mvn groupId:artifactId:goal -P \!profile-1,\!profile-2,\!?profile-3
 
@@ -72,10 +72,9 @@ maven
 
 dependencyManagement
 
-${kettle.version}
+`${kettle.version}`
 
-坐标
-
+maven坐标
 - groupId
 - artifactId
 - version
@@ -95,7 +94,39 @@ profile
 `mvn -p -s`
 
 
-[maven versions  介绍](https://www.mojohaus.org/versions/versions-maven-plugin/index.html)
+
+
+## scope
+
+- `compile` 默认
+	- 该依赖在项目编译、测试以及运行时都有效。
+	- 这是最常用的依赖范围，如果没有明确指定`<scope>`，则默认为`compile`。
+- `runtime` 
+	- 依赖在运行和测试时需要，但在编译时不需要。
+	- 常见的例子是JDBC驱动程序，它在编译时并不直接使用，但在运行时需要加载具体的数据库驱动。
+- `test`
+- `provided` 
+	- 表示该依赖预期由运行环境提供，如Servlet API通常由容器提供。
+	- 在编译和测试阶段有效，但在运行时不需要包含进打包文件中，因为它假定由运行环境（如应用服务器）提供
+- `system`
+	- - 类似于`provided`，但要求你显式地指定该依赖所在的jar包路径。
+	- 使用`<systemPath>`元素来定义本地jar文件的位置，这使得构建过程与本机环境紧密耦合，因此应谨慎使用。
+- `import`
+	- 用于在`<dependencyManagement>`部分导入其他pom文件中的依赖管理配置。
+	- 它允许从其他`POM`文件中继承依赖版本信息，而不会实际引入任何依赖。
+## optional
+
+```xml
+<!-- spring-boot-devtools -->  
+<dependency>  
+    <groupId>org.springframework.boot</groupId>  
+    <artifactId>spring-boot-devtools</artifactId>  
+    <optional>true</optional> <!-- 表示依赖不会传递 -->  
+</dependency>
+```
+
+
+#  [maven versions  介绍](https://www.mojohaus.org/versions/versions-maven-plugin/index.html)
 `mvn versions:set`
 
 `mvn versions:commit`
@@ -114,36 +145,6 @@ profile
     </plugins>
 </build>
 ```
-
-## scope
-
-- compile 默认
-	- 该依赖在项目编译、测试以及运行时都有效。
-	- 这是最常用的依赖范围，如果没有明确指定`<scope>`，则默认为`compile`。
-- runtime 
-	- 依赖在运行和测试时需要，但在编译时不需要。
-	- 常见的例子是JDBC驱动程序，它在编译时并不直接使用，但在运行时需要加载具体的数据库驱动。
-- test
-- provided 
-	- 表示该依赖预期由运行环境提供，如Servlet API通常由容器提供。
-	- 在编译和测试阶段有效，但在运行时不需要包含进打包文件中，因为它假定由运行环境（如应用服务器）提供
-- system
-	- - 类似于`provided`，但要求你显式地指定该依赖所在的jar包路径。
-	- 使用`<systemPath>`元素来定义本地jar文件的位置，这使得构建过程与本机环境紧密耦合，因此应谨慎使用。
-- import
-	- 用于在`<dependencyManagement>`部分导入其他pom文件中的依赖管理配置。
-	- 它允许从其他POM文件中继承依赖版本信息，而不会实际引入任何依赖。
-## optional
-
-```xml
-<!-- spring-boot-devtools -->  
-<dependency>  
-    <groupId>org.springframework.boot</groupId>  
-    <artifactId>spring-boot-devtools</artifactId>  
-    <optional>true</optional> <!-- 表示依赖不会传递 -->  
-</dependency>
-```
-
 
 - **maven使用assembly插件打包zip/tar** [https://blog.csdn.net/qq_17303159/article/details/123996669](https://blog.csdn.net/qq_17303159/article/details/123996669)
 - [https://blog.csdn.net/qq_44795091/article/details/130327247](https://blog.csdn.net/qq_44795091/article/details/130327247) **maven工程多模块、项目打包问题**

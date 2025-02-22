@@ -27,7 +27,7 @@
 	- `<标签名>封装的数据</标签名>`
 2. 标签名大小写不敏感。
 3. 标签拥有自己的属性。
-	1.  分为基本属性：`bgcolor="red" `            可以修改简单的样式效果  
+	1. 分为基本属性：`bgcolor="red" `            可以修改简单的样式效果  
 	2. 事件属性： `onclick="alert('你好！');" ` 可以直接设置事件响应后的代码。  
 4. 标签又分为，单标签和双标签。
 	1. 单标签格式： 
@@ -113,13 +113,13 @@ li 是列表项
 ```
 
 - 跨行跨列表格
-需求1：
-新建一个五行，五列的表格，  
-第一行，第一列的单元格要跨两列，  
-第二行第一列的单元格跨两行，  
-第四行第四列的单元格跨两行两列。  
-- `colspan` 属性设置跨列
-- `rowspan` 属性设置跨行
+	- 需求1：
+		- 新建一个五行，五列的表格，
+		- 第一行，第一列的单元格要跨两列，  
+		- 第二行第一列的单元格跨两行，  
+		- 第四行第四列的单元格跨两行两列。  
+		- `colspan` 属性设置跨列
+		- `rowspan` 属性设置跨行
             
 ```html
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -169,17 +169,17 @@ li 是列表项
 - 表单标签
 表单就是 html 页面中,用来收集用户信息的所有元素集合，然后把这些信息发送给服务器。  
 form标签就是表单
-- `<input type=text>`     是文件输入框  value设置默认显示内容
-- `<input type=password>` 是密码输入框  value设置默认显示内容
-- `<input type=radio>`    是单选框    name属性可以对其进行分组
-- `<input type=checkbox>` 是复选框   checked="checked"表示默认选中
-- `<input type=reset>`    是重置按钮      value属性修改按钮上的文本
-- `<input type=submit>`  是提交按钮      value属性修改按钮上的文本
-- `<input type=button>`   是按钮          value属性修改按钮上的文本
+- `<input type=text>`     是文件输入框  `value`设置默认显示内容
+- `<input type=password>` 是密码输入框  `value`设置默认显示内容
+- `<input type=radio>`    是单选框    `name`属性可以对其进行分组
+- `<input type=checkbox>` 是复选框   `checked="checked"`表示默认选中
+- `<input type=reset>`    是重置按钮      `value`属性修改按钮上的文本
+- `<input type=submit>`  是提交按钮      `value`属性修改按钮上的文本
+- `<input type=button>`   是按钮          `value`属性修改按钮上的文本
 - `<input type=file>`    是文件上传域
 - `<input type=hidden>`   是隐藏域    当我们要发送某些信息，而这些信息，不需要用户参与，就可以使用隐藏域（提交的时候同时发送给服务器）
 - `select` 标签是下拉列表框
-- `option` 标签是下拉列表框中的选项 selected="selected"设置默认选中
+- `option` 标签是下拉列表框中的选项 `selected="selected"`设置默认选中
 - `textarea` 表示多行文本输入框 （起始标签和结束标签中的内容是默认值）
 	- `rows` 属性设置可以显示几行的高度
 	- `cols` 属性设置每行可以显示几个字符宽度
@@ -283,15 +283,14 @@ CSS 和 HTML 的结合方式
 1. 在标签的`style`属性上设置 `key:value`修改标签样式。
 2. 在 head 标签中，使用 `style` 标签来定义各种自己需要的 css 样式。
 	`xxx {key: value value}`
-	
 	```html
 	<style type="text/css">
 		/* 需求 1：分别定义两个 div、span 标签，分别修改每个 div 标签的样式为：边框 1 个像素，实线，红色。*/
 		div{
-		border: 1px solid red;
+			border: 1px solid red;
 		}
 		span{
-		border: 1px solid red;
+			border: 1px solid red;
 		}
 	</style>
 	```
