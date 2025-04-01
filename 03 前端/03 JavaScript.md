@@ -168,6 +168,71 @@ const x = (x, y) =>{return x * Y };
 
 ## 函数参数
 
+## 自执行函数
+
+在 JavaScript 里，自执行函数（Self-Executing Anonymous Function）也被叫做立即调用函数表达式（Immediately Invoked Function Expression，简称 IIFE），它是一种在定义之后马上就会执行的函数。下面将从语法、使用场景、优势几个方面详细介绍。
+
+### 语法
+自执行函数的基本语法有两种形式：
+
+#### 形式一：使用括号包裹函数定义和调用
+```javascript
+(function() {
+    // 函数体
+    console.log('这是一个自执行函数');
+})();
+```
+在这个例子中，`(function() {... })` 把匿名函数包裹起来，后面紧跟的 `()` 则是用来调用这个函数。
+
+#### 形式二：使用运算符包裹函数调用
+```javascript
+(function() {
+    // 函数体
+    console.log('这也是一个自执行函数');
+}());
+```
+这种形式同样是将匿名函数定义后立即调用，只是括号的位置稍有不同。
+
+### 使用场景
+#### 1. 创建独立的作用域
+```javascript
+(function() {
+    var privateVariable = '这是一个私有变量';
+    console.log(privateVariable);
+})();
+// 这里无法访问 privateVariable
+```
+在这个例子中，`privateVariable` 是在自执行函数内部定义的，它属于该函数的局部变量，外部代码无法访问，从而避免了全局变量的污染。
+
+#### 2. 模块模式
+```javascript
+var myModule = (function() {
+    var privateValue = 0;
+    function privateFunction() {
+        return privateValue;
+    }
+    return {
+        increment: function() {
+            privateValue++;
+        },
+        getValue: function() {
+            return privateFunction();
+        }
+    };
+})();
+
+myModule.increment();
+console.log(myModule.getValue()); 
+```
+在这个模块模式的示例中，自执行函数返回一个对象，该对象包含了一些公共方法，这些方法可以访问和操作函数内部的私有变量和函数。
+
+### 优势
+- **避免全局变量污染**：自执行函数内部定义的变量和函数不会影响到全局作用域，减少了命名冲突的可能性。
+- **封装私有变量和函数**：可以将一些不希望被外部访问的变量和函数封装在自执行函数内部，只暴露必要的接口。
+- **代码隔离**：将相关的代码封装在一个独立的作用域中，提高了代码的可维护性和可读性。
+
+综上所述，自执行函数是 JavaScript 中一种非常有用的技术，它可以帮助开发者更好地管理代码和避免潜在的问题。 
+
 `arguments`对象
 
 # JS对象
@@ -443,4 +508,7 @@ jQuery 由 John Resig 于 2006 年创建。它旨在处理浏览器不兼容性�
 循环使用 v-for 指令。
 
 v-for 指令需要以 **site in sites** 形式的特殊语法， sites 是源数据数组并且 site 是数组元素迭代的别名。
+
+
+
 

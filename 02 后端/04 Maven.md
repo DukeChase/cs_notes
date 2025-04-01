@@ -9,7 +9,6 @@
 # maven.test.skip=true 表示在执行命令的过程中跳过测试
 
 
-
 mvn groupId:artifactId:goal -P \!profile-1,\!profile-2,\!?profile-3
 
 mvn groupId:artifactId:goal -P=-profile-1,-profile-2,-?profile-3
@@ -99,17 +98,19 @@ profile
 ## scope
 
 - `compile` 默认
-	- 该依赖在项目编译、测试以及运行时都有效。
+	- 该依赖在项目**编译、测试以及运行时**都有效。
 	- 这是最常用的依赖范围，如果没有明确指定`<scope>`，则默认为`compile`。
 - `runtime` 
 	- 依赖在运行和测试时需要，但在编译时不需要。
 	- 常见的例子是JDBC驱动程序，它在编译时并不直接使用，但在运行时需要加载具体的数据库驱动。
 - `test`
+	- 仅在测试阶段有效。
+	- 用于单元测试或集成测试相关的依赖。例如，JUnit 是典型的测试依赖。
 - `provided` 
 	- 表示该依赖预期由运行环境提供，如Servlet API通常由容器提供。
 	- 在编译和测试阶段有效，但在运行时不需要包含进打包文件中，因为它假定由运行环境（如应用服务器）提供
 - `system`
-	- - 类似于`provided`，但要求你显式地指定该依赖所在的jar包路径。
+	- 类似于`provided`，但要求你显式地指定该依赖所在的jar包路径。
 	- 使用`<systemPath>`元素来定义本地jar文件的位置，这使得构建过程与本机环境紧密耦合，因此应谨慎使用。
 - `import`
 	- 用于在`<dependencyManagement>`部分导入其他pom文件中的依赖管理配置。

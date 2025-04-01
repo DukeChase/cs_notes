@@ -1,7 +1,22 @@
+
+# arch
+Dockerfile -> image  -> container
+镜像
+容器
+仓库 hub
+
+docker 从入门到实践
+- https://vuepress.mirror.docker-practice.com/
+- https://yeasy.gitbook.io/docker_practice/container/run
+- https://github.com/yeasy/docker_practice/blob/master/SUMMARY.md
+- `docker run -it --rm -p 4000:80 ccr.ccs.tencentyun.com/dockerpracticesig/docker_practice`
+
 `docker pull ccr.ccs.tencentyun.com/dockerpracticesig/docker_practice:latest`
 
-`docker run -it --rm -p 4000:80 ccr.ccs.tencentyun.com/dockerpracticesig/docker_practice`
+# docker 
 
+docker --help
+# run
 
 `docker run `
 
@@ -177,15 +192,12 @@ Options:
   -w, --workdir string                 Working directory inside the container
 ```
 
-dockerfile -> image  -> container
-Repository
-镜像
-容器
-仓库
-# image
+
+# pull
 ```
 docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
 ```
+# image
 
 `docker image ls`
 
@@ -200,7 +212,7 @@ FROM nginx
 RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
 ```
 
-不同架构的镜像
+## 不同架构的镜像
 `FROM  --platform=linux/amd64`
 `ADD`
 
@@ -211,9 +223,11 @@ RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
 - shell 格式  `RUN <命令>`
 - exec格式`RUN ["可执行文件", "参数1", "参数2"]`
 
+`CMD`
+
 `docker build -t `
 
-# container
+# 操作容器
 
 `docker run -it --rm`
 
@@ -231,7 +245,7 @@ RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
 
 `docker container exec -itd containerID /bin/bash`
 
-`docker container rm containerid`
+`docker container rm CONTAINER`
 
 # Repository
 
@@ -252,6 +266,6 @@ docker volume create my-vol
 
 [Dockerfile中更换国内源](https://blog.csdn.net/yyj108317/article/details/105984674)
 
-docker builder prune
+`docker builder prune`
 
-[[12 k8s#k8s概述]]
+[[k8s#k8s概述]]
