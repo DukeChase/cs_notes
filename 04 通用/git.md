@@ -9,9 +9,11 @@
 `git rm -r *`  递归删除某个目录下的所有子目录和文件
 删除后不要忘记提交
 
-`git commit`
+## git commit
 
-`git reset`
+`git commit -m "xxx"`  提交说明
+`git commit --amend`    修改先前的提交
+## git reset
 
 | 选项 | 作用|
 |------|------|
@@ -19,7 +21,8 @@
 |--hard| 删除工作区和暂存区    |
 |--mixed| 保留工作区，删除暂存区 |
 
-git diff  一般用图形化工具
+## git diff 
+一般用图形化工具
 
 [git diff 命令](https://blog.csdn.net/liuxiao723846/article/details/109689069)
 
@@ -29,18 +32,19 @@ git diff  一般用图形化工具
 
 `git status`
 
-`git log`
+## git log
 
-`git  rebase`
+## git merge
+`git merge feature`   将 feature 分支合并到当前分支
+## git  rebase
+将一个分支的提交历史“重新定位”到另一个分支的最新提交上，从而形成线性的提交历史。
 
 ## git checkout
-git checkout -b 
+`git checkout -b` 
 
-git switch
+## git switch
 
-git merge
-
-git branch
+## git branch
 
 `git clone -b barnch-name`  克隆指定分支
 
@@ -60,8 +64,8 @@ git push origin --tags
 ```
 git fetch --all --tags
 https://devconnected.com/how-to-checkout-git-tags/
-## 配置
-免密拉取 gitee   `git config --global credential.helper store `
+## config
+免密拉取 `gitee`   `git config --global credential.helper store `
 关闭ca认证  `sudo git config --system http.sslverify false`
 
 `git config --global http.sslverify false  `
