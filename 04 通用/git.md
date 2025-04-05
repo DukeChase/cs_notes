@@ -1,6 +1,6 @@
 `git init `
-工作区  暂存区   版本库
-`git add `
+工作区  暂存区   版本库  
+`git add `      将文件添加到暂存区
 `git ls-files`  查看暂存区中的文件
 
 
@@ -26,11 +26,11 @@
 
 [git diff 命令](https://blog.csdn.net/liuxiao723846/article/details/109689069)
 
-`git push`
+## git push
 
-`git pull`
+## git pull
 
-`git status`
+## git status
 
 ## git log
 
@@ -53,25 +53,28 @@ git remote set-url origin 新地址    替换成新地址
 
 ## tag 打标签
 
-https://www.liaoxuefeng.com/wiki/896043488029600/902335479936480
-https://blog.csdn.net/weixin_39642619/article/details/111223447
-https://blog.csdn.net/lovedingd/article/details/127568704
-https://blog.csdn.net/weixin_43715214/article/details/131059079
+`git tag v1.0` 
+- [创建标签](https://liaoxuefeng.com/books/git/tag/create/index.html)
+- [操作标签](https://liaoxuefeng.com/books/git/tag/push-delete/index.html)
+- https://blog.csdn.net/weixin_39642619/article/details/111223447
+- https://blog.csdn.net/lovedingd/article/details/127568704
+- https://blog.csdn.net/weixin_43715214/article/details/131059079
 
 
 ```
-git push origin --tags
+git push origin --tags #推送标签
 ```
-git fetch --all --tags
+`git fetch --all --tags` 获取远程仓库所有标签
 https://devconnected.com/how-to-checkout-git-tags/
-## config
-免密拉取 `gitee`   `git config --global credential.helper store `
-关闭ca认证  `sudo git config --system http.sslverify false`
 
-`git config --global http.sslverify false  `
+
+## config
+- 免密拉取 `gitee`   `git config --global credential.helper store `
+- 关闭ca认证  `sudo git config --system http.sslverify false`
+
+- `git config --global http.sslverify false  `
 
 git config --local --list
-
 git config --local user.name dukechase
 git config --local user.email  hsb2435@163.com
 

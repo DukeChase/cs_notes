@@ -1,7 +1,7 @@
-
+# docker
 - [Docker 常用命令 与 Dockerfile](https://xiets.blog.csdn.net/article/details/122866186)
 - [Docker 环境清理的常用方法有哪些？](https://www.zhihu.com/tardis/bd/ans/2998335721)
-# arch
+# 架构
 Dockerfile -> image  -> container
 镜像
 容器
@@ -13,7 +13,7 @@ docker 从入门到实践
 - https://github.com/yeasy/docker_practice/blob/master/SUMMARY.md
 - `docker run -it --rm -p 4000:80 ccr.ccs.tencentyun.com/dockerpracticesig/docker_practice`
 
-`docker pull ccr.ccs.tencentyun.com/dockerpracticesig/docker_practice:latest`
+- `docker pull ccr.ccs.tencentyun.com/dockerpracticesig/docker_practice:latest`
 
 # docker 
 
