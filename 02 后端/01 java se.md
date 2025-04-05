@@ -118,7 +118,7 @@ ArrayList<String> list = new ArrayList<>(); // 泛型
 [String性能提升10倍的几个方法](https://mp.weixin.qq.com/s/KRRLt0EaIwDEPCTGvqnWJA)
 
 官方为我们提供了两种字符串拼加的方案：
-`StringBuffer` 和 `StringBuilder`，
+`StringBuffer` 和 `StringBuilder`，  
 其中 `StringBuilder` 为非线程安全的，而 `StringBuffer` 则是线程安全的。
 
 1. 概述
@@ -298,10 +298,8 @@ OuterClass.InnerClass var = new OutClass().new InnerClass();
 1. `public String toString()`
 2. `public boolean equals(Object obj)`
 
-- 默认地址比较
-	如果没有覆盖重写`equals`方法，那么`Object`类中默认进行`==`运算符的对象地址比较，只要不是同一个对象，结果必然为`false`。
-- 对象内容比较
-	如果希望进行对象的内容比较，即所有或指定的部分成员变量相同就判定两个对象相同，则可以覆盖重写`equals`方法。例如：
+- 默认地址比较：如果没有覆盖重写`equals`方法，那么`Object`类中默认进行`==`运算符的对象地址比较，只要不是同一个对象，结果必然为`false`。
+- 对象内容比较：如果希望进行对象的内容比较，即所有或指定的部分成员变量相同就判定两个对象相同，则可以覆盖重写`equals`方法。例如：
 ```java
 public class Person {    
     private String name;
@@ -325,8 +323,8 @@ public class Person {
 
 ### 日期时间类
 
-java8 
-localdate 
+java8  
+localdate   
 localtime  
 localdatetime
 
@@ -365,8 +363,8 @@ StringBuilder常用的方法有2个：
      * 数组中存储的是同一类型的元素，可以存储基本数据类型值。集合存储的都是对象。而且对象的类型可以不一致。在开发中一般当对象多的时候，使用集合进行存储。
 2. 集合框架
 集合按照其存储结构可以分为两大类，分别是单列集合 `java.util.Collection` 和双列集合`java.util.Map`
-**Collection**:单列集合类的根接口，用于存储一系列符合某种规则的元素，它有两个重要的子接口，分别是 `java.util.List` 和` java.util.Set` 。
-其中，`List` 的特点是元素有序、元素可重复。 Set 的特点是元素无序，而且不可重复。 
+- **Map**:双列集合类的根接口，用于存储一系列键值对元素，它有两个重要的子接口，分别是 `java.util.Hashtable` 和`java.util.TreeMap` 。
+- **Collection**:单列集合类的根接口，用于存储一系列符合某种规则的元素，它有两个重要的子接口，分别是 `java.util.List` 和` java.util.Set` 。其中，`List` 的特点是元素有序、元素可重复。 Set 的特点是元素无序，而且不可重复。 
 
 * `List` 接口的主要实现类有 `java.util.ArrayList`和 `java.util.LinkedList` ，
 * ` Set` 接口的主要实现类有 `java.util.HashSet` 和`java.util.TreeSet`
@@ -410,21 +408,18 @@ for (元素的数据类型 变量 ：Collection集合或数组){
 
 ### 泛型
 
-1. 定义和使用含有泛型的类
-	`修饰符 class ClassName<T> { }`
-	在创建对象的时候确定泛型
-2. 含有泛型的方法
-	`修饰符 <T> void methodName(T t){ }`
-	调用方法时，确定泛型的类型
-3. 含有泛型的接口
-	`修饰符 interface interfaceName<T> { }`
+1. 定义和使用含有泛型的类`修饰符 class ClassName<T> { }`	
+	- 在创建对象的时候确定泛型
+2. 含有泛型的方法`修饰符 <T> void methodName(T t){ }`
+	- 调用方法时，确定泛型的类型
+3. 含有泛型的接口`修饰符 interface interfaceName<T> { }`
 	- 定义类时确定泛型的类型
 	- 始终不确定泛型的类型，直到创建对象时，确定泛型的类型
 
-泛型通配符
+泛型通配符  
 上下界定符
-`<? extends T>`表示类型的上界，表示参数化的类型可能是T或T的子类
-`<? super T>`表示类型的下界，表示参数化类型是此类型的超类型（父类型），直至Object
+- `<? extends T>`表示类型的上界，表示参数化的类型可能是T或T的子类
+- `<? super T>`表示类型的下界，表示参数化类型是此类型的超类型（父类型），直至Object
 
 ## List Set
 ### `List`
@@ -448,15 +443,16 @@ List的子类
 
 ### `Set`
   
-  同样继承自`Collection`接口
+  同样继承自`Collection`接口，`Set`接口定义了一组不允许重复的元素，并且不保证元素的顺序。
   
   * `HashSet`
     * `HashSet`是根据对象的哈希值来确定元素在集合中存在位置，因此具有良好的存取和查找性能。**保证元素唯一性的方式依赖于**：`hashCode()`与`equals()`方法
     * 如果我们往集合中存放自定义的对象，那么保证其唯一，就必须复写`hashCode()`和`equals`方法建立属于当前对象的比较方式。
-    * hashCode相等，不一定equals
-    * `equals`相等则hashCode一定相等；
+    * `hashCode`相等，不一定`equals`
+    * `equals`相等则`hashCode`一定相等；
 
-  * `LinkedSet`
+  * `LinkedHashSet`
+	* `LinkedHashSet`是`HashSet`的子类，具有可预测的迭代顺序。它维护了一个双向链表，记录了元素的插入顺序。
 
 ### 可变参数
 
@@ -473,10 +469,10 @@ public static int getSum(int ... arr){
 ### Collections
 
 * Collections是集合工具类，用来对集合进行操作。
-* `puclic static <T> bollean addAll(Collection<T> c,T...elements)`
-* `public static void shuffle(List<?> list) `
-* `public static <T> void sort(List<T> list)`
-* `public static <T> void sort(List<T> list ,Comparator<? super <T>)`
+	* `puclic static <T> bollean addAll(Collection<T> c,T...elements)`
+	* `public static void shuffle(List<?> list) `
+	* `public static <T> void sort(List<T> list)`
+	* `public static <T> void sort(List<T> list ,Comparator<? super <T>)`
 
 ## Map
 
@@ -503,9 +499,9 @@ Map中常用的方法
 
 ### 异常
 
-* 概念
+* 概念: 程序在运行过程中出现的不正常情况。
 * 体系
-异常的根类是 `java.lang.Throwable` ，其下有两个子类：  
+java中异常的根类是 `java.lang.Throwable` ，其下有两个子类：  
 `java.lang.Error` 与 `java.lang.Exception` 
 平常所说的异常指`java.lang.Exception`。
 
@@ -629,6 +625,7 @@ public void lock()
 // 释放同步锁。
 public void unlock()
 ```
+
 ```java
 public class Ticket implements Runnable{ 
 	private int ticket = 100;
@@ -660,11 +657,14 @@ public class Ticket implements Runnable{
 
 }
 ```
+
+
 - `ReentrantLock`
-- Semaphore
-- CountDownLatch
-- CyclicBarrier
-- Phaser
+- `Semaphore`
+- `CountDownLatch`
+- `CyclicBarrier`
+- `Phaser`
+
 ### 线程状态
 
 | 线程状态          | 导致状态发生条件                                                                                                      |
@@ -686,11 +686,9 @@ public class Ticket implements Runnable{
 `notifyAll`
 
 ### 线程池
-线程池概念：其实就是一个容纳多个线程的容器，其中的线程可以反复使用，省去了频繁创建线程对象的操作，
+- 线程池概念：其实就是一个容纳多个线程的容器，其中的线程可以反复使用，省去了频繁创建线程对象的操作，无需反复创建线程而消耗过多资源
 
-无需反复创建线程而消耗过多资源
-
-线程池的使用
+- 线程池的使用
 
 `public static ExecutorService newFixedThreadPool(int nThreads)` 返回线程池对象。(创建的是有界线程池，也就是池中的线程个数可以指定最大数量)
 
@@ -860,21 +858,21 @@ location ‐‐ D:\a.txt
 public  classs BufferdInputStream extends FileInputStream
 ```
 
-字节缓冲流： `BufferedInputStream` ，`BufferedOutputStream`
-字符缓冲流： `BufferedReader` ，`BufferedWriter`
+- 字节缓冲流： `BufferedInputStream` ，`BufferedOutputStream`
+- 字符缓冲流： `BufferedReader` ，`BufferedWriter`
 
 缓冲流的基本原理，是在创建流对象时，会创建一个内置的默认大小的缓冲区数组，通过缓冲区读写，减少系统IO次数，从而提高读写的效率。
 
 字节缓冲流
-`public BufferedInputStream(InputStream in)`
-`public BufferedOutputStream(OutputStream out)`
+- `public BufferedInputStream(InputStream in)`
+- `public BufferedOutputStream(OutputStream out)`
 
 字符缓冲流
-`public BufferedReader(Reader in)`
-`public BufferedWriter(Writer out)`
+- `public BufferedReader(Reader in)`
+- `public BufferedWriter(Writer out)`
 特有方法
-BufferedReader  `public String readLine()`
-BufferedWriter `public void newLine()`
+- BufferedReader  `public String readLine()`
+- BufferedWriter `public void newLine()`
 
 ### 转换流
 
@@ -911,9 +909,11 @@ OutputStreamWriter：将`Writer`转换为`OutputStream`
 `public PrintStream(String fileName) `：使用指定的文件名创建一个新的打印流
 
 ## AIO BIO NIO
-BIO  同步阻塞IO
-NIO 同步非阻塞IO
-AIO 异步非阻塞IO
+- BIO  同步阻塞IO
+- NIO 同步非阻塞IO
+- AIO 异步非阻塞IO
+
+
 # 网络编程
 
 ## 入门
@@ -922,7 +922,7 @@ AIO 异步非阻塞IO
 - c/s 
 - b/s
 
-协议分类
+### 协议分类
 
 tcp  面向连接的通信协议  
 
@@ -933,7 +933,7 @@ tcp  面向连接的通信协议
 
 udp 无连接的通信服务
 
-网络编程三要素: 协议 地址 端口号
+**网络编程三要素**: 协议 地址 端口号
 
 ## TCP通信程序
 * `Socket`
@@ -1032,13 +1032,14 @@ public enum SeasonEnum {
 }
 ```
 
-`enum`定义的类都继承`Enum`类
-有共通的方法
-- `toString`
-- `name`
-- `values`
-- `valueOf`
-- `ordinal()`
+`enum`定义的类都继承`Enum`类  
+有共通的方法：
+- `public String toString()`：返回枚举常量的字符串表示形式。
+- `public String name()`：返回枚举常量的名称。
+- `public static <T extends Enum<T>> T valueOf(Class<T> enumType, String name)`：返回指定枚举类型中与指定名称匹配的枚举常量。
+- `public static <T extends Enum<T>> T[] values()`：返回一个包含枚举类型所有常量的数组。
+- `public int ordinal()`：返回枚举常量的声明顺序，从0开始。
+
 ## Junit单元测试
 
 步骤：
@@ -1080,22 +1081,22 @@ public enum SeasonEnum {
 * **Class对象**功能：
 	* 获取功能：
 	    1. 获取成员变量们
-		       * `Field[] getFields()` ：获取所有public修饰的成员变量
-		       * `Field getField(String name)`   获取指定名称的 public修饰的成员变量
-		       * `Field[] getDeclaredFields()`  获取所有的成员变量，不考虑修饰符
-		       * `Field getDeclaredField(String name)  `
+			* `Field[] getFields()` ：获取所有public修饰的成员变量
+			* `Field getField(String name)`   获取指定名称的 public修饰的成员变量
+			* `Field[] getDeclaredFields()`  获取所有的成员变量，不考虑修饰符
+			* `Field getDeclaredField(String name)  `
 	    1. 获取构造方法们
-		       * `Constructor<?>[] getConstructors()  `
-		       * `Constructor<T> getConstructor(类<?>... parameterTypes)  `
-		       * `Constructor<T> getDeclaredConstructor(类<?>... parameterTypes)  `
-		       * `Constructor<?>[] getDeclaredConstructors()  `
+			* `Constructor<?>[] getConstructors()  `
+			* `Constructor<T> getConstructor(类<?>... parameterTypes)  `
+			* `Constructor<T> getDeclaredConstructor(类<?>... parameterTypes)  `
+			* `Constructor<?>[] getDeclaredConstructors()  `
 	    1. 获取成员方法们：
-		       * `Method[] getMethods()  `
-		       * `Method getMethod(String name, 类<?>... parameterTypes)  `
-		       * `Method[] getDeclaredMethods()  `
-		       * `Method getDeclaredMethod(String name, 类<?>... parameterTypes)  `
+			* `Method[] getMethods()  `
+			* `Method getMethod(String name, 类<?>... parameterTypes)  `
+			* `Method[] getDeclaredMethods()  `
+			* `Method getDeclaredMethod(String name, 类<?>... parameterTypes)  `
 	    1. 获取全类名    
-		       * `String getName()`
+		    * `String getName()`
 * Field：成员变量
 	  * 操作：
 	    1. 设置值
@@ -1107,7 +1108,7 @@ public enum SeasonEnum {
 * Constructor:构造方法
   * 创建对象：
     * `T newInstance(Object... initargs)  `
-    * 如果使用空参数构造方法创建对象，操作可以简化：Class对象的newInstance方法
+    * 如果使用空参数构造方法创建对象，操作可以简化：Class对象的`newInstance`方法
 * Method：方法对象
   * 执行方法：
     * `Object invoke(Object obj, Object... args)`
@@ -1153,16 +1154,22 @@ public enum SeasonEnum {
                 1. 如果定义属性时，使用default关键字给属性默认初始化值，则使用注解时，可以不进行属性的赋值。
                 2. 如果只有一个属性需要赋值，并且属性的名称是value，则value可以省略，直接定义值即可。
                 3. 数组赋值时，值使用`{}`包裹。如果数组中只有一个值，则{}可以省略
+
 * 元注解：用于描述注解的注解
-            * `@Target`：描述注解能够作用的位置
-                * `ElementType`取值：
-                    * `TYPE`：可以作用于类上
-                    * `METHOD`：可以作用于方法上
-                    * `FIELD`：可以作用于成员变量上
-            * @`Retention`：描述注解被保留的阶段
-                * `@Retention(RetentionPolicy.RUNTIME)`：当前被描述的注解，会保留到class字节码文件中，并被JVM读取到
-            * `@Documented`：描述注解是否被抽取到api文档中
-            * `@Inherited`：描述注解是否被子类继承
+	* `@Target`：描述注解能够作用的位置
+		* `ElementType`取值：
+			* `TYPE`：可以作用于类上
+			* `METHOD`：可以作用于方法上
+			* `FIELD`：可以作用于成员变量上
+			* `PARAMETER`：可以作用于方法参数上
+			* `ANNOTATION_TYPE`：可以作用于注解上
+			* `CONSTRUCTOR`：可以作用于构造方法上
+			* `LOCAL_VARIABLE`：可以作用于局部变量上
+			* `RESOURCE`：可以作用于资源文件上
+	* @`Retention`：描述注解被保留的阶段
+		* `@Retention(RetentionPolicy.RUNTIME)`：当前被描述的注解，会保留到class字节码文件中，并被JVM读取到
+	* `@Documented`：描述注解是否被抽取到api文档中
+	* `@Inherited`：描述注解是否被子类继承
 
 ## 包装类
 
@@ -1171,6 +1178,8 @@ Interger.valueOf()
 ```
 自动装箱
 自动拆箱
+
+
 # MySQL
 
 ## 基础
@@ -1194,7 +1203,7 @@ SQL分类
 	3. 唯一约束：`unique`,值不能重复
 	4. 外键约束：`foreign key`
 
-- 非空约束：not null，值不能为null
+- 非空约束：`not null`，值不能为null
 1.  创建表时添加约束 
 ```sql
 CREATE TABLE stu(
@@ -1213,7 +1222,7 @@ ALTER TABLE stu MODIFY NAME VARCHAR(20) NOT NULL;
 ALTER TABLE stu MODIFY NAME VARCHAR(20);
 ```
 
-- 唯一约束：unique，值不能重复     
+- 唯一约束：`unique`，值不能重复     
 1. 创建表时，添加唯一约束 
  ```sql
 CREATE TABLE stu(  id INT,  phone_number VARCHAR(20) UNIQUE -- 添加了唯一约束  );
@@ -1291,10 +1300,10 @@ ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) 
 	2. 级联删除：`ON DELETE CASCADE`
 ### 数据库设计
 多表之间的关系
-	1. 分类
-		1. 一对一   人和身份证，一个人只有一个身份证，一个身份证只能对应一个人
-		2. 一对多（多对一） 部门和员工 一个部门有多个员工，一个员工只能对应一个部门
-		3. 多对多  一个学生可以选择很多门课程，一个课程也可以被很多学生选择
+1. 分类
+	1. 一对一   人和身份证，一个人只有一个身份证，一个身份证只能对应一个人
+	2. 一对多（多对一） 部门和员工 一个部门有多个员工，一个员工只能对应一个部门
+	3. 多对多  一个学生可以选择很多门课程，一个课程也可以被很多学生选择
 
 实现关系
 - 一对多(多对一)：
@@ -1309,7 +1318,7 @@ ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) 
 
 
 ### 数据库设计的范式
-  -   概念：设计数据库时，需要遵循的一些规范。要遵循后边的范式要求，必须先遵循前边的所有范式要求   
+  -   概念：设计数据库时，需要遵循的一些规范。要遵循后边的范式要求，必须先遵循前边的所有范式要求  
 	设计关系数据库时，遵从不同的规范要求，设计出合理的关系型数据库，这些不同的规范要求被称为不同的范式，各种范式呈递次规范，越高的范式数据库冗余越小。  
 	目前关系数据库有六种范式：第一范式（1NF）、第二范式（2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式(4NF）和第五范式（5NF，又称完美范式）。
 * 分类： 
@@ -1348,9 +1357,9 @@ ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) 
 1. 概念
 	- 如果一个包含多个步骤的业务操作，被事务管理，那么这些操作要么同时成功，要么同时失败。
 2. 操作：
-	1. 开启事务： start transaction;
-	2. 回滚：rollback;
-	3. 提交：commit;
+	1. 开启事务： `start transaction`;
+	2. 回滚：`rollback`;
+	3. 提交：`commit`;
 3. 例子：
 	```sql
 	CREATE TABLE account (
@@ -1483,43 +1492,46 @@ public void testJDBCTransaction() {
 ```
 
 #### 3.4 ResultSet与ResultSetMetaData
-3.4.1 ResultSet
-查询需要调用PreparedStatement 的 executeQuery() 方法，查询结果是一个ResultSet 对象
+3.4.1 ResultSet  
+查询需要调用`PreparedStatement` 的 `executeQuery()` 方法，查询结果是一个`ResultSet` 对象
 
-ResultSet 对象以逻辑表格的形式封装了执行数据库操作的结果集，ResultSet 接口由数据库厂商提供实现
+ResultSet 对象以逻辑表格的形式封装了执行数据库操作的结果集，`ResultSet` 接口由数据库厂商提供实现
 
-ResultSet 返回的实际上就是一张数据表。有一个指针指向数据表的第一条记录的前面。
+`ResultSet` 返回的实际上就是一张数据表。有一个指针指向数据表的第一条记录的前面。
 
-ResultSet 对象维护了一个指向当前数据行的游标，初始的时候，游标在第一行之前，可以通过 ResultSet 对象的 next() 方法移动到下一行。调用 next()方法检测下一行是否有效。若有效，该方法返回 true，且指针下移。相当于Iterator对象的 hasNext() 和 next() 方法的结合体。
+`ResultSet` 对象维护了一个指向当前数据行的游标，初始的时候，游标在第一行之前，可以通过 `ResultSet` 对象的 `next()` 方法移动到下一行。调用 `next()`方法检测下一行是否有效。若有效，该方法返回 true，且指针下移。相当于`Iterator`对象的 `hasNext() `和 `next() `方法的结合体。
 
 当指针指向一行时, 可以通过调用 getXxx(int index) 或 getXxx(int columnName) 获取每一列的值。
 
-例如: getInt(1), getString(“name”)
-注意：Java与数据库交互涉及到的相关Java API中的索引都从1开始。
+例如: getInt(1), getString(“name”)  
+注意：Java与数据库交互涉及到的相关Java API中的索引都从1开始。  
 ResultSet 接口的常用方法：
 - boolean next()
 - getString()
-…
+- getInt()
+- …
 
-3.4.2 ResultSetMetaData
+3.4.2 ResultSetMetaData  
 可用于获取关于 ResultSet 对象中列的类型和属性信息的对象
 
-ResultSetMetaData meta = rs.getMetaData();
+- ResultSetMetaData meta = rs.getMetaData();
 
-getColumnName(int column)：获取指定列的名称
+- getColumnName(int column)：获取指定列的名称
 
-getColumnLabel(int column)：获取指定列的别名
+- getColumnLabel(int column)：获取指定列的别名
 
-getColumnCount()：返回当前 ResultSet 对象中的列数。
+- getColumnCount()：返回当前 ResultSet 对象中的列数。
 
-getColumnTypeName(int column)：检索指定列的数据库特定的类型名称。
+- getColumnTypeName(int column)：检索指定列的数据库特定的类型名称。
 
-getColumnDisplaySize(int column)：指示指定列的最大标准宽度，以字符为单位。
+- getColumnDisplaySize(int column)：指示指定列的最大标准宽度，以字符为单位。
 
-isNullable(int column)：指示指定列中的值是否可以为 null。
+- isNullable(int column)：指示指定列中的值是否可以为 null。
 
-isAutoIncrement(int column)：指示是否自动为指定列进行编号，这样这些列仍然是只读的。
+- isAutoIncrement(int column)：指示是否自动为指定列进行编号，这样这些列仍然是只读的。
+
+
 ### 数据库连接池
-c3p0
-德鲁伊
-JDBCTemplate
+- c3p0
+- 德鲁伊
+- JDBCTemplate

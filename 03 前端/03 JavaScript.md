@@ -1,3 +1,4 @@
+# JavaScript教程
 来源：[`w3cschool js教程`](https://www.w3school.com.cn/js/index.asp)
 # js注释
 

@@ -97,7 +97,7 @@ git config --local user.email  hsb2435@163.com
     - 指定了用于身份验证的私钥文件路径。
     - 在这里，`~/.ssh/gitee_id_rsa` 是一个私钥文件，SSH 客户端会用它来验证你的身份，以便成功连接到 Gitee。
 
-```
+```text
 Host github
 HostName github.com
 IdentityFile ~/.ssh/id_rsa_github
