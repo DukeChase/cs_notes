@@ -9,13 +9,19 @@
 
 ## Agent
 
- ## LangChain
+## LangChain
+[深入浅出 LangChain 与智能 Agent：构建下一代 AI 助手](https://juejin.cn/post/7346009985791311922)
 
 Composer
 
 ## MCP
 
-https://zhuanlan.zhihu.com/p/27327515233
+- [# 一文看懂：MCP(大模型上下文协议)](https://zhuanlan.zhihu.com/p/27327515233)
+- [# MCP 终极指南](https://guangzhengli.com/blog/zh/model-context-protocol)
+- [model-context-protocol](https://docs.cursor.com/context/model-context-protocol)
+
+[GPT 应用开发和思考
+](https://guangzhengli.com/blog/zh/gpt-embeddings)\
 
 # Function Calling
 

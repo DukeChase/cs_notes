@@ -4,6 +4,15 @@
 
 
 `-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true`
+- -Dmaven.wagon.http.ssl.insecure=true
+	- 这个参数告诉Maven允许不安全的SSL连接
+	- 它会忽略SSL证书验证
+	- 主要用于处理自签名证书或证书链不完整的情况
+- -Dmaven.wagon.http.ssl.allowall=true
+	- 这个参数允许Maven接受所有的SSL证书
+	- 它会跳过证书验证过程
+	- 主要用于开发环境或测试环境
+
 ```shell
 # -D 表示后面要附加命令的参数，字母 D 和后面的参数是紧挨着的，中间没有任何其它字符
 # maven.test.skip=true 表示在执行命令的过程中跳过测试
