@@ -1,5 +1,27 @@
 # Nginx
 
+安装目录
+
+/etc/logrotate.d/nginx          配置文件       nginx日志轮转
+
+/etc/nginx
+/etc/nginx/nginx.conf
+/etc/nginx/conf.d
+ 
+
+Nginx基本语法
+
+- user   设置nginx服务的系统使用用户
+- worker_processes    工作的进程数
+- error_log   nginx的错误日志
+- pid  nginx服务启动时候的pid
+- events
+	- worker_connection  每个进程允许最大连接数
+	- use  工作进程数
+- http
+	- server
+		- location
+
 配置文件 `/etc/nginx/nginx.conf`
 
 ## http块
@@ -21,6 +43,7 @@ http {
                     '$status $body_bytes_sent "$http_referer" '
                     '"$http_user_agent" "$http_x_forwarded_for"';
 
+	error_log /var/log/nginx/error.log warn
     # 定义访问日志文件
     access_log /var/log/nginx/access.log main;
 
