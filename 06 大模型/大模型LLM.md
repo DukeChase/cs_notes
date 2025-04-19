@@ -29,18 +29,9 @@ https://modelcontextprotocol.io/introduction
 
 [GPT 应用开发和思考](https://guangzhengli.com/blog/zh/gpt-embeddings)
 
-# Function Calling
+[深入探究 MCP Spring Boot Server：构建强大的天气信息服务系统](https://blog.csdn.net/I_Am_Zou/article/details/146687907)
 
-# other
-
-- [camel-ai](https://docs.camel-ai.org/cookbooks/basic_concepts/create_your_first_agent.html)
-- [人工智能 - 通用 AI Agent 之 LangManus、Manus、OpenManus 和 OWL 技术选型](https://blog.csdn.net/Fx_demon/article/details/146446836?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EOPENSEARCH%7EPaidSort-1-146446836-blog-146179611.235%5Ev43%5Epc_blog_bottom_relevance_base8&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EOPENSEARCH%7EPaidSort-1-146446836-blog-146179611.235%5Ev43%5Epc_blog_bottom_relevance_base8&utm_relevant_index=1)
-- [AI 代理框架深度对比分享：Agno、OpenManus 和 OWL](https://juejin.cn/post/7481238697553297442)
-
-- [OpenManus](https://github.com/mannaandpoem/OpenManus/blob/main/README_zh.md)
-
-
-[深入探究 MCP Spring Boot Server：构建强大的天气信息服务系统]()https://blog.csdn.net/I_Am_Zou/article/details/146687907
+## Function Calling
 
 ## milvus
 
@@ -73,7 +64,14 @@ Milvus 是一个开源的云原生向量数据库，专为处理海量向量数�
 
 更多信息请参考 [Milvus 官方文档](https://milvus.io/docs)。
 
+## openai接口规范
 
+[openai  openapi 规范](https://www.cnblogs.com/dongai/p/18474507)
 
-# openai接口规范
-openai  openapi 规范 https://www.cnblogs.com/dongai/p/18474507
+# todo
+
+- [camel-ai](https://docs.camel-ai.org/cookbooks/basic_concepts/create_your_first_agent.html)
+- [人工智能 - 通用 AI Agent 之 LangManus、Manus、OpenManus 和 OWL 技术选型](https://blog.csdn.net/Fx_demon/article/details/146446836)
+- [AI 代理框架深度对比分享：Agno、OpenManus 和 OWL](https://juejin.cn/post/7481238697553297442)
+
+- [OpenManus](https://github.com/mannaandpoem/OpenManus/blob/main/README_zh.md)

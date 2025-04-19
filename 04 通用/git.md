@@ -42,7 +42,7 @@
 |--hard| 删除工作区和暂存区    |
 |--mixed| 保留工作区，删除暂存区 |
 
-## git diff 
+## git diff
 
 一般用图形化工具
 
@@ -50,13 +50,31 @@
 
 ## git push
 
+`git push <远程仓库名> <本地分支名>:<远程分支名>` 用于将本地分支的更新推送到远程仓库。
+如果本地分支名和远程分支名相同，可以省略 `:<远程分支名>` 部分。例如 `git push origin main`。
+`git push -u <远程仓库名> <本地分支名>` 首次推送时使用，`-u` 选项会将本地分支和远程分支关联起来，之后使用 `git push` 就可以直接推送。
+
 ## git pull
+
+`git pull <远程仓库名> <远程分支名>` 用于从远程仓库拉取指定分支的更新，并尝试自动合并到当前本地分支。它实际上是 `git fetch` 和 `git merge` 的组合。如果本地分支已经和远程分支关联，可直接使用 `git pull`。
 
 ## git status
 
+`git status` 用于查看工作区、暂存区的状态。它会显示哪些文件被修改但未暂存，哪些文件已暂存但未提交等信息。  
+`git status -s` 可以以简洁模式显示状态信息。
+
 ## git log
 
+`git log` 用于查看提交历史记录。
+`git log --oneline` 可以将每条提交记录显示在一行，使输出更简洁。
+`git log -n <数量>` 可以只显示最近的 `<数量>` 条提交记录。
+`git log --graph` 可以以图形化的方式显示提交历史，便于查看分支合并情况。
+
 ## git merge
+
+`git merge <分支名>` 用于将指定分支的修改合并到当前分支。
+
+合并有两种常见情况：快进合并（Fast-forward）和三方合并（Three-way merge）。如果合并过程中出现冲突，需要手动解决冲突后再提交。`git merge --abort` 可以在合并冲突时放弃合并操作，回到合并前的状态。
 
 `git merge feature`   将 feature 分支合并到当前分支
 
@@ -66,13 +84,36 @@
 
 ## git checkout
 
-`git checkout -b`
+`git checkout -b <新分支名>` 用于创建并切换到一个新的分支。
+例如，`git checkout -b feature` 会创建一个名为 `feature` 的新分支，并立即切换到该分支。
+
+`git checkout <分支名>` 用于切换到已有的分支。例如，`git checkout main` 会切换到 `main` 分支。
+
+`git checkout <提交哈希值>` 用于切换到指定的提交，此时会处于“分离头指针”状态。在这种状态下的修改不会影响任何分支，除非创建新分支来保存这些修改。
 
 ## git switch
 
+`git switch -c <新分支名>` 功能与 `git checkout -b` 类似，用于创建并切换到一个新的分支。
+例如，`git switch -c bugfix` 会创建一个名为 `bugfix` 的新分支，并切换到该分支。
+
+`git switch <分支名>` 用于切换到已有的分支，与 `git checkout <分支名>` 功能相同。
+例如，`git switch develop` 会切换到 `develop` 分支。
+
+`git switch` 是 Git 2.23 版本引入的新命令，旨在提供更清晰的分支切换操作，与 `git checkout` 相比，`git switch` 更专注于分支切换，而 `git checkout` 还可用于恢复文件等操作。
+
 ## git branch
 
+`git branch` 用于列出本地所有分支，当前所在分支会用 `*` 标记。
+
+`git branch <新分支名>` 用于创建一个新的分支，但不会切换到该分支。例如，`git branch experimental` 会创建一个名为 `experimental` 的新分支。
+
+`git branch -d <分支名>` 用于删除已经合并到当前分支的指定分支。如果分支还有未合并的更改，使用该命令会失败，可使用 `git branch -D <分支名>` 强制删除。
+
+`git branch -m <旧分支名> <新分支名>` 用于重命名本地分支。例如，`git branch -m old-name new-name` 会将 `old-name` 分支重命名为 `new-name`。
+
 `git clone -b barnch-name`  克隆指定分支
+
+## git remote
 
 git remote -v   查看git远程仓库地址
 git remote set-url origin 新地址    替换成新地址
@@ -144,3 +185,92 @@ Hi jitwxs! You've successfully authenticated, but GitHub does not provide shell 
 ssh -T git@gitlab
 Welcome to GitLab, @lemon!
 ```
+
+## gitignore
+
+`.gitignore` 文件用于指定 Git 应该忽略的文件和目录，即这些文件不会被纳入版本控制。以下是 `.gitignore` 文件的常见规则：
+
+### 1. 基本语法
+
+- **忽略文件**：直接写上文件名，每行一个。例如：
+
+```ignore
+temp.txt
+```
+
+这会忽略项目根目录下的 `temp.txt` 文件。
+
+- **忽略目录**：在目录名后加斜杠 `/`。例如：
+
+```ignore
+logs/
+```
+
+这会忽略项目根目录下的 `logs` 目录及其所有内容。
+
+### 2. 通配符使用
+
+- `*`：匹配任意数量的任意字符。例如：
+
+```ignore
+*.log
+```
+
+这会忽略所有扩展名为 `.log` 的文件。
+
+- `?`：匹配单个任意字符。例如：
+
+```ignore
+file?.txt
+```
+
+这会忽略 `file1.txt`、`fileA.txt` 等文件。
+
+- `[abc]`：匹配方括号内的任意一个字符。例如：
+
+```ignore
+file[123].txt
+```
+
+这会忽略 `file1.txt`、`file2.txt` 和 `file3.txt`。
+
+### 3. 递归匹配
+
+如果没有指定路径，规则会递归应用到整个项目。例如：
+
+```ignore
+*.tmp
+```
+
+这会忽略项目中所有扩展名为 `.tmp` 的文件，无论它们在哪个目录下。
+
+### 4. 否定规则
+
+在规则前加 `!` 可以取消之前的忽略规则。例如：
+
+```ignore
+*.log
+!important.log
+```
+
+这会忽略所有 `.log` 文件，但 `important.log` 文件除外。
+
+### 5. 注释
+
+以 `#` 开头的行是注释，会被 Git 忽略。例如：
+
+```ignore
+# 忽略临时文件
+*.tmp
+```
+
+### 6. 路径匹配
+
+可以使用相对路径指定要忽略的文件或目录。例如：
+
+```ignore
+src/test/results/
+```
+
+这会忽略 `src/test/results` 目录及其所有内容。 
+
