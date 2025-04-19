@@ -163,6 +163,7 @@ stdin
 
 命令行的执行的判断依据
 
+## 命令行
 ```shell
 ;,
 sync; sync; shutdown -h now

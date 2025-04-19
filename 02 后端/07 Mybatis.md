@@ -7,9 +7,10 @@
 - [MyBatis markdown笔记 ：](https://blog.csdn.net/qq_19387933/article/details/123256034)
 - [MyBatis 官方文档](https://mybatis.org/mybatis-3/zh_CN/index.html)
 
-
 ## xml配置
+
 ### properties
+
 ```xml
 <properties resource="org/mybatis/example/config.properties">
   <property name="username" value="dev_user"/>
@@ -18,6 +19,7 @@
 ```
 
 ### settings
+
 ```xml
 <settings>
   <setting name="cacheEnabled" value="true"/>
@@ -74,12 +76,9 @@
 
 ### typeAliases
 
-
 ### typeHandler
 
-
 ### objectFactory
-
 
 ### plugins
 
@@ -103,10 +102,9 @@
 
 ### dataSourceIdProvider
 
-
 ### mappers
 
-```
+```xml
 <!-- 使用相对于类路径的资源引用 -->
 <mappers>
   <mapper resource="org/mybatis/builder/AuthorMapper.xml"/>
@@ -115,7 +113,7 @@
 </mappers>
 ```
 
-```
+```xml
 <!-- 使用完全限定资源定位符（URL） -->
 <mappers>
   <mapper url="file:///var/mappers/AuthorMapper.xml"/>
@@ -124,7 +122,7 @@
 </mappers>
 ```
 
-```
+```xml
 <!-- 使用映射器接口实现类的完全限定类名 -->
 <mappers>
   <mapper class="org.mybatis.builder.AuthorMapper"/>
@@ -133,7 +131,7 @@
 </mappers>
 ```
 
-```
+```xml
 <!-- 将包内的映射器接口全部注册为映射器 -->
 <mappers>
   <package name="org.mybatis.builder"/>
@@ -141,6 +139,7 @@
 ```
 
 # xml映射文件
+
 SQL 映射文件只有很少的几个顶级元素（按照应被定义的顺序列出）：
 
 - `cache` – 该命名空间的缓存配置。
@@ -167,14 +166,16 @@ try (SqlSession session = sqlSessionFactory.openSession()) {
 ```
 
 # 缓存
+
 一级缓存
 
 二级缓存
 
 # 其他
+
 ## 第四节 插件机制
 
-`mybatis `四大对象
+`mybatis`四大对象
 
 - `Excutor`
 
@@ -188,29 +189,24 @@ try (SqlSession session = sqlSessionFactory.openSession()) {
 
 如果想编写自己的 Mybatis 插件可以通过实现 `org.apache.ibatis.plugin.Interceptor` 接口来完成，表示对 `Mybatis` 常规操作进行拦截，加入自定义逻辑。
 
-
 # 其他
-mybatis include 高级使用
-https://blog.csdn.net/m0_67318913/article/details/136595480
+
+[mybatis include 高级使用](https://blog.csdn.net/m0_67318913/article/details/136595480)
 
 ```xml
   <sql id="Param_Block">
-  	${user}.id,
-  	${user}.name,
+    ${user}.id,
+    ${user}.name,
     ${user}.phone
   </sql>
 <select>
 SELECT
-		<include refid="Param_Block">
-			<property name="user" value="s"/>
-		</include>
+    <include refid="Param_Block">
+      <property name="user" value="s"/>
+    </include>
     FROM
-    	store s
+      store s
     WHERE
-    	s.store_sn = #{storeSn}
+      s.store_sn = #{storeSn}
 </select>
 ```
-
-
-
-	

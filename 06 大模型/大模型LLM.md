@@ -18,9 +18,14 @@ Composer
 
 ## MCP
 
-- [# 一文看懂：MCP(大模型上下文协议)](https://zhuanlan.zhihu.com/p/27327515233)
+- [一文看懂：MCP(大模型上下文协议)](https://zhuanlan.zhihu.com/p/27327515233)
 - [# MCP 终极指南](https://guangzhengli.com/blog/zh/model-context-protocol)
-- [model-context-protocol](https://docs.cursor.com/context/model-context-protocol)
+- [cursor  model-context-protocol](https://docs.cursor.com/context/model-context-protocol)
+- [一文彻底搞懂大模型 - Dify（Agent + RAG）](https://blog.csdn.net/m0_59163425/article/details/142368632)
+
+https://modelcontextprotocol.io/introduction
+
+[Spring AI之模型上下文协议（MCP）](https://blog.csdn.net/alyenc/article/details/146968671)
 
 [GPT 应用开发和思考](https://guangzhengli.com/blog/zh/gpt-embeddings)
 
@@ -33,6 +38,9 @@ Composer
 - [AI 代理框架深度对比分享：Agno、OpenManus 和 OWL](https://juejin.cn/post/7481238697553297442)
 
 - [OpenManus](https://github.com/mannaandpoem/OpenManus/blob/main/README_zh.md)
+
+
+[深入探究 MCP Spring Boot Server：构建强大的天气信息服务系统]()https://blog.csdn.net/I_Am_Zou/article/details/146687907
 
 ## milvus
 
@@ -64,3 +72,8 @@ Milvus 是一个开源的云原生向量数据库，专为处理海量向量数�
 4. **搜索数据**: 根据查询向量进行相似性搜索。
 
 更多信息请参考 [Milvus 官方文档](https://milvus.io/docs)。
+
+
+
+# openai接口规范
+openai  openapi 规范 https://www.cnblogs.com/dongai/p/18474507
