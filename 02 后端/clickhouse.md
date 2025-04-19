@@ -4,7 +4,7 @@
 
 * OLTP  联机事务处理
 
-### click house系统架构
+## click house系统架构
 
 1. clickhouse概述
 
@@ -122,4 +122,4 @@ INSERT INTO [db.]table [(c1, c2, c3…)] SELECT ...
 
 * 数据删除修改
 
-	1. 引擎详解
+    1. 引擎详解
