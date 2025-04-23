@@ -137,7 +137,7 @@ git push origin --tags #推送标签
 
 ## config
 
-- 免密拉取 `gitee`   `git config --global credential.helper store`
+- 免密拉取   `git config --global credential.helper store`
 - 关闭ca认证  `sudo git config --system http.sslverify false`
 - `git config --global http.sslverify false`
 

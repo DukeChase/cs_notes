@@ -239,6 +239,111 @@ RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
 
 `docker build -t`
 
+## LABEL
+在 Dockerfile 中，`LABEL` 命令用于为镜像添加元数据（metadata）。这些元数据以键值对的形式存储，可以用来描述镜像的用途、作者信息、版本号等。
+
+### **作用**
+1. **提供镜像信息**：
+   - `LABEL` 可以用来标注镜像的作者、版本、描述等信息。
+   - 例如：
+     ```dockerfile
+     LABEL maintainer="your_email@example.com"
+     LABEL version="1.0"
+     LABEL description="This is a sample Docker image for my application."
+     ```
+
+2. **帮助管理和分类镜像**：
+   - 使用 `LABEL` 添加的元数据可以通过工具（如 `docker inspect`）查看，便于开发者和运维人员对镜像进行分类和管理。
+
+3. **支持自动化工具**：
+   - 某些 CI/CD 工具或容器编排工具（如 Kubernetes）可以根据 `LABEL` 的内容来执行特定的操作。例如，根据标签筛选镜像或分配资源。
+
+4. **标准化镜像信息**：
+   - 在团队协作中，通过约定使用统一的 `LABEL` 键值对，可以让镜像更加标准化，便于维护。
+
+---
+
+### **语法**
+```dockerfile
+LABEL <key>=<value> [<key>=<value> ...]
+```
+
+- `key` 和 `value` 是键值对，必须用双引号括起来（如果包含空格或其他特殊字符）。
+- 可以在一行中定义多个键值对，也可以分多行定义。
+
+#### 示例：
+```dockerfile
+# 单行定义多个标签
+LABEL maintainer="team@example.com" version="1.0" environment="production"
+
+# 多行定义标签
+LABEL maintainer="team@example.com" \
+      version="1.0" \
+      environment="production"
+```
+
+---
+
+### **查看 LABEL 信息**
+使用以下命令可以查看镜像中的 `LABEL` 元数据：
+
+```bash
+docker inspect <image_name>
+```
+
+输出是一个 JSON 格式的文件，`LABEL` 的信息会出现在 `"Labels"` 字段中。例如：
+```json
+"Labels": {
+    "maintainer": "team@example.com",
+    "version": "1.0",
+    "environment": "production"
+}
+```
+
+---
+
+### **最佳实践**
+1. **保持一致性**：
+   - 在团队中约定统一的 `LABEL` 键命名规则。例如，使用 `org.label-schema.*` 或 `com.example.*` 作为前缀。
+   - 示例：
+     ```dockerfile
+     LABEL org.label-schema.version="1.0"
+     LABEL org.label-schema.description="Sample application"
+     ```
+
+2. **避免敏感信息**：
+   - 不要在 `LABEL` 中存储敏感信息（如密码、密钥等），因为这些信息可以通过 `docker inspect` 轻松查看。
+
+3. **结合其他工具使用**：
+   - 配合容器编排工具（如 Kubernetes）或镜像扫描工具，利用 `LABEL` 实现更高效的镜像管理。
+
+---
+
+### **常见用法**
+1. **标注作者**：
+   ```dockerfile
+   LABEL maintainer="your_email@example.com"
+   ```
+
+2. **标注版本号**：
+   ```dockerfile
+   LABEL version="2.3.1"
+   ```
+
+3. **标注构建时间**：
+   ```dockerfile
+   LABEL build-date="2025-04-21"
+   ```
+
+4. **标注镜像用途**：
+   ```dockerfile
+   LABEL purpose="web-application"
+   ```
+
+---
+
+总结来说，`LABEL` 是一个非常轻量但功能强大的命令，可以为镜像提供丰富的元数据，有助于镜像的管理和维护。
+
 # 操作容器
 
 `docker run [OPTIONS] IMAGE [COMMAND] [ARG...]`
