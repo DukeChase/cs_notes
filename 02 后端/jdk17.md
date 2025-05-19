@@ -8,33 +8,31 @@ Java 17 相对于 Java 8 的升级是全面且显著的，涵盖了语言特性�
     - **优势**：提高了代码的可维护性、安全性和封装性，避免无意中暴露内部 API。
 2. **类型推断（var 关键字，Java 10）**
     - **升级内容**：引入 `var` 关键字，编译器自动推断变量类型。
-    - **示例**：
-        
-        ```java
-        var name = "Alice"; // 推断为 Stringvar age = 25;      // 推断为 int
-        ```
+    - **示例**：   
+	```java
+	var name = "Alice"; // 推断为 String
+	var age = 25;      // 推断为 int
+	```
         
 3. **集合工厂方法（Java 9+）**
     - **升级内容**：提供便捷的集合创建方法，如 `List.of()`, `Set.of()`, `Map.of()`。
     - **示例**：
-        
-        ```java
-        List<String> list = List.of("A", "B", "C");
-        ```
+    ```java
+      List<String> list = List.of("A", "B", "C");
+    ```
         
 4. **增强的 Stream API（Java 9+）**
     - **升级内容**：新增 `takeWhile()`, `dropWhile()`, `ofNullable()` 等方法，改进流处理能力。
 5. **Switch 表达式（Java 12+）**
     - **升级内容**：Switch 语句升级为表达式，支持箭头语法（`->`）和 `yield` 返回值。
     - **示例**：
-        
-        ```java
+    ```java
         String dayName = switch (dayOfWeek) {    
         case 1, 2 -> "Weekday";    
         case 3, 4, 5 -> "Midweek";    
         case 6, 7 -> "Weekend";    
         default -> throw new IllegalArgumentException("Invalid day");};
-        ```
+     ```
         
 6. **文本块（Java 13+）**
     - **升级内容**：使用 `"""` 定义多行字符串，简化 JSON、XML 等格式的字符串处理。

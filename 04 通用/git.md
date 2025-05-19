@@ -188,7 +188,9 @@ Welcome to GitLab, @lemon!
 
 ## gitignore
 
-`.gitignore` 文件用于指定 Git 应该忽略的文件和目录，即这些文件不会被纳入版本控制。以下是 `.gitignore` 文件的常见规则：
+`.gitignore` 文件用于指定 Git 应该忽略的文件和目录，即这些文件不会被纳入版本控制。
+
+以下是 `.gitignore` 文件的常见规则：
 
 ### 1. 基本语法
 

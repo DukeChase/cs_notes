@@ -132,3 +132,7 @@ protected WebApplicationContext initWebApplicationContext() {
 - `FrameworkServlet` 完成初始化会调用 IOC 容器的刷新方法。
 - 刷新方法完成触发刷新事件，在刷新事件的响应函数中，调用 DispatcherServlet 的初始化方法。
 - 在 `DispatcherServlet` 的初始化方法中初始化了请求映射等。
+
+
+# DispatcherServlet 请求处理过程
+

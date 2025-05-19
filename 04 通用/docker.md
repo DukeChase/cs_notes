@@ -1,11 +1,11 @@
 # docker
 
-- [Docker 常用命令 与 Dockerfile](https://xiets.blog.csdn.net/article/details/122866186)
+- [Docker 常用命令 与 `Dockerfile`](https://xiets.blog.csdn.net/article/details/122866186)
 - [Docker 环境清理的常用方法有哪些？](https://www.zhihu.com/tardis/bd/ans/2998335721)
 
 # 架构
 
-Dockerfile -> image  -> container
+`dockerfile` ->` image`  -> `container`
 镜像
 容器
 仓库 hub
@@ -22,11 +22,11 @@ docker 从入门到实践
 
 docker --help
 
-# run
+# docker run
 
 `docker run`
 
-```bash
+```text
 Usage:  docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 
 Create and run a new container from an image
@@ -198,20 +198,28 @@ Options:
   -w, --workdir string                 Working directory inside the container
 ```
 
-
+```bash
+docker run -itd --rm --name container_name --env-file .env\ 
+-v host_path:path\
+-v host_paht:path\
+-p 80:80\
+--network bridge\
+image:tag
+```
 # docker pull
 
-```
+```bash
+docker pull --platform=linux/arm64 image:tag
 docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
 ```
 
-# image
+# docker image
 
 `docker image ls`
 
 `docker image rm`
 
-# Dockerfile
+# `dockerfile`
 
 使用`dockerfile`定制镜像
 
@@ -223,7 +231,7 @@ RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
 ## 不同架构的镜像
 
 `FROM  --platform=linux/amd64`
-
+`FROM  --platform=linux/arm64`
 ## `ADD`
 
 ## `COPY`
@@ -377,7 +385,181 @@ docker inspect <image_name>
 docker volume create my-vol
 ```
 
-# todo
+
+# Network
+
+Docker 容器支持多种网络模式，不同的模式决定了容器如何与宿主机、其他容器及外部网络通信。以下是常见的 Docker 网络模式及其配置方法：
+
+---
+
+### 1. ​**​默认桥接模式 (`bridge`)​**​
+
+- ​**​特点​**​：
+    - 默认的网络模式，每个容器分配独立 IP。
+    - 容器间通过 `容器IP` 互相通信。
+    - 容器需通过 `-p` 参数映射端口才能被外部访问。
+- ​**​适用场景​**​：
+    - 单机环境下需要隔离的容器（默认模式）。
+- ​**​配置​**​：
+    
+    ``# 运行容器（默认使用 `bridge` 网络）   docker run -d --name my_container -p 8080:80 nginx      # 查看容器 IP 和网络信息   docker inspect my_container | grep IPAddress``
+    
+
+---
+
+### 2. ​**​主机模式 (`host`)​**​
+
+- ​**​特点​**​：
+    - 容器共享宿主机的网络命名空间，直接使用宿主机 IP 和端口。
+    - 容器无需端口映射即可通过宿主机 IP 访问。
+    - ​**​性能更高​**​（无 NAT 开销），但隔离性差。
+- ​**​适用场景​**​：
+    - 对网络性能要求高的场景（如高并发服务）。
+- ​**​配置​**​：
+    
+  ```bash
+    # 使用 host 模式运行容器   
+    docker run -d --name my_container --network=host nginx
+	```
+    
+
+---
+
+### 3. ​**​无网络模式 (`none`)​**​
+
+- ​**​特点​**​：
+    - 容器完全禁用网络（无网卡、无 IP）。
+    - 仅适用于不需要网络通信的场景。
+- ​**​适用场景​**​：
+    - 安全敏感的任务（如离线数据处理）。
+- ​**​配置​**​：
+    
+   ```bash
+	 docker run -d --name my_container --network=none nginx
+	 ```
+
+
+---
+
+### 4. ​**​容器共享模式 (`container:<name|id>`)​**​
+
+- ​**​特点​**​：
+    - 新容器共享另一个容器的网络命名空间。
+    - 两个容器使用相同的 IP 和端口。
+- ​**​适用场景​**​：
+    - 需要多个容器共享同一网络栈（如 Sidecar 模式）。
+- ​**​配置​**​：
+    
+    ```bash
+    # 启动第一个容器   
+    docker run -d --name container1 nginx      
+    # 启动第二个容器，共享 container1 的网络   
+    docker run -d --name container2 --network=container:container1 alpine
+	```
+    
+
+---
+
+### 5. ​**​自定义网络 (`user-defined`)​**​
+
+- ​**​特点​**​：
+    - 用户自定义的桥接网络或 Overlay 网络。
+    - 支持容器间 DNS 自动解析（通过容器名通信）。
+    - 提供更好的隔离性和灵活性。
+- ​**​适用场景​**​：
+    - 多容器应用需要安全通信（如微服务架构）。
+- ​**​配置​**​：
+    
+    ```bash
+    # 创建自定义桥接网络   
+    docker network create my_network      
+    # 运行容器并加入自定义网络   
+    docker run -d --name app1 --network=my_network nginx   
+    docker run -d --name app2 --network=my_network mysql      
+    # 在 app2 中直接通过容器名访问 app1   
+    ping app1
+	```
+    
+
+---
+
+### 6. ​**​Overlay 网络 (`overlay`)​**​
+
+- ​**​特点​**​：
+    - 用于跨主机的容器通信（Docker Swarm 集群）。
+    - 支持多主机间的容器互联。
+- ​**​适用场景​**​：
+    - 分布式应用或容器集群（如 Docker Swarm、Kubernetes）。
+- ​**​配置​**​：
+    
+    ```bash
+    # 在 Swarm 集群中创建 overlay 网络   
+    docker network create -d overlay my_overlay_net
+	```
+    
+
+---
+
+### 7. ​**​Macvlan/IPvlan 网络​**​
+
+- ​**​特点​**​：
+    - `macvlan`：为容器分配独立的 MAC 地址，使其直接连接到物理网络。
+    - `ipvlan`：共享物理接口的 MAC 地址，但分配不同 IP。
+- ​**​适用场景​**​：
+    - 需要容器直接暴露在物理网络中（如虚拟机替代方案）。
+- ​**​配置​**​：
+    
+    ```bash
+    # 创建 macvlan 网络   
+    docker network create -d macvlan \     
+    --subnet=192.168.1.0/24 \     
+    --gateway=192.168.1.1 \     
+    --parent=eth0 \     my_macvlan_net
+	```
+    
+
+---
+
+### ​**​如何选择网络模式？​**​
+
+|模式|隔离性|性能|适用场景|
+|---|---|---|---|
+|`bridge`|高|中等|默认隔离环境（单机）|
+|`host`|低|高|高性能需求|
+|`none`|最高|无|无网络需求|
+|`container`|低|高|共享网络栈（如 Sidecar）|
+|`user-defined`|高|中等|多容器应用（DNS 自动解析）|
+|`overlay`|高|中等|跨主机通信（集群）|
+|`macvlan`|高|高|直接暴露在物理网络|
+
+---
+
+### ​**​常用命令​**​
+
+- 查看所有网络：
+    
+    `docker network ls`
+    
+- 查看网络详情：
+    
+    `docker network inspect my_network`
+    
+- 删除网络：
+    
+    `docker network rm my_network`
+    
+
+---
+
+### ​**​总结​**​
+
+- ​**​开发测试​**​：默认 `bridge` 或自定义网络。
+- ​**​生产环境​**​：建议使用 `host` 模式（高性能）或自定义网络（隔离性）。
+- ​**​跨主机通信​**​：使用 `overlay` 网络（Swarm 集群）。
+- ​**​物理网络集成​**​：选择 `macvlan`/`ipvlan`。
+
+通过合理选择网络模式，可以优化容器的网络性能和安全性。
+# other
 
 [# Docker cp命令详解：在Docker容器和主机之间复制文件/文件夹](https://blog.csdn.net/Tester_muller/article/details/131678630)
 

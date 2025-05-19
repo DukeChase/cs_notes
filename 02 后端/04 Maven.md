@@ -4,12 +4,14 @@
 - [maven official documentation](https://maven.apache.org/guides/index.html)
 
 
-`-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true`
-- -Dmaven.wagon.http.ssl.insecure=true
+```sh
+-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true
+```
+- `-Dmaven.wagon.http.ssl.insecure=true`
 	- 这个参数告诉Maven允许不安全的SSL连接
 	- 它会忽略SSL证书验证
 	- 主要用于处理自签名证书或证书链不完整的情况
-- -Dmaven.wagon.http.ssl.allowall=true
+- `-Dmaven.wagon.http.ssl.allowall=true`
 	- 这个参数允许Maven接受所有的SSL证书
 	- 它会跳过证书验证过程
 	- 主要用于开发环境或测试环境
@@ -22,6 +24,13 @@
 mvn groupId:artifactId:goal -P \!profile-1,\!profile-2,\!?profile-3
 
 mvn groupId:artifactId:goal -P=-profile-1,-profile-2,-?profile-3
+```
+
+```shell
+# 跳过已编译的测试用例执行
+-DskipTests=true
+# 完全跳过编译和执行测试（更彻底）
+-Dmaven.test.skip=true  
 ```
 
 
@@ -137,7 +146,8 @@ profile
 ```
 
 
-#  [maven versions  介绍](https://www.mojohaus.org/versions/versions-maven-plugin/index.html)
+#  maven version插件
+- [maven versions  介绍](https://www.mojohaus.org/versions/versions-maven-plugin/index.html)
 `mvn versions:set`
 
 `mvn versions:commit`
@@ -161,3 +171,12 @@ profile
 - [https://blog.csdn.net/qq_44795091/article/details/130327247](https://blog.csdn.net/qq_44795091/article/details/130327247) **maven工程多模块、项目打包问题**
 - 【Maven】多模块项目打包最佳实践 [https://www.cnblogs.com/slankka/p/17474587.html](https://www.cnblogs.com/slankka/p/17474587.html)
 - **maven的命令-deploy** [https://blog.csdn.net/aaaaa2428572/article/details/108402495](https://blog.csdn.net/aaaaa2428572/article/details/108402495)
+
+# maven wrapper
+
+`mvnw`
+`mvnw.cmd`
+
+https://maven.apache.org/wrapper/
+
+https://yiyan.baidu.com/chat/NzQyODIyODk2OjQ5NTk3NDY1MzM=
