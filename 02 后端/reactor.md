@@ -166,7 +166,12 @@
 
 - `subscribe()`：触发流执行，可自定义处理逻辑。
     
-    `flux.subscribe(       data -> System.out.println(data),       err -> err.printStackTrace(),       () -> System.out.println("Complete")   );`
+    ```java
+    flux.subscribe(       
+    data -> System.out.println(data),       
+    err -> err.printStackTrace(),       
+    () -> System.out.println("Complete")   );
+	```
     
 
 ---
@@ -204,7 +209,15 @@
     
 - ​**​特点​**​：​**​单线程同步生成数据​**​，每次调用 `next()` 只能发射一个元素，必须返回新的状态（用于生成下一个元素）。
     
-    `Flux.generate(       () -> 0, // 初始状态：计数器从0开始       (state, sink) -> {           sink.next("Value: " + state); // 发射当前状态           if (state == 5) sink.complete(); // 达到5时结束流           return state + 1; // 更新状态（下次调用时使用）       }   ).subscribe(System.out::println);`
+    ```java
+    Flux.generate(       () -> 0, // 初始状态：计数器从0开始       
+    (state, sink) -> {           
+    sink.next("Value: " + state); // 发射当前状态           
+    if (state == 5) sink.complete(); // 达到5时结束流           
+    return state + 1; // 更新状态（下次调用时使用）       
+    }   
+    ).subscribe(System.out::println);
+	```
     
 
 #### 2. ​**​`FluxSink`​**​（异步 Sink）
@@ -213,7 +226,17 @@
     
 - ​**​特点​**​：​**​支持多线程异步生成数据​**​，可以多次调用 `next()`，需要手动管理背压（backpressure）和资源释放。
     
-    `Flux.create(sink -> {       // 模拟异步事件（如监听消息队列）       eventSource.registerListener(data -> {           sink.next(data); // 异步推送数据           if (data.equals("END")) {               sink.complete(); // 收到END时结束流           }       });       // 资源清理（当流取消订阅时执行）       sink.onCancel(() -> eventSource.shutdown());   }).subscribe();`
+    ```java
+    Flux.create(sink -> {       // 模拟异步事件（如监听消息队列）
+           eventSource.registerListener(data -> {          
+           sink.next(data); // 异步推送数据           
+           if (data.equals("END")) {               
+           sink.complete(); // 收到END时结束流           
+           }       
+           });       // 资源清理（当流取消订阅时执行）       
+           sink.onCancel(() -> eventSource.shutdown());   
+           }).subscribe();
+	```
     
 
 ---
@@ -251,11 +274,30 @@
 
 #### 场景1：生成一个简单序列
 
-`Flux.generate(sink -> {       sink.next("Hello"); // 发射数据       sink.complete();    // 立即结束   }).subscribe();`
+```java
+Flux.generate(sink -> {       
+sink.next("Hello");  // 发射数据       
+sink.complete();    // 立即结束   
+}).subscribe();
+```
 
 #### 场景2：异步推送事件
 
-`Flux.create(sink -> {       // 模拟异步回调       asyncService.fetchData(new Callback() {           @Override           public void onData(String data) {               sink.next(data);           }              @Override           public void onComplete() {               sink.complete();           }              @Override           public void onError(Throwable e) {               sink.error(e);           }       });   });`
+```java
+Flux.create(sink -> {       
+// 模拟异步回调       
+asyncService.fetchData(new Callback() {          
+@Override           
+public void onData(String data) {               sink.next(data);           }              
+@Override          
+public void onComplete() {               sink.complete();           }              
+@Override           
+public void onError(Throwable e) {               
+sink.error(e);           
+}       
+});   
+});
+```
 
 ---
 
@@ -286,15 +328,32 @@
 
 #### 场景1：每次订阅返回最新的时间戳
 
-`// 错误写法：时间戳在声明时固定   Mono<Long> mono = Mono.just(System.currentTimeMillis());      // 正确写法：每次订阅获取最新时间   Mono<Long> deferredMono = Mono.defer(() ->        Mono.just(System.currentTimeMillis())   );      // 测试   deferredMono.subscribe(time -> System.out.println("Sub1: " + time)); // 输出当前时间   Thread.sleep(1000);   deferredMono.subscribe(time -> System.out.println("Sub2: " + time)); // 1秒后的时间（与Sub1不同）`
+```java
+// 错误写法：时间戳在声明时固定   
+Mono<Long> mono = Mono.just(System.currentTimeMillis());      
+// 正确写法：每次订阅获取最新时间   
+Mono<Long> deferredMono = Mono.defer(() ->        Mono.just(System.currentTimeMillis())   );      
+// 测试   
+deferredMono.subscribe(time -> System.out.println("Sub1: " + time)); 
+// 输出当前时间   
+Thread.sleep(1000);   
+deferredMono.subscribe(time -> System.out.println("Sub2: " + time)); 
+// 1秒后的时间（与Sub1不同）
+```
 
 #### 场景2：延迟执行数据库查询
 
-`Mono<User> getUserById(String id) {       return Mono.defer(() ->            // 每次订阅时才执行查询（避免声明时立即执行）           Mono.fromCallable(() -> database.findUserById(id))       );   }`
+```java
+Mono<User> getUserById(String id) {       return Mono.defer(() ->            // 每次订阅时才执行查询（避免声明时立即执行）           
+Mono.fromCallable(() -> database.findUserById(id))       );   }
+```
 
 #### 场景3：动态生成成功/失败的流
 
-`Mono<String> riskyOperation() {       return Mono.defer(() -> {           double random = Math.random();           if (random > 0.5) {               return Mono.just("Success!");           } else {               return Mono.error(new RuntimeException("Failed"));           }       });   }      // 每次订阅结果可能不同   riskyOperation().subscribe(       success -> System.out.println(success),       error -> System.err.println(error.getMessage())   );`
+```java
+Mono<String> riskyOperation() {       return Mono.defer(() -> {           double random = Math.random();           if (random > 0.5) {               return Mono.just("Success!");           } else {               return Mono.error(new RuntimeException("Failed"));           }       });   }      // 每次订阅结果可能不同   
+riskyOperation().subscribe(       success -> System.out.println(success),       error -> System.err.println(error.getMessage())   );
+```
 
 ---
 
@@ -319,7 +378,19 @@
 - `Mono.fromSupplier`：延迟生成​**​数据值​**​（直接返回值本身）。
 - `Mono.defer`：延迟生成​**​整个 `Mono` 数据流​**​（可以包含复杂逻辑）。
 
-`// 返回一个固定的值（延迟获取）   Mono.fromSupplier(() -> "Value: " + System.currentTimeMillis());      // 返回一个动态生成的流（可以包含错误、空等逻辑）   Mono.defer(() -> {       if (condition) {           return Mono.just("OK");       } else {           return Mono.error(new RuntimeException());       }   });`
+```java
+// 返回一个固定的值（延迟获取）   
+Mono.fromSupplier(() -> "Value: " + System.currentTimeMillis());      
+// 返回一个动态生成的流（可以包含错误、空等逻辑）   
+Mono.defer(() -> {       
+if (condition) {           
+return Mono.just("OK");       
+} else {           
+return Mono.error(new RuntimeException());  
+}   
+);
+
+```
 
 ---
 
@@ -343,7 +414,15 @@ Java 的函数式编程是 ​**​以 Lambda 表达式和函数式接口为核�
 - ​**​本质​**​：匿名函数，简化单方法接口的实现。
 - ​**​语法​**​：`(参数) -> { 逻辑 }`
     
-    `// 传统写法（匿名内部类）   Runnable r1 = new Runnable() {       @Override       public void run() { System.out.println("Hello"); }   };      // Lambda 写法   Runnable r2 = () -> System.out.println("Hello");`
+    ```java
+    // 传统写法（匿名内部类）   
+    Runnable r1 = new Runnable() {      
+     @Override       
+     public void run() { System.out.println("Hello"); }   
+     };     
+     // Lambda 写法   
+     Runnable r2 = () -> System.out.println("Hello");
+	```
     
 
 #### 2. ​**​函数式接口（Functional Interface）​**​
@@ -360,7 +439,15 @@ Java 的函数式编程是 ​**​以 Lambda 表达式和函数式接口为核�
 - ​**​简化 Lambda​**​：直接指向已有方法。
 - ​**​四种形式​**​：
     
-    `// 静态方法引用   Function<String, Integer> parser = Integer::parseInt;      // 实例方法引用   List<String> list = Arrays.asList("A", "B");   list.forEach(System.out::println);       // 构造方法引用   Supplier<List<String>> supplier = ArrayList::new;`
+    ```java
+    // 静态方法引用   
+    Function<String, Integer> parser = Integer::parseInt;     
+     // 实例方法引用   
+     List<String> list = Arrays.asList("A", "B");
+     list.forEach(System.out::println);       
+     // 构造方法引用   
+     Supplier<List<String>> supplier = ArrayList::new;
+	```
     
 
 ---
@@ -372,21 +459,33 @@ Java 的函数式编程是 ​**​以 Lambda 表达式和函数式接口为核�
 - ​**​作用​**​：对集合进行链式操作（过滤、映射、归约等）。
 - ​**​示例​**​：
     
-    `List<String> names = Arrays.asList("Alice", "Bob", "Charlie");      // 过滤长度>3的名字，转大写，收集到List   List<String> result = names.stream()       .filter(s -> s.length() > 3)       .map(String::toUpperCase)       .collect(Collectors.toList()); // [ALICE, CHARLIE]`
+    ```java
+    List<String> names = Arrays.asList("Alice", "Bob", "Charlie");      // 过滤长度>3的名字，转大写，收集到List   
+    List<String> result = names.stream()
+    .filter(s -> s.length() > 3)
+    .map(String::toUpperCase)
+    .collect(Collectors.toList()); // [ALICE, CHARLIE]
+	```
     
 
 #### 2. ​**​Optional 类​**​
 
 - ​**​作用​**​：优雅处理 `null`，避免空指针异常。
     
-    `Optional<String> name = Optional.ofNullable(getName());   String value = name.orElse("Default"); // 非空时返回值，否则返回"Default"`
+    ```java
+    Optional<String> name = Optional.ofNullable(getName());   
+    String value = name.orElse("Default"); // 非空时返回值，否则返回"Default"
+	```
     
 
 #### 3. ​**​并行流（Parallel Stream）​**​
 
 - ​**​作用​**​：利用多核并行处理数据。
     
-    `List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);   int sum = numbers.parallelStream()       .mapToInt(n -> n * 2)       .sum(); // 并行计算总和`
+    ```java
+    List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);   
+    int sum = numbers.parallelStream().mapToInt(n -> n * 2).sum(); // 并行计算总和
+	```
     
 
 ---
@@ -404,15 +503,31 @@ Java 的函数式编程是 ​**​以 Lambda 表达式和函数式接口为核�
 
 #### 1. ​**​集合处理​**​
 
-`// 统计单词频率   List<String> words = Arrays.asList("apple", "banana", "apple");   Map<String, Long> frequency = words.stream()       .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));   // {banana=1, apple=2}`
+```java
+// 统计单词频率   
+List<String> words = Arrays.asList("apple", "banana", "apple");   Map<String, Long> frequency = words.stream()       .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));   
+// {banana=1, apple=2}
+```
 
 #### 2. ​**​异步回调​**​
 
-`CompletableFuture.supplyAsync(() -> fetchDataFromDB())       .thenApply(data -> processData(data))       .thenAccept(result -> sendToUI(result))       .exceptionally(ex -> handleError(ex));`
+```java
+CompletableFuture.supplyAsync(() -> fetchDataFromDB())
+.thenApply(data -> processData(data))
+.thenAccept(result -> sendToUI(result))
+.exceptionally(ex -> handleError(ex));
+```
 
 #### 3. ​**​条件过滤链​**​
 
-`Predicate<String> isLong = s -> s.length() > 5;   Predicate<String> containsA = s -> s.contains("A");      List<String> filtered = list.stream()       .filter(isLong.and(containsA))       .collect(Collectors.toList());`
+```java
+Predicate<String> isLong = s -> s.length() > 5;   
+Predicate<String> containsA = s -> s.contains("A");      
+List<String> filtered = list.stream()
+.filter(isLong.and(containsA))
+.collect(Collectors.toList());
+
+```
 
 ---
 
@@ -449,7 +564,12 @@ Java 函数式编程通过 ​**​Lambda、Stream、Optional​**​ 等工具�
 - ​**​问题​**​：生产者速度 > 消费者速度时，可能导致内存溢出或系统崩溃。
 - ​**​方案​**​：消费者通过​**​动态请求（Demand Signaling）​**​控制数据流速。
     
-    `示例流程：   1. 订阅者（Subscriber）向发布者（Publisher）订阅，并声明初始需求（如请求10个数据）。   2. 发布者按需求发送数据（最多10个）。   3. 订阅者处理完数据后，继续请求新数据（如再请求5个）。`
+   ```text
+    示例流程：   
+    1. 订阅者（Subscriber）向发布者（Publisher）订阅，并声明初始需求（如请求10个数据）。   
+    2. 发布者按需求发送数据（最多10个）。   
+    3. 订阅者处理完数据后，继续请求新数据（如再请求5个）。
+	```
     
 
 #### 3. ​**​标准化接口​**​
@@ -497,7 +617,9 @@ Reactive Stream 规范（JVM 版）定义了四个核心接口：
 
 ### ​**​三、数据流生命周期示例​**​
 
-`+------------+          subscribe()          +------------+   | Publisher  | ----------------------------> | Subscriber |   +------------+                               +------------+        ^                                              |        |                                              | onSubscribe(Subscription)        |                                              V        |                                        +------------+        |                                        | Subscription|        |                                        +------------+        |                                              |        | request(n)                                   | onNext(data)        +----------------------------------------------+`
+```
++------------+          subscribe()          +------------+   | Publisher  | ----------------------------> | Subscriber |   +------------+                               +------------+        ^                                              |        |                                              | onSubscribe(Subscription)        |                                              V        |                                        +------------+        |                                        | Subscription|        |                                        +------------+        |                                              |        | request(n)                                   | onNext(data)        +----------------------------------------------+
+```
 
 1. ​**​订阅建立​**​：订阅者调用 `Publisher.subscribe()`，触发 `onSubscribe()` 回调。
 2. ​**​背压协商​**​：订阅者通过 `Subscription.request(n)` 声明初始需求。
@@ -518,14 +640,26 @@ Reactive Stream 规范（JVM 版）定义了四个核心接口：
 - ​**​自动流量控制​**​：背压机制防止系统过载。
 - ​**​故障恢复​**​：通过操作符（如 `retry`、`timeout`）实现容错。
     
-    `Flux.from(publisher)       .timeout(Duration.ofSeconds(5))  // 超时熔断       .retry(3)                        // 自动重试3次       .onErrorResume(fallbackFlow)     // 降级逻辑       .subscribe();`
+    ```java
+    Flux.from(publisher)       
+    .timeout(Duration.ofSeconds(5))  // 超时熔断       
+    .retry(3)                        // 自动重试3次
+    .onErrorResume(fallbackFlow)     // 降级逻辑       
+    .subscribe();
+	```
     
 
 #### 3. ​**​统一编程模型​**​
 
 - 数据库、HTTP 客户端、消息队列等组件可通过 Reactive Stream 接口统一接入，形成端到端的非阻塞链路。
     
-    `// 示例：响应式数据库查询 -> HTTP 响应   reactiveMongoRepository.findUsers()       .map(user -> transform(user))       .flatMap(data -> webClient.post().bodyValue(data).retrieve())       .subscribe();`
+    ```java
+    // 示例：响应式数据库查询 -> HTTP 响应   
+    reactiveMongoRepository.findUsers()
+    .map(user -> transform(user))
+    .flatMap(data -> webClient.post().bodyValue(data).retrieve())
+    .subscribe();
+	```
     
 
 ---
