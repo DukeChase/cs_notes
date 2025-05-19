@@ -1,4 +1,4 @@
-
+## jdk17对比jdk8升级
 Java 17 相对于 Java 8 的升级是全面且显著的，涵盖了语言特性、API 变化、性能优化和安全性等多个方面。以下是详细的对比和升级说明：
 
 ### 一、语言特性升级
@@ -17,7 +17,7 @@ Java 17 相对于 Java 8 的升级是全面且显著的，涵盖了语言特性�
 3. **集合工厂方法（Java 9+）**
     - **升级内容**：提供便捷的集合创建方法，如 `List.of()`, `Set.of()`, `Map.of()`。
     - **示例**：
-    ```java
+   ```java
       List<String> list = List.of("A", "B", "C");
     ```
         
@@ -39,9 +39,9 @@ Java 17 相对于 Java 8 的升级是全面且显著的，涵盖了语言特性�
     - **示例**：
         
         ```java
-        String json = """    {        
+        String json = """{        
         "name": "Java",
-        "version": "17"    }    
+        "version": "17" }    
         """;
         ```
         
@@ -79,7 +79,12 @@ Java 17 相对于 Java 8 的升级是全面且显著的，涵盖了语言特性�
     - **示例**：
         
         ```java
-        javaHttpClient client = HttpClient.newHttpClient();HttpRequest request = HttpRequest.newBuilder()    .uri(URI.create("https://example.com"))    .build();HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        javaHttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create("https://example.com"))
+        .build();
+        HttpResponse<String> response = client
+        .send(request, HttpResponse.BodyHandlers.ofString());
         ```
         
 2. **改进的 Optional 类（Java 10+）**
