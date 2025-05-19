@@ -168,9 +168,10 @@
     
     ```java
     flux.subscribe(       
-    data -> System.out.println(data),       
-    err -> err.printStackTrace(),       
-    () -> System.out.println("Complete")   );
+	    data -> System.out.println(data),       
+	    err -> err.printStackTrace(),       
+	    () -> System.out.println("Complete")   
+	    );
 	```
     
 
@@ -210,13 +211,13 @@
 - ​**​特点​**​：​**​单线程同步生成数据​**​，每次调用 `next()` 只能发射一个元素，必须返回新的状态（用于生成下一个元素）。
     
     ```java
-    Flux.generate(       () -> 0, // 初始状态：计数器从0开始       
-    (state, sink) -> {           
-    sink.next("Value: " + state); // 发射当前状态           
-    if (state == 5) sink.complete(); // 达到5时结束流           
-    return state + 1; // 更新状态（下次调用时使用）       
-    }   
-    ).subscribe(System.out::println);
+	Flux.generate(       () -> 0, // 初始状态：计数器从0开始           
+	(state, sink) -> {  
+	            sink.next("Value: " + state); // 发射当前状态               
+	if (state == 5) sink.complete(); // 达到5时结束流               
+	return state + 1; // 更新状态（下次调用时使用）           
+	}  
+	).subscribe(System.out::println);
 	```
     
 
@@ -227,15 +228,15 @@
 - ​**​特点​**​：​**​支持多线程异步生成数据​**​，可以多次调用 `next()`，需要手动管理背压（backpressure）和资源释放。
     
     ```java
-    Flux.create(sink -> {       // 模拟异步事件（如监听消息队列）
-           eventSource.registerListener(data -> {          
-           sink.next(data); // 异步推送数据           
-           if (data.equals("END")) {               
-           sink.complete(); // 收到END时结束流           
-           }       
-           });       // 资源清理（当流取消订阅时执行）       
-           sink.onCancel(() -> eventSource.shutdown());   
-           }).subscribe();
+	Flux.create(sink -> {       // 模拟异步事件（如监听消息队列）  
+	    eventSource.registerListener(data -> {  
+	        sink.next(data); // 异步推送数据             
+	if (data.equals("END")) {  
+	            sink.complete(); // 收到END时结束流             
+	}  
+	    });       // 资源清理（当流取消订阅时执行）         
+	sink.onCancel(() -> eventSource.shutdown());  
+	}).subscribe();
 	```
     
 
@@ -275,27 +276,33 @@
 #### 场景1：生成一个简单序列
 
 ```java
-Flux.generate(sink -> {       
-sink.next("Hello");  // 发射数据       
-sink.complete();    // 立即结束   
-}).subscribe();
+Flux.generate(sink -> {  
+    sink.next("Hello");  // 发射数据         
+	sink.complete();    // 立即结束   
+	}).subscribe();
 ```
 
 #### 场景2：异步推送事件
 
 ```java
-Flux.create(sink -> {       
-// 模拟异步回调       
-asyncService.fetchData(new Callback() {          
-@Override           
-public void onData(String data) {               sink.next(data);           }              
-@Override          
-public void onComplete() {               sink.complete();           }              
-@Override           
-public void onError(Throwable e) {               
-sink.error(e);           
-}       
-});   
+Flux.create(sink -> {  
+    // 模拟异步回调  
+    asyncService.fetchData(new Callback() {  
+        @Override  
+        public void onData(String data) {  
+            sink.next(data);  
+        }  
+  
+        @Override  
+        public void onComplete() {  
+            sink.complete();  
+        }  
+  
+        @Override  
+        public void onError(Throwable e) {  
+            sink.error(e);  
+        }  
+    });  
 });
 ```
 
@@ -329,30 +336,46 @@ sink.error(e);
 #### 场景1：每次订阅返回最新的时间戳
 
 ```java
-// 错误写法：时间戳在声明时固定   
-Mono<Long> mono = Mono.just(System.currentTimeMillis());      
-// 正确写法：每次订阅获取最新时间   
-Mono<Long> deferredMono = Mono.defer(() ->        Mono.just(System.currentTimeMillis())   );      
-// 测试   
-deferredMono.subscribe(time -> System.out.println("Sub1: " + time)); 
-// 输出当前时间   
-Thread.sleep(1000);   
-deferredMono.subscribe(time -> System.out.println("Sub2: " + time)); 
+// 错误写法：时间戳在声明时固定     
+Mono<Long> mono = Mono.just(System.currentTimeMillis());  
+// 正确写法：每次订阅获取最新时间     
+Mono<Long> deferredMono = Mono.defer(() -> Mono.just(System.currentTimeMillis()));  
+// 测试     
+deferredMono.subscribe(time -> System.out.println("Sub1: " + time));  
+// 输出当前时间     
+Thread.sleep(1000);  
+        deferredMono.subscribe(time -> System.out.println("Sub2: " + time));  
 // 1秒后的时间（与Sub1不同）
 ```
 
 #### 场景2：延迟执行数据库查询
 
 ```java
-Mono<User> getUserById(String id) {       return Mono.defer(() ->            // 每次订阅时才执行查询（避免声明时立即执行）           
-Mono.fromCallable(() -> database.findUserById(id))       );   }
+Mono<User> getUserById(String id) {
+	return Mono.defer(() ->  // 每次订阅时才执行查询（避免声明时立即执行）       
+	Mono.fromCallable(() -> database.findUserById(id)) );   
+	}
 ```
 
 #### 场景3：动态生成成功/失败的流
 
 ```java
-Mono<String> riskyOperation() {       return Mono.defer(() -> {           double random = Math.random();           if (random > 0.5) {               return Mono.just("Success!");           } else {               return Mono.error(new RuntimeException("Failed"));           }       });   }      // 每次订阅结果可能不同   
-riskyOperation().subscribe(       success -> System.out.println(success),       error -> System.err.println(error.getMessage())   );
+static Mono<String> riskyOperation() {  
+    return Mono.defer(() -> {  
+        double random = Math.random();  
+        if (random > 0.5) {  
+            return Mono.just("Success!");  
+        } else {  
+            return Mono.error(new RuntimeException("Failed"));  
+        }  
+    });  
+}
+
+riskyOperation()  
+        .subscribe(success -> System.out.println(success),   
+                error -> System.err.println(error.getMessage()));
+
+
 ```
 
 ---
@@ -379,16 +402,16 @@ riskyOperation().subscribe(       success -> System.out.println(success),       
 - `Mono.defer`：延迟生成​**​整个 `Mono` 数据流​**​（可以包含复杂逻辑）。
 
 ```java
-// 返回一个固定的值（延迟获取）   
-Mono.fromSupplier(() -> "Value: " + System.currentTimeMillis());      
-// 返回一个动态生成的流（可以包含错误、空等逻辑）   
-Mono.defer(() -> {       
-if (condition) {           
-return Mono.just("OK");       
-} else {           
-return Mono.error(new RuntimeException());  
-}   
-);
+        // 返回一个固定的值（延迟获取）  
+        Mono.fromSupplier(() -> "Value: " + System.currentTimeMillis());  
+		// 返回一个动态生成的流（可以包含错误、空等逻辑）  
+        Mono.defer(() -> {  
+            if (condition) {  
+                return Mono.just("OK");  
+            } else {  
+                return Mono.error(new RuntimeException());  
+            }  
+    });
 
 ```
 
