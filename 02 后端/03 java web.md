@@ -43,31 +43,31 @@
 
 - 超链接
 
-```html
-<a href="http://localhost:8080">百度</a><br/>
+    ```html
+    <a href="http://localhost:8080">百度</a><br/>
 
-<a href="http://localhost:8080" target="_self">百度_self</a><br/>
+    <a href="http://localhost:8080" target="_self">百度_self</a><br/>
 
-<a href="http://localhost:8080" target="_blank">百度_blank</a><br/>
-```
+    <a href="http://localhost:8080" target="_blank">百度_blank</a><br/>
+    ```
 
 - 列表标签
 
-```html
-<body>
-<!--需求 1：使用无序，列表方式，把东北 F4，赵四，刘能，小沈阳，宋小宝，展示出来
-ul 是无序列表
-type 属性可以修改列表项前面的符号
-li 是列表项
--->
- <ul type="none">
-  <li>赵四</li>
-  <li>刘能</li>
-  <li>小沈阳</li>
-  <li>宋小宝</li>
- </ul>
-</body>
-```
+    ```html
+    <body>
+    <!--需求 1：使用无序，列表方式，把东北 F4，赵四，刘能，小沈阳，宋小宝，展示出来
+    ul 是无序列表
+    type 属性可以修改列表项前面的符号
+    li 是列表项
+    -->
+    <ul type="none">
+    <li>赵四</li>
+    <li>刘能</li>
+    <li>小沈阳</li>
+    <li>宋小宝</li>
+    </ul>
+    </body>
+    ```
 
 - `img`标签
 - 表格标签
@@ -598,7 +598,7 @@ CSS 和 HTML 的结合方式
 
 - 核心DOM模型：
 - `Document`：文档对象
-  1. 创建(获取)：在HTML dom 模型中可以使用window对象来获取
+  1. 创建(获取)：在HTML dom 模型中可以使用`window`对象来获取
      1. `window.document`
      2. `document`
   2. 方法：
@@ -723,7 +723,7 @@ jQuery 对象转为 dom 对象（重点）
 
 # Tomcat
 
-**Java Web** 概念
+**Java Web** 概念  
 JavaWeb 是指，所有通过 Java 语言编写可以通过浏览器访问的程序的总称，叫 **JavaWeb**。
 
 JavaWeb 是**基于请求和响应**来开发的。
@@ -736,19 +736,80 @@ web服务器
 
 # XML
 
-语法
+## 语法
 
-1. 文档声明
-2. 元素
-3. xml属性
-4. xml注释
-5. 文本区域（CDATA区）
+1. **文档声明**  
+    XML 文档通常以声明开头，指定 XML 版本和编码方式。  
 
-XML解析技术介绍
+    ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    ```
+
+2. **元素**  
+    元素是 XML 的基本组成部分，使用成对的标签包裹内容。  
+
+    ```xml
+    <book>
+      <title>Java Web</title>
+      <author>Duke</author>
+    </book>
+    ```
+
+    - 元素必须正确嵌套，区分大小写。
+
+3. **XML 属性**  
+    元素可以包含属性，属性以键值对形式出现在开始标签中。  
+
+    ```xml
+    <book id="001" category="programming">
+      <title>Java Web</title>
+    </book>
+    ```
+
+4. **XML 注释**  
+    注释用于文档说明，不会被解析。  
+
+    ```xml
+    <!-- 这是一本 Java Web 书籍 -->
+    ```
+
+5. **文本区域（CDATA 区）**  
+    CDATA 区用于包含不会被解析的字符数据，适合包含特殊字符的内容。  
+
+    ```xml
+    <script><![CDATA[
+      if (a < b && b > 0) {
+         alert("Hello, XML!");
+      }
+    ]]></script>
+    ```
+
+6. **命名空间（Namespace）**  
+    命名空间用于区分不同 XML 文档或元素中可能出现的同名标签，避免命名冲突。通过 `xmlns` 属性声明命名空间，并为元素或属性加上前缀。
+
+    ```xml
+    <bookstore xmlns:java="http://example.com/java">
+      <java:book>
+        <java:title>Java Web</java:title>
+      </java:book>
+    </bookstore>
+    ```
+
+    - 命名空间常用于大型 XML 文档或集成多种标准时，确保标签唯一性。
+
+## 其他注意事项
+
+- XML 必须有且只有一个根元素。
+- 标签必须正确关闭，可以使用自闭合标签：`<tag />`
+- 属性值必须用引号包裹。
+- 支持嵌套和层级结构，常用于数据交换和配置文件。
+
+XML解析技术介绍  
 `DOM` 和 `sax`
 
 1. dom 解析技术是 W3C 组织制定的，而所有的编程语言都对这个解析技术使用了自己语言的特点进行实现。 Java 对 dom 技术解析标记也做了实现。
 2. SUN 公司在 JDK5 版本对 dom 解析技术进行升级：SAX（ Simple API for XML ） SAX 解析，它跟 W3C 制定的解析不太一样。它是以类似事件机制通过回调告诉用户当前正在解析的内容。 它是一行一行的读取 xml 文件进行解析的。不会创建大量的 dom 对象。 所以它在解析 xml 的时候，在内存的使用上。和性能上。都优于 Dom 解析。
+
 第三方解析：
 
 - `jdom`
@@ -834,7 +895,7 @@ XML解析技术介绍
 
 ## ServletConfig类
 
-`ServletConfig` 类从类名上来看，就知道是 `Servlet` 程序的配置信息类。
+`ServletConfig` 类从类名上来看，就知道是 `Servlet` 程序的配置信息类。  
 `Servlet` 程序和 `ServletConfig` 对象都是由 Tomcat 负责创建，我们负责使用。
 
 Servlet 程序默认是第一次访问的时候创建，`ServletConfig`是每个 `Servlet` 程序创建时，就创建一个对应的 `ServletConfig` 对象。
@@ -879,10 +940,10 @@ System.out.println(servletConfig.getServletContext());
 
 ## ServletContext类
 
-1、`ServletContext` 是一个接口，它表示 `Servlet` 上下文对象。
-2、一个 web 工程，只有一个 `ServletContext` 对象实例。
-3、`ServletContext` 对象是一个域对象。
-4、`ServletContext` 是在 web 工程部署启动的时候创建。在 web 工程停止的时候销毁。
+1. `ServletContext` 是一个接口，它表示 `Servlet` 上下文对象。
+2. 一个 web 工程，只有一个 `ServletContext` 对象实例。
+3. `ServletContext` 对象是一个域对象。
+4. `ServletContext` 是在 web 工程部署启动的时候创建。在 web 工程停止的时候销毁。
 
 什么是域对象?
 域对象，是可以像 Map 一样存取数据的对象，叫**域对象**。
@@ -974,7 +1035,7 @@ System.out.println(servletConfig.getServletContext());
 ## HttpServletRequest
 
 1. `HttpServletRequest`类的作用
-    - 每次只要有请求进入 Tomcat 服务器，Tomcat 服务器就会把请求过来的 HTTP 协议信息解析好封装到`Request`对象中。然后传递到service方法（`doGet()`和`doPost()`）中给我们使用。我们可以通过`HttpServletRequest`对象，获取到所有请求的信息
+    - 每次只要有请求进入 Tomcat 服务器，Tomcat 服务器就会把请求过来的 HTTP 协议信息解析好封装到`Request`对象中。然后传递到`service`方法（`doGet()`和`doPost()`）中给我们使用。我们可以通过`HttpServletRequest`对象，获取到所有请求的信息
 2. `HttpServletRequest`类的常用方法
     1. `getRequestURI()`      获取请求的资源路径
     2. `getRequestURL()`      获取请求的统一资源定位符（绝对路径）
@@ -1272,10 +1333,100 @@ web.xml 配置
 
 ## EL表达式
 
-EL 表达式主要是代替 jsp 页面中的表达式脚本在 jsp 页面中进行数据的输出。
+EL 表达式主要是代替 JSP 页面中的表达式脚本在 JSP 页面中进行数据的输出。
 
-因为 EL 表达式在输出数据的时候，要比 jsp 的表达式脚本要简洁很多。
+因为 EL 表达式在输出数据的时候，要比 JSP 的表达式脚本要简洁很多。
 格式：`${expression}`
+
+### 常见用法示例
+
+#### **输出作用域中的属性值**
+
+假设在 JSP 页面中设置了属性：
+
+```jsp
+<%
+request.setAttribute("username", "duke");
+%>
+```
+
+使用 EL 表达式输出：
+
+```jsp
+${username}
+```
+
+#### **访问对象的属性**
+
+假设有如下 JavaBean：
+
+```java
+public class User {
+    private String name;
+    private int age;
+    // getter 和 setter
+}
+```
+
+在 JSP 中：
+
+```jsp
+<%
+User user = new User();
+user.setName("Tom");
+user.setAge(20);
+request.setAttribute("user", user);
+%>
+```
+
+EL 表达式访问属性：
+
+```jsp
+${user.name}   <!-- 输出 Tom -->
+${user.age}    <!-- 输出 20 -->
+```
+
+#### **访问集合和数组**
+
+```jsp
+<%
+String[] arr = {"A", "B", "C"};
+request.setAttribute("arr", arr);
+%>
+${arr[0]}   <!-- 输出 A -->
+```
+
+#### **访问 Map**
+
+```jsp
+<%
+Map<String, String> map = new HashMap<>();
+map.put("city", "Beijing");
+request.setAttribute("map", map);
+%>
+${map.city}   <!-- 输出 Beijing -->
+```
+
+#### **EL 表达式中的运算**
+
+```jsp
+<%
+request.setAttribute("a", 5);
+request.setAttribute("b", 3);
+%>
+${a + b}   <!-- 输出 8 -->
+${a > b}   <!-- 输出 true -->
+```
+
+#### **空值处理和默认值**
+
+```jsp
+${empty username}         <!-- 判断 username 是否为空 -->
+${username != null ? username : '匿名'}   <!-- EL 3.0 支持三元运算 -->
+${username or '匿名'}     <!-- 输出 username，不存在则输出 '匿名' -->
+```
+
+> EL 表达式默认会从 page、request、session、application 四个作用域中查找变量。
 
 ## JSTL表达式
 
@@ -1300,11 +1451,11 @@ resp.getWriter().write("已经往 Session 中保存了数据");
 
 1. 构造器方法
 2. ` init `初始化方法
- 第 1，2 步，在 web 工程启动的时候执行（Filter 已经创建）
+    - 第 1，2 步，在 web 工程启动的时候执行（Filter 已经创建）
 3. `doFilter` 过滤方法
- 第 3 步，每次拦截到请求，就会执行
+    - 第 3 步，每次拦截到请求，就会执行
 4. `destroy` 销毁
- 第 4 步，停止 web 工程的时候，就会执行（停止 web 工程，也会销毁 Filter 过滤器）
+    - 第 4 步，停止 web 工程的时候，就会执行（停止 web 工程，也会销毁 Filter 过滤器）
 
 `FilterConfig`类
 
