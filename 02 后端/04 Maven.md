@@ -8,11 +8,11 @@
 -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true
 ```
 - `-Dmaven.wagon.http.ssl.insecure=true`
-	- 这个参数告诉Maven允许不安全的SSL连接
+	- 这个参数告诉`Maven`允许不安全的SSL连接
 	- 它会忽略SSL证书验证
 	- 主要用于处理自签名证书或证书链不完整的情况
 - `-Dmaven.wagon.http.ssl.allowall=true`
-	- 这个参数允许Maven接受所有的SSL证书
+	- 这个参数允许`Maven`接受所有的SSL证书
 	- 它会跳过证书验证过程
 	- 主要用于开发环境或测试环境
 
@@ -30,7 +30,7 @@ mvn groupId:artifactId:goal -P=-profile-1,-profile-2,-?profile-3
 # 跳过已编译的测试用例执行
 -DskipTests=true
 # 完全跳过编译和执行测试（更彻底）
--Dmaven.test.skip=true  
+mvn clean install -Dmaven.test.skip=true  
 ```
 
 
@@ -71,9 +71,9 @@ mvn groupId:artifactId:goal -P=-profile-1,-profile-2,-?profile-3
 
 ## pom.xml
 
-dependencyManagement
+`dependencyManagement`
 
-dependencies
+`dependencies`
 
 排除依赖
 `exclusion`
@@ -87,8 +87,6 @@ maven
 父pom 继承
 
 依赖传递 a 依赖b b依赖c
-
-dependencyManagement
 
 `${kettle.version}`
 

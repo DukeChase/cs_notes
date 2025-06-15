@@ -20,7 +20,7 @@ docker 从入门到实践
 
 # docker 
 
-docker --help
+`docker --help`
 
 # docker run
 
@@ -221,6 +221,12 @@ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
 
 # `dockerfile`
 
+- `Dockerfie` 官方文档：https://docs.docker.com/engine/reference/builder/
+    
+- `Dockerfile` 最佳实践文档：https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
+    
+- `Docker` 官方镜像 `Dockerfile`：https://github.com/docker-library/docs
+
 使用`dockerfile`定制镜像
 
 ```dockerfile
@@ -243,12 +249,50 @@ RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
 - shell 格式  `RUN <命令>`
 - exec格式`RUN ["可执行文件", "参数1", "参数2"]`
 
+
 ## `CMD`
 
-`docker build -t`
+`CMD` 指令的格式和 `RUN` 相似，也是两种格式：
+
+- shell 格式  `RUN <命令>`
+- exec格式`RUN ["可执行文件", "参数1", "参数2"]`
+
+在指令格式上，一般推荐使用 `exec` 格式，这类格式在解析时会被解析为 JSON 数组，因此一定要使用双引号 `"`，而不要使用单引号。
+
+## ENTRYPOINT
+
+## ENV
+
+格式有两种：
+
+- `ENV <key> <value>`
+- `ENV <key1>=<value1> <key2>=<value2>...`
+
+这个指令很简单，就是设置环境变量而已，无论是后面的其它指令，如 `RUN`，还是运行时的应用，都可以直接使用这里定义的环境变量。
+
+```dockerfile
+ENV VERSION=1.0 DEBUG=on \
+    NAME="Happy Feet"
+```
+
+这个例子中演示了如何换行，以及对含有空格的值用双引号括起来的办法，这和 Shell 下的行为是一致的。
+## ARG
+格式：`ARG <参数名>[=<默认值>]`
+
+构建参数和 `ENV` 的效果一样，都是设置环境变量。所不同的是，`ARG` 所设置的构建环境的环境变量，在将来容器运行时是不会存在这些环境变量的。但是不要因此就使用 `ARG` 保存密码之类的信息，因为 `docker history` 还是可以看到所有值的。
+
+`Dockerfile` 中的 `ARG` 指令是定义参数名称，以及定义其默认值。该默认值可以在构建命令 `docker build` 中用 `--build-arg <参数名>=<值>` 来覆盖。
+
+灵活的使用 `ARG` 指令，能够在不修改 Dockerfile 的情况下，构建出不同的镜像。
+
+## VOLUME 
+
 
 ## LABEL
-在 Dockerfile 中，`LABEL` 命令用于为镜像添加元数据（metadata）。这些元数据以键值对的形式存储，可以用来描述镜像的用途、作者信息、版本号等。
+
+[参考](https://github.com/opencontainers/image-spec/blob/master/annotations.md)
+
+在 Dockerfile 中，`LABEL` 命令用于为镜像添加元数据（metadata）。这些元数据以键值对的形式存储，可以用来描述镜像的*用途、作者信息、版本号*等。
 
 ### **作用**
 1. **提供镜像信息**：

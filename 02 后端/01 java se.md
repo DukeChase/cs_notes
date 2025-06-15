@@ -1,8 +1,8 @@
 # 基础语法
 
-常量 变量
+## 常量 变量
 
-数据类型
+## 数据类型
 - **基本数据类型** 整数、浮点数、 字符、 布尔
 - **引用数据类型** 类 、数组、 接口
 
@@ -39,8 +39,8 @@ for (int i : a){
 
 ## 数组在内存中的存储
 
-| 区域名称  | 作用                            |
-| ------   | ------------------------------ |
+| 区域名称  | 作用                             |
+| ----- | ------------------------------ |
 | 寄存器   | 给CPU使用，和我们开发无关。                |
 | 本地方法栈 | JVM在使用操作系统功能的时候使用，和我们开发无关。     |
 | 方法区   | 存储可以运行的class文件。                |
@@ -51,7 +51,7 @@ for (int i : a){
 
 java都是**值传递**，**基本类型**是传递的是值，**引用类型**是传递的是对象的地址。
 
->方法的参数为基本类型时，传递的是**数据值**。方法的参数为引用类型时，传递的是**地址值**.
+>方法的参数为基本类型时，传递的是**数据值**。方法的参数为引用类型时，传递的是**地址值**
 
 # 类与对象 封装 构造方法
 
@@ -61,7 +61,8 @@ java都是**值传递**，**基本类型**是传递的是值，**引用类型**�
 
 ## 构造方法
 
-方法名与它所在的类名相同。它没有返回值，所以不需要返回值类型，甚至不需要void。
+方法名与它所在的类名相同。
+它没有返回值，所以不需要返回值类型，甚至不需要void。
 
 ```java
 public ConstructorName(){
@@ -122,9 +123,9 @@ ArrayList<String> list = new ArrayList<>(); // 泛型
 其中 `StringBuilder` 为非线程安全的，而 `StringBuffer` 则是线程安全的。
 
 1. 概述
-* 字符串不变
-* 因为String对象是不可变的，所以它们可以被共享。
-* `"abc"`等效于`char[] data = {'a','b','c'}`
+	* 字符串不变
+	* 因为String对象是不可变的，所以它们可以被共享。
+	* `"abc"`等效于`char[] data = {'a','b','c'}`
 2. 使用步骤
 ```java
 // 无参构造 
@@ -138,22 +139,22 @@ String str3 = new String(bytes);
 ```
 
 3. 常用方法
-* 判断功能的方法
-  * `public boolean equals()`
-  * `public boolean equalsIgnoreCase()`
-* 获取功能的方法
-  * `public int length()`
-  * `public String concat(String str)`
-  * `public char charAt(int index)` 返回指定索引处的 char值
-  * `public int indexOf(String str)`  返回指定子字符串第一次出现在该字符串内的索引。
-  * `public String substring(int beginIndex)` 返回一个子字符串，从beginIndex开始截取字符串到字符串结尾。
-  * `public String substring(int beginIndex, int endIndex)`返回一个子字符串，从beginIndex到endIndex截取字符串。含beginIndex，不含endIndex。
-* 转换功能的方法
-  * `public char[] toCharrArray()` 
-  * `public byte[] getBytes()`使用平台的默认字符集将该 String编码转换为新的字节数组。
-  * `public String replace(CharSequence target, CharSequence replacement)`将与target匹配的字符串使用replacement字符串替换。
-* 分割功能的方法
-  * `public String[] split(String regex)`将此字符串按照给定的regex（规则）拆分为字符串数组。
+	* 判断功能的方法
+		 * `public boolean equals()`
+		 * `public boolean equalsIgnoreCase()`
+	* 获取功能的方法
+		* `public int length()`
+		* `public String concat(String str)`
+		* `public char charAt(int index)` 返回指定索引处的 char值
+		* `public int indexOf(String str)`  返回指定子字符串第一次出现在该字符串内的索引。
+		* `public String substring(int beginIndex)` 返回一个子字符串，从beginIndex开始截取字符串到字符串结尾。
+		* `public String substring(int beginIndex, int endIndex)`返回一个子字符串，从beginIndex到endIndex截取字符串。含beginIndex，不含endIndex。
+	* 转换功能的方法
+		* `public char[] toCharrArray()` 
+		* `public byte[] getBytes()`使用平台的默认字符集将该 String编码转换为新的字节数组。
+		* `public String replace(CharSequence target, CharSequence replacement)`将与target匹配的字符串使用replacement字符串替换。
+	* 分割功能的方法
+		* `public String[] split(String regex)`将此字符串按照给定的regex（规则）拆分为字符串数组。
 
 ### static关键字
 * 概述
@@ -166,11 +167,11 @@ String str3 = new String(bytes);
      * 静态方法**不能直接访问**普通成员变量和方法。反之，成员方法可以直接访问类变量和静态方法。
      * 静态方法中，不能使用this关键字。
 3. 静态代码块
-	* 静态代码块在**类加载**时执行，并且只执行一次
+	* **静态代码块**在**类加载**时执行，并且只执行一次
 	* **静态代码块在一个类中可以编写多个，并且遵循自上而下的顺序依次执行**。
 	* 静态代码块在**构造方法**之前执行
 4. 实例代码块
-	- **实例代码块**在构造方法执行之前执行，构造方法执行依次，实例代码块对应执行一次
+	- **实例代码块**在构造方法执行之前执行，构造方法执行一次，实例代码块对应执行一次
 5. [实例代码块与静态代码块](https://blog.csdn.net/weixin_51755941/article/details/123153754)
 
 ### Arrays类
@@ -206,13 +207,13 @@ class Child extends Father{
 
 ### 抽象类
 - 抽象方法
-`public abstract void functionName (arg1,arg2)`
+	`public abstract void functionName (arg1,arg2)`
 - 抽象类: 包含抽象方法的类
-```java
-public abstract Class ClassName{
-	public abstract void method();
-}
-```
+	```java
+	public abstract Class ClassName{
+		public abstract void method();
+	}
+	```
 
 ## 接口 多态
 接口，是java中的一种引用类型，是方法的集合
@@ -298,7 +299,7 @@ OuterClass.InnerClass var = new OutClass().new InnerClass();
 1. `public String toString()`
 2. `public boolean equals(Object obj)`
 
-- 默认地址比较：如果没有覆盖重写`equals`方法，那么`Object`类中默认进行`==`运算符的对象地址比较，只要不是同一个对象，结果必然为`false`。
+- 默认地址比较：如果没有覆盖重写`equals`方法，那么`Object`类中默认进行`==`运算符的**对象地址比较**，只要不是同一个对象，结果必然为`false`。
 - 对象内容比较：如果希望进行对象的内容比较，即所有或指定的部分成员变量相同就判定两个对象相同，则可以覆盖重写`equals`方法。例如：
 ```java
 public class Person {    
@@ -324,9 +325,9 @@ public class Person {
 ### 日期时间类
 
 java8  
-localdate   
-localtime  
-localdatetime
+- localdate   
+- localtime  
+- localdatetime
 
 ### System类
 
@@ -408,11 +409,11 @@ for (元素的数据类型 变量 ：Collection集合或数组){
 
 ### 泛型
 
-1. 定义和使用含有泛型的类`修饰符 class ClassName<T> { }`	
+1. 定义和使用含有泛型的**类**`修饰符 class ClassName<T> { }`	
 	- 在创建对象的时候确定泛型
-2. 含有泛型的方法`修饰符 <T> void methodName(T t){ }`
+2. 含有泛型的**方法**`修饰符 <T> void methodName(T t){ }`
 	- 调用方法时，确定泛型的类型
-3. 含有泛型的接口`修饰符 interface interfaceName<T> { }`
+3. 含有泛型的**接口**`修饰符 interface interfaceName<T> { }`
 	- 定义类时确定泛型的类型
 	- 始终不确定泛型的类型，直到创建对象时，确定泛型的类型
 
@@ -617,7 +618,8 @@ public synchronized void method(){
 - 锁机制
 ```java
 / **
- * java.util.concurrent.locks.Lock机制提供了比synchronized代码块和synchronized方法更  * 广泛的锁定操作, 同步代码块/同步方法具有的功能Lock都有,除此之外更强大,更体现面向对象。
+ * java.util.concurrent.locks.Lock机制提供了比synchronized代码块和synchronized方法更  
+ * 广泛的锁定操作, 同步代码块/同步方法具有的功能Lock都有,除此之外更强大,更体现面向对象。
  * Lock锁也称同步锁，加锁与释放锁方法化了，如下：
 */
 //加同步锁。 
@@ -644,8 +646,7 @@ public class Ticket implements Runnable{
 			//使用sleep模拟一下出票时间 
 			try { Thread.sleep(50); } 
 			catch (InterruptedException e) { 
-			// TODO Auto‐generated catch block 
-			e.printStackTrace(); 
+				e.printStackTrace(); 
 			} 
 			//获取当前线程对象的名字 
 			String name = Thread.currentThread().getName();
@@ -1069,11 +1070,11 @@ public enum SeasonEnum {
 ## 反射
 
 * 获取Class对象的方式：
-  1. Class.forName("全类名")：将字节码文件加载进内存，返回Class对象
+  1. `Class.forName("全类名")`：将字节码文件加载进内存，返回Class对象
      - 多用于配置文件，将类名定义在配置文件中。读取文件，加载类
-  2. 类名.class：通过类名的属性class获取
+  2. `类名.class`：通过类名的属性class获取
      - 多用于参数的传递
-  3. 对象.getClass()：`getClass()`方法在Object类中定义着。
+  3. `对象.getClass()`：`getClass()`方法在Object类中定义着。
      - 多用于对象的获取字节码的方式
 
 * 结论： 同一个字节码文件`(*.class)`在一次程序运行过程中，只会被加载一次，不论通过哪一种方式获取的Class对象都是同一个
@@ -1097,7 +1098,7 @@ public enum SeasonEnum {
 			* `Method getDeclaredMethod(String name, 类<?>... parameterTypes)  `
 	    1. 获取全类名    
 		    * `String getName()`
-* Field：成员变量
+* `Field`：成员变量
 	  * 操作：
 	    1. 设置值
 	       * `void set(Object obj, Object value)  `
@@ -1105,11 +1106,11 @@ public enum SeasonEnum {
 	       * `get(Object obj)`
 	    3. 忽略访问权限修饰符的安全检查
 	       * `setAccessible(true)`:暴力反射
-* Constructor:构造方法
+* `Constructor`:构造方法
   * 创建对象：
     * `T newInstance(Object... initargs)  `
     * 如果使用空参数构造方法创建对象，操作可以简化：Class对象的`newInstance`方法
-* Method：方法对象
+* `Method`：方法对象
   * 执行方法：
     * `Object invoke(Object obj, Object... args)`
   * 获取方法名称：
@@ -1122,7 +1123,7 @@ public enum SeasonEnum {
     * 使用注解：@注解名称
 
 * 作用分类：
-    1. 编写文档：通过代码里标识的注解生成文档【生成文档doc文档】
+	1. 编写文档：通过代码里标识的注解生成文档【生成文档doc文档】
     2. 代码分析：通过代码里标识的注解对代码进行分析【使用反射】
     3. 编译检查：通过代码里标识的注解让编译器能够实现基本的编译检查【Override】
 
@@ -1180,237 +1181,7 @@ Interger.valueOf()
 自动拆箱
 
 
-# MySQL
-
-## 基础
-
-SQL分类
-- `DDL(Data Definition Language)`数据定义语言
-	用来定义数据库对象：数据库，表，列等。关键字：`create`, `drop`,`alter` 等
-- `DML(Data Manipulation Language)`数据操作语言
-	用来对数据库中表的数据进行增删改。关键字：`insert`, `delete`, `update` 等
-- `DQL(Data Query Language)`数据查询语言
-	用来查询数据库中表的记录(数据)。关键字：`select`, `where` 等
-- `DCL(Data Control Language)`数据控制语言(了解)
-## 查询 约束 设计
-### 查询
-
-### 约束
-- 概念： 对表中的数据进行限定，保证数据的正确性、有效性和完整性。
-- 分类： 
-	1. 主键约束：`primary key`
-	2. 非空约束：`not null`
-	3. 唯一约束：`unique`,值不能重复
-	4. 外键约束：`foreign key`
-
-- 非空约束：`not null`，值不能为null
-1.  创建表时添加约束 
-```sql
-CREATE TABLE stu(
-	 id INT,
-	 NAME VARCHAR(20) NOT NULL -- name为非空
-	);
-```
-
-2.  创建表完后，添加非空约束 
-```sql
-ALTER TABLE stu MODIFY NAME VARCHAR(20) NOT NULL;
-```
-
-3.  删除name的非空约束 
-```sql
-ALTER TABLE stu MODIFY NAME VARCHAR(20);
-```
-
-- 唯一约束：`unique`，值不能重复     
-1. 创建表时，添加唯一约束 
- ```sql
-CREATE TABLE stu(  id INT,  phone_number VARCHAR(20) UNIQUE -- 添加了唯一约束  );
-    * 注意mysql中，**唯一约束限定的列的值可以有多个null**
-    ```
-2.  删除唯一约束     
-```sql
-ALTER TABLE stu DROP INDEX phone_number; 
-```
-3. 在创建表后，添加唯一约束     
-```sql
-ALTER TABLE stu MODIFY phone_number VARCHAR(20) UNIQUE;
-```
-
-- 主键约束：`primary key `
-1. 注意
-	1. 含义：非空且唯一 
-	2. 一张表只能有一个字段为主键 
-	3. 主键就是表中记录的唯一标识 
-2. 在创建表时，添加主键约束 
-```sql
-create table stu( id int primary key, name varchar(20)  );-- 给id添加主键约束
-```
-3. 删除主键  
-```sql
--- 错误 alter table stu modify id int ;  
-ALTER TABLE stu DROP PRIMARY KEY;   
-```
-4. 创建完表后，添加主键  
-```sql
-ALTER TABLE stu MODIFY id INT PRIMARY KEY;
-```
-
-* 自动增长：  
-1.  概念：如果某一列是数值类型的，使用 `auto_increment` 可以来完成值得自动增长
-2. 在创建表时，添加主键约束，并且完成主键自增长
-```sql
-create table stu(
- id int primary key auto_increment,-- 给id添加主键约束
- name varchar(20)
-);
-```   
-3. 删除自动增长          
-```sql
-ALTER TABLE stu MODIFY id INT;         
-```
-5. 添加自动增长          
-```sql
-ALTER TABLE stu MODIFY id INT AUTO_INCREMENT;
-```
-
-* 外键约束 `foreign key` 让表于表产生关系，从而保证数据的正确性。
-1. 在创建表时，可以添加外键
-```sql
-create table 表名( .... 外键列 constraint 外键名称 foreign key (外键列名称) references 主表名称(主表列名称) );
-```
-2. 删除外键
-```sql
-ALTER TABLE 表名 DROP FOREIGN KEY 外键名称;
-```
-4. 创建表之后，添加外键
-```sql
-ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) REFERENCES 主表名称(主表列名称);
-```
-
-- 级联操作
-1. 添加级联操作  
-	语法：
-	```sql
-	ALTER TABLE 表名 ADD CONSTRAINT 外键名称  
-	FOREIGN KEY (外键字段名称) REFERENCES 主表名称(主表列名称) ON UPDATE CASCADE ON DELETE CASCADE ;
-	```
-2. 分类：  
-	1. 级联更新：`ON UPDATE CASCADE`  
-	2. 级联删除：`ON DELETE CASCADE`
-### 数据库设计
-多表之间的关系
-1. 分类
-	1. 一对一   人和身份证，一个人只有一个身份证，一个身份证只能对应一个人
-	2. 一对多（多对一） 部门和员工 一个部门有多个员工，一个员工只能对应一个部门
-	3. 多对多  一个学生可以选择很多门课程，一个课程也可以被很多学生选择
-
-实现关系
-- 一对多(多对一)：
-    - 如：部门和员工
-    - 实现方式：在多的一方建立外键，指向一的一方的主键。
-- 多对多：
-    - 如：学生和课程
-    - 实现方式：多对多关系实现需要借助第三张中间表。中间表至少包含两个字段，这两个字段作为第三张表的外键，分别指向两张表的主键 使用联合主键
-- 一对一(了解)：
-    - 如：人和身份证
-        - 实现方式：一对一关系实现，可以在任意一方添加唯一外键指向另一方的主键。
-
-
-### 数据库设计的范式
-  -   概念：设计数据库时，需要遵循的一些规范。要遵循后边的范式要求，必须先遵循前边的所有范式要求  
-	设计关系数据库时，遵从不同的规范要求，设计出合理的关系型数据库，这些不同的规范要求被称为不同的范式，各种范式呈递次规范，越高的范式数据库冗余越小。  
-	目前关系数据库有六种范式：第一范式（1NF）、第二范式（2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式(4NF）和第五范式（5NF，又称完美范式）。
-* 分类： 
-    1. 第一范式（1NF）：每一列都是不可分割的原子数据项  
-    2. 第二范式（2NF）：在1NF的基础上，非码属性必须完全依赖于码（在1NF基础上消除非主属性对主码的部分函数依赖）  
-	    - 几个概念：  
-	    1. 函数依赖：A-->B,如果通过A属性(属性组)的值，可以确定唯一B属性的值。则称B依赖于A  
-			    例如：学号-->姓名。 （学号，课程名称） --> 分数 
-	    2. 完全函数依赖：A-->B， 如果A是一个属性组，则B属性值得确定需要依赖于A属性组中所有的属性值。  
-			    例如：（学号，课程名称） --> 分数 
-	    3. 部分函数依赖：A-->B， 如果A是一个属性组，则B属性值得确定只需要依赖于A属性组中某一些值即可。  
-			    例如：（学号，课程名称） -- > 姓名 
-	    4. 传递函数依赖：A-->B, B -- >C . 如果通过A属性(属性组)的值，可以确定唯一B属性的值，在通过B属性（属性组）的值可以确定唯一C属性的值，则称 C 传递函数依赖于A  
-			    例如：学号-->系名，系名-->系主任  
-	    5. 码：如果在一张表中，一个属性或属性组，被其他所有属性所完全依赖，则称这个属性(属性组)为该表的码  
-			例如：该表中码为：（学号，课程名称）  
-			* 主属性：码属性组中的所有属性  
-			* 非主属性：除过码属性组的属性   
-    1. 第三范式（3NF）：在2NF基础上，任何非主属性不依赖于其它非主属性（在2NF基础上消除传递依赖）
-
-## 多表 事务
-
-### 多表查询
-笛卡尔积：
-1. 内连接查询
-	1. 隐式内连接
-	2. 显式内连接
-2. 外连接查询
-		1. 左外连接
-		2. 右外连接
-3. 子查询
-
-### 事务
-
-#### 事务基本介绍
-1. 概念
-	- 如果一个包含多个步骤的业务操作，被事务管理，那么这些操作要么同时成功，要么同时失败。
-2. 操作：
-	1. 开启事务： `start transaction`;
-	2. 回滚：`rollback`;
-	3. 提交：`commit`;
-3. 例子：
-	```sql
-	CREATE TABLE account (
-		id INT PRIMARY KEY AUTO_INCREMENT,
-		NAME VARCHAR(10),
-		balance DOUBLE
-	);
-	
-	-- 添加数据
-	INSERT INTO account (NAME, balance) VALUES ('zhangsan', 1000), ('lisi', 1000);
-	SELECT * FROM account;
-	UPDATE account SET balance = 1000;
-	
-	-- 张三给李四转账 500 元
-	-- 0. 开启事务
-	START TRANSACTION;
-	-- 1. 张三账户 -500
-	UPDATE account SET balance = balance - 500 WHERE NAME = 'zhangsan';
-	-- 2. 李四账户 +500
-	-- 出错了...
-	UPDATE account SET balance = balance + 500 WHERE NAME = 'lisi';
-
-	-- 发现执行没有问题，提交事务
-	COMMIT;
-
-	-- 发现出问题了，回滚事务
-	ROLLBACK;
-	```
-4. MySQL数据库中事务默认自动提交
-	* 事务提交的两种方式：
-		* 自动提交：
-			* `mysql`就是自动提交的
-			* 一条DML(增删改)语句会自动提交一次事务。
-		* 手动提交：
-			* Oracle 数据库默认是手动提交事务
-			* 需要先开启事务，再提交
-	* 修改事务的默认提交方式：
-		* 查看事务的默认提交方式：`SELECT @@autocommit; -- 1 代表自动提交  0 代表手动提交`
-		* 修改默认提交方式： `set @@autocommit = 0;`
-
-#### 事务的四大特征
-**ACID**，是指数据库管理系统（DBMS）在写入或更新资料的过程中，为保证**事务**（transaction）是正确可靠的，所必须具备的四个特性：
-- 原子性（atomicity，或称不可分割性）、
-- 一致性（consistency）、
-- 隔离性（isolation，又称独立性）、
-- 持久性（durability）。
-
-3. 事务的隔离级别（了解）
-
-**索引**
-
+[[Mysql]]
 
 # JDBC核心技术
 
