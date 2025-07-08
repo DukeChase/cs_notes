@@ -1,6 +1,6 @@
 # SSM 教程
 
-WebApplicationInitializer
+`WebApplicationInitializer`
 
 [spring cloud alibaba  官方教程SCA](https://sca.aliyun.com/learn/spring/?spm=0.29160081.0.0.3bc47d61E0FwPl)
 

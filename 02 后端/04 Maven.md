@@ -5,7 +5,8 @@
 
 
 ```sh
--Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true
+-Dmaven.wagon.http.ssl.insecure=true 
+-Dmaven.wagon.http.ssl.allowall=true
 ```
 - `-Dmaven.wagon.http.ssl.insecure=true`
 	- 这个参数告诉`Maven`允许不安全的SSL连接

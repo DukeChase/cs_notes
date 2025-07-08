@@ -2,14 +2,10 @@
 
 
 
+[CompletableFuture](https://juejin.cn/post/7455561985378598951)
 
 
-
-
-
-## [CompletableFuture](https://juejin.cn/post/7455561985378598951)
-
-
+#### 为什么要使用CompletableFuture
 示例 
 
 ```java

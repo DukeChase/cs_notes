@@ -25,9 +25,9 @@ public class MailService {
 
 
 
-beanNameAware
-BeanClassLoadeAware
-beanFactoryAware
+`beanNameAware`
+`BeanClassLoadeAware`
+`beanFactoryAware`
 
 
 
@@ -66,7 +66,9 @@ beanFactoryAware
 
 这些接口为 Spring 中的 Bean 提供了丰富的上下文信息和扩展能力，使得 Bean 可以更好地与 Spring 容器和应用上下文进行交互。
 
-beanPostProcessor
+
+
+## beanPostProcessor
 ## AOP
 
 ## 事务
