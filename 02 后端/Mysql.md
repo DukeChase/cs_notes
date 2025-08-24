@@ -225,6 +225,18 @@ ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) 
 - 隔离性（isolation，又称独立性）、
 - 持久性（durability）。
 
-3. 事务的隔离级别（了解）
+#### 事务的隔离级别（了解）
 
-**索引**
+| 隔离级别                        | 脏读（dirty_read） | 不可重复读 | 幻读  |
+| --------------------------- | -------------- | ----- | --- |
+| 能读到未提交的数据(read_uncommitted) | y              | y     | y   |
+| 能读已提交的数据（read_committed）    | n              | y     | y   |
+| 可重复读 (read_repeatable)      | n              | n     | y   |
+| 串行执行                        | n              | n     | n   |
+ 
+## 排他锁和共享锁
+读锁
+
+写锁
+
+# **索引**

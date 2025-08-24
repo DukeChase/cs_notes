@@ -84,6 +84,8 @@ mvn clean install -Dmaven.test.skip=true
 
 父工程  打包方式  pom
 
+BOM  （Bill of Materials）
+
 
 ### 在父工程中声明自定义属性
 ```xml
@@ -97,6 +99,27 @@ mvn clean install -Dmaven.test.skip=true
 ```
 
 ```xml
+<dependencyManagement>
+    <!-- 这里只管理版本，不引入依赖 -->
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>5.3.21</version> <!-- 统一管理版本 -->
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>5.3.21</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.13.4</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  
 <dependency>
 	<groupId>org.springframework</groupId>
 	<artifactId>spring-core</artifactId>

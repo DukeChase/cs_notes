@@ -114,6 +114,13 @@ bidaxiao 1 3
 
 压缩 `tar -zcvf   test.tar.gz test`
 解压 `tar -zxvf test.tar.gz`
+```sh
+# 压缩
+tar jcv -f filename.tar.bz2 要被压缩的文件或文件夹
+
+# 解压
+tar -jxv -f filename.tar.bz2 -C 欲解压缩的目录
+```
 
 # 第九章 vim程序编辑器
 
@@ -145,16 +152,18 @@ umalias ll
 ## 10.4 Bash Shell 的操作环境
 
 ## 10.5 数据流重定向
-1. stdin
-2. stdout
-3. stderr
-stdout
+
+### 10.5.1 什么是数据流重定向
+1. `stdin`
+2. `stdout`
+3. `stderr`
+#### stdout
 
 ```shell
 # std out 
 ll / 1> ~/rootfile  # 覆盖   1可以省略
 
-ll / 1>> ~/rootfilr  # 追加
+ll / 1>> ~/rootfile  # 追加
 
 # std err
 
@@ -168,14 +177,21 @@ find /home -name .bashrc > list_right 2> list_error
 /dev/null
 
 
-stdout 和 stderr 输出到同一个文件list
+# stdout 和 stderr 输出到同一个文件list
 find /home -name .bashrc > list 2>&1 
 find /home -name .bashrc &> list
 
 nohup command >myout.file 2>&1 &
 ```
 
-stdin
+#### stdin
+`<  <<`
+```sh
+cat > catfile  < ~/.bashrc
+
+
+cat > catfile <<  "eof"
+```
 
 ### 10.5.2 命令行的执行的判断依据
 
@@ -206,8 +222,7 @@ $?   指令回传值
 ```
 
 ## 10.6 管线命令
-`|`
-管线命令“ | ”仅 能处理经由前面一个指令传来的正确信息，也就是 `standard output`的信 息，对于 stdandard error 并没有直接处理的能力
+- 管线命令“ `|` ”仅 能处理经由前面一个指令传来的正确信息，也就是 `standard output`的信 息，对于 `stdandard error` 并没有直接处理的能力
 
 - 管线命令仅会处理 `standard output`，对于 `standard error output` 会予以忽略
 - 管线命令必须要能够接受来自前一个指令的数据成为 standard input 继续处理才行。
@@ -220,6 +235,11 @@ $?   指令回传值
 ### 10.6.3 tee
 
 
+# 第十二章 学习Shell Script
+
+```shell
+#!/bin/bash
+```
 # 第十六章 程序管理和Selinux初探
 
 

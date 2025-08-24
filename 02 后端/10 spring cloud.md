@@ -12,7 +12,7 @@
 
 ## ribbon负载均衡
 
-## hystrix熔断器
+## Hystrix熔断器
 
 ```xml
 <dependency>

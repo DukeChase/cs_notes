@@ -19,7 +19,7 @@ mybatis-plus:
 # 基本CRUD
 `BaseMapper`
 
-通用Service
+通用`Service`
 说明:
 - 通用 Service CRUD 封装`IService`接口，进一步封装 CRUD 采用 get 查询单行 remove 删除 list 查询集合 page 分页 前缀命名方式区分 Mapper 层避免混淆，
 - 泛型 T 为任意实体对象
@@ -45,7 +45,7 @@ UserService {
 
 `@TableId`   `value`  指定主建字段    `  type`  id自增算法     雪花算法
 
-`@TableFiled`
+`@TableFiled`  逻辑删除字段
 
 `@TableLogic`
 

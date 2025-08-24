@@ -1,10 +1,10 @@
 # Redis
 ## 数据类型
-- 字符串String
-- 散列表hash map
-- 列表List
-- 集合Set
-- 有序集合
+- 字符串`String`
+- 散列表`hash map`
+- 列表`List`
+- 集合`Set`
+- 有序集合 zset
 
 ## 用法
 Redis 提供了丰富的命令来操作不同的数据类型，以下是一些常见用法示例：
