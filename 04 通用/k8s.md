@@ -413,7 +413,7 @@ PaaS提供用户将云端基础设施部署与创建至客户端，或者借此�
 
 192.168.56.104 node2
 
-wget https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo -O /etc/yum.repos.d/docker-ce.repo  
+`wget https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo -O /etc/yum.repos.d/docker-ce.repo  `
 ​  
 yum -y install docker-ce-18.06.1.ce-3.el7  
 ​  

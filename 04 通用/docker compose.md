@@ -9,7 +9,8 @@ services:
 		build: .
 		ports:
 			- "8761:8761"
-		command: 
+		command: /bin/bash
+		container_name: name
 		dns: 8.8.8.8
 		environment: 
 			RACK_ENV: development
@@ -26,3 +27,6 @@ services:
 networks:
 volumes:
 ```
+
+
+
