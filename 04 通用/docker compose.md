@@ -10,7 +10,7 @@ services:
 		ports:
 			- "8761:8761"
 		command: /bin/bash
-		container_name: name
+		container_name: my-web-container
 		dns: 8.8.8.8
 		environment: 
 			RACK_ENV: development
@@ -24,6 +24,8 @@ services:
 		external_links:
 		networks:
 		network_mode:
+		volumes:
+			- [主机路径]:[容器路径]
 networks:
 volumes:
 ```

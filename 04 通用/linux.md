@@ -2,6 +2,11 @@
 
 reference: 《鸟哥的linux私房菜》
 
+
+
+ssh 复制文件
+
+`scp /path/to/local/file username@remote_host:/path/to/remote/directory/`
 ## 认识和学习bash 
 
 ```bash
@@ -230,6 +235,11 @@ $?   指令回传值
 ### 10.6.1 grep cut
 将一段数据经过分析后，取出 我们所想要的
 
+grep   
+- -i   忽略大小写
+- -v  反向匹配
+- -C   --context 除了显示符合样式的那一行之外，并显示该行之前后的内容
+
 ### 10.6.2  sort wc uniq
 
 ### 10.6.3 tee
@@ -265,7 +275,12 @@ top：动态观察程序的变化
 
 
 # other
+
+## nohup
+
 [# Linux命令之`nohup`详解](https://juejin.cn/post/6844903860272660494)
+
+`nohup command > myout.file 2>&1 &`
 
 [Linux nohup后台启动/ 后台启动命令中nohup 、&、重定向的使用](https://blog.csdn.net/weixin_49114503/article/details/134266408)
 

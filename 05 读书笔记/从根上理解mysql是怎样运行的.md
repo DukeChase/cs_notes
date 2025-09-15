@@ -1,11 +1,33 @@
 
 # 第3章 字符集和比较规则
+## 3.1 字符集和比较规则
+
+字符集
+
+编码
+
+### 3.1.2 比较规则
+
+### 3.1.3 一些重要的字符集
+- ASCII
+- ISO
+- GB2312
+- GBK
+- UTF-8
+变长编码方式
+
+
+## 3.2 MySql中支持的字符集和比较规则
+
+## 3.3 字符集和比较规则的应用
 
 ```sql
 # 查看比较规则
 show collation ;  
 # 字符集 查看
 show character set ;  
+
+
 # 服务器级别 字符集 和 比较规则  
 show variables like 'character_set_server';  
 show variables like 'collation_server';  
@@ -21,7 +43,7 @@ DEFAULT CHARACTER SET 宇符集名称
 COLLATE 比校规则名;
 
 # 列级别
-
+create table table_name(column_name varchar [CHARACTER SET 字符集名称] [COLLATE 比较规则名称],)
 ```
 
 # 第4章 从一条记录说起--innodb记录存储结构
