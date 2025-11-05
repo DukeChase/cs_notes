@@ -115,8 +115,10 @@
 
 ## git remote
 
+```
 git remote -v   查看git远程仓库地址
 git remote set-url origin 新地址    替换成新地址
+```
 
 ## tag 打标签
 
@@ -129,6 +131,14 @@ git remote set-url origin 新地址    替换成新地址
 - https://blog.csdn.net/weixin_43715214/article/details/131059079
 
 ``` shell
+git tag v1.0
+
+git tag v0.9   commitId
+
+
+git tag -d v0.9
+
+
 git push origin --tags #推送标签
 ```
 
