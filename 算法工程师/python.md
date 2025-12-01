@@ -1,22 +1,32 @@
  
 https://liaoxuefeng.com/books/python
 
+
+查看 python 版本
+
+```python
+import sys
+print(sys.version)           # 完整字符串，带编译信息
+print(sys.version_info)      # 具名元组 (major, minor, micro, …)
+```
+
+```python
+import platform
+print(platform.python_version())      # 例：'3.11.2'
+print(platform.python_version_tuple())  # ('3', '11', '2')
+```
 # python基础
 
 ## 数据类型和变量
 整数
-
 浮点数
-
-
 字符串
-
 布尔值
 
 `and`  `or`    `not`
 
 
- 空值 None
+ 空值 `None`
 
 
 字符 编码
@@ -28,8 +38,8 @@ https://liaoxuefeng.com/books/python
 ```
 
 
-
-在Python中定义函数，可以用必选参数、默认参数、可变参数、关键字参数和命名关键字参数，这5种参数都可以组合使用。但是请注意，参数定义的顺序必须是：必选参数、默认参数、可变参数、命名关键字参数和关键字参数。
+## 函数
+在Python中定义函数，可以用**必选参数、默认参数、可变参数、关键字参数和命名关键字参数**，这5种参数都可以组合使用。但是请注意，参数定义的顺序必须是：必选参数、默认参数、可变参数、命名关键字参数和关键字参数。
 
 # 高级特性
 
@@ -123,4 +133,12 @@ OrderedDict([('a', 1), ('b', 2), ('c', 3)])
 ### counter
 
 # 常用第三方模块
+
+
+
+# pypi
+
+**PyPI** (全称 **Python Package Index**) 就是 **Python 语言的“应用商店”或“代码仓库”**。
+
+pip   安装工具，从 pypi 仓库中拉取工具
 
