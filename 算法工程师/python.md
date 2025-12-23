@@ -1,20 +1,6 @@
  
 https://liaoxuefeng.com/books/python
 
-
-查看 python 版本
-
-```python
-import sys
-print(sys.version)           # 完整字符串，带编译信息
-print(sys.version_info)      # 具名元组 (major, minor, micro, …)
-```
-
-```python
-import platform
-print(platform.python_version())      # 例：'3.11.2'
-print(platform.python_version_tuple())  # ('3', '11', '2')
-```
 # python基础
 
 ## 数据类型和变量
@@ -52,11 +38,9 @@ print(platform.python_version_tuple())  # ('3', '11', '2')
 >>> g = (x * x for x in range(10))
 >>> g
 <generator object <genexpr> at 0x1022ef630>
-
 ```
 
 `yeild`
-
 
 # 面向对象
 
@@ -98,7 +82,7 @@ delattr(emp1, 'age')    # 删除属性 'age'
     
 - ``__foo``: 双下划线的表示的是私有类型(private)的变量, 只能是允许这个类本身进行访问了。
 
-# Python中__init__.py文件的作用
+# Python中`__init__.py`文件的作用
 
 `__init__.py`文件是Python包中的一个特殊文件，它有几个重要作用：
 
@@ -157,8 +141,22 @@ print("包已初始化")
 总之，`__init__.py`是Python包的核心组成部分，它不仅标识目录为包，还控制着包的导入行为和初始化过程。
 
 
-
 # 常用模块
+
+## 查看 python 版本
+
+```python
+import sys
+print(sys.version)           # 完整字符串，带编译信息
+print(sys.version_info)      # 具名元组 (major, minor, micro, …)
+```
+
+```python
+import platform
+print(platform.python_version())      # 例：'3.11.2'
+print(platform.python_version_tuple())  # ('3', '11', '2')
+```
+
 
 ## collections
 
