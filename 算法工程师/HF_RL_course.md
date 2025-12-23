@@ -1,14 +1,18 @@
+
+[🤗hugging face deep reinforcement learning course](https://huggingface.co/learn/deep-rl-course/unit0/introduction?fw=pt)
 # Introduction
 
 # What is Reinforcement Learning
 
 
 > Reinforcement learning is a framework for solving control tasks (also called decision problems) by building agents that learn from the environment by interacting with it through trial and error and receiving rewards (positive or negative) as unique feedback.
-
   
 # The Reinforcement Learning Framework
 
 ![Reinforcement Learning Framework](https://huggingface.co/datasets/huggingface-deep-rl-course/course-images/resolve/main/en/unit1/RL_process.jpg)
+
+
+_reward hypothesis_: a goal can be described as the **maximization of the expected cumulative reward**.
 
 > agent needs only the current state to decide what action to take and not the history of all the states and actions they took before.
 

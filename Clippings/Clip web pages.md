@@ -1,11 +1,11 @@
 ---
-title: "Clip web pages"
-source: "https://help.obsidian.md/web-clipper/capture"
+title: Clip web pages
+source: https://help.obsidian.md/web-clipper/capture
 author:
   - "[[Obsidian Help]]"
 published:
 created: 2025-12-12
-description: "Introduction to Obsidian Web Clipper - Obsidian Help"
+description: Introduction to Obsidian Web Clipper - Obsidian Help
 tags:
   - "clippings"
 ---

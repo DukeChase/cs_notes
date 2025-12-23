@@ -4,10 +4,10 @@ https://liaoxuefeng.com/books/python
 # python基础
 
 ## 数据类型和变量
-整数
-浮点数
-字符串
-布尔值
+- 整数
+- 浮点数
+- 字符串
+- 布尔值
 
 `and`  `or`    `not`
 
