@@ -1,4 +1,5 @@
 # LLM
+#LLM 
 
 - [llm-twin-course](https://github.com/decodingml/llm-twin-course)
 
@@ -6,10 +7,11 @@
 
 ## SFT 监督微调（Supervised Fine-Tuning）  
 
-在人工智能，尤其是大语言模型（LLM）训练中，SFT 指“监督微调”。它是在预训练模型基础上，用带标签的数据进一步训练，使模型更贴合具体任务（如对话、摘要、翻译）。例如，用高质量指令数据集对 LLaMA-3-8B 进行一次 epoch、学习率 2×10⁻⁵ 的微调，就属于 SFT 。
+在人工智能，尤其是大语言模型（LLM）训练中，*SFT（Supervised Fine-Tuning）* 指“监督微调”。它是在预训练模型基础上，用带标签的数据进一步训练，使模型更贴合具体任务（如对话、摘要、翻译）。例如，用高质量指令数据集对 LLaMA-3-8B 进行一次 epoch、学习率 2×10⁻⁵ 的微调，就属于 SFT 。
 
 ## Agent
-智能体**定义** 智能体是指**具有自主决策能力和自我学习能力的计算机程序或机器人**。智能体可以通过感知环境、分析信息、制定决策并执行行动来完成任务。
+
+**定义** 智能体是指**具有自主决策能力和自我学习能力的计算机程序或机器人**。智能体可以通过感知环境、分析信息、制定决策并执行行动来完成任务。
 智能体通常包括感知模块、决策模块和执行模块，其中**感知模块**用于获取环境信息，**决策模块**用于分析信息并做出决策，**执行模块**用于执行决策并完成任务。
 
 ## LangChain
@@ -72,7 +74,7 @@ Milvus 是一个开源的云原生向量数据库，专为处理海量向量数�
 
 ## LoRA
 
-**全称：** Low-Rank Adaptation of Large Language Models（大型语言模型的低秩自适应）。
+**全称：** *Low-Rank Adaptation of Large Language Models*（大型语言模型的低秩自适应）。
 
 **简单来说：** 它是一种**极其高效的 AI 模型微调（Fine-tuning）技术**。如果把大模型（如 GPT、Llama 或 Stable Diffusion）比作一本写满知识的**巨型百科全书**，传统的微调是把整本书重写一遍（极其昂贵、耗时）。而 LoRA 就像是在书的旁边贴了一张**便利贴**，只修改或补充特定的内容，而不动原来的书。
 
@@ -91,10 +93,4 @@ Milvus 是一个开源的云原生向量数据库，专为处理海量向量数�
     
 - **大语言模型 (LLMs)：** 让通用的 AI（如 Llama 3, Qwen）变成特定领域的专家（如医疗助手、法律顾问、代码生成器）。
 
-# todo
 
-- [camel-ai](https://docs.camel-ai.org/cookbooks/basic_concepts/create_your_first_agent.html)
-- [人工智能 - 通用 AI Agent 之 LangManus、Manus、OpenManus 和 OWL 技术选型](https://blog.csdn.net/Fx_demon/article/details/146446836)
-- [AI 代理框架深度对比分享：Agno、OpenManus 和 OWL](https://juejin.cn/post/7481238697553297442)
-- [OpenManus](https://github.com/mannaandpoem/OpenManus/blob/main/README_zh.md)
--  [一文彻底搞懂大模型 - Dify（Agent + RAG）](https://blog.csdn.net/m0_59163425/article/details/142368632)

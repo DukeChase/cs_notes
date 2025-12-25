@@ -39,7 +39,7 @@ uvicorn app:app --host 0.0.0.0 --port 8000 --reload
 
 ### 实际运行效果
 当你执行 `python app.py` 时，这段代码会：
-1. 导入 uvicorn 服务器
+1. 导入 `uvicorn `服务器
 2. 启动服务器监听 8000 端口
 3. 将 FastAPI 应用挂载到服务器上
 4. 开发模式下，修改代码会自动重启
