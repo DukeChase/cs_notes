@@ -1,10 +1,29 @@
+# Introduction
+
+
 # What is RL? A short recap
+
+In RL, we build an agent that can **make smart decisions**. For instance, an agent that **learns to play a video game.** Or a trading agent that **learns to maximize its benefits** by deciding on **what stocks to buy and when to sell.**
+
+
+
+To make intelligent decisions, our agent will learn from the environment by **interacting with it through trial and error** and receiving rewards (positive or negative) **as unique feedback.**
+
+Its goal **is to maximize its expected cumulative reward** (because of the reward hypothesis).
 
 **The agent’s decision-making process is called the policy π:** given a state, a policy will output an action or a probability distribution over actions. That is, given an observation of the environment, a policy will provide an action (or multiple probabilities for each action) that the agent should take.
 
-![](https://huggingface.co/datasets/huggingface-deep-rl-course/course-images/resolve/main/en/unit3/policy.jpg)
+![policy](https://duke-1258882975.cos.ap-guangzhou.myqcloud.com/picture/20251230165243213.png)
 
-![](https://huggingface.co/datasets/huggingface-deep-rl-course/course-images/resolve/main/en/unit3/two-approaches.jpg)
+**Our goal is to find an optimal policy π*** , aka., a policy that leads to the best expected cumulative reward.
+
+And to find this optimal policy (hence solving the RL problem), there **are two main types of RL methods**:
+
+- _Policy-based methods_: **Train the policy directly** to learn which action to take given a state.
+- _Value-based methods_: **Train a value function** to learn **which state is more valuable** and use this value function **to take the action that leads to it.**
+
+
+![two approaches](https://duke-1258882975.cos.ap-guangzhou.myqcloud.com/picture/20251230165318755.png)
 
 # Two types of value-based methods
 
@@ -31,7 +50,7 @@ And consequently, **we don’t define by hand the behavior of our policy; it’
 
 Since the policy is not trained/learned, **we need to specify its behavior.** For instance, if we want a policy that, given the value function, will take actions that always lead to the biggest reward, **we’ll create a Greedy Policy.**
 
-![](https://duke-1258882975.cos.ap-guangzhou.myqcloud.com/picture/20251224094752089.png)
+![two approaches to find optimal policy-value-based-methods](https://duke-1258882975.cos.ap-guangzhou.myqcloud.com/picture/20251224094752089.png)
 *Given a state, our action-value function (that we train) outputs the value of each action at that state. Then, our pre-defined Greedy Policy selects the action that will yield the highest value given a state or a state action pair. *
 
 >> 
@@ -44,13 +63,26 @@ So the difference is:
 
 ![the link between value and policy](https://duke-1258882975.cos.ap-guangzhou.myqcloud.com/picture/20251224094714321.png)
 
+In fact, most of the time, in value-based methods, you’ll use **an Epsilon-Greedy Policy** that handles the exploration/exploitation trade-off; we’ll talk about this when we talk about Q-Learning in the second part of this unit.
+
 $arg \ max$      argument of the maximum
 对于一个函数 f(x) ，**argmax** 返回的是使 f(x) 最大的那个输入 x ，而不是最大值本身。
+
+As we mentioned above, we have two types of value-based functions:
+
+## The state-value function
+
+## The action-value function
+
+
+
+The value of taking action  $a$  in states $s$ under a policyππ is:
 
 
 # The Bellman Equation , simplify our value Difference Learning
 
 
+# [Monte Carlo vs Temporal Difference Learning](https://huggingface.co/learn/deep-rl-course/unit2/mc-vs-td)
 
-# Monte Carlo vs Temporal Difference Learning
+# Mid way Recap
 
