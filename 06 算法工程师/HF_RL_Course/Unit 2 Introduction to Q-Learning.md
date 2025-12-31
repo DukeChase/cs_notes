@@ -83,6 +83,12 @@ The value of taking action  $a$  in states $s$ under a policyππ is:
 
 
 # [Monte Carlo vs Temporal Difference Learning](https://huggingface.co/learn/deep-rl-course/unit2/mc-vs-td)
+蒙特卡洛方法与时间差分学习
+
+## Monte Carlo: learning at the end of the episode
+
+## Temporal Difference Learning: learning at each step
+时序差分学习：每一步进行学习
 
 # Mid way Recap
 
