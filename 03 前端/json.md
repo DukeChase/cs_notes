@@ -5,7 +5,6 @@
 JSON Schema 是一种用于描述和验证 JSON 数据结构的规范。以下是编写 JSON Schema 的基本步骤和一个示例：
 
 ---
-
 ### **1. 基本结构**
 
 一个 JSON Schema 通常包含以下关键字：
@@ -17,9 +16,7 @@ JSON Schema 是一种用于描述和验证 JSON 数据结构的规范。以下�
 - `properties`: 定义对象属性及其子模式
 - `required`: 列出必须存在的属性
 - 其他验证关键字（如 `minimum`, `maxLength`, `pattern` 等）
-
 ---
-
 ### **2. 示例**
 
 假设要验证一个表示用户信息的 JSON 数据：
