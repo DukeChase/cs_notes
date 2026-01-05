@@ -1,4 +1,6 @@
-# Python 核心知识点整理（__call__、Runnable、协程、Callable、TypedDict）
+# Python 核心知识点整理
+
+（`__call__`、Runnable、协程、Callable、TypedDict）
 
 # 一、概述
 

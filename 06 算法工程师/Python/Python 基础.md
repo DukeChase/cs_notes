@@ -1,5 +1,5 @@
  
-https://liaoxuefeng.com/books/python
+[廖雪峰python教程](https://liaoxuefeng.com/books/python)
 
 # python基础
 
@@ -20,7 +20,6 @@ https://liaoxuefeng.com/books/python
 ```
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 ```
 
 
