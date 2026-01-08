@@ -10,32 +10,28 @@
 
 [本地部署deepseek模型保姆级教程](https://blog.lovefc.cn/archives/start.html)
 
-
 [@ApiModel 和 @ApiModelProperty ](https://blog.csdn.net/qq_43611698/article/details/122129000)
 
 
-[https://zhuanlan.zhihu.com/p/609676137](https://zhuanlan.zhihu.com/p/609676137)
+[绝对详细的 RabbitMQ入门，看完本系列就够了(一)](https://zhuanlan.zhihu.com/p/609676137)
 
-[https://zhuanlan.zhihu.com/p/638722409](https://zhuanlan.zhihu.com/p/638722409)
+[浅谈前后端交互的基本原理](https://zhuanlan.zhihu.com/p/638722409)
 
-[https://www.jianshu.com/p/dcd75ae6507b](https://www.jianshu.com/p/dcd75ae6507b)
+[SpringBoot——整合WebSocket(基于STOMP协议)](https://www.jianshu.com/p/dcd75ae6507b)
 
-[https://zhuanlan.zhihu.com/p/581980655](https://zhuanlan.zhihu.com/p/581980655)
+[一篇文章彻底搞懂websocket协议的原理与应用（二）](https://zhuanlan.zhihu.com/p/581980655)
 
-[https://zhuanlan.zhihu.com/p/509686361](https://zhuanlan.zhihu.com/p/509686361)
+[基于stomp及websocket数据实时同步实现](https://zhuanlan.zhihu.com/p/509686361)
 
-[https://zhuanlan.zhihu.com/p/579888908](https://zhuanlan.zhihu.com/p/579888908)
+[Kettle插件结构体系简介](https://zhuanlan.zhihu.com/p/579888908)
 
-[https://juejin.cn/post/7243725204002127932](https://juejin.cn/post/7243725204002127932)
+[GPU的选型和购买](https://juejin.cn/post/7243725204002127932)
 
-[https://juejin.cn/post/6844903749576572936](https://juejin.cn/post/6844903749576572936)
+[onlyoffice/documentServer在线编辑保存](https://juejin.cn/post/6844903749576572936)
 
-- [https://blog.csdn.net/a20100997/article/details/131702638](https://blog.csdn.net/a20100997/article/details/131702638)
-
-- [https://www.jianshu.com/p/f6d8f4cd9ae2](https://www.jianshu.com/p/f6d8f4cd9ae2)
-
-
-- [https://www.jianshu.com/p/262c3fc77f0c](https://www.jianshu.com/p/262c3fc77f0c)
+- [ModelAttribute用法详解](https://blog.csdn.net/a20100997/article/details/131702638)
+- [SpringBoot实现对象参数的优雅校验](https://www.jianshu.com/p/f6d8f4cd9ae2)
+- [onlyoffice服务在线编辑文档保存解析](https://www.jianshu.com/p/262c3fc77f0c)
 
 
 

@@ -1,5 +1,5 @@
  
-[廖雪峰python教程](https://liaoxuefeng.com/books/python)
+[廖雪峰python教程](https://liaoxuefeng.com/books/python/introduction/index.html)
 
 # python基础
 
@@ -23,23 +23,77 @@
 ```
 
 
+##  list  tuple
+```shell
+>>> classmates = ['Michael', 'Bob', 'Tracy']
+>>> classmates
+['Michael', 'Bob', 'Tracy']
+
+```
+
+
+```shell
+>>> classmates = ('Michael', 'Bob', 'Tracy')
+```
+## dict    set
+dict
+```python
+>>> d = {'Michael': 95, 'Bob': 75, 'Tracy': 85}
+>>> d['Michael']
+95
+```
+
+set
+```python
+>>> s = {1, 2, 3}
+>>> s
+{1, 2, 3}
+
+```
 ## 函数
 在Python中定义函数，可以用**必选参数、默认参数、可变参数、关键字参数和命名关键字参数**，这5种参数都可以组合使用。但是请注意，参数定义的顺序必须是：必选参数、默认参数、可变参数、命名关键字参数和关键字参数。
 
+
+[How to Use Python Lambda Functions](https://realpython.com/python-lambda/)
+
 # 高级特性
 
-## generator
+## 列表生成式
 
 ```sh
+>>> [x * x for x in range(1, 11)]
+[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+
+```
+## 生成器generator
+
+```sh
+# 列表生成式
 >>> L = [x * x for x in range(10)]
 >>> L
 [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+# 要创建一个generator，有很多种方法。第一种方法很简单，只要把一个列表生成式的`[]`改成`()`，就创建了一个generator：
 >>> g = (x * x for x in range(10))
 >>> g
 <generator object <genexpr> at 0x1022ef630>
 ```
 
-`yeild`
+函数实现
+```python
+def fib(max):
+    n, a, b = 0, 0, 1
+    while n < max:
+        yield b
+        a, b = b, a + b
+        n = n + 1
+    return 'done'
+```
+
+## 迭代器
+
+
+# 函数式编程
+
 
 # 面向对象
 
@@ -58,7 +112,6 @@
 #### 4. 实现仿函数 (Functor) 在函数式编程中，`__call__` 让 Python 的对象可以模拟函数的行为，这在 C++ 等语言中被称为“仿函数” (Functor)。这使得对象可以像函数一样被传递和使用，同时又拥有自己的状态。 --- 
 ### 总结 | 特性 | 描述 | | :--- | :--- | | **是什么** | Python 的一个特殊方法 (`__call__`)。 | | **作用** | 让一个对象变得 **可调用 (Callable)**，即可以像函数一样使用 `()` 运算符来调用。 | | **触发时机** | 当执行 `my_instance(...)` 时，自动调用 `my_instance.__call__(...)`。 | | **核心优势** | **状态保持**：在多次调用之间可以保留和修改对象的内部状态。 | | **主要用途** | 1. 创建有状态的“函数”。<br>2. 简化 API 调用。<br>3. 实现装饰器。<br>4. 实现仿函数。 | 希望这个解释能帮助你彻底理解 `__call__` 的作用！
 ```
-
 
 
 `self.__class__`         指向类
@@ -88,7 +141,6 @@ delattr(emp1, 'age')    # 删除属性 'age'
 
 - `__private_attr`
 
-
 ### 单下划线、双下划线、头尾双下划线说明：
 
 - `__foo__`: 定义的是特殊方法，一般是系统定义名字 ，类似 `__init__()` 之类的。
@@ -97,63 +149,7 @@ delattr(emp1, 'age')    # 删除属性 'age'
     
 - ``__foo``: 双下划线的表示的是私有类型(private)的变量, 只能是允许这个类本身进行访问了。
 
-# Python中`__init__.py`文件的作用
 
-`__init__.py`文件是Python包中的一个特殊文件，它有几个重要作用：
-
-## 1. 标识目录为Python包
-
-- 当Python解释器看到一个目录中包含`__init__.py`文件时，它会将该目录视为一个Python包
-- 没有`__init__.py`的目录只是一个普通目录，不能被导入为包
-
-## 2. 执行包初始化代码
-
-- 当包或包中的模块被导入时，`__init__.py`文件会自动执行
-- 可以在这里设置包级别的变量、导入必要的模块或执行初始化操作
-
-## 3. 控制包的导入行为
-
-- 通过在`__init__.py`中定义`__all__`变量，可以控制`from package import *`的行为
-- 可以在`__init__.py`中导入子模块，使它们在包级别可用
-
-## 4. 简化导入路径
-
-- 可以在`__init__.py`中导入子模块中的类或函数，使它们可以直接从包中导入
-- 例如：`from package.submodule import SomeClass`，然后用户可以直接`from package import SomeClass`
-
-## 5. 包级别的命名空间
-
-- `__init__.py`中定义的变量和函数会成为包命名空间的一部分
-- 可以在包级别共享数据和功能
-
-## 6. 版本信息和元数据
-
-- 常用于定义包的版本信息：`__version__ = "1.0.0"`
-- 可以包含包的文档字符串，描述包的用途
-
-## 7. 向后兼容性
-
-- 在Python 3.3之前，`__init__.py`是必需的才能将目录识别为包
-- 虽然现在有了命名空间包（不需要`__init__.py`），但传统包仍然使用它
-
-## 示例
-
-```python
-# __init__.py
-"""这是一个示例包"""
-
-__version__ = "1.0.0"
-__all__ = ["function1", "Class1"]
-
-# 导入子模块中的函数，使它们在包级别可用
-from .module1 import function1
-from .module2 import Class1
-
-# 包级别的初始化代码
-print("包已初始化")
-```
-
-总之，`__init__.py`是Python包的核心组成部分，它不仅标识目录为包，还控制着包的导入行为和初始化过程。
 
 
 # 常用模块
