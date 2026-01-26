@@ -5,29 +5,16 @@
 ## 核心作用
 
 ### 1. **内存优化**
-
 - 默认情况下，Python 类的实例使用字典 (`__dict__`) 存储属性
-    
 - `__slots__`用固定大小的数组替代字典存储属性
-    
 - **内存节省可达 30-50%**（对于创建大量实例的场景效果显著）
-    
-
 ### 2. **属性限制**
-
 - 限制实例只能拥有 `__slots__`中声明的属性
-    
 - 防止意外创建新属性
-    
-
 ### 3. **性能提升**
-
 - 属性访问速度更快（直接通过数组偏移量访问，而非字典查找）
-    
-
 ## 基本用法
-
-```
+```python
 class Person:
     # 声明允许的属性
     __slots__ = ('name', 'age')
@@ -48,9 +35,7 @@ p.gender = "Female"  # AttributeError: 'Person' object has no attribute 'gender'
 ```
 
 ## 内存优化对比
-
 ### 未使用 `__slots__`
-
 ```
 class WithoutSlots:
     def __init__(self, x, y):

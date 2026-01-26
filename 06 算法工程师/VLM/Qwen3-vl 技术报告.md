@@ -1,1 +1,0 @@
-[qwen3-vl  技术报告](https://arxiv.org/pdf/2511.21631)
