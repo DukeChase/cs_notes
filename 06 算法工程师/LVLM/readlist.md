@@ -4,3 +4,12 @@
 [MM-LLMs: Recent Advances in MultiModal Large Language Models](https://arxiv.org/pdf/2401.13601)
 
 
+vit  
+
+DINOv2    META AI
+[DINOv2: Learning Robust Visual Features without Supervision](https://arxiv.org/abs/2304.07193)
+
+
+
+[Vision Transformers Need Registers](https://arxiv.org/abs/2309.16588)
+CLIP
