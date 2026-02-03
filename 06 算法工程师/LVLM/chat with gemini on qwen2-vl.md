@@ -18,11 +18,9 @@ The Qwen2-VL-2B architecture is "modular," meaning it uses pre-existing speciali
 |**Vision Encoder**|**ViT (Vision Transformer)** (~675M params)|Converts raw pixels into a sequence of mathematical "visual tokens."|
 |**Language Model**|**Qwen2-1.5B** (Decoder-only)|The "reasoning engine" that predicts the next text token based on visual and text inputs.|
 |**Connector**|**MLP / Linear Projector**|Maps the high-dimensional visual features into the same space as the text tokens.|
-
 📋
 
 ---
-
 ## 2. Key Innovation: Naive Dynamic Resolution
 
 Unlike older models (like LLaVA or the original Qwen-VL) that forced every image to be a square (e.g.,  or ), **Qwen2-VL** introduces **Naive Dynamic Resolution**.

@@ -18,7 +18,7 @@
 
 ### 导入方式
 
-```
+```python
 import os
 # 或导入特定功能
 from os import listdir, getcwd
