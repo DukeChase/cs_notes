@@ -1,9 +1,8 @@
-# vit介绍
+# [vit介绍](https://www.qianwen.com/chat/8e6b2eadcd144bdea52174dd8ebc1338)
 好的，这是对您上传的《An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale》这篇论文的总结。
 
 ---
 ### **核心思想**
-
 这篇论文提出了**Vision Transformer (ViT)**，一个革命性的模型，它证明了**纯Transformer架构（不依赖任何卷积层）可以直接应用于图像识别任务，并在大规模数据预训练下取得超越当时最先进卷积神经网络（CNN）的性能**。
 
 其核心思想是将一张图像视为一个“句子”，而图像中的小块（patches）则被视为这个句子中的“单词”（tokens）。然后，直接将这些“单词”序列输入到标准的Transformer编码器中进行处理。
@@ -13,17 +12,13 @@
 1.  **图像分块（Patch Embedding）**：
     *   将输入图像分割成固定大小（如16x16像素）的小块。
     *   将每个小块展平并通过一个可学习的线性投影（Linear Projection）映射到一个低维向量，形成“patch embeddings”。
-
 2.  **位置编码（Position Embedding）**：
     *   由于Transformer本身不具备位置感知能力，需要为每个patch embedding添加一个可学习的位置编码，以保留其在原始图像中的空间位置信息。
-
 3.  **分类Token（[class] token）**：
     *   借鉴BERT的做法，在patch序列的开头添加一个特殊的、可学习的`[class]` token。
     *   整个序列通过Transformer编码器后，`[class]` token对应的最终输出向量被用作整个图像的全局表示，并送入分类头进行预测。
-
 4.  **混合架构（Hybrid Architecture）**：
     *   论文还探索了一种混合模型：先用一个CNN（如ResNet）提取特征图，再将特征图分割成“patch”并输入Transformer。这可以作为从CNN到纯Transformer的过渡。
-
 ### **主要发现与结论**
 
 1.  **数据规模是关键**：
