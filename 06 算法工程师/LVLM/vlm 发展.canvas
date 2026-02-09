@@ -1,0 +1,8 @@
+{
+	"nodes":[
+		{"id":"0ec02e3950411e55","x":-320,"y":-20,"width":520,"height":200,"type":"text","text":"**对比学习 (Contrastive Learning\n\n- CLIP (Contrastive Language–Image Pre-training), \n-  **DINO**"},
+		{"id":"1413c30c7dbbcf7b","type":"text","text":"**掩码建模 (Masked Modeling, MIM)**\n- MAE (Masked AutoEncoders), \n- BEiT (BERT Pre-Training of Image Transformers), \n- iBOT (Image BERT Pre-Training with Online Tokenizer)\n","x":-320,"y":-400,"width":520,"height":200},
+		{"id":"26106d012b68e17e","type":"text","text":"# VIT 架构\n## 主要内容\n图像分块 image patch\npatch embedding\nposition embedding\n“规模法则”（Scaling Law）\n\n只有当**预训练数据集的规模**达到数千万甚至上亿张图像时，ViT才能充分展现其强大的学习能力，并在各种图像分类基准测试上稳定地超越CNN模型。\n\n监督训练      最核心的问题在于其对**海量高质量标注数据的极度依赖**。\n\n探索自监督学习（Self-Supervised Learning, SSL）\n\n","x":-900,"y":-320,"width":510,"height":480}
+	],
+	"edges":[]
+}

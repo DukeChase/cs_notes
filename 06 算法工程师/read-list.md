@@ -9,3 +9,7 @@
 - [OpenManus](https://github.com/FoundationAgents/OpenManus)
 -  [一文彻底搞懂大模型 - Dify（Agent + RAG）](https://blog.csdn.net/m0_59163425/article/details/142368632)
 - [GDPO：修复多奖励RL中GRPO的训练塌缩](https://mp.weixin.qq.com/s/N_w1tnVFhvMCYCXoOzu7bA)
+
+
+model timeline
+https://huggingface.co/docs/transformers/models_timeline
