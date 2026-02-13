@@ -1,5 +1,7 @@
 #LLM  #VLM
 
+[ BEiT: BERT Pre-Training of Image Transformers](https://arxiv.org/abs/2106.08254)
+
 [huggingface paper: BEiT: BERT Pre-Training of Image Transformers](https://huggingface.co/papers/2106.08254)
 [paper link](https://arxiv.org/abs/2106.08254)
 [huggingface model doc](https://huggingface.co/docs/transformers/model_doc/beit)
