@@ -11,8 +11,7 @@ vit
 
 [huggingface 深入了解视觉语言模型-豆包总结](https://www.doubao.com/chat/38411818640605698)
 
-SSL      Self-supervised Learning  自监督学习
-
+SSL Self-supervised Learning  自监督学习
 
 
 Contrastive Learning  对比学习
