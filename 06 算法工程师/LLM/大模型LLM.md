@@ -21,9 +21,9 @@
 
 ## Function Calling
 
-## openai接口规范
+## OPENAI接口规范
 
-[openai  openapi 规范](https://www.cnblogs.com/dongai/p/18474507)
+[openai-openapi 规范](https://www.cnblogs.com/dongai/p/18474507)
 
 
 

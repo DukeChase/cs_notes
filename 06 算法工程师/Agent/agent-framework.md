@@ -5,6 +5,4 @@
 - AutoGen
 - [camel-ai](https://github.com/camel-ai/camel)
 
-
-
 [# 对比Manus、OpenManus与OWL技术架构](https://zhuanlan.zhihu.com/p/1889798648260449959)

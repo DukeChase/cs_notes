@@ -1,0 +1,6 @@
+- [A Survey of Transformers](https://arxiv.org/abs/2106.04554)
+- [UNIFIED-IO: A UNIFIED MODEL FOR VISION, LANGUAGE, AND MULTI-MODAL TASKS](https://arxiv.org/pdf/2206.08916)
+- [ BEiT: BERT Pre-Training of Image Transformers](https://arxiv.org/abs/2106.08254)
+- [Learning Transferable Visual Models From Natural Language Supervision](https://arxiv.org/abs/2103.00020)
+	- openai CLIP
+	- https://openai.com/index/clip/

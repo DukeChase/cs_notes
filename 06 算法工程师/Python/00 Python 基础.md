@@ -213,12 +213,9 @@ Counter({'r': 2, 'o': 2, 'g': 2, 'm': 2, 'l': 2, 'p': 1, 'a': 1, 'i': 1, 'n': 1,
 4. `psutil`
 
 
-
-
-
 # 其他
 
-## pypi
+## PyPI
 
 **PyPI** (全称 **Python Package Index**) 就是 **Python 语言的“应用商店”或“代码仓库”**。
 
@@ -302,4 +299,106 @@ python -m <模块名> [参数...]
 - 模块必须在 Python 的模块搜索路径中（如当前目录、site-packages 等）
 - 可用于调试、测试、启动工具等场景
 ## python -c 用法
+
+`python -c` 是 Python 解释器的一个命令行选项，用于**直接在命令行中执行一段 Python 代码字符串**，而无需创建一个 `.py` 文件。
+
+---
+
+### 基本语法：
+```bash
+python -c "Python 代码语句"
+```
+
+> 注意：整个代码必须放在**引号内**（单引号 `'` 或双引号 `"`），因为 shell 需要将整段代码作为单个参数传递给 Python。
+
+---
+
+### 功能说明：
+
+- `-c` 表示 “command”。
+- Python 会把引号内的内容当作一个完整的程序来执行，就像写在一个临时脚本里一样。
+- 执行完后立即退出。
+
+---
+
+### 常见用法示例：
+
+#### 1. 快速打印信息
+```bash
+python -c "print('Hello, world!')"
+```
+
+#### 2. 查看 Python 版本或路径
+```bash
+python -c "import sys; print(sys.version)"
+python -c "import os; print(os.getcwd())"
+```
+
+#### 3. 快速计算或测试表达式
+```bash
+python -c "print(2**10)"
+python -c "import math; print(math.sqrt(16))"
+```
+
+#### 4. 检查模块是否安装
+```bash
+python -c "import numpy; print(numpy.__version__)"
+```
+如果没安装，会报 `ModuleNotFoundError`。
+
+#### 5. 多行代码（用分号或换行转义）
+虽然 `-c` 通常用于单行，但也可以写多行（需用 `\n` 或 shell 的续行）：
+```bash
+python -c "
+for i in range(3):
+    print(f'Count: {i}')
+"
+```
+或者用分号（适合简单逻辑）：
+```bash
+python -c "x=5; y=10; print(x+y)"
+```
+
+> ⚠️ 注意：在 shell 中使用多行时，引号要保持一致，且换行符会被保留。
+
+---
+
+### 与 `python -m` 的区别：
+
+| 选项 | 用途 |
+|------|------|
+| `python -c "code"` | 直接执行一段 Python **代码字符串** |
+| `python -m module` | 运行一个已存在的 **模块或包**（如 `http.server`, `pip`） |
+
+---
+
+### 实用场景：
+
+- 在 shell 脚本中嵌入简单 Python 逻辑
+- 快速验证某个函数/模块的行为
+- 自动化任务中的轻量级处理（如生成时间戳、处理 JSON 等）
+
+例如，用 Python 格式化当前时间（比 shell 更灵活）：
+```bash
+python -c "import datetime; print(datetime.datetime.now().strftime('%Y-%m-%d'))"
+```
+
+---
+
+### 注意事项：
+
+- 引号内如有嵌套引号，需转义：
+  ```bash
+  python -c "print(\"He said: 'Hi!' \")"
+  ```
+  或混合使用单双引号：
+  ```bash
+  python -c 'print("He said: \"Hi!\"")'
+  ```
+
+- 不适合复杂逻辑（建议写 `.py` 文件）
+
+---
+
+如果你有具体想用 `python -c` 实现的功能，我可以帮你写出对应的命令！
 

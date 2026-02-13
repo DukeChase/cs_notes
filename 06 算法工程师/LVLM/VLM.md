@@ -1,5 +1,5 @@
 
- 计算机视觉任务
+## 计算机视觉任务
 任务图像分类
 目标检测
 语义分割
@@ -22,14 +22,23 @@ GLUE基准任务
 
 
 
-vit 
+## 论文
+
+[Vision Transformer (ViT)](../论文学习/Vision%20Transformer%20(ViT).md) 
+
+[CLIP](../论文学习/CLIP.md) 
+[OpenCLIP](../论文学习/OpenCLIP.md)
+
+[BEiT](../论文学习/BEiT.md)
+
+[IBOT](../论文学习/IBOT.md)
+
+dino
+[DINOv2- Learning Robust Visual Features without Supervision](../论文学习/DINOv2-%20Learning%20Robust%20Visual%20Features%20without%20Supervision.md)
 
 
-clip      
-openclip
 
 
 
-dino        iBot   dinov2
 
 

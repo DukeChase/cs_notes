@@ -1,5 +1,6 @@
 
 https://gemini.google.com/app/fa2cc1d7d1a38a25
+
 Q: 我在学习如何搭建自己的模型，nn.Linear 是什么意思
 A:  既然你正在学习搭建自己的模型，理解 `nn.Linear` 至关重要。它是神经网络中最基础、最核心的组件，通常被称为**全连接层（Fully Connected Layer）或线性层**。
 

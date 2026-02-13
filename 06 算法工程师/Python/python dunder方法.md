@@ -31,9 +31,10 @@ print(func.__doc__)  # 输出: 函数文档
     - 当前模块所属的包名
 5. **`__annotations__`**
     - 获取类型注解字典
-```python
-def func(a: int) -> str: pass
-print(func.__annotations__)  # 输出: {'a': <class 'int'>, 'return': <class 'str'>}
+	```python
+	def func(a: int) -> str: pass
+	print(func.__annotations__)  
+	# 输出: {'a': <class 'int'>, 'return': <class 'str'>}
     ```
 ---
 

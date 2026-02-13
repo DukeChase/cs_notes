@@ -10,7 +10,7 @@
 - 调用时不会立即执行，而是返回一个协程对象
 - 需要事件循环来驱动执行
 
-```
+```python
 async def my_coroutine():
     return "Hello from coroutine"
 ```
@@ -24,7 +24,7 @@ async def my_coroutine():
 - 在 Python 3.7+ 中，可以使用 `asyncio.run()`简化
     
 
-```
+```python
 import asyncio
 
 result = asyncio.run(my_coroutine())
@@ -38,7 +38,7 @@ print(result)  # 输出: Hello from coroutine
 - 只能用在 `async def`函数内部
     
 
-```
+```python
 async def main():
     result = await my_coroutine()
     print(result)
@@ -48,7 +48,7 @@ async def main():
 
 ### 1. 创建和运行协程
 
-```
+```python
 import asyncio
 
 async def say_hello():
@@ -62,7 +62,7 @@ asyncio.run(say_hello())
 
 ### 2. 并发执行多个协程
 
-```
+```python
 import asyncio
 
 async def task(name, seconds):
@@ -83,7 +83,7 @@ asyncio.run(main())
 
 ### 3. 创建任务 (Task)
 
-```
+```python
 async def main():
     # 创建任务但不立即等待
     task1 = asyncio.create_task(task("Task1", 2))
@@ -98,7 +98,7 @@ async def main():
 
 ### 1. 异步上下文管理器 (async with)
 
-```
+```python
 class AsyncResource:
     async def __aenter__(self):
         print("Acquiring resource")
@@ -117,7 +117,7 @@ async def use_resource():
 
 ### 2. 异步迭代器 (async for)
 
-```
+```python
 class AsyncCounter:
     def __init__(self, stop):
         self.current = 0
@@ -141,7 +141,7 @@ async def main():
 
 ### 3. 异步生成器
 
-```
+```python
 async def async_generator(n):
     for i in range(n):
         await asyncio.sleep(0.5)
@@ -156,7 +156,7 @@ async def main():
 
 ### 1. 异步 HTTP 请求 (使用 aiohttp)
 
-```
+```python
 import aiohttp
 import asyncio
 
@@ -183,7 +183,7 @@ asyncio.run(main())
 
 ### 2. 异步文件操作 (使用 aiofiles)
 
-```
+```python
 import aiofiles
 import asyncio
 
@@ -229,7 +229,7 @@ asyncio.run(main())
 5. 使用 `uvloop`替代默认事件循环以获得更好性能
     
 
-```
+```python
 import asyncio
 from asyncio import Semaphore
 

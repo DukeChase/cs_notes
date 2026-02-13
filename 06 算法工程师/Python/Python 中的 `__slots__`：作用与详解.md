@@ -36,7 +36,7 @@ p.gender = "Female"  # AttributeError: 'Person' object has no attribute 'gender'
 
 ## 内存优化对比
 ### 未使用 `__slots__`
-```
+```python
 class WithoutSlots:
     def __init__(self, x, y):
         self.x = x
@@ -49,7 +49,7 @@ print(obj.__dict__)  # {'x': 1, 'y': 2}
 
 ### 使用 `__slots__`
 
-```
+```python
 class WithSlots:
     __slots__ = ('x', 'y')
     
@@ -64,7 +64,7 @@ print(hasattr(obj, '__dict__'))  # False
 
 ### 内存占用对比
 
-```
+```python
 import sys
 
 # 创建大量实例测试
@@ -81,7 +81,7 @@ print(sys.getsizeof(instances[0]))
 
 ### 继承时的行为
 
-```
+```python
 class Base:
     __slots__ = ('a', 'b')
 
@@ -100,7 +100,7 @@ print(obj.a, obj.b, obj.c, obj.d)  # 1 2 3 4
 
 ### 特殊情况
 
-```
+```python
 class Base:
     __slots__ = ('a', 'b')
 
@@ -116,7 +116,7 @@ obj.c = 3  # 允许添加新属性
 
 ### 1. 包含 `__dict__`
 
-```
+```python
 class Flexible:
     __slots__ = ('a', 'b', '__dict__')
     
@@ -130,7 +130,7 @@ obj.c = 3  # 允许动态添加属性
 
 ### 2. 使用弱引用
 
-```
+```python
 class WeakRefEnabled:
     __slots__ = ('a', '__weakref__')
 
@@ -142,8 +142,7 @@ ref = weakref.ref(obj)  # 需要 __weakref__ slot
 ## 注意事项
 
 1. **不能添加未声明的属性**
-    
-    ```
+    ```python
     class Restricted:
         __slots__ = ('x',)
     
@@ -153,7 +152,7 @@ ref = weakref.ref(obj)  # 需要 __weakref__ slot
     
 2. **类属性不受影响**
     
-    ```
+    ```python
     class MyClass:
         __slots__ = ('x',)
         class_attr = 42  # 类属性正常使用
@@ -168,7 +167,7 @@ ref = weakref.ref(obj)  # 需要 __weakref__ slot
     
 4. **与属性装饰器兼容**
     
-    ```
+    ```python
     class WithProperty:
         __slots__ = ('_value',)
     
@@ -184,7 +183,7 @@ ref = weakref.ref(obj)  # 需要 __weakref__ slot
 
 ## 性能测试
 
-```
+```python
 import timeit
 
 # 属性访问速度测试
