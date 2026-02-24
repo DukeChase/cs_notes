@@ -12,7 +12,6 @@
 
 [@ApiModel 和 @ApiModelProperty ](https://blog.csdn.net/qq_43611698/article/details/122129000)
 
-
 [绝对详细的 RabbitMQ入门，看完本系列就够了(一)](https://zhuanlan.zhihu.com/p/609676137)
 
 [浅谈前后端交互的基本原理](https://zhuanlan.zhihu.com/p/638722409)
