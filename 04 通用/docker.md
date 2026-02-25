@@ -461,12 +461,11 @@ Docker 容器支持多种网络模式，不同的模式决定了容器如何与�
 - ​**​适用场景​**​：
     - 对网络性能要求高的场景（如高并发服务）。
 - ​**​配置​**​：
-    
-  ```bash
-    # 使用 host 模式运行容器   
-    docker run -d --name my_container --network=host nginx
-	```
-    
+
+```bash
+# 使用 host 模式运行容器   
+docker run -d --name my_container --network=host nginx
+```
 
 ---
 
@@ -479,9 +478,9 @@ Docker 容器支持多种网络模式，不同的模式决定了容器如何与�
     - 安全敏感的任务（如离线数据处理）。
 - ​**​配置​**​：
     
-   ```bash
-	 docker run -d --name my_container --network=none nginx
-	 ```
+```bash
+docker run -d --name my_container --network=none nginx
+```
 
 
 ---
@@ -582,20 +581,12 @@ Docker 容器支持多种网络模式，不同的模式决定了容器如何与�
 ### ​**​常用命令​**​
 
 - 查看所有网络：
-    
     `docker network ls`
-    
 - 查看网络详情：
-    
     `docker network inspect my_network`
-    
 - 删除网络：
-    
     `docker network rm my_network`
-    
-
 ---
-
 ### ​**​总结​**​
 
 - ​**​开发测试​**​：默认 `bridge` 或自定义网络。
@@ -604,6 +595,53 @@ Docker 容器支持多种网络模式，不同的模式决定了容器如何与�
 - ​**​物理网络集成​**​：选择 `macvlan`/`ipvlan`。
 
 通过合理选择网络模式，可以优化容器的网络性能和安全性。
+
+# registry
+
+```json
+{
+  "registry-mirrors" : [
+    "https://docker.1ms.run",
+    "https:\/\/dockerhub.xianfish.site",
+    "https:\/\/registry.docker-cn.com",
+    "http:\/\/hub-mirror.c.163.com",
+    "https:\/\/docker.mirrors.ustc.edu.cn",
+    "https:\/\/dockerhub.azk8s.cn",
+    "https:\/\/mirror.ccs.tencentyun.com",
+    "https:\/\/docker.mirrors.ustc.edu.cn",
+     "https:\/\/docker.registry.cyou",
+    "https:\/\/docker-cf.registry.cyou",
+    "https:\/\/dockercf.jsdelivr.fyi",
+    "https:\/\/docker.jsdelivr.fyi",
+    "https:\/\/dockertest.jsdelivr.fyi",
+    "https:\/\/mirror.aliyuncs.com",
+    "https:\/\/dockerproxy.com",
+    "https:\/\/mirror.baidubce.com",
+    "https:\/\/docker.m.daocloud.io",
+    "https:\/\/docker.nju.edu.cn",
+    "https:\/\/docker.mirrors.sjtug.sjtu.edu.cn",
+    "https:\/\/docker.mirrors.ustc.edu.cn",
+    "https:\/\/mirror.iscas.ac.cn",
+    "https:\/\/docker.rainbond.cc"
+  ],
+  "insecure-registries" : [
+    "http:\/\/10.11.3.164"
+  ]
+}
+
+```
+
+```json
+{
+  "registry-mirrors" : [
+    "https:\/\/dockerhub.xianfish.site"
+  ],
+  "insecure-registries" : [
+    "http:\/\/10.11.3.164"
+  ]
+}
+```
+
 # other
 
 [# Docker cp命令详解：在Docker容器和主机之间复制文件/文件夹](https://blog.csdn.net/Tester_muller/article/details/131678630)

@@ -1,1 +1,9 @@
-https://arxiv.org/abs/2104.14294
+[Emerging Properties in Self-Supervised Vision Transformers](https://arxiv.org/abs/2104.14294)
+
+> In this paper, we question if self-supervised learning provides new properties to Vision Transformer (ViT) that stand out compared to convolutional networks (convnets). Beyond the fact that adapting self-supervised methods to this architecture works particularly well, we make the following observations: first, self-supervised ViT features contain explicit information about the semantic segmentation of an image, which does not emerge as clearly with supervised ViTs, nor with convnets. Second, these features are also excellent k-NN classifiers, reaching 78.3% top-1 on ImageNet with a small ViT. Our study also underlines the importance of momentum encoder, multi-crop training, and the use of small patches with ViTs. We implement our findings into a simple self-supervised method, called DINO, which we interpret as a form of self-distillation with no labels. We show the synergy between DINO and ViTs by achieving 80.1% top-1 on ImageNet in linear evaluation with ViT-Base.
+> 
+
+在本文中，我们探讨了自监督学习是否为视觉Transformer（ViT）提供了相比卷积网络更为突出的新特性。除了将自监督方法适配到该架构上效果显著这一事实外，我们还做出了以下观察：首先，自监督ViT的特征包含关于图像语义分割的显式信息，这在有监督的ViT或卷积网络中都没有如此清晰地显现出来。其次，这些特征也是优异的k-NN分类器，使用小型ViT在ImageNet上达到了78.3%的top-1准确率。我们的研究还强调了动量编码器、多裁剪训练以及在ViT中使用小块的重要性。我们将这些发现实现为一个简单的自监督方法，称为DINO，我们将其解释为一种无标签的自蒸馏形式。我们通过使用ViT-Base在ImageNet的线性评估中达到80.1%的top-1准确率，展示了DINO和ViT之间的协同效应。
+
+
+在本文中，我们探讨自监督学习是否为视觉Transformer（ViT）带来了区别于卷积网络（convnets）的新特性。除了将自监督方法应用于该架构效果尤为显著之外，我们还得出以下观察结果：首先，自监督ViT的特征中包含了关于图像语义分割的显式信息，而这种特性在有监督训练的ViT或卷积网络中均不明显。其次，这些特征也可作为出色的k近邻（k-NN）分类器，仅使用小型ViT即可在ImageNet上达到78.3%的top-1准确率。我们的研究还强调了动量编码器、多裁剪训练以及在ViT中使用小尺寸图像块的重要性。我们将这些发现整合为一种简单高效的自监督方法，称为DINO，可将其理解为一种无需标签的自蒸馏形式。我们通过在ViT-Base上实现ImageNet线性评估80.1%的top-1准确率，展示了DINO与ViT之间的协同效应。
