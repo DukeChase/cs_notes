@@ -1,7 +1,7 @@
 
 # 与 Gemini 对话
 
-# how get an overview of qwen-vl mokde architecture , for exampl qwen-vl-2b
+# how get an overview of qwen-vl model architecture , for example qwen-vl-2b
 
 To understand the architecture of **Qwen-VL** (specifically the **Qwen2-VL-2B** and more recent versions), it is best to view it as a bridge between a high-performance "eye" (the Vision Transformer) and a "brain" (the Large Language Model).
 
@@ -37,11 +37,8 @@ Unlike older models (like LLaVA or the original Qwen-VL) that forced every image
 Standard language models use 1D position IDs (token 1, token 2...). Since Qwen-VL deals with 2D images and 3D video (2D + time), it uses **Multimodal Rotary Position Embedding (M-RoPE)**.
 
 - **1D:** For text.
-    
 - **2D:** For image width () and height ().
-    
 - **3D:** For video, adding the temporal () dimension. This allows the model to "understand" exactly where an object is located in a frame and how it moves over time in a video.
-    
 
 ---
 
@@ -49,14 +46,10 @@ Standard language models use 1D position IDs (token 1, token 2...). Since Qwen-V
 
 If you were to trace a piece of data through the model, it looks like this:
 
-1. **Input:** An image (e.g., a photo of a menu) and a prompt ("What is the price of coffee?").
-    
+1. **Input:** An image (e.g., a photo of a menu) and a prompt ("What is the price of coffee?").    
 2. **Visual Encoding:** The ViT breaks the image into  patches.
-    
 3. **Tokenization:** These patches are turned into visual tokens. If the image is large, it generates more tokens; if small, fewer.
-    
 4. **Interleaving:** The system places the visual tokens between special markers `<|vision_start|>` and `<|vision_end|>` and "glues" them to your text tokens.
-    
 5. **Generation:** The LLM (Qwen2-1.5B) reads this combined sequence and generates the text answer.
     
 
