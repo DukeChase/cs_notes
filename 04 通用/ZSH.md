@@ -1,3 +1,4 @@
+# 配置文件加载顺序
 Zsh 的配置文件加载顺序遵循特定的逻辑，主要取决于 **登录方式**（Login/Non-login）和 **交互模式**（Interactive/Non-interactive）。
 
 ## 核心配置文件
