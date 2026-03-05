@@ -2,8 +2,6 @@
 
 reference: 《鸟哥的linux私房菜》
 
-
-
 ssh 复制文件
 
 `scp /path/to/local/file username@remote_host:/path/to/remote/directory/`
@@ -21,10 +19,15 @@ y = "this is a string"
 echo $x
 echo $y
 
+```
+
+```sh
 [dmtsai@study ~]$ name=VBird 
 [dmtsai@study ~]$ echo $name 
 VBird
+```
 
+```sh
 [dmtsai@study ~]$ myname="$name its me"
 
 [dmtsai@study ~]$ echo $myname 
@@ -33,25 +36,30 @@ VBird its me
 [dmtsai@study ~]$ myname='$name its me' 
 [dmtsai@study ~]$ echo $myname 
 $name its me
+```
 
+
+```sh
 arr = (1 2 3 4)
 echo ${arr[@]}
 echo ${arr[0]}
 
-
 files = $(ls)
 echo ${files[@]}
 
-
-
 export MY_ENV=1000
 echo $MY_ENV
+```
 
+```bash
 # 默认值  但不赋值
 echo ${var1:-"hello1"}
 # 默认值 且赋值
 echo ${var2:="hello2"}
+```
 
+
+```bash
 # 脚本名称
 echo $0
 # 脚本第一个参数
@@ -60,7 +68,9 @@ echo $2
 echo $3
 # 脚本参数个数
 echo $#
+```
 
+```bash
 a=1
 b=2
 if [ $a -gt $b]; then

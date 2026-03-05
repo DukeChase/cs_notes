@@ -9,7 +9,7 @@
 /etc/nginx/conf.d
  
 
-Nginx基本语法
+Nginx 基本语法
 
 - user   设置nginx服务的系统使用用户
 - worker_processes    工作的进程数

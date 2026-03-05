@@ -1,5 +1,5 @@
 - paper link : [A Survey of Transformers](https://arxiv.org/abs/2106.04554)
 
 > Transformers have achieved great success in many artificial intelligence fields, such as natural language processing, computer vision, and audio processing. Therefore, it is natural to attract lots of interest from academic and industry researchers. Up to the present, a great variety of Transformer variants (a.k.a. X-formers) have been proposed, however, a systematic and comprehensive literature review on these Transformer variants is still missing. In this survey, we provide a comprehensive review of various X-formers. We first briefly introduce the vanilla Transformer and then propose a new taxonomy of X-formers. Next, we introduce the various X-formers from three perspectives: architectural modification, pre-training, and applications. Finally, we outline some potential directions for future research.
-> 
+ 
 > Transformer 模型在自然语言处理、计算机视觉和音频处理等众多人工智能领域取得了巨大成功，因此自然而然地引起了学术界和工业界研究人员的广泛关注。迄今为止，人们已提出了多种多样的 Transformer 变体（亦称 X-former），然而，针对这些 Transformer 变体的系统性、综合性文献综述尚属空白。在本综述中，我们对各类 X-former 进行了全面梳理。我们首先简要介绍基础版 Transformer，随后提出一种全新的 X-former 分类体系。接着，我们从架构改进、预训练策略以及应用场景三个维度，系统阐述各类 X-former。最后，我们展望了未来研究的若干潜在方向。

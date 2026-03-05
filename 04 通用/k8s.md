@@ -1,5 +1,6 @@
 
 https://kubernetes.io/zh-cn/docs/home/
+https://sealos.run/blog/what-is-kubernetes
 
 # k8s概述
 
