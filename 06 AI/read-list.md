@@ -14,3 +14,5 @@ model timeline
 https://huggingface.co/docs/transformers/models_timeline
 
 
+IBM  什么是ai 基础设施
+https://www.ibm.com/cn-zh/think/topics/ai-infrastructure

@@ -1,6 +1,7 @@
-
-https://kubernetes.io/zh-cn/docs/home/
-https://sealos.run/blog/what-is-kubernetes
+学习链接
+- https://kubernetes.io/zh-cn/docs/home/
+- https://sealos.run/blog/what-is-kubernetes
+- https://jimmysong.io/zh/book/kubernetes-handbook/
 
 # k8s概述
 
