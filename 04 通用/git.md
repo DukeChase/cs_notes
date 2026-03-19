@@ -24,6 +24,275 @@
 `git add`      将文件添加到暂存区
 `git ls-files`  查看暂存区中的文件
 
+## 实际开发常用命令流程
+
+### 一、项目初始化流程
+
+```bash
+# 克隆远程仓库
+git clone <仓库地址>
+git clone <仓库地址> <目录名>           # 克隆到指定目录
+git clone -b <分支名> <仓库地址>       # 克隆指定分支
+
+# 或在现有目录初始化
+git init
+git remote add origin <仓库地址>       # 添加远程仓库
+git pull origin main                   # 拉取远程代码
+
+# 首次推送并关联远程分支
+git push -u origin main
+```
+
+### 二、日常开发流程
+
+```bash
+# 1. 开始工作前，先拉取最新代码
+git pull origin main
+# 或更安全的做法（推荐）
+git fetch origin
+git merge origin/main
+
+# 2. 创建新分支进行开发
+git checkout -b feature/login
+# 或使用新命令
+git switch -c feature/login
+
+# 3. 查看当前状态
+git status
+git status -s                         # 简洁模式
+
+# 4. 添加文件到暂存区
+git add <文件名>                      # 添加单个文件
+git add .                             # 添加所有修改
+git add -A                            # 添加所有文件（包括删除）
+git add -u                            # 只添加已跟踪文件的修改
+git add *.java                        # 添加所有 .java 文件
+
+# 5. 提交更改
+git commit -m "feat: 添加登录功能"
+git commit -am "fix: 修复登录bug"     # 跳过暂存区，直接提交已跟踪文件
+
+# 6. 推送到远程
+git push origin feature/login
+```
+
+### 三、分支管理流程
+
+```bash
+# 查看分支
+git branch                            # 查看本地分支
+git branch -a                         # 查看所有分支（含远程）
+git branch -r                         # 只查看远程分支
+git branch -vv                         # 查看分支详细信息及关联的远程分支
+
+# 创建分支
+git branch <分支名>                   # 创建但不切换
+git checkout -b <分支名>              # 创建并切换
+git switch -c <分支名>                # 创建并切换（推荐）
+
+# 切换分支
+git checkout <分支名>
+git switch <分支名>                   # 推荐
+
+# 合并分支
+git checkout main                     # 先切换到目标分支
+git merge feature/login               # 合并 feature/login 到 main
+git merge --no-ff feature/login       # 禁用快进合并，保留分支历史
+
+# 删除分支
+git branch -d <分支名>                # 删除已合并的分支
+git branch -D <分支名>               # 强制删除分支
+
+# 重命名分支
+git branch -m <旧名> <新名>           # 重命名分支
+git branch -m <新名>                  # 重命名当前分支
+
+# 推送本地分支到远程
+git push -u origin <分支名>           # 首次推送并关联
+git push origin --delete <分支名>     # 删除远程分支
+```
+
+### 四、代码回退与撤销
+
+```bash
+# 撤销工作区修改（未 add）
+git checkout -- <文件名>
+git restore <文件名>                  # Git 2.23+ 推荐
+
+# 撤销暂存区修改（已 add，未 commit）
+git reset HEAD <文件名>
+git restore --staged <文件名>         # Git 2.23+ 推荐
+
+# 撤销最近一次提交（保留修改）
+git reset --soft HEAD~1               # 撤销 commit，保留暂存区和工作区
+git reset --mixed HEAD~1              # 撤销 commit 和 add，保留工作区（默认）
+git reset --hard HEAD~1               # 撤销 commit 和 add，删除工作区修改（危险！）
+
+# 修改最近一次提交信息
+git commit --amend -m "新的提交信息"
+git commit --amend                    # 打开编辑器修改
+
+# 撤销已推送的提交（公共分支慎用）
+git revert <commit-hash>              # 创建新提交来撤销指定提交
+git revert HEAD                       # 撤销最近一次提交
+```
+
+### 五、远程协作流程
+
+```bash
+# 查看远程仓库
+git remote -v
+git remote show origin                # 查看远程仓库详细信息
+
+# 添加/删除远程仓库
+git remote add origin <仓库地址>
+git remote remove <远程名>
+git remote rename <旧名> <新名>
+
+# 修改远程仓库地址
+git remote set-url origin <新地址>
+
+# 拉取远程更新
+git fetch origin                      # 只拉取，不合并
+git fetch --all                       # 拉取所有远程仓库
+git pull origin main                  # 拉取并合并
+git pull --rebase origin main         # 拉取并变基（保持线性历史）
+
+# 推送代码
+git push origin <分支名>
+git push -f origin <分支名>           # 强制推送（危险！）
+git push --all origin                 # 推送所有分支
+
+# 同步远程已删除的分支
+git fetch -p                          # 或 git remote prune origin
+```
+
+### 六、暂存工作（Stash）
+
+```bash
+# 当需要临时切换分支但不想提交当前修改时使用
+git stash                             # 暂存当前修改
+git stash save "描述信息"             # 暂存并添加描述
+git stash -u                          # 暂存包括未跟踪的文件
+
+# 查看暂存列表
+git stash list
+
+# 恢复暂存
+git stash pop                         # 恢复最近一次暂存并删除记录
+git stash pop stash@{1}               # 恢复指定的暂存
+git stash apply                       # 恢复但不删除记录
+git stash apply stash@{1}
+
+# 删除暂存
+git stash drop stash@{1}              # 删除指定暂存
+git stash clear                       # 删除所有暂存
+
+# 查看暂存内容
+git stash show                        # 查看暂存概要
+git stash show -p                     # 查看暂存详细差异
+```
+
+### 七、冲突解决
+
+```bash
+# 合并冲突时
+git merge feature/login
+# 发生冲突后，手动编辑冲突文件，然后：
+git add <冲突文件>
+git commit -m "merge: 解决合并冲突"
+
+# 放弃合并
+git merge --abort
+
+# 变基冲突时
+git rebase main
+# 解决冲突后：
+git add <冲突文件>
+git rebase --continue                 # 继续变基
+git rebase --abort                    # 放弃变基
+
+# 查看冲突文件
+git diff --name-only --diff-filter=U
+```
+
+### 八、查看信息
+
+```bash
+# 查看提交历史
+git log
+git log --oneline                     # 单行显示
+git log -n 5                          # 最近5条
+git log --graph                       # 图形化显示
+git log --oneline --graph --all       # 组合使用
+git log --author="张三"               # 按作者筛选
+git log --since="2024-01-01"          # 按时间筛选
+git log -p <文件名>                   # 查看某文件的修改历史
+
+# 查看差异
+git diff                              # 工作区 vs 暂存区
+git diff --staged                     # 暂存区 vs 最新提交
+git diff HEAD                         # 工作区 vs 最新提交
+git diff <分支1> <分支2>              # 比较两个分支
+git diff <commit1> <commit2>          # 比较两个提交
+
+# 查看文件内容
+git show <commit-hash>                # 查看某次提交的内容
+git show <commit-hash>:<文件路径>     # 查看某次提交中某文件的内容
+
+# 查看文件修改历史
+git blame <文件名>                    # 显示每行的修改者和时间
+
+# 查看操作记录
+git reflog                            # 查看所有操作记录，可用于恢复误删
+```
+
+### 九、实用技巧
+
+```bash
+# 选择性合并某次提交
+git cherry-pick <commit-hash>
+
+# 清理未跟踪的文件
+git clean -n                          # 预览要删除的文件
+git clean -f                          # 删除未跟踪的文件
+git clean -fd                         # 删除未跟踪的文件和目录
+
+# 二分查找定位问题
+git bisect start
+git bisect bad                        # 当前版本有问题
+git bisect good <commit-hash>         # 这个版本没问题
+# Git 会自动定位到引入问题的提交
+
+# 查看某行代码的修改历史
+git log -L 10,20:file.txt             # 查看文件第10-20行的修改历史
+
+# 只克隆最近一次提交（节省空间和时间）
+git clone --depth 1 <仓库地址>
+
+# 更新子模块
+git submodule update --init --recursive
+```
+
+### 十、提交信息规范（约定式提交）
+
+```bash
+# 常用提交类型
+feat:     新功能
+fix:      修复 bug
+docs:     文档更新
+style:    代码格式（不影响功能）
+refactor: 重构（不是新功能也不是修复 bug）
+test:     添加测试
+chore:    构建过程或辅助工具的变动
+
+# 示例
+git commit -m "feat: 添加用户登录功能"
+git commit -m "fix: 修复登录页面样式问题"
+git commit -m "docs: 更新 README 文档"
+git commit -m "refactor: 重构用户模块代码结构"
+```
+
 `git rm  filename`    把文件从工作区和暂存区同时删除
 `git rm --cached filename`  把文件从暂存区删除，但保留在当前工作区中
 `git rm -r *`  递归删除某个目录下的所有子目录和文件

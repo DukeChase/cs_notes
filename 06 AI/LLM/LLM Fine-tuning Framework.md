@@ -1,3 +1,14 @@
+
+TRL   https://github.com/huggingface/trl
+
+TRLX https://github.com/CarperAI/trlx
+
+axolotl https://github.com/axolotl-ai-cloud/axolotl
+
+LlamaFactory  https://github.com/hiyouga/LlamaFactory
+
+unsloth    https://github.com/unslothai/unsloth
+
 ## LoRA
 
 **全称：** *Low-Rank Adaptation of Large Language Models*（大型语言模型的低秩自适应）。
@@ -12,7 +23,6 @@
     
 - **不破坏原模型：** 原始模型的权重被冻结（Freeze），LoRA 只是作为一个“外挂”插件存在。你可以给同一个模型挂载不同的 LoRA（例如一个负责画动漫风，一个负责画写实风）。
     
-
 **应用场景：**
 
 - **AI 绘画 (Stable Diffusion)：** 让 AI 学会画特定的角色（如某个动漫人物）、特定的画风（如水墨画、赛博朋克）或特定的构图。

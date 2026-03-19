@@ -1,11 +1,11 @@
- Causal Language Model（因果语言模型，CLM）是 NLP 中的核心架构，也是当前 GPT、LLaMA、Qwen 等主流大模型的基础范式。
+ **Causal Language Model（因果语言模型，CLM）** 是 NLP 中的核心架构，也是当前 GPT、LLaMA、Qwen 等主流大模型的基础范式。
 
 ## 核心定义
 
 **因果语言模型 = 仅使用单向上下文（左侧 token）预测下一个 token**
 
 与 BERT 等双向模型不同，CLM 严格遵循"从左到右"的因果约束：
-- 位置 $i$ 的预测只能依赖 $0 \dots i-1$ 的 token
+- 位置 $i$ 的预测只能依赖 $0 \dots {i-1}$ 的 token
 - 通过 **三角掩码（Triangular/Causal Mask）** 实现：$M_{ij} = -\infty$ if $j > i$
 
 ```
@@ -16,12 +16,12 @@
 
 ## 关键特性
 
-| 特性 | 说明 |
-|------|------|
-| **自回归生成** | 逐 token 生成，天然适合文本生成任务 |
+| 特性        | 说明                                    |
+| --------- | ------------------------------------- |
+| **自回归生成** | 逐 token 生成，天然适合文本生成任务                 |
 | **单向注意力** | 使用 Causal Self-Attention，复杂度 $O(n^2)$ |
-| **预训练目标** | Next Token Prediction（NTP） |
-| **位置编码** | 需要显式位置编码（RoPE、ALiBi 等） |
+| **预训练目标** | Next Token Prediction（NTP）            |
+| **位置编码**  | 需要显式位置编码（RoPE、ALiBi 等）                |
 
 ## 与 MLM 的对比
 
