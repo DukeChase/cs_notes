@@ -7,7 +7,6 @@
 
 `npm config set registry http://192.168.55.12:8001/nexus/repository/npm-all/`
 
-
 淘宝：`https://registry.npmmirror.com/`
 腾讯云：`https://mirrors.cloud.tencent.com/npm/`
 CNPM：`https://r.cnpmjs.org/`
