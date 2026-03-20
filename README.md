@@ -3,8 +3,9 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Markdown](https://img.shields.io/badge/markdown-%E2%9C%93-blue.svg)](.markdownlint.json)
 [![Obsidian](https://img.shields.io/badge/Obsidian-Compatible-purple.svg)](https://obsidian.md)
+[![Jekyll](https://img.shields.io/badge/Jekyll-Just%20the%20Docs-green.svg)](https://just-the-docs.github.io/just-the-docs/)
 
-> 一个系统化的计算机科学与全栈开发知识库，基于 Obsidian 构建
+> 一个系统化的计算机科学与全栈开发知识库，支持 Obsidian 查看和 GitHub Pages 在线浏览
 
 ## 📝 简介
 
@@ -14,8 +15,8 @@
 
 - 📖 系统化知识分类，由浅入深
 - 🔗 基于 Obsidian 的双向链接，知识点互联
+- 🌐 GitHub Pages 在线浏览，无需本地安装
 - 💻 丰富的代码示例与实践案例
-- 🌐 中文为主，便于国内开发者阅读
 - ✅ 遵循 Markdown 规范，统一格式
 
 ## 📁 目录结构
@@ -52,6 +53,40 @@ cs_notes/
 2. 使用 [Obsidian](https://obsidian.md) 打开仓库文件夹
 
 3. 享受完整的双向链接、图谱视图等功能
+
+### 在线浏览：GitHub Pages
+
+本仓库已部署到 GitHub Pages，可直接在线浏览：
+
+👉 **[https://dukechase.github.io/cs_notes/](https://dukechase.github.io/cs_notes/)**
+
+### 本地 Jekyll 预览（推荐使用 Devcontainer）
+
+如果想在本地预览 GitHub Pages 效果：
+
+#### 方法一：VS Code Devcontainer（推荐）
+
+1. 确保已安装 [Docker](https://www.docker.com/) 和 [VS Code](https://code.visualstudio.com/)
+2. 在 VS Code 中安装 "Dev Containers" 扩展
+3. 克隆仓库并用 VS Code 打开
+4. 当提示 "Reopen in Container" 时点击确认，或通过命令面板运行 "Dev Containers: Reopen in Container"
+5. 容器启动后会自动安装依赖，然后运行：
+   ```bash
+   bundle exec jekyll serve --host 0.0.0.0 --livereload
+   ```
+6. 访问 http://localhost:4000/cs_notes/
+
+#### 方法二：本地 Ruby 环境
+
+```bash
+# 安装依赖
+bundle install
+
+# 启动本地服务器
+bundle exec jekyll serve --livereload
+
+# 访问 http://localhost:4000/cs_notes/
+```
 
 ### 其他方式
 
@@ -104,7 +139,10 @@ cs_notes/
 ## 🛠️ 开发工具
 
 - [Obsidian](https://obsidian.md) - 知识管理工具
+- [Jekyll](https://jekyllrb.com/) - 静态站点生成器
+- [Just the Docs](https://just-the-docs.github.io/just-the-docs/) - Jekyll 主题
 - [markdownlint](https://github.com/DavidAnson/markdownlint) - Markdown 格式检查
+- [VS Code Devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) - 开发环境容器化
 
 ## 📄 许可证
 

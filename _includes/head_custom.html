@@ -1,0 +1,41 @@
+<style>
+/* 调整侧边栏宽度以适应中文内容 */
+@media (min-width: 50rem) {
+  .side-bar {
+    width: 264px !important;
+    min-width: 264px !important;
+  }
+  .main {
+    margin-left: 264px !important;
+    max-width: calc(100% - 264px) !important;
+  }
+}
+@media (min-width: 66.5rem) {
+  .side-bar {
+    width: 264px !important;
+    min-width: 264px !important;
+  }
+  .main {
+    margin-left: 264px !important;
+    max-width: calc(100% - 264px) !important;
+  }
+}
+
+/* 调整站点标题 */
+.site-title {
+  font-size: 1.1rem !important;
+  line-height: 1.2 !important;
+}
+
+/* 导航栏文字不换行，显示省略号 */
+.nav-list .nav-list-item .nav-list-link {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 调整导航栏层级缩进 */
+.nav-list .nav-list-item > .nav-list {
+  padding-left: 0.5rem;
+}
+</style>

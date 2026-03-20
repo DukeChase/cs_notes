@@ -1,0 +1,19 @@
+{
+  "name": "Jekyll Dev Container",
+  "image": "mcr.microsoft.com/devcontainers/jekyll",
+  "forwardPorts": [4000, 35729],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "yzhang.markdown-all-in-one"
+      ],
+      "settings": {
+        "markdown.preview.breaks": true
+      }
+    }
+  },
+  "remoteUser": "vscode",
+  "postCreateCommand": "bundle install",
+  "workspaceFolder": "/srv/jekyll",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/srv/jekyll,type=bind,consistency=cached"
+}

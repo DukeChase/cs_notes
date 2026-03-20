@@ -1,6 +1,6 @@
 # Agent Guidelines for cs_notes
 
-This is an **Obsidian knowledge base** containing computer science study notes in Chinese. This repository contains documentation only - no build system or test suite.
+This is an **Obsidian knowledge base** containing computer science study notes in Chinese. This repository supports both Obsidian viewing and GitHub Pages publishing via Jekyll with Just the Docs theme.
 
 ## Repository Structure
 
@@ -27,8 +27,48 @@ This is an **Obsidian knowledge base** containing computer science study notes i
 ├── copilot/                  # Copilot custom prompts
 │   └── copilot-custom-prompts/
 ├── .obsidian/                # Obsidian config (gitignored)
+├── .devcontainer/            # VS Code devcontainer for Jekyll
+│   ├── devcontainer.json     # Devcontainer configuration
+│   └── start.sh              # Jekyll server startup script
+├── _config.yml               # Jekyll configuration
+├── Gemfile                   # Ruby dependencies
+├── index.md                  # GitHub Pages homepage
 └── .markdownlint.json        # Markdown linting rules
 ```
+
+## Development Environment
+
+### Local Jekyll Development (Recommended)
+
+Use VS Code devcontainer for a consistent Jekyll development environment:
+
+1. Open the repository in VS Code
+2. When prompted, click "Reopen in Container" (or run "Dev Containers: Reopen in Container" from Command Palette)
+3. The container will automatically install dependencies via `bundle install`
+4. Start Jekyll server:
+   ```bash
+   bundle exec jekyll serve --host 0.0.0.0 --livereload
+   ```
+5. Open http://localhost:4000/cs_notes/ in your browser
+
+### Without Devcontainer
+
+If you have Ruby and Jekyll installed locally:
+
+```bash
+# Install dependencies
+bundle install
+
+# Start local server
+bundle exec jekyll serve --livereload
+```
+
+### Jekyll Configuration
+
+- **Theme**: Just the Docs (via `jekyll-remote-theme`)
+- **Config file**: `_config.yml`
+- **Base URL**: `/cs_notes` (for GitHub Pages)
+- **Port**: 4000 (local development)
 
 ## Lint Commands
 
@@ -140,7 +180,33 @@ git commit -m "docs: update [topic] with [specific change]"
 
 ## Notes
 
-- No package.json, Makefile, or build system present
-- This is a pure documentation repository
+- Jekyll + Just the Docs theme for GitHub Pages publishing
+- Devcontainer configured for local Jekyll development
 - Optimized for Obsidian vault usage
 - All markdown files should pass markdownlint checks
+
+## Jekyll Publishing Notes
+
+### Front Matter
+
+For proper rendering on GitHub Pages, markdown files should include Jekyll front matter:
+
+```yaml
+---
+title: 页面标题
+nav_order: 1
+parent: 父级导航
+---
+```
+
+### Excluded Files
+
+The following are excluded from Jekyll build (see `_config.yml`):
+- `.obsidian/` - Obsidian config
+- `copilot/` - Custom prompts
+- `AGENTS.md`, `README.md`, `LICENSE`
+- `Gemfile`, `Gemfile.lock`
+
+### Navigation Structure
+
+Navigation is configured via `nav_sort: order` in `_config.yml`. Files with `nav_order` in front matter will be sorted accordingly.

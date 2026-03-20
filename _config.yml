@@ -20,6 +20,7 @@ plugins:
 
 # Just the Docs theme settings
 color_scheme: light
+favicon_ico: "/favicon.svg"
 search_enabled: true
 search:
   heading_level: 2

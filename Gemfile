@@ -1,17 +1,15 @@
 source "https://rubygems.org"
 
 gem "jekyll", "~> 4.3"
-gem "jekyll-remote-theme"
-gem "jekyll-seo-tag"
 gem "just-the-docs", "~> 0.8"
-
-group :development do
-  gem "webrick", "~> 1.8"
-end
 
 group :jekyll_plugins do
   gem "jekyll-remote-theme"
   gem "jekyll-seo-tag"
+end
+
+group :development do
+  gem "webrick", "~> 1.8"
 end
 
 platforms :mingw, :x64_mingw, :mswin, :jruby do
