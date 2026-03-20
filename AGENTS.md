@@ -48,6 +48,7 @@ markdownlint --fix **/*.md
 ### Configuration
 
 Lint rules are defined in `.markdownlint.json`:
+
 - `MD013: false` - No line length limit (disabled for Chinese content)
 - `MD025: false` - Allow multiple top-level headings (for note organization)
 
@@ -58,6 +59,7 @@ Lint rules are defined in `.markdownlint.json`:
 1. **Headers**: Use `#` for title, `##` for sections, `###` for subsections
 2. **Lists**: Use `-` for unordered lists, `1.` for ordered lists
 3. **Code blocks**: Use triple backticks with language identifier
+   
    ```markdown
    ```java
    public class Example {
@@ -65,6 +67,7 @@ Lint rules are defined in `.markdownlint.json`:
    }
    ```
    ```
+
 4. **Links**: Use `[text](url)` format
 5. **Images**: Use `![alt](path)` format
 
@@ -92,6 +95,7 @@ Lint rules are defined in `.markdownlint.json`:
 ### Error Handling in Code Examples
 
 When including code examples:
+
 1. Show error cases and how to handle them
 2. Include comments explaining "why" not just "what"
 3. Use realistic examples, not `foo`/`bar`
