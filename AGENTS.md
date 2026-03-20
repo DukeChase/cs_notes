@@ -6,23 +6,28 @@ This is an **Obsidian knowledge base** containing computer science study notes i
 
 ```
 .
-├── 01 计算机基础/          # Computer Science Fundamentals
+├── 01-计算机基础/            # Computer Science Fundamentals
 │   ├── 数据结构.md
 │   ├── 计算机网络.md
 │   └── 操作系统.md
-├── 02 后端/                # Backend Development
-│   ├── spring/
-│   ├── SSM/
-│   ├── 中间件/
-│   └── 项目实战/
-├── 03 前端/                # Frontend Development
-├── 04 通用/                # General Tools & Concepts
-├── 05 读书笔记/            # Book Notes
-├── 06 AI/                  # Artificial Intelligence
-├── copilot/                # Copilot custom prompts
+├── 02-后端/                  # Backend Development
+│   ├── 01-Java/              # Java fundamentals
+│   ├── 02-数据库/             # Databases
+│   ├── 03-Web-服务器/         # Web servers & frameworks
+│   ├── 04-云原生/             # Cloud native & build tools
+│   ├── 05-其他/               # Other backend topics
+│   ├── 06-中间件/             # Middleware
+│   ├── 07-项目实战/           # Project experiences
+│   ├── 08-spring/            # Spring ecosystem
+│   └── 09-SSM/               # SSM integration
+├── 03-前端/                  # Frontend Development
+├── 04-通用/                  # General Tools & Concepts
+├── 05-读书笔记/              # Book Notes
+├── 06-AI/                    # Artificial Intelligence
+├── copilot/                  # Copilot custom prompts
 │   └── copilot-custom-prompts/
-├── .obsidian/              # Obsidian config (gitignored)
-└── .markdownlint.json      # Markdown linting rules
+├── .obsidian/                # Obsidian config (gitignored)
+└── .markdownlint.json        # Markdown linting rules
 ```
 
 ## Lint Commands
@@ -80,8 +85,8 @@ Lint rules are defined in `.markdownlint.json`:
 
 ### Naming Conventions
 
-- **Files**: `主题名称.md` (e.g., `spring boot2.md`)
-- **Folders**: `NN 类别名称/` (e.g., `02 后端/`)
+- **Files**: Use hyphens for separation: `主题名称.md` (e.g., `spring-boot-2.md`, `java-se.md`)
+- **Folders**: Use hyphens: `NN-类别名称/` (e.g., `02-后端/`, `01-Java/`)
 - **Images**: Store in `attachments/` subfolder if needed
 
 ### Error Handling in Code Examples
@@ -107,7 +112,7 @@ Custom prompts located in `copilot/copilot-custom-prompts/`:
 
 ```bash
 # Add new notes
-git add "02 后端/spring/新笔记.md"
+git add "02-后端/08-spring/新笔记.md"
 git commit -m "docs: add notes on [topic]"
 
 # Update existing notes
@@ -118,9 +123,9 @@ git commit -m "docs: update [topic] with [specific change]"
 
 ### Adding a New Note
 
-1. Create file in appropriate folder: `02 后端/spring/新主题.md`
+1. Create file in appropriate folder: `02-后端/08-spring/新主题.md`
 2. Add header: `# 新主题`
-3. Run linter: `markdownlint "02 后端/spring/新主题.md"`
+3. Run linter: `markdownlint "02-后端/08-spring/新主题.md"`
 4. Commit with message: `docs: add notes on 新主题`
 
 ### Updating Existing Note

@@ -10,7 +10,7 @@
 
 [本地部署deepseek模型保姆级教程](https://blog.lovefc.cn/archives/start.html)
 
-[@ApiModel 和 @ApiModelProperty ](https://blog.csdn.net/qq_43611698/article/details/122129000)
+[@ApiModel 和 @ApiModelProperty](https://blog.csdn.net/qq_43611698/article/details/122129000)
 
 [绝对详细的 RabbitMQ入门，看完本系列就够了(一)](https://zhuanlan.zhihu.com/p/609676137)
 
@@ -33,4 +33,4 @@
 - [onlyoffice服务在线编辑文档保存解析](https://www.jianshu.com/p/262c3fc77f0c)
 
 
-
+huggingface skills:  https://huggingface.co/changelog/papers-for-agents

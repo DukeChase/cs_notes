@@ -7,6 +7,7 @@ This is an **Obsidian knowledge base** containing computer science study notes i
 **Primary Language:** Chinese (中文)
 
 **Key Features:**
+
 - Systematic knowledge categorization from fundamentals to advanced topics
 - Obsidian-compatible with wiki-links (`[[filename]]`) and tags (`#tagname`)
 - Rich code examples and practical case studies
@@ -16,35 +17,39 @@ This is an **Obsidian knowledge base** containing computer science study notes i
 
 ```
 cs_notes/
-├── 01 计算机基础/          # Computer Science Fundamentals
-│   ├── 数据结构.md         # Data Structures
-│   ├── 计算机网络.md       # Computer Networks
-│   └── 操作系统.md         # Operating Systems
-├── 02 后端/                # Backend Development
-│   ├── spring/             # Spring ecosystem (Boot, Cloud, etc.)
-│   ├── SSM/                 # Spring + SpringMVC + MyBatis
-│   ├── 中间件/             # Middleware (Redis, MQ, Elasticsearch)
-│   ├── 项目实战/           # Real-world project experiences
-│   └── [Java/MySQL notes]  # Various Java and database notes
-├── 03 前端/                # Frontend Development
+├── 01-计算机基础/              # Computer Science Fundamentals
+│   ├── 数据结构.md             # Data Structures
+│   ├── 计算机网络.md           # Computer Networks
+│   └── 操作系统.md             # Operating Systems
+├── 02-后端/                    # Backend Development
+│   ├── 01-Java/                # Java fundamentals (SE, Web, Concurrency, JDK)
+│   ├── 02-数据库/               # Databases (MySQL, ClickHouse, MyBatis-Plus)
+│   ├── 03-Web-服务器/           # Web servers & frameworks (Spring WebFlux, OAuth2, Tomcat)
+│   ├── 04-云原生/               # Cloud native & build tools (Maven, Cloud concepts)
+│   ├── 05-其他/                 # Other backend topics
+│   ├── 06-中间件/               # Middleware (Redis, MinIO)
+│   ├── 07-项目实战/             # Real-world project experiences
+│   ├── 08-spring/              # Spring ecosystem (Spring 5, MVC, Boot, Cloud)
+│   └── 09-SSM/                 # Spring + SpringMVC + MyBatis integration
+├── 03-前端/                    # Frontend Development
 │   ├── HTML, CSS, JavaScript notes
 │   ├── Vue2, Vue3 frameworks
 │   └── NPM, JSON utilities
-├── 04 通用/                # General Tools & Methodologies
-├── 05 读书笔记/            # Technical Book Reading Notes
-├── 06 AI/                  # Artificial Intelligence
-│   ├── Agent/              # AI Agents
-│   ├── LLM/                # Large Language Models
-│   ├── Pytorch/            # Deep Learning Framework
-│   ├── 机器学习/           # Machine Learning
-│   └── 深度学习/           # Deep Learning
-├── 系统架构师/             # System Architecture Design
-├── copilot/                # VS Code Copilot Custom Prompts
+├── 04-通用/                    # General Tools & Methodologies
+├── 05-读书笔记/                # Technical Book Reading Notes
+├── 06-AI/                      # Artificial Intelligence
+│   ├── Agent/                  # AI Agents
+│   ├── LLM/                    # Large Language Models
+│   ├── Pytorch/                # Deep Learning Framework
+│   ├── 机器学习/                # Machine Learning
+│   └── 深度学习/                # Deep Learning
+├── 系统架构师/                  # System Architecture Design
+├── copilot/                    # VS Code Copilot Custom Prompts
 │   └── copilot-custom-prompts/
-├── Clippings/              # Web clippings and saved articles
-├── prompt/                 # AI prompt templates
-├── todo.md                 # Pending topics and reference links
-└── readlist.md             # Reading list
+├── Clippings/                  # Web clippings and saved articles
+├── prompt/                     # AI prompt templates
+├── todo.md                     # Pending topics and reference links
+└── readlist.md                 # Reading list
 ```
 
 ## Key Files
@@ -62,10 +67,12 @@ cs_notes/
 This project uses `markdownlint` for consistent formatting.
 
 **Configuration (`.markdownlint.json`):**
+
 - `MD013: false` - No line length limit (disabled for Chinese content)
 - `MD025: false` - Allow multiple top-level headings
 
 **Commands:**
+
 ```bash
 # Lint all markdown files
 markdownlint **/*.md
@@ -80,11 +87,15 @@ markdownlint --fix **/*.md
 ## Content Conventions
 
 ### File Naming
-- Use Chinese names: `主题名称.md` (e.g., `spring boot2.md`)
-- Folder naming: `NN 类别名称/` (e.g., `02 后端/`)
+
+- **Use hyphens for separation** (preferred): `主题名称.md` (e.g., `spring-boot-2.md`, `java-se.md`)
+- **Avoid spaces in filenames**: Use `-` instead of spaces for better CLI compatibility
+- Folder naming: `NN-类别名称/` (e.g., `02-后端/`, `01-Java/`)
+- File naming: `NN-描述性名称.md` (e.g., `01-java-se.md`, `02-spring-mvc.md`)
 - Store images in `attachments/` subfolder if needed
 
 ### Markdown Formatting
+
 - **Headers:** `#` for title, `##` for sections, `###` for subsections
 - **Lists:** `-` for unordered, `1.` for ordered
 - **Code blocks:** Use triple backticks with language identifier
@@ -92,6 +103,7 @@ markdownlint --fix **/*.md
 - **Tags:** Use `#tagname` for cross-referencing
 
 ### Content Structure
+
 1. Start with overview/introduction
 2. Follow with detailed sections
 3. Include practical, runnable code examples
@@ -101,14 +113,16 @@ markdownlint --fix **/*.md
 ## Git Workflow
 
 ### Commit Message Convention
+
 - `docs:` - Adding or updating documentation
 - `fix:` - Correcting errors
 - `refactor:` - Restructuring notes
 
 ### Example Workflow
+
 ```bash
 # Add new note
-git add "02 后端/spring/新主题.md"
+git add "02-后端/spring/新主题.md"
 git commit -m "docs: add notes on 新主题"
 
 # Update existing note
@@ -119,6 +133,7 @@ git commit -m "docs: update Spring Boot with DevTools section"
 ## Available Copilot Prompts
 
 Custom prompts in `copilot/copilot-custom-prompts/`:
+
 - `Translate to Chinese.md` - Translate content to Chinese
 - `Summarize.md` - Generate summaries
 - `Generate table of contents.md` - Create TOC
@@ -131,12 +146,14 @@ Custom prompts in `copilot/copilot-custom-prompts/`:
 ## Common Tasks
 
 ### Adding a New Note
+
 1. Create file in appropriate category folder
 2. Add header: `# 主题名称`
 3. Run linter: `markdownlint "path/to/file.md"`
 4. Commit: `git commit -m "docs: add notes on [topic]"`
 
 ### Updating Existing Note
+
 1. Edit the file
 2. Run linter to verify formatting
 3. Commit with descriptive message
