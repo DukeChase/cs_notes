@@ -1,3 +1,19 @@
 /.obsidian
 .DS_Store
 .markdownlint.json
+
+# Jekyll build output
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# Ruby
+Gemfile.lock
+vendor/
+*.gem
+
+# IDE
+.idea/
+*.swp
+*.swo
