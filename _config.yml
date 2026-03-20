@@ -3,7 +3,6 @@ title: "全栈学习笔记"
 description: "一个系统化的计算机科学与全栈开发知识库"
 author: "dukechase"
 lang: zh-CN
-encoding: utf-8
 
 # URL settings
 url: "https://dukechase.github.io"
@@ -16,7 +15,6 @@ remote_theme: just-the-docs/just-the-docs
 # Plugins
 plugins:
   - jekyll-remote-theme
-  - jekyll-seo-tag
 
 # Just the Docs theme settings
 color_scheme: light
@@ -46,51 +44,12 @@ aux_links:
 # Footer content
 footer_content: "Copyright &copy; 2024 dukechase. Distributed under the <a href=\"https://github.com/dukechase/cs_notes/blob/master/LICENSE\">MIT license.</a>"
 
-# Google Analytics (optional)
-# ga_tracking: UA-XXXXXXXX-X
-
-# Collections (for organizing content)
-collections_dir: .
-collections:
-  notes:
-    output: true
-    permalink: /:collection/:path
-
-# Default values
+# Default layout
 defaults:
   - scope:
       path: ""
-      type: "notes"
     values:
       layout: "default"
-  - scope:
-      path: "01-计算机基础"
-    values:
-      category: "计算机基础"
-  - scope:
-      path: "02-后端"
-    values:
-      category: "后端"
-  - scope:
-      path: "03-前端"
-    values:
-      category: "前端"
-  - scope:
-      path: "04-通用"
-    values:
-      category: "通用"
-  - scope:
-      path: "05-读书笔记"
-    values:
-      category: "读书笔记"
-  - scope:
-      path: "06-AI"
-    values:
-      category: "AI"
-  - scope:
-      path: "系统架构师"
-    values:
-      category: "系统架构师"
 
 # Files to exclude from build
 exclude:
@@ -101,7 +60,6 @@ exclude:
   - Gemfile.lock
   - node_modules/
   - LICENSE
-  - "*.gem"
   - README.md
   - todo.md
   - AGENTS.md
@@ -109,7 +67,3 @@ exclude:
   - "*.skill"
   - Clippings/
   - copilot/
-
-# Files to include
-include:
-  - _pages

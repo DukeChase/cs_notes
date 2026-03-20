@@ -2,6 +2,7 @@
 title: AI
 nav_order: 6
 has_children: true
+layout: home
 ---
 
 # 人工智能

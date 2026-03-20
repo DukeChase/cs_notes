@@ -1,9 +1,13 @@
+---
+title: java-并发
+parent: Java
+layout: default
+---
+
 - https://redspider.gitbook.io/concurrent
 
 
-
 [CompletableFuture](https://juejin.cn/post/7455561985378598951)
-
 
 #### 为什么要使用CompletableFuture
 示例 

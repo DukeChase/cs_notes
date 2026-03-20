@@ -1,3 +1,9 @@
+---
+title: java-se
+parent: Java
+layout: default
+---
+
 # 基础语法
 
 ## 常量 变量
