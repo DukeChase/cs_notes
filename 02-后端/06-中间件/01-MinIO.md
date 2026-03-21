@@ -1,6 +1,5 @@
 ---
 title: MinIO
-parent: 中间件
 ---
 
 # MinIO

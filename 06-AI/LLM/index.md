@@ -1,8 +1,5 @@
 ---
 title: LLM
-parent: AI
-nav_order: 1
-has_children: true
 ---
 
 # LLM

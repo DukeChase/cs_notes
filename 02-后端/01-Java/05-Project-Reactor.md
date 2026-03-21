@@ -1,3 +1,6 @@
+---
+title: project-reactor
+---
 
 https://easywheelsoft.github.io/reactor-core-zh/index.html#about-doc
 
@@ -8,14 +11,12 @@ https://easywheelsoft.github.io/reactor-core-zh/index.html#about-doc
 ​**​Reactive Stream 的核心思想​**​是通过​**​标准化异步流处理​**​，解决高并发场景下​**​生产者与消费者速率不匹配​**​的问题（即背压，Backpressure），确保系统在资源有限时仍能保持​**​弹性（Resilient）​**​和​**​高效性​**​。以下是其核心设计理念、关键组件及实际意义：
 
 ---
-
 ### ​**​一、核心设计理念​**​
 
 #### 1. ​**​异步非阻塞通信​**​
 
 - ​**​目标​**​：避免线程阻塞，最大化资源利用率。
 - ​**​实现​**​：数据生产（Publisher）与消费（Subscriber）通过​**​异步消息传递​**​解耦，不依赖线程等待。
-
 #### 2. ​**​背压（Backpressure）机制​**​
 
 - ​**​问题​**​：生产者速度 > 消费者速度时，可能导致内存溢出或系统崩溃。

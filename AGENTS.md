@@ -1,6 +1,6 @@
 # Agent Guidelines for cs_notes
 
-This is an **Obsidian knowledge base** containing computer science study notes in Chinese. This repository supports both Obsidian viewing and GitHub Pages publishing via Jekyll with Just the Docs theme.
+This is an **Obsidian knowledge base** containing computer science study notes in Chinese. This repository supports both Obsidian viewing and GitHub Pages publishing via Quartz 4.0.
 
 ## Repository Structure
 
@@ -24,51 +24,50 @@ This is an **Obsidian knowledge base** containing computer science study notes i
 ├── 04-通用/                  # General Tools & Concepts
 ├── 05-读书笔记/              # Book Notes
 ├── 06-AI/                    # Artificial Intelligence
-├── copilot/                  # Copilot custom prompts
-│   └── copilot-custom-prompts/
+├── 系统架构师/                # System Architecture
 ├── .obsidian/                # Obsidian config (gitignored)
-├── .devcontainer/            # VS Code devcontainer for Jekyll
-│   ├── devcontainer.json     # Devcontainer configuration
-│   └── start.sh              # Jekyll server startup script
-├── _config.yml               # Jekyll configuration
-├── Gemfile                   # Ruby dependencies
-├── index.md                  # GitHub Pages homepage
+├── quartz/                   # Quartz 4.0 core components
+├── quartz.config.ts          # Quartz configuration
+├── quartz.layout.ts          # Layout configuration
+├── package.json              # Node.js dependencies
+├── index.md                  # Homepage
 └── .markdownlint.json        # Markdown linting rules
 ```
 
 ## Development Environment
 
-### Local Jekyll Development (Recommended)
+### Local Quartz Development
 
-Use VS Code devcontainer for a consistent Jekyll development environment:
-
-1. Open the repository in VS Code
-2. When prompted, click "Reopen in Container" (or run "Dev Containers: Reopen in Container" from Command Palette)
-3. The container will automatically install dependencies via `bundle install`
-4. Start Jekyll server:
+1. Install Node.js 22+ (required by Quartz 4.0)
+2. Install dependencies:
    ```bash
-   bundle exec jekyll serve --host 0.0.0.0 --livereload
+   npm install
    ```
-5. Open http://localhost:4000/cs_notes/ in your browser
+3. Build the site:
+   ```bash
+   npm run build
+   ```
+4. Preview locally at http://localhost:8080:
+   ```bash
+   npm run preview
+   ```
 
-### Without Devcontainer
+### Quartz Configuration
 
-If you have Ruby and Jekyll installed locally:
+- **Config file**: `quartz.config.ts`
+- **Layout file**: `quartz.layout.ts`
+- **Content directory**: Root folder (`.`)
+- **Output directory**: `public/`
+- **Base URL**: `/cs_notes/` (for GitHub Pages)
 
-```bash
-# Install dependencies
-bundle install
+### Key Features Enabled
 
-# Start local server
-bundle exec jekyll serve --livereload
-```
-
-### Jekyll Configuration
-
-- **Theme**: Just the Docs (via `jekyll-remote-theme`)
-- **Config file**: `_config.yml`
-- **Base URL**: `/cs_notes` (for GitHub Pages)
-- **Port**: 4000 (local development)
+- **Graph view**: Visual representation of note connections
+- **Backlinks**: Automatic backlink detection
+- **Wiki-links**: Native `[[filename]]` support
+- **Search**: Full-text search
+- **Explorer**: File tree navigation
+- **Dark mode**: Theme toggle
 
 ## Lint Commands
 
@@ -99,7 +98,7 @@ Lint rules are defined in `.markdownlint.json`:
 1. **Headers**: Use `#` for title, `##` for sections, `###` for subsections
 2. **Lists**: Use `-` for unordered lists, `1.` for ordered lists
 3. **Code blocks**: Use triple backticks with language identifier
-   
+
    ```markdown
    ```java
    public class Example {
@@ -108,8 +107,8 @@ Lint rules are defined in `.markdownlint.json`:
    ```
    ```
 
-4. **Links**: Use `[text](url)` format
-5. **Images**: Use `![alt](path)` format
+4. **Links**: Use Obsidian wiki-links for internal references: `[[filename]]`
+5. **External links**: Use `[text](url)` format
 
 ### File Organization
 
@@ -117,6 +116,23 @@ Lint rules are defined in `.markdownlint.json`:
 2. **Location**: Place files in appropriate category folder
 3. **Tags**: Use Obsidian tags for cross-referencing: `#tagname`
 4. **Links**: Use Obsidian wiki-links for internal references: `[[filename]]`
+
+### Front Matter
+
+Quartz supports the following front matter fields:
+
+```yaml
+---
+title: 页面标题
+date: 2024-01-01
+tags:
+  - tag1
+  - tag2
+aliases:
+  - 别名
+draft: false
+---
+```
 
 ### Content Guidelines
 
@@ -140,18 +156,6 @@ When including code examples:
 2. Include comments explaining "why" not just "what"
 3. Use realistic examples, not `foo`/`bar`
 
-## Available Copilot Prompts
-
-Custom prompts located in `copilot/copilot-custom-prompts/`:
-
-- `Translate to Chinese.md` - Translate content to Chinese
-- `Summarize.md` - Generate summaries
-- `Generate table of contents.md` - Create TOC
-- `Explain like I am 5.md` - Simplify explanations
-- `Fix grammar and spelling.md` - Correct text
-- `Clip Web Page.md` - Format web clippings
-- And 10+ more...
-
 ## Git Workflow
 
 ```bash
@@ -168,7 +172,7 @@ git commit -m "docs: update [topic] with [specific change]"
 ### Adding a New Note
 
 1. Create file in appropriate folder: `02-后端/08-spring/新主题.md`
-2. Add header: `# 新主题`
+2. Add front matter and content
 3. Run linter: `markdownlint "02-后端/08-spring/新主题.md"`
 4. Commit with message: `docs: add notes on 新主题`
 
@@ -178,35 +182,51 @@ git commit -m "docs: update [topic] with [specific change]"
 2. Run linter to check
 3. Commit with descriptive message
 
+### Building and Deploying
+
+```bash
+# Build for production
+npm run build
+
+# Preview locally
+npm run preview
+
+# Deploy: push to master branch, GitHub Actions will auto-deploy
+git push origin master
+```
+
 ## Notes
 
-- Jekyll + Just the Docs theme for GitHub Pages publishing
-- Devcontainer configured for local Jekyll development
+- Quartz 4.0 for GitHub Pages publishing
 - Optimized for Obsidian vault usage
 - All markdown files should pass markdownlint checks
+- Wiki-links are automatically resolved by Quartz
 
-## Jekyll Publishing Notes
+## Quartz Publishing Notes
 
 ### Front Matter
 
-For proper rendering on GitHub Pages, markdown files should include Jekyll front matter:
+For proper rendering, markdown files can include:
 
 ```yaml
 ---
 title: 页面标题
-nav_order: 1
-parent: 父级导航
+date: 2024-01-01
+tags: [tag1, tag2]
 ---
 ```
 
-### Excluded Files
+### Ignored Files
 
-The following are excluded from Jekyll build (see `_config.yml`):
+The following are excluded from Quartz build (see `quartz.config.ts`):
 - `.obsidian/` - Obsidian config
+- `.github/` - GitHub workflows
+- `node_modules/` - NPM packages
+- `quartz/` - Quartz core
 - `copilot/` - Custom prompts
-- `AGENTS.md`, `README.md`, `LICENSE`
-- `Gemfile`, `Gemfile.lock`
+- `prompt/` - Prompt templates
+- `*.json`, `*.ts`, `*.js` - Config files
 
 ### Navigation Structure
 
-Navigation is configured via `nav_sort: order` in `_config.yml`. Files with `nav_order` in front matter will be sorted accordingly.
+Navigation is provided by the Explorer component, which displays a file tree sorted alphabetically with Chinese locale support.

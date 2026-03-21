@@ -1,8 +1,5 @@
 ---
 title: Python
-parent: AI
-nav_order: 3
-has_children: true
 ---
 
 # Python

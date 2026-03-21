@@ -1,7 +1,5 @@
 ---
-layout: home
 title: 首页
-nav_order: 0
 ---
 
 # 📚 全栈学习笔记
@@ -22,55 +20,40 @@ nav_order: 0
 ## 📁 内容导航
 
 ### 计算机基础
-{: .d-inline-block }
-New
-{: .label .label-green }
 
-- [数据结构]({{ site.baseurl }}/01-计算机基础/数据结构.html)
-- [计算机网络]({{ site.baseurl }}/01-计算机基础/计算机网络.html)
-- [操作系统]({{ site.baseurl }}/01-计算机基础/操作系统.html)
+- [[01-计算机基础/数据结构|数据结构]]
+- [[01-计算机基础/计算机网络|计算机网络]]
+- [[01-计算机基础/操作系统|操作系统]]
 
 ### 后端开发
-{: .d-inline-block }
-Core
-{: .label .label-blue }
 
-- [Java]({{ site.baseurl }}/02-后端/01-Java/)
-- [数据库]({{ site.baseurl }}/02-后端/02-数据库/)
-- [中间件]({{ site.baseurl }}/02-后端/06-中间件/)
-- [SSM]({{ site.baseurl }}/02-后端/09-SSM/)
-- [Spring]({{ site.baseurl }}/02-后端/08-spring/)
+- [[02-后端/01-Java/index|Java]]
+- [[02-后端/02-数据库/index|数据库]]
+- [[02-后端/06-中间件/index|中间件]]
+- [[02-后端/09-SSM/index|SSM]]
+- [[02-后端/08-spring/index|Spring]]
 
 ### 前端开发
-{: .d-inline-block }
-Core
-{: .label .label-blue }
 
-- [HTML]({{ site.baseurl }}/03-前端/01 HTML.html)
-- [CSS]({{ site.baseurl }}/03-前端/02 CSS.html)
-- [JavaScript]({{ site.baseurl }}/03-前端/03 JavaScript.html)
-- [Vue2]({{ site.baseurl }}/03-前端/05 Vue2.html)
-- [Vue3]({{ site.baseurl }}/03-前端/06 Vue3.html)
+- [[03-前端/01 HTML|HTML]]
+- [[03-前端/02 CSS|CSS]]
+- [[03-前端/03 JavaScript|JavaScript]]
+- [[03-前端/05 Vue2|Vue2]]
+- [[03-前端/06 Vue3|Vue3]]
 
 ### 人工智能
-{: .d-inline-block }
-Hot
-{: .label .label-red }
 
-- [LLM]({{ site.baseurl }}/06-AI/LLM/)
-- [LVLM]({{ site.baseurl }}/06-AI/LVLM/)
-- [Agent]({{ site.baseurl }}/06-AI/Agent/)
-- [机器学习]({{ site.baseurl }}/06-AI/机器学习/)
-- [深度学习]({{ site.baseurl }}/06-AI/深度学习/)
+- [[06-AI/LLM/index|LLM]]
+- [[06-AI/LVLM/index|LVLM]]
+- [[06-AI/Agent/index|Agent]]
+- [[06-AI/机器学习/index|机器学习]]
+- [[06-AI/深度学习/index|深度学习]]
 
 ### 其他
-{: .d-inline-block }
-Reference
-{: .label .label-purple }
 
-- [读书笔记]({{ site.baseurl }}/05-读书笔记/)
-- [系统架构师]({{ site.baseurl }}/系统架构师/)
-- [通用工具]({{ site.baseurl }}/04-通用/)
+- [[05-读书笔记/index|读书笔记]]
+- [[系统架构师/index|系统架构师]]
+- [[04-通用/index|通用工具]]
 
 ---
 

@@ -1,8 +1,5 @@
 ---
 title: 计算机基础
-nav_order: 1
-has_children: true
-layout: home
 ---
 
 # 计算机基础

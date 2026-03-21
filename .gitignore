@@ -2,18 +2,18 @@
 .DS_Store
 .markdownlint.json
 
-# Jekyll build output
-_site/
-.sass-cache/
-.jekyll-cache/
-.jekyll-metadata
+# Quartz build output
+public/
+.quartz-cache/
 
-# Ruby
-Gemfile.lock
-vendor/
-*.gem
+# Node
+node_modules/
+package-lock.json
 
 # IDE
 .idea/
 *.swp
 *.swo
+
+# OS
+Thumbs.db

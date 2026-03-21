@@ -1,8 +1,5 @@
 ---
 title: HF Blog
-parent: Huggingface
-nav_order: 2
-has_children: true
 ---
 
 # HF Blog

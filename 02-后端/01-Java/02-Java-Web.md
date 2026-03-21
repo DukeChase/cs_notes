@@ -1,7 +1,5 @@
 ---
 title: java-web
-parent: Java
-layout: default
 ---
 
 

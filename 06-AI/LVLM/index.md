@@ -1,8 +1,5 @@
 ---
 title: LVLM
-parent: AI
-nav_order: 2
-has_children: true
 ---
 
 # LVLM

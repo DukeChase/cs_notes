@@ -1,8 +1,5 @@
 ---
 title: 深度学习
-parent: AI
-nav_order: 6
-has_children: true
 ---
 
 # 深度学习

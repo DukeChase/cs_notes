@@ -1,7 +1,5 @@
 ---
 title: java-se
-parent: Java
-layout: default
 ---
 
 # 基础语法

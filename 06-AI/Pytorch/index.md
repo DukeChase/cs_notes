@@ -1,8 +1,5 @@
 ---
 title: Pytorch
-parent: AI
-nav_order: 4
-has_children: true
 ---
 
 # Pytorch

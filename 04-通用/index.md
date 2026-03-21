@@ -1,7 +1,5 @@
 ---
 title: 通用
-nav_order: 4
-has_children: true
 ---
 
 # 通用工具

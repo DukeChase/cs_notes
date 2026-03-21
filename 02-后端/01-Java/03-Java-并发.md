@@ -1,7 +1,5 @@
 ---
 title: java-并发
-parent: Java
-layout: default
 ---
 
 - https://redspider.gitbook.io/concurrent
