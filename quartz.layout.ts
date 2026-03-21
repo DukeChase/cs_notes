@@ -112,10 +112,10 @@ export const defaultListPageLayout: PageLayout = {
       folderDefaultState: "collapsed",
       useSavedState: true,
       sortFn: (a, b) => {
-        return a.name.localeCompare(b.name, "zh-CN")
+        return a.displayName.localeCompare(b.displayName, "zh-CN", { numeric: true })
       },
       filterFn: (node) => {
-        return !node.name.startsWith(".") && !node.name.startsWith("_")
+        return node.displayName !== "tags" && !node.displayName.startsWith(".") && !node.displayName.startsWith("_")
       },
       mapFn: (node) => {
         return node

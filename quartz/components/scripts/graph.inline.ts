@@ -144,21 +144,33 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
   }
 
   const nodes = [...neighbourhood].map((url) => {
+    if (!url) {
+      console.warn("Empty URL in neighbourhood, skipping")
+      return null
+    }
     const text = url.startsWith("tags/") ? "#" + url.substring(5) : (data.get(url)?.title ?? url)
     return {
       id: url,
       text,
       tags: data.get(url)?.tags ?? [],
     }
-  })
+  }).filter((n): n is NodeData => n !== null)
   const graphData: { nodes: NodeData[]; links: LinkData[] } = {
     nodes,
     links: links
       .filter((l) => neighbourhood.has(l.source) && neighbourhood.has(l.target))
-      .map((l) => ({
-        source: nodes.find((n) => n.id === l.source)!,
-        target: nodes.find((n) => n.id === l.target)!,
-      })),
+      .map((l) => {
+        const sourceNode = nodes.find((n) => n.id === l.source)
+        const targetNode = nodes.find((n) => n.id === l.target)
+        if (!sourceNode || !targetNode) {
+          return null
+        }
+        return {
+          source: sourceNode,
+          target: targetNode,
+        }
+      })
+      .filter((l): l is LinkData => l !== null),
   }
 
   const width = graph.offsetWidth
@@ -195,6 +207,9 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
 
   // calculate color
   const color = (d: NodeData) => {
+    if (!d.id) {
+      return computedStyleMap["--gray"]
+    }
     const isCurrent = d.id === slug
     if (isCurrent) {
       return computedStyleMap["--secondary"]
@@ -206,6 +221,9 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
   }
 
   function nodeRadius(d: NodeData) {
+    if (!d.id) {
+      return 2
+    }
     const numLinks = graphData.links.filter(
       (l) => l.source.id === d.id || l.target.id === d.id,
     ).length
@@ -232,6 +250,9 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
       hoveredNeighbours = new Set()
       for (const l of linkRenderData) {
         const linkData = l.simulationData
+        if (!linkData.source.id || !linkData.target.id) {
+          continue
+        }
         if (linkData.source.id === newHoveredId || linkData.target.id === newHoveredId) {
           hoveredNeighbours.add(linkData.source.id)
           hoveredNeighbours.add(linkData.target.id)
@@ -241,7 +262,10 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
       }
 
       for (const n of nodeRenderData) {
-        n.active = hoveredNeighbours.has(n.simulationData.id)
+        const nodeId = n.simulationData.id
+        if (nodeId) {
+          n.active = hoveredNeighbours.has(nodeId)
+        }
       }
     }
   }
@@ -373,6 +397,10 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
 
   for (const n of graphData.nodes) {
     const nodeId = n.id
+    if (!nodeId) {
+      console.warn("Node without id found, skipping:", n)
+      continue
+    }
 
     const label = new Text({
       interactive: false,
@@ -481,17 +509,22 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
 
           // if the time between mousedown and mouseup is short, we consider it a click
           if (Date.now() - dragStartTime < 500) {
-            const node = graphData.nodes.find((n) => n.id === event.subject.id) as NodeData
-            const targ = resolveRelative(fullSlug, node.id)
-            window.spaNavigate(new URL(targ, window.location.toString()))
+            const node = graphData.nodes.find((n) => n.id === event.subject.id)
+            if (node && node.id) {
+              const targ = resolveRelative(fullSlug, node.id)
+              window.spaNavigate(new URL(targ, window.location.toString()))
+            }
           }
         }),
     )
   } else {
     for (const node of nodeRenderData) {
       node.gfx.on("click", () => {
-        const targ = resolveRelative(fullSlug, node.simulationData.id)
-        window.spaNavigate(new URL(targ, window.location.toString()))
+        const nodeId = node.simulationData.id
+        if (nodeId) {
+          const targ = resolveRelative(fullSlug, nodeId)
+          window.spaNavigate(new URL(targ, window.location.toString()))
+        }
       })
     }
   }
