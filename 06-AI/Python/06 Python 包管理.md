@@ -31,6 +31,41 @@ pip freeze > requirements.txt # 导出依赖
 python -m pip install requests
 ```
 
+### 指定镜像源（-i）
+
+使用 `-i` 参数可以指定包的下载源（镜像源）：
+
+```bash
+# 使用清华镜像安装
+pip install requests -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+# 使用阿里云镜像安装
+pip install requests -i https://mirrors.aliyun.com/pypi/simple/
+```
+
+**常用国内镜像源：**
+
+| 镜像源 | 地址 |
+|--------|------|
+| 清华 | https://pypi.tuna.tsinghua.edu.cn/simple |
+| 阿里云 | https://mirrors.aliyun.com/pypi/simple/ |
+| 中科大 | https://pypi.mirrors.ustc.edu.cn/simple/ |
+| 豆瓣 | https://pypi.douban.com/simple/ |
+| 腾讯 | https://mirrors.cloud.tencent.com/pypi/simple/ |
+
+**永久设置镜像源：**
+
+```bash
+# 设置全局默认镜像源
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+
+# 查看当前配置
+pip config list
+
+# 删除配置
+pip config unset global.index-url
+```
+
 ---
 
 ## 3. 虚拟环境

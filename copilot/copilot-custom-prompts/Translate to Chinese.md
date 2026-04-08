@@ -1,9 +1,9 @@
 ---
 copilot-command-context-menu-enabled: true
 copilot-command-slash-enabled: true
-copilot-command-context-menu-order: 1010
+copilot-command-context-menu-order: 0
 copilot-command-model-key: ""
-copilot-command-last-used: 1772606745460
+copilot-command-last-used: 1774854762829
 ---
 Translate {} into Chinese:
     1. Preserve the meaning and tone

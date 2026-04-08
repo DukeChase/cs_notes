@@ -16,7 +16,6 @@
 
 
 ![](https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcS8x2u5eP1dm-SRo3t_8KlkaQF7vYX6487UqLivoWIzAPEyEHkbTWBqUEe5fpG1rzvK65iBV09HfOhPX089n_mAxCJ9LK64Cdy8yiD9KH4BQRBr1KY)
-
 ## 强化学习与其他机器学习的区别
 
 | **特性**   | **监督学习 (Supervised)** | **强化学习 (Reinforcement)** |
@@ -180,7 +179,17 @@ $$
 ## GRPO (Group Relative Policy Optimization)
 **Group Relative Policy Optimization**（分组相对策略优化）
 
+GRPO 损失 = 策略优化损失（PPO 裁剪） - KL 散度约束
 
+$L_{\text{GRPO}} = \mathbb{E}\left[ \min\left(\rho_i A_i, \operatorname{clip}(\rho_i, 1-\epsilon, 1+\epsilon) A_i \right) - \beta D_{\text{KL}}(\pi_{\text{new}} \parallel \pi_{\text{ref}}) \right]$
+
+$\rho_i = \frac{\pi_{\text{new}}(y_i|x)}{\pi_{\text{old}}(y_i|x)}$
+
+$A_i = \frac{r_i - \mu(R)}{\sigma(R)}$
+- $r_i$：第 i 个回答的**奖励分数**（正确 / 格式 / 语言）
+- μ(R)：一个组内所有回答奖励的**平均值**
+- σ(R)：一个组内所有回答奖励的**标准差**
+## RL framework
 TRL (Transformer Reinforcement Learning)
 
 TRLX

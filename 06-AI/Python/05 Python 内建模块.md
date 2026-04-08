@@ -69,7 +69,10 @@ c.update('hello')
 
 ## 2. os 模块
 
-> 详细指南参见 [[Python os模块使用指南]]
+> 详细指南参见：
+>
+> - [[Python os模块使用指南]]（完整 os 模块指南）
+> - [[os.path模块深度指南]]（os.path 专项指南）
 
 ### 路径操作（os.path）
 
@@ -96,6 +99,26 @@ os.path.isabs('/path/to/file')
 # 规范化
 os.path.abspath('file.txt')
 os.path.realpath('/path/to/link')
+
+# 获取文件属性
+os.path.getsize('/path/to/file')      # 文件大小（字节）
+os.path.getmtime('/path/to/file')     # 修改时间（时间戳）
+os.path.getatime('/path/to/file')     # 访问时间
+os.path.getctime('/path/to/file')     # 创建时间
+
+# 路径处理
+os.path.normpath('/a/b/../c/./d')     # 规范化为 '/a/c/d'
+os.path.relpath('/a/b/c', '/a/b')     # 相对路径 'c'
+os.path.commonpath(['/a/b/c', '/a/b/d'])  # 公共路径 '/a/b'
+
+# 用户目录展开
+os.path.expanduser('~/Documents')     # '/home/user/Documents'
+os.path.expandvars('$HOME/Documents')  # 展开环境变量
+
+# 路径分隔符
+os.path.sep      # '/' (Unix) 或 '\\' (Windows)
+os.path.extsep   # '.' 扩展名分隔符
+os.path.pathsep  # ':' (Unix) 或 ';' (Windows) PATH 分隔符
 ```
 
 ### 文件和目录操作

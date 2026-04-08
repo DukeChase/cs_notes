@@ -33,7 +33,10 @@ const config: QuartzConfig = {
       "*.js",
       "LICENSE*",
       "Dockerfile",
-      "*.svg"
+      "*.svg",
+      "todo.md",
+      "AGENTS.md",
+      "QWEN.md"
     ],
     defaultDateType: "modified",
     theme: {
