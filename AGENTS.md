@@ -1,6 +1,7 @@
 # Agent Guidelines for cs_notes
 
-This is an **Obsidian knowledge base** containing computer science study notes in Chinese. This repository supports both Obsidian viewing and GitHub Pages publishing via Quartz 4.0.
+This is an **Obsidian knowledge base** containing computer science study notes in Chinese. 
+This repository supports both Obsidian viewing and GitHub Pages publishing via Quartz 4.0.
 
 ## Repository Structure
 
@@ -41,7 +42,7 @@ This is an **Obsidian knowledge base** containing computer science study notes i
 1. Install Node.js 22+ (required by Quartz 4.0)
 2. Install dependencies:
    ```bash
-   npm install
+   nvm use 22 && npm install
    ```
 3. Build the site:
    ```bash
@@ -68,28 +69,6 @@ This is an **Obsidian knowledge base** containing computer science study notes i
 - **Search**: Full-text search
 - **Explorer**: File tree navigation
 - **Dark mode**: Theme toggle
-
-## Lint Commands
-
-### Markdown Linting
-
-```bash
-# Lint all markdown files
-markdownlint **/*.md
-
-# Lint specific file
-markdownlint "path/to/file.md"
-
-# Fix auto-fixable issues
-markdownlint --fix **/*.md
-```
-
-### Configuration
-
-Lint rules are defined in `.markdownlint.json`:
-
-- `MD013: false` - No line length limit (disabled for Chinese content)
-- `MD025: false` - Allow multiple top-level headings (for note organization)
 
 ## Code Style Guidelines
 

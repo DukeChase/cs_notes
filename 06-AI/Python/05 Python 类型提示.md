@@ -39,12 +39,12 @@ def greeting(name: str) -> str:
 
 从 Python 3.9 开始，可以直接使用内置的 `list[]`、`dict[]` 等。
 
-| 类型 | 用法示例 | 说明 |
-|------|----------|------|
-| `list[int]` | `List[int]` | 一个只包含整数的列表 |
-| `dict[str, int]` | `Dict[str, int]` | 键是字符串，值是整数的字典 |
-| `tuple[str, int]` | `Tuple[str, int]` | 定长元组 |
-| `set[str]` | `Set[str]` | 包含字符串的集合 |
+| 类型                | 用法示例              | 说明            |
+| ----------------- | ----------------- | ------------- |
+| `list[int]`       | `List[int]`       | 一个只包含整数的列表    |
+| `dict[str, int]`  | `Dict[str, int]`  | 键是字符串，值是整数的字典 |
+| `tuple[str, int]` | `Tuple[str, int]` | 定长元组          |
+| `set[str]`        | `Set[str]`        | 包含字符串的集合      |
 
 ```python
 from typing import List, Dict
