@@ -1,4 +1,11 @@
+---
+title: CLIP: Connecting text and images
+paper: CLIP
+topic: CLIP,vision, contrastive learning
+---
+
 #LLM 
+
 https://github.com/openai/CLIP
 https://openai.com/index/clip/
 
