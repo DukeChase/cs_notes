@@ -24,21 +24,37 @@
 
 ```text
 cs_notes/
-├── 01-计算机基础/          # 计算机科学核心基础
-│   ├── 数据结构.md
-│   ├── 计算机网络.md
-│   └── 操作系统.md
-├── 02-后端/                # 后端开发技术栈
-│   ├── 01-Java/            # Java 基础
-│   ├── 02-数据库/           # 数据库
-│   ├── 06-中间件/           # Redis、MQ、ES 等
-│   └── 08-spring/          # Spring 生态
-├── 03-前端/                # 前端开发技术栈
-├── 04-通用/                # 工具、方法论、软技能
-├── 05-读书笔记/            # 技术书籍阅读笔记
-├── 06-AI/                  # 人工智能与机器学习
-├── 系统架构师/              # 架构设计相关内容
-└── quartz/                 # Quartz 4.0 核心组件
+├── 01-cs-fundamentals/       # 计算机科学核心基础
+│   ├── data-structures.md
+│   ├── computer-networks.md
+│   └── operating-systems.md
+├── 02-backend/              # 后端开发技术栈
+│   ├── java-fundamentals/   # Java 基础
+│   ├── databases/           # 数据库
+│   ├── middleware/          # Redis、MQ、ES 等
+│   └── spring/             # Spring 生态
+├── 03-frontend/             # 前端开发技术栈
+│   ├── html.md
+│   ├── css.md
+│   ├── javascript.md
+│   └── vue3.md
+├── 04-devtools/            # 工具、方法论、软技能
+│   ├── git.md
+│   ├── docker.md
+│   └── kubernetes.md
+├── 05-book-notes/          # 技术书籍阅读笔记
+│   └── *.md
+├── 06-ai/                  # 人工智能与机器学习
+│   ├── python/
+│   ├── pytorch/
+│   ├── llm/
+│   ├── lvlm/
+│   └── agent/
+├── sys-analyst/            # 系统分析师备考
+├── sys-architect/          # 系统架构师备考
+├── quartz/                 # Quartz 4.0 核心组件
+├── CONTRIBUTING.md         # 文档编写规范
+└── .markdownlint.json       # Markdown 格式规则
 ```
 
 ## 🚀 使用方式
@@ -67,7 +83,7 @@ cs_notes/
 
 ```bash
 # 安装依赖 (需要 Node.js 22+)
-npm install
+nvm use 22 && npm install
 
 # 构建网站
 npm run build
@@ -99,23 +115,27 @@ npm run preview
 
 ### 前端开发
 
-- 现代前端技术栈
-- 框架与工具链
+- 现代前端技术栈（Vue 3、JavaScript ES6+）
+- 响应式设计与 CSS
+- 前端工程化
 
 ### 人工智能
 
-- 机器学习基础
-- 深度学习应用
-- AI 工程化实践
+- PyTorch 深度学习框架
+- 大语言模型（LLM）与视觉语言模型（LVLM）
+- AI Agent 智能体开发
+- 机器学习与深度学习理论
 
 ## 🤝 贡献指南
 
-欢迎提交 Issue 或 PR 参与贡献：
+欢迎提交 Issue 或 PR 参与贡献！详细规范请参考 [CONTRIBUTING.md](./CONTRIBUTING.md)。
+
+### 快速规范
 
 1. Fork 本仓库
-2. 创建功能分支：`git checkout -b feat/xxx`
-3. 提交更改：`git commit -m "docs: add notes on xxx"`
-4. 推送分支：`git push origin feat/xxx`
+2. 创建功能分支：`git checkout -b docs/add-feature`
+3. 提交更改：`git commit -m "docs(domain): add feature description"`
+4. 推送分支：`git push origin docs/add-feature`
 5. 提交 Pull Request
 
 ### 提交规范
@@ -123,6 +143,27 @@ npm run preview
 - `docs:` 新增或更新文档
 - `fix:` 修正错误内容
 - `refactor:` 重构笔记结构
+
+### 命名规范
+
+- **文件命名**：英文 kebab-case（如 `data-structures.md`、`vue3-core-concepts.md`）
+- **目录命名**：英文 kebab-case（如 `java-fundamentals/`、`machine-learning/`）
+- **禁止**：文件名含空格或中文
+
+### Front Matter
+
+所有文档应包含：
+
+```yaml
+---
+title: 页面标题（中文）
+description: 一句话描述
+tags:
+  - tag1
+  - tag2
+date: YYYY-MM-DD
+---
+```
 
 ## 🛠️ 开发工具
 

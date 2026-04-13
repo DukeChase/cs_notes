@@ -7,32 +7,34 @@ This repository supports both Obsidian viewing and GitHub Pages publishing via Q
 
 ```
 .
-├── 01-计算机基础/            # Computer Science Fundamentals
-│   ├── 数据结构.md
-│   ├── 计算机网络.md
-│   └── 操作系统.md
-├── 02-后端/                  # Backend Development
-│   ├── 01-Java/              # Java fundamentals
-│   ├── 02-数据库/             # Databases
-│   ├── 03-Web-服务器/         # Web servers & frameworks
-│   ├── 04-云原生/             # Cloud native & build tools
-│   ├── 05-其他/               # Other backend topics
-│   ├── 06-中间件/             # Middleware
-│   ├── 07-项目实战/           # Project experiences
-│   ├── 08-spring/            # Spring ecosystem
-│   └── 09-SSM/               # SSM integration
-├── 03-前端/                  # Frontend Development
-├── 04-通用/                  # General Tools & Concepts
-├── 05-读书笔记/              # Book Notes
-├── 06-AI/                    # Artificial Intelligence
-├── 系统架构师/                # System Architecture
-├── .obsidian/                # Obsidian config (gitignored)
-├── quartz/                   # Quartz 4.0 core components
-├── quartz.config.ts          # Quartz configuration
-├── quartz.layout.ts          # Layout configuration
-├── package.json              # Node.js dependencies
-├── index.md                  # Homepage
-└── .markdownlint.json        # Markdown linting rules
+├── 01-cs-fundamentals/       # Computer Science Fundamentals
+│   ├── data-structures.md
+│   ├── computer-networks.md
+│   └── operating-systems.md
+├── 02-backend/               # Backend Development
+│   ├── java-fundamentals/    # Java fundamentals
+│   ├── databases/           # Databases
+│   ├── web-servers/         # Web servers & frameworks
+│   ├── cloud-native/        # Cloud native & build tools
+│   ├── misc-backend/        # Other backend topics
+│   ├── middleware/          # Middleware
+│   ├── projects/            # Project experiences
+│   ├── spring/              # Spring ecosystem
+│   └── ssm/                 # SSM integration
+├── 03-frontend/             # Frontend Development
+├── 04-devtools/             # General Tools & Concepts
+├── 05-book-notes/           # Book Notes
+├── 06-ai/                   # Artificial Intelligence
+├── sys-architect/           # System Architecture
+├── sys-analyst/             # System Analyst
+├── .obsidian/               # Obsidian config (gitignored)
+├── quartz/                  # Quartz 4.0 core components
+├── quartz.config.ts         # Quartz configuration
+├── quartz.layout.ts         # Layout configuration
+├── package.json             # Node.js dependencies
+├── index.md                 # Homepage
+├── CONTRIBUTING.md          # Documentation standards
+└── .markdownlint.json       # Markdown linting rules
 ```
 
 ## Development Environment
@@ -135,6 +137,62 @@ When including code examples:
 2. Include comments explaining "why" not just "what"
 3. Use realistic examples, not `foo`/`bar`
 
+## 文档体系标准
+
+本项目遵循 **CONTRIBUTING.md** 中定义的文档标准。完整规范请参考 [CONTRIBUTING.md](./CONTRIBUTING.md)。
+
+### 快速规范要点
+
+#### 文件命名（英文 kebab-case）
+
+| 类型 | 规则 | 示例 |
+|------|------|------|
+| 目录 | 英文 kebab-case，可选数字前缀 | `01-cs-fundamentals/`, `java-fundamentals/` |
+| 文件 | 英文 kebab-case，无空格，无中文 | `data-structures.md`, `vue3-core-concepts.md` |
+| 索引页 | 统一 `index.md` | `01-cs-fundamentals/index.md` |
+
+**禁止**：
+- 文件名含空格（如 `01 HTML.md`）
+- 文件名含中文（如 `数据结构.md`）
+- 中英混用（如 `01-Java-SE.md`）
+
+#### Front Matter（必需）
+
+```yaml
+---
+title: 页面标题（中文）
+description: 一句话描述（用于 SEO）
+tags:
+  - tag1
+  - tag2
+date: YYYY-MM-DD
+---
+```
+
+#### 内容要求
+
+- **核心文档**：≥ 2 个实质性章节 + 至少 1 个可运行代码示例
+- **占位文档**：添加 `draft: true`，不填充内容不发布
+- **代码块**：必须标注语言（```java, ```python 等）
+
+#### 链接规范
+
+- **内部链接**：使用 WikiLink 格式 `[[filename]]`
+- **外部链接**：使用标准 Markdown `[文字](URL)` 格式
+- **跨语言链接**：`[[data-structures|数据结构]]`
+
+#### 标签体系
+
+采用三级标签系统：
+
+| 级别 | 示例 | 用途 |
+|------|------|------|
+| 领域标签 | java, python, frontend, ai | 主分类 |
+| 技术标签 | spring-boot, vue3, pytorch | 技术栈 |
+| 概念标签 | concurrency, distributed-system | 抽象概念 |
+
+---
+
 ## Git Workflow
 
 ```bash
@@ -150,16 +208,16 @@ git commit -m "docs: update [topic] with [specific change]"
 
 ### Adding a New Note
 
-1. Create file in appropriate folder: `02-后端/08-spring/新主题.md`
-2. Add front matter and content
-3. Run linter: `markdownlint "02-后端/08-spring/新主题.md"`
-4. Commit with message: `docs: add notes on 新主题`
+1. Create file in appropriate folder: `02-backend/spring/new-topic.md`
+2. Add front matter and content (see [Documentation Standards](#文档体系标准))
+3. Run linter: `markdownlint "02-backend/spring/new-topic.md"`
+4. Commit with message: `docs(backend): add notes on new topic`
 
 ### Updating Existing Note
 
 1. Edit file
 2. Run linter to check
-3. Commit with descriptive message
+3. Commit with descriptive message: `docs(scope): update topic with changes`
 
 ### Building and Deploying
 
@@ -173,6 +231,8 @@ npm run preview
 # Deploy: push to master branch, GitHub Actions will auto-deploy
 git push origin master
 ```
+
+> **Note**: All documentation standards and naming conventions are defined in [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Notes
 

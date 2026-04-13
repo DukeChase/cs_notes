@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "sessions": {
+    "850bc764e367449f991b53dffaf131f9": [
+      {
+        "expertId": "TechnicalDocumentationEngineer",
+        "name": "Anna",
+        "profession": "技术文档工程师",
+        "avatarUrl": "https://acc-1258344699.cos.accelerate.myqcloud.com/workbuddy/experts/avatars/02-Engineering/TechnicalDocumentationEngineer/TechnicalDocumentationEngineer.png",
+        "promptUrl": "https://acc-1258344699.cos.accelerate.myqcloud.com/workbuddy/experts/experts/02-Engineering/TechnicalDocumentationEngineer/TechnicalDocumentationEngineer_zh.md",
+        "usedAt": 1776065793192,
+        "industryId": "all"
+      }
+    ]
+  },
+  "lastUpdated": 1776066810952
+}

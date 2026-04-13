@@ -1,15 +1,45 @@
+---
+title: Agent
+description: AI Agent 智能体相关知识，包括框架、架构、工程实践等
+tags:
+  - agent
+  - ai
+  - autonomous-systems
+date: 2024-03-20
+---
 
+# Agent
 
-## Agent
+AI Agent 智能体相关知识。
+
+## 概念
 
 **定义** 智能体是指**具有自主决策能力和自我学习能力的计算机程序或机器人**。智能体可以通过感知环境、分析信息、制定决策并执行行动来完成任务。
-智能体通常包括感知模块、决策模块和执行模块，其中**感知模块**用于获取环境信息，**决策模块**用于分析信息并做出决策，**执行模块**用于执行决策并完成任务。
 
+智能体通常包括感知模块、决策模块和执行模块。
 
-## LangChain
+## 目录
 
-[深入浅出 LangChain 与智能 Agent：构建下一代 AI 助手](https://juejin.cn/post/7346009985791311922)
+### 核心框架
+- [[A2A|A2A 协议]]
+- [[MCP|Model Context Protocol]]
+- [[agent-framework|Agent 框架]]
 
+### 工程实践
+- [[anthropic-agent-engineering|Anthropic Agent 工程]]
+- [[openclaw|OpenClaw]]
+- [[aaas-concept|AaaS 概念]]
 
+### 架构设计
+- [[agent-arch|Agent 架构图]]
+- [[agent.excalidraw|Agent excalidraw]]
 
-agentskill :  https://agentskills.io/home
+## 学习资源
+
+- [LangChain 智能体](https://juejin.cn/post/7346009985791311922)
+- [Agent Skills](https://agentskills.io/home)
+
+## 参考资源
+
+- [[../llm/index|LLM]]
+- [[../huggingface/index|Hugging Face]]
