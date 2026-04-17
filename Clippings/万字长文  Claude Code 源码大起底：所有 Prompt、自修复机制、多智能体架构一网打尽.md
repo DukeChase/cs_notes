@@ -53,7 +53,6 @@ tags:
 | 特性标志 | GrowthBook |
 | 认证 | OAuth 2.0, JWT, macOS Keychain |
 | 状态管理 | Zustand (React-based store) |
-
 ## 1.2 目录结构与规模
 
 ```
