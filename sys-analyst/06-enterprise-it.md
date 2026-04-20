@@ -12,6 +12,7 @@ tags:
 date: 2026-04-13
 draft: false
 ---
+
 # 企业信息化
 
 ## 1. 企业信息化概述
@@ -602,7 +603,7 @@ draft: false
 - 信息化投资预算
 
 **信息化规划方法**：
-- 企业系统规划法（BSP）
+- 企业系统规划法（BSP, business system plan）
 - 关键成功因素法（CSF）
 - 战略目标集转化法（SST）
 
