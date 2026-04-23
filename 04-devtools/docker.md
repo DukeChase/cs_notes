@@ -292,6 +292,187 @@ ENV VERSION=1.0 DEBUG=on \
 
 ## VOLUME
 
+`VOLUME` 指令用于在 Dockerfile 中声明挂载点，创建匿名卷。
+
+### 语法格式
+
+```dockerfile
+VOLUME ["<路径1>", "<路径2>"...]
+VOLUME <路径>
+```
+
+### 示例
+
+```dockerfile
+# JSON 数组格式（推荐）
+VOLUME ["/data", "/logs"]
+
+# 字符串格式
+VOLUME /data
+```
+
+### 作用与特点
+
+1. **声明挂载点**：
+   - 在镜像中声明哪些目录应该被挂载为卷
+   - 容器运行时，这些目录会自动创建匿名卷
+
+2. **防止数据丢失**：
+   - 容器删除后，匿名卷中的数据不会丢失
+   - 适合需要持久化的数据目录（如数据库、日志等）
+
+3. **防止镜像膨胀**：
+   - 挂载目录的数据不会写入镜像层
+   - 减少镜像体积，提高构建效率
+
+4. **数据共享**：
+   - 其他容器可以通过 `--volumes-from` 共享这些卷
+   - 实现容器间数据传递
+
+### 使用场景
+
+```dockerfile
+# MySQL 镜像示例
+FROM mysql:latest
+VOLUME /var/lib/mysql
+
+# Nginx 镜像示例
+FROM nginx:latest
+VOLUME /var/log/nginx
+
+# 应用镜像示例
+FROM openjdk:11
+VOLUME ["/app/data", "/app/logs"]
+```
+
+### 注意事项
+
+1. **匿名卷的创建**：
+   - `VOLUME` 指令创建的是匿名卷
+   - Docker 会自动分配随机名称
+   - 不适合生产环境（难以管理）
+
+2. **运行时覆盖**：
+   - 运行容器时可以用 `-v` 或 `--mount` 覆盖 `VOLUME` 指定的挂载点
+   - 推荐使用命名卷覆盖匿名卷
+
+   ```bash
+   # Dockerfile 中声明：VOLUME /data
+   # 运行时覆盖为命名卷
+   docker run -d --name app -v app-data:/data myapp
+   ```
+
+3. **数据初始化**：
+   - `VOLUME` 指令后的目录在构建时如果有数据，会被复制到卷中
+   - 但如果运行时挂载了宿主机目录，宿主机目录的内容会覆盖容器内的数据
+
+   ```dockerfile
+   # 错误示例：在 VOLUME 后写入数据
+   VOLUME /data
+   RUN echo "test" > /data/test.txt  # 数据不会保留在镜像中
+   
+   # 正确示例：在 VOLUME 前写入数据
+   RUN echo "test" > /data/test.txt
+   VOLUME /data  # 数据会被复制到卷中
+   ```
+
+4. **不能在 VOLUME 后修改数据**：
+   - `VOLUME` 指令之后的 `RUN`、`COPY` 等指令对挂载目录的修改不会生效
+   - 因为这些修改发生在挂载之后，数据会被挂载点覆盖
+
+### 最佳实践
+
+1. **声明而非创建**：
+   - `VOLUME` 指令主要用于声明挂载点
+   - 实际挂载应在运行时使用 `-v` 或 `--mount` 指定命名卷
+
+2. **避免在 VOLUME 后修改数据**：
+   ```dockerfile
+   # 推荐：先准备数据，再声明 VOLUME
+   RUN mkdir -p /app/data && echo "init" > /app/data/init.txt
+   VOLUME /app/data
+   
+   # 不推荐：在 VOLUME 后修改数据
+   VOLUME /app/data
+   RUN echo "test" > /app/data/test.txt  # 不会生效
+   ```
+
+3. **生产环境使用命名卷**：
+   ```bash
+   # Dockerfile 中声明 VOLUME
+   VOLUME /data
+   
+   # 运行时使用命名卷覆盖
+   docker run -d --name app -v app-data:/data myapp
+   ```
+
+4. **多路径使用 JSON 数组格式**：
+   ```dockerfile
+   # 推荐：JSON 数组格式
+   VOLUME ["/data", "/logs", "/config"]
+   
+   # 不推荐：多行字符串格式
+   VOLUME /data
+   VOLUME /logs
+   VOLUME /config
+   ```
+
+### VOLUME 与运行时挂载的关系
+
+| 场景 | Dockerfile VOLUME | 运行时挂载 | 结果 |
+|------|-------------------|------------|------|
+| 无运行时挂载 | `VOLUME /data` | 无 | 创建匿名卷 |
+| 使用命名卷 | `VOLUME /data` | `-v app-data:/data` | 使用命名卷 |
+| 使用绑定挂载 | `VOLUME /data` | `-v /host/path:/data` | 使用绑定挂载 |
+| 多容器共享 | `VOLUME /data` | `--volumes-from container1` | 共享 container1 的卷 |
+
+### 示例：完整的 Dockerfile 使用 VOLUME
+
+```dockerfile
+# 基础镜像
+FROM openjdk:11-jre-slim
+
+# 设置工作目录
+WORKDIR /app
+
+# 复制应用文件
+COPY target/app.jar /app/app.jar
+COPY config /app/config
+
+# 创建数据目录并初始化
+RUN mkdir -p /app/data /app/logs \
+    && echo "Application initialized" > /app/data/init.txt
+
+# 声明挂载点
+VOLUME ["/app/data", "/app/logs"]
+
+# 设置环境变量
+ENV APP_ENV=production
+
+# 启动应用
+CMD ["java", "-jar", "app.jar"]
+```
+
+```bash
+# 运行容器，使用命名卷覆盖匿名卷
+docker run -d --name myapp \
+  -v app-data:/app/data \
+  -v app-logs:/app/logs \
+  myapp:latest
+
+# 查看卷信息
+docker volume inspect app-data
+docker volume inspect app-logs
+```
+
+### 总结
+
+- `VOLUME` 指令用于声明挂载点，创建匿名卷
+- 主要作用是防止数据丢失和镜像膨胀
+- 生产环境应使用命名卷覆盖匿名卷
+- 注意在 `VOLUME` 指令前完成数据初始化
+- 推荐使用 JSON 数组格式声明多个挂载点
+
 ## LABEL
 
 [参考](https://github.com/opencontainers/image-spec/blob/master/annotations.md)
@@ -442,8 +623,485 @@ docker inspect <image_name>
 
 # Volume
 
+Docker Volume（数据卷）是 Docker 容器数据持久化的核心机制，用于在容器和宿主机之间共享数据，或在不同容器之间共享数据。
+
+## Volume 的作用
+
+1. **数据持久化**：容器删除后数据不会丢失
+2. **数据共享**：多个容器可以共享同一个 Volume
+3. **数据隔离**：将应用数据与容器文件系统分离
+4. **性能优化**：Volume 的读写性能优于绑定挂载
+5. **跨平台兼容**：Volume 在不同操作系统上行为一致
+
+## Volume 的类型
+
+### 1. 命名卷（Named Volume）
+
+由 Docker 管理的卷，存储在 Docker 的特定目录中（通常在 `/var/lib/docker/volumes/`）。
+
 ```bash
+# 创建命名卷
 docker volume create my-vol
+
+# 查看卷详情
+docker volume inspect my-vol
+
+# 列出所有卷
+docker volume ls
+
+# 使用命名卷运行容器
+docker run -d --name myapp -v my-vol:/app/data nginx
+```
+
+**特点**：
+- Docker 自动管理存储位置
+- 易于备份和迁移
+- 可以在多个容器间共享
+- 适合生产环境使用
+
+### 2. 匿名卷（Anonymous Volume）
+
+没有指定名称的卷，Docker 会自动分配一个随机名称。
+
+```bash
+# 创建匿名卷（Dockerfile 中 VOLUME 指令）
+VOLUME /app/data
+
+# 运行时创建匿名卷
+docker run -d --name myapp -v /app/data nginx
+
+# 查看匿名卷
+docker volume ls
+# 输出类似：DRIVER    VOLUME NAME
+#          local     1b2e3f4g5h6i7j8k9l0m
+```
+
+**特点**：
+- 名称随机生成，难以管理
+- 容器删除时默认不会删除匿名卷（除非使用 `--rm`）
+- 不适合生产环境
+
+### 3. 绑定挂载（Bind Mount）
+
+将宿主机的特定目录或文件直接挂载到容器中。
+
+```bash
+# 绑定挂载宿主机目录
+docker run -d --name myapp \
+  -v /host/path:/container/path \
+  nginx
+
+# 绑定挂载单个文件
+docker run -d --name myapp \
+  -v /host/config.yml:/app/config.yml \
+  nginx
+
+# 指定读写权限
+docker run -d --name myapp \
+  -v /host/path:/container/path:ro \
+  nginx  # ro 表示只读（read-only）
+```
+
+**特点**：
+- 完全控制挂载路径
+- 适合开发环境（代码同步）
+- 跨平台路径差异需要注意
+- 性能略低于命名卷
+
+## Volume 管理命令
+
+### 创建卷
+
+```bash
+# 创建命名卷
+docker volume create my-vol
+
+# 创建卷并指定驱动
+docker volume create --driver local my-vol
+
+# 创建卷并指定选项（如挂载 NFS）
+docker volume create --driver local \
+  --opt type=nfs \
+  --opt o=addr=192.168.1.1,rw \
+  --opt device=:/export/data \
+  nfs-vol
+```
+
+### 查看卷
+
+```bash
+# 列出所有卷
+docker volume ls
+
+# 查看卷详情
+docker volume inspect my-vol
+
+# 查看卷的使用情况（哪些容器在使用）
+docker ps --filter volume=my-vol
+```
+
+### 删除卷
+
+```bash
+# 删除单个卷（必须没有被容器使用）
+docker volume rm my-vol
+
+# 删除所有未使用的卷
+docker volume prune
+
+# 删除所有卷（包括正在使用的，危险操作）
+docker volume prune --force
+```
+
+### 备份与恢复
+
+```bash
+# 备份卷数据到 tar 文件
+docker run --rm \
+  -v my-vol:/data \
+  -v $(pwd):/backup \
+  alpine \
+  tar cvf /backup/my-vol-backup.tar /data
+
+# 从 tar 文件恢复数据到卷
+docker run --rm \
+  -v my-vol:/data \
+  -v $(pwd):/backup \
+  alpine \
+  tar xvf /backup/my-vol-backup.tar -C /
+```
+
+## Volume 挂载方式
+
+### `-v` 参数（简写格式）
+
+```bash
+# 格式：-v <source>:<target>:<options>
+docker run -d --name myapp \
+  -v my-vol:/app/data \
+  nginx
+
+# 绑定挂载
+docker run -d --name myapp \
+  -v /host/path:/app/data:ro \
+  nginx
+
+# 多个卷
+docker run -d --name myapp \
+  -v vol1:/app/data \
+  -v vol2:/app/logs \
+  nginx
+```
+
+**选项说明**：
+- `ro`：只读（read-only）
+- `rw`：读写（read-write，默认）
+- `z`：SELinux 重新标记私有标签
+- `Z`：SELinux 重新标记共享标签
+
+### `--mount` 参数（详细格式）
+
+```bash
+# 命名卷挂载
+docker run -d --name myapp \
+  --mount type=volume,source=my-vol,target=/app/data \
+  nginx
+
+# 绑定挂载
+docker run -d --name myapp \
+  --mount type=bind,source=/host/path,target=/app/data,readonly \
+  nginx
+
+# tmpfs 挂载（临时文件系统，内存中）
+docker run -d --name myapp \
+  --mount type=tmpfs,target=/app/tmp \
+  nginx
+```
+
+**参数说明**：
+- `type`：挂载类型（`volume`、`bind`、`tmpfs`）
+- `source`：源路径或卷名（可简写为 `src`）
+- `target`：容器内路径（可简写为 `dst` 或 `destination`）
+- `readonly`：只读挂载
+- `volume-opt`：卷驱动选项
+
+### `-v` 与 `--mount` 的区别
+
+| 特性 | `-v` | `--mount` |
+|------|------|-----------|
+| 语法简洁性 | 简洁 | 详细 |
+| 错误提示 | 不明确 | 明确 |
+| SELinux 支持 | 支持（z/Z） | 不支持 |
+| 卷不存在时 | 自动创建 | 报错 |
+| 推荐场景 | 开发环境 | 生产环境 |
+
+## Volume 使用场景
+
+### 1. 数据持久化
+
+```bash
+# MySQL 数据库持久化
+docker run -d --name mysql \
+  -v mysql-data:/var/lib/mysql \
+  -e MYSQL_ROOT_PASSWORD=root \
+  mysql:latest
+
+# Redis 数据持久化
+docker run -d --name redis \
+  -v redis-data:/data \
+  redis:latest
+```
+
+### 2. 配置文件挂载
+
+```bash
+# 挂载应用配置文件
+docker run -d --name nginx \
+  -v nginx-conf:/etc/nginx \
+  -v nginx-html:/usr/share/nginx/html \
+  nginx:latest
+
+# 挂载单个配置文件
+docker run -d --name app \
+  -v /host/app.yml:/app/config.yml:ro \
+  myapp:latest
+```
+
+### 3. 开发环境代码同步
+
+```bash
+# 挂载本地代码目录（开发环境）
+docker run -d --name dev-app \
+  -v $(pwd)/src:/app/src \
+  -v $(pwd)/config:/app/config \
+  myapp:latest
+```
+
+### 4. 容器间数据共享
+
+```bash
+# 创建共享卷
+docker volume create shared-data
+
+# 多个容器共享同一个卷
+docker run -d --name app1 -v shared-data:/data nginx
+docker run -d --name app2 -v shared-data:/data nginx
+```
+
+### 5. 日志收集
+
+```bash
+# 挂载日志目录到宿主机
+docker run -d --name app \
+  -v app-logs:/var/log/app \
+  myapp:latest
+
+# 在宿主机查看日志
+docker volume inspect app-logs
+# 查看挂载点路径，直接访问日志文件
+```
+
+## Volume 最佳实践
+
+### 1. 使用命名卷而非匿名卷
+
+```bash
+# 推荐：使用命名卷
+docker run -d --name app -v app-data:/data myapp
+
+# 不推荐：使用匿名卷
+docker run -d --name app -v /data myapp
+```
+
+### 2. 生产环境使用 `--mount`
+
+```bash
+# 生产环境推荐格式
+docker run -d --name app \
+  --mount type=volume,source=app-data,target=/data,readonly \
+  myapp
+```
+
+### 3. 及时清理未使用的卷
+
+```bash
+# 定期清理未使用的卷
+docker volume prune
+
+# 查看未使用的卷
+docker volume ls -q -f "dangling=true"
+```
+
+### 4. 卷命名规范
+
+```bash
+# 使用有意义的卷名
+docker volume create mysql-data
+docker volume create nginx-conf
+docker volume create app-logs
+
+# 避免使用随机名称
+docker volume create vol1  # 不推荐
+```
+
+### 5. 备份重要数据
+
+```bash
+# 定期备份关键卷
+docker run --rm \
+  -v mysql-data:/data \
+  -v /backup:/backup \
+  alpine tar cvf /backup/mysql-backup-$(date +%Y%m%d).tar /data
+```
+
+### 6. 使用只读挂载保护数据
+
+```bash
+# 配置文件只读挂载
+docker run -d --name app \
+  -v app-conf:/etc/app:ro \
+  myapp
+```
+
+## Volume 驱动
+
+Docker 支持多种 Volume 驱动，用于不同的存储需求：
+
+### 1. local 驱动（默认）
+
+```bash
+# 本地存储驱动
+docker volume create --driver local my-vol
+```
+
+### 2. NFS 驱动
+
+```bash
+# NFS 远程存储
+docker volume create --driver local \
+  --opt type=nfs \
+  --opt o=addr=192.168.1.1,rw \
+  --opt device=:/export/data \
+  nfs-vol
+```
+
+### 3. 第三方驱动
+
+```bash
+# 使用第三方驱动（如 Azure File Storage）
+docker volume create --driver azurefile \
+  --opt share_name=myshare \
+  azure-vol
+
+# 使用 AWS S3
+docker volume create --driver s3 \
+  --opt bucket=mybucket \
+  s3-vol
+```
+
+## Volume 与 Bind Mount 的选择
+
+| 场景 | 推荐类型 | 原因 |
+|------|----------|------|
+| 生产环境数据持久化 | Volume | Docker 管理，易备份迁移 |
+| 开发环境代码同步 | Bind Mount | 直接访问宿主机文件 |
+| 配置文件挂载 | Bind Mount | 方便修改配置 |
+| 多容器数据共享 | Volume | 集中管理，易于维护 |
+| 临时数据（缓存） | tmpfs | 内存存储，性能高 |
+
+## Volume 常见问题
+
+### 1. 权限问题
+
+```bash
+# 容器内用户与宿主机用户不一致导致权限问题
+# 解决方案：指定容器用户
+docker run -d --name app \
+  -v /host/data:/data \
+  --user $(id -u):$(id -g) \
+  myapp
+
+# 或在容器内修改权限
+docker exec app chown -R appuser:appgroup /data
+```
+
+### 2. SELinux 问题（CentOS/RHEL）
+
+```bash
+# SELinux 阻止访问挂载目录
+# 解决方案：添加 SELinux 标签
+docker run -d --name app \
+  -v /host/data:/data:z \
+  myapp  # z 表示重新标记私有标签
+
+# 或共享标签
+docker run -d --name app \
+  -v /host/data:/data:Z \
+  myapp  # Z 表示重新标记共享标签
+```
+
+### 3. 路径不存在问题
+
+```bash
+# -v 模式：宿主机路径不存在会自动创建目录
+docker run -d --name app -v /new/path:/data myapp
+
+# --mount 模式：路径不存在会报错
+docker run -d --name app \
+  --mount type=bind,source=/new/path,target=/data \
+  myapp  # Error: path not found
+```
+
+### 4. Windows/Mac 路径问题
+
+```bash
+# Windows 路径格式
+docker run -d --name app \
+  -v C:/Users/data:/data \
+  myapp
+
+# Mac 路径格式
+docker run -d --name app \
+  -v /Users/data:/data \
+  myapp
+
+# 注意：Docker Desktop 需要在设置中允许访问目录
+```
+
+## Volume 相关命令汇总
+
+```bash
+# 创建卷
+docker volume create [VOLUME_NAME]
+
+# 列出卷
+docker volume ls
+
+# 查看卷详情
+docker volume inspect [VOLUME_NAME]
+
+# 删除卷
+docker volume rm [VOLUME_NAME]
+
+# 清理未使用的卷
+docker volume prune
+
+# 查看使用卷的容器
+docker ps --filter volume=[VOLUME_NAME]
+
+# 挂载卷运行容器
+docker run -v [VOLUME_NAME]:[CONTAINER_PATH] [IMAGE]
+docker run --mount type=volume,source=[VOLUME_NAME],target=[CONTAINER_PATH] [IMAGE]
+
+# 绑定挂载
+docker run -v [HOST_PATH]:[CONTAINER_PATH] [IMAGE]
+docker run --mount type=bind,source=[HOST_PATH],target=[CONTAINER_PATH] [IMAGE]
+
+# tmpfs 挂载
+docker run --mount type=tmpfs,target=[CONTAINER_PATH] [IMAGE]
+
+# 复制卷数据
+docker run --rm -v [SRC_VOL]:/src -v [DEST_VOL]:/dest alpine cp -a /src/. /dest/
 ```
 
 # Network
