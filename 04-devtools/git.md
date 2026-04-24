@@ -391,28 +391,345 @@ git remote set-url origin 新地址    替换成新地址
 
 ## tag 打标签
 
-`git tag v1.0`
+Git 标签（Tag）是用于标记特定提交的引用，通常用于标记版本发布（如 v1.0、v2.0）。标签一旦创建就永远不会变化，适合用于记录项目的重要里程碑。
 
-- [创建标签](https://liaoxuefeng.com/books/git/tag/create/index.html)
-- [操作标签](https://liaoxuefeng.com/books/git/tag/push-delete/index.html)
-- https://blog.csdn.net/weixin_39642619/article/details/111223447
-- https://blog.csdn.net/lovedingd/article/details/127568704
-- https://blog.csdn.net/weixin_43715214/article/details/131059079
+### 标签的类型
 
-``` shell
+| 类型 | 说明 | 用途 |
+|------|------|------|
+| **轻量级标签（Lightweight Tag）** | 不可添加注释，只是指向某次提交的引用 | 私人或临时对象标记 |
+| **带附注标签（Annotated Tag）** | 可添加注释，包含标签信息（注释、打标签者、时间等） | 用于正式发布版本 |
+
+**推荐使用带附注标签**，因为它包含更多信息，更适合正式版本发布。
+
+### 创建标签
+
+#### 创建轻量级标签
+
+```bash
+# 为当前提交创建轻量级标签
 git tag v1.0
 
-git tag v0.9   commitId
-
-
-git tag -d v0.9
-
-
-git push origin --tags #推送标签
+# 为指定提交创建轻量级标签
+git tag v0.9 commitId
 ```
 
-`git fetch --all --tags` 获取远程仓库所有标签
-[how to check out git tags](https://devconnected.com/how-to-checkout-git-tags/)
+#### 创建带附注标签
+
+```bash
+# 为当前提交创建带附注标签
+git tag -a v1.0 -m "版本 1.0 发布"
+
+# 为指定提交创建带附注标签
+git tag -a v0.9 commitId -m "版本 0.9 发布"
+```
+
+**参数说明**：
+- `-a`：创建带附注标签（annotated）
+- `-m`：添加标签注释信息
+- `commitId`：指定为哪次提交打标签（可选，默认为当前提交）
+
+### 查看标签
+
+#### 显示所有标签
+
+```bash
+# 显示所有标签
+git tag
+
+# 或使用 list 选项
+git tag --list
+```
+
+#### 查看标签详细信息
+
+```bash
+# 查看标签详细信息
+git show v1.0
+```
+
+**输出内容**：
+- **轻量级标签**：显示指向的提交信息（提交哈希、作者、日期、提交信息）
+- **带附注标签**：显示标签对象信息（标签名称、注释、打标签者、时间）+ 提交信息
+
+### 查找标签
+
+支持使用通配符和正则表达式查找标签：
+
+```bash
+# 查找以 v 开头的标签
+git tag -l "v*"
+
+# 查找包含 2 的标签
+git tag -l "*2*"
+
+# 查找 v1.x 版本的标签
+git tag -l "v1.*"
+
+# 查找特定模式的标签
+git tag -l "?2*"  # 第二个字符是 2 的标签
+```
+
+### 推送标签到远程
+
+标签默认不会推送到远程仓库，需要手动推送。
+
+#### 推送指定标签
+
+```bash
+# 推送单个标签到远程
+git push origin v1.0
+
+# 推送多个标签到远程
+git push origin v1.0 v2.0 v3.0
+
+# 完整写法（推送标签引用）
+git push origin refs/tags/v1.0:refs/tags/v1.0
+```
+
+#### 推送所有本地标签
+
+```bash
+# 推送所有本地标签到远程
+git push origin --tags
+
+# 或简写
+git push --tags
+```
+
+**注意**：推送所有标签时，轻量级标签和带附注标签都会被推送。
+
+### 删除标签
+
+#### 删除本地标签
+
+```bash
+# 删除本地标签
+git tag -d v1.0
+
+# 删除多个本地标签
+git tag -d v0.9 v1.0
+```
+
+#### 删除远程标签
+
+```bash
+# 方法一：推送空标签引用（删除远程标签）
+git push origin :v1.0
+# 完整写法
+git push origin :refs/tags/v1.0
+
+# 方法二：使用 delete 参数（推荐）
+git push origin --delete v1.0
+# 完整写法
+git push origin --delete tag v1.0
+```
+
+**删除流程**：
+1. 先删除本地标签：`git tag -d v1.0`
+2. 再删除远程标签：`git push origin --delete v1.0`
+
+### 切换标签
+
+```bash
+# 切换到指定标签
+git checkout v1.0
+
+# 切换标签并创建新分支（推荐）
+git checkout -b version1 v1.0
+```
+
+**注意**：
+- 切换标签会使 HEAD 处于游离状态（detached HEAD）
+- 在游离状态下修改不会被任何分支记录
+- 如需修改，建议创建新分支保存修改
+
+### 拉取标签
+
+#### 拉取远程标签
+
+```bash
+# 拉取远程仓库所有标签
+git fetch --all --tags
+
+# 或使用 pull（会拉取提交和标签）
+git pull
+```
+
+**拉取行为**：
+- 当本地与远程仓库有公共提交历史且无冲突时，`git pull` 会将远程仓库的标签拉取到本地
+- 拉取的标签会在本地创建相应的本地标签
+
+#### 查看远程标签
+
+```bash
+# 查看远程仓库的标签
+git ls-remote --tags origin
+```
+
+### 标签使用场景
+
+#### 1. 版本发布
+
+在 master 分支成熟阶段打标签，标记版本发布：
+
+```bash
+# 发布新版本
+git tag -a v1.0 -m "正式版本 1.0 发布"
+git push origin v1.0
+
+# 发布补丁版本
+git tag -a v1.0.1 -m "修复 bug #123"
+git push origin v1.0.1
+
+# 发布新功能版本
+git tag -a v1.1 -m "新增用户管理功能"
+git push origin v1.1
+```
+
+#### 2. 版本管理
+
+记录项目某一阶段的状态，便于管理和回溯：
+
+```bash
+# 标记开发阶段
+git tag -a alpha-1.0 -m "Alpha 测试版本"
+git tag -a beta-1.0 -m "Beta 测试版本"
+git tag -a rc-1.0 -m "Release Candidate"
+
+# 标记重要里程碑
+git tag -a milestone-1 -m "完成核心功能开发"
+```
+
+#### 3. 回溯历史版本
+
+```bash
+# 查看历史版本
+git checkout v0.9
+
+# 对比版本差异
+git diff v0.9 v1.0
+
+# 查看版本间的提交历史
+git log v0.9..v1.0
+```
+
+### 标签命名规范
+
+#### 版本号命名规范（语义化版本）
+
+遵循语义化版本规范（Semantic Versioning）：`MAJOR.MINOR.PATCH`
+
+- **MAJOR**：主版本号（不兼容的 API 修改）
+- **MINOR**：次版本号（向后兼容的功能新增）
+- **PATCH**：修订号（向后兼容的问题修复）
+
+**示例**：
+
+```bash
+# 主版本更新（重大变更）
+v1.0.0 -> v2.0.0
+
+# 次版本更新（新功能）
+v1.0.0 -> v1.1.0
+
+# 修订版本更新（bug 修复）
+v1.0.0 -> v1.0.1
+
+# 预发布版本
+v1.0.0-alpha
+v1.0.0-beta
+v1.0.0-rc.1
+```
+
+#### 其他命名规范
+
+```bash
+# 按日期命名
+release-2024-01-01
+release-2024-q1
+
+# 按阶段命名
+alpha-v1.0
+beta-v1.0
+rc-v1.0
+stable-v1.0
+
+# 按功能命名
+feature-login-v1.0
+hotfix-security-v1.0.1
+```
+
+### 标签最佳实践
+
+1. **使用带附注标签**：包含更多信息，更适合正式版本发布
+
+```bash
+git tag -a v1.0 -m "版本 1.0 发布说明"
+```
+
+2. **遵循语义化版本规范**：便于版本管理和理解
+
+```bash
+v1.0.0  # 主版本.次版本.修订版本
+```
+
+3. **在稳定分支打标签**：通常在 master 或 main 分支打标签
+
+```bash
+git checkout main
+git tag -a v1.0 -m "正式版本发布"
+```
+
+4. **及时推送标签**：打标签后及时推送到远程仓库
+
+```bash
+git push origin v1.0
+```
+
+5. **标签信息完整**：带附注标签应包含版本说明、变更内容等
+
+```bash
+git tag -a v1.0 -m "版本 1.0 发布
+新增功能：
+- 用户登录
+- 权限管理
+
+修复问题：
+- bug #123
+- bug #456
+"
+```
+
+6. **避免频繁删除标签**：标签是版本记录，应避免频繁删除
+
+### 标签相关命令速查表
+
+| 操作 | 命令 |
+|------|------|
+| 创建轻量级标签 | `git tag <标签名>` |
+| 创建带附注标签 | `git tag -a <标签名> -m "注释"` |
+| 为指定提交打标签 | `git tag <标签名> <commitId>` |
+| 显示所有标签 | `git tag` |
+| 查看标签详细信息 | `git show <标签名>` |
+| 查找标签 | `git tag -l "模式"` |
+| 推送单个标签 | `git push origin <标签名>` |
+| 推送所有标签 | `git push origin --tags` |
+| 删除本地标签 | `git tag -d <标签名>` |
+| 删除远程标签 | `git push origin --delete <标签名>` |
+| 切换标签 | `git checkout <标签名>` |
+| 切换标签并创建分支 | `git checkout -b <分支名> <标签名>` |
+| 拉取远程标签 | `git fetch --all --tags` |
+| 查看远程标签 | `git ls-remote --tags origin` |
+
+### 参考资料
+
+- [创建标签 - 廖雪峰](https://liaoxuefeng.com/books/git/tag/create/index.html)
+- [操作标签 - 廖雪峰](https://liaoxuefeng.com/books/git/tag/push-delete/index.html)
+- [Git应用详解第八讲：Git标签、别名与Git gc](https://blog.csdn.net/weixin_39642619/article/details/111223447)
+- [Git标签管理](https://blog.csdn.net/lovedingd/article/details/127568704)
+- [Git tag 使用详解](https://blog.csdn.net/weixin_43715214/article/details/131059079)
+- [How to checkout git tags](https://devconnected.com/how-to-checkout-git-tags/)
 
 ## config
 
