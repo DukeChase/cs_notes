@@ -87,11 +87,12 @@ $$\pi_{\max} E \left[ \sum_{t=0}^{\infty} \gamma^t r_t \right]$$
 # 大模型强化学习
 
 
-[大模型强化学习 RLHF SFT PPO 这几个概念的逻辑关系](https://chatgpt.com/c/695dcd75-c954-8325-a028-a7e4c473d708)
+[chatgpt answer 大模型强化学习 RLHF SFT PPO 这几个概念的逻辑关系](https://chatgpt.com/c/695dcd75-c954-8325-a028-a7e4c473d708)
 
 SFT 本质上就是强化学习力的 Imitation Learning  / Behavior Cloning
 
 ## RLHF
+
 **RLHF**（Reinforcement Learning from Human Feedback，人类反馈强化学习）
 ## 目标
 

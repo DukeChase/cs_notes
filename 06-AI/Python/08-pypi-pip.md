@@ -65,3 +65,10 @@ pip config list
 # 删除配置
 pip config unset global.index-url
 ```
+
+
+
+
+https://packaging.python.org/en/latest/tutorials/installing-packages/
+
+https://packaging.python.org/en/latest/overview/

@@ -39,7 +39,16 @@ AI Agent 智能体相关知识。
 - [LangChain 智能体](https://juejin.cn/post/7346009985791311922)
 - [Agent Skills](https://agentskills.io/home)
 
+## 开源项目
+- qwenpaw
+- hermes-agent
+- 
+
 ## 参考资源
+
+
+qwenpaw
+
 
 - [[../llm/index|LLM]]
 - [[../huggingface/index|Hugging Face]]

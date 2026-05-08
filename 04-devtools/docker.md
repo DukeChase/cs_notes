@@ -264,6 +264,115 @@ RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
 
 ## ENTRYPOINT
 
+`ENTRYPOINT` 指定容器启动时**必定执行**的主命令，作为容器的"入口程序"。
+
+### 格式
+
+```dockerfile
+# exec 格式（推荐）
+ENTRYPOINT ["executable", "param1", "param2"]
+
+# shell 格式（不推荐，会屏蔽 CMD 和 docker run 参数）
+ENTRYPOINT command param1 param2
+```
+
+### 特点
+
+- 每个 Dockerfile 中只能有一个 `ENTRYPOINT`（多个时只有最后一个生效）
+- `docker run` 传入的参数会**追加**到 ENTRYPOINT 后，而不是覆盖
+- 可以用 `--entrypoint` 参数强制覆盖
+
+### 示例
+
+```dockerfile
+FROM ubuntu
+ENTRYPOINT ["echo"]
+CMD ["Hello Docker"]
+```
+
+```bash
+# 默认执行 ENTRYPOINT + CMD
+docker run myimage          # 输出: Hello Docker
+
+# 参数追加到 ENTRYPOINT 后
+docker run myimage "World"  # 输出: World（CMD 被替换）
+
+# 强制覆盖 ENTRYPOINT
+docker run --entrypoint ls myimage /   # 执行 ls /
+```
+
+---
+
+## CMD 与 ENTRYPOINT 的区别
+
+| 特性 | CMD | ENTRYPOINT |
+|------|-----|------------|
+| **作用** | 默认启动命令 | 必定执行的主命令 |
+| **docker run 参数** | **完全覆盖** CMD | **追加**到 ENTRYPOINT 后 |
+| **覆盖方式** | 直接传命令 | 需用 `--entrypoint` |
+| **组合使用** | 作为 ENTRYPOINT 的默认参数 | 作为主命令，CMD 提供默认参数 |
+| **推荐场景** | 可变参数、可选命令 | 固定主命令、类似"可执行程序" |
+
+### 组合使用模式（最佳实践）
+
+```dockerfile
+# 模式 1：ENTRYPOINT + CMD（推荐）
+FROM ubuntu
+ENTRYPOINT ["curl"]        # 主命令固定
+CMD ["https://example.com"] # 默认参数可变
+
+docker run myimage                          # curl https://example.com
+docker run myimage https://google.com       # curl https://google.com
+docker run myimage -I https://example.com   # curl -I https://example.com
+```
+
+```dockerfile
+# 模式 2：只用 CMD（灵活场景）
+FROM ubuntu
+CMD ["nginx", "-g", "daemon off;"]
+
+docker run myimage          # 启动 nginx
+docker run myimage bash     # 改为执行 bash（调试）
+```
+
+```dockerfile
+# 模式 3：只用 ENTRYPOINT（固定命令）
+FROM ubuntu
+ENTRYPOINT ["python", "app.py"]
+
+docker run myimage          # python app.py
+docker run myimage --debug  # python app.py --debug
+```
+
+### Shell 格式 vs Exec 格式
+
+| 格式 | CMD | ENTRYPOINT | 特点 |
+|------|-----|------------|------|
+| **exec 格式** | `CMD ["cmd", "args"]` | `ENTRYPOINT ["cmd", "args"]` | 推荐，信号能正确传递 |
+| **shell 格式** | `CMD cmd args` | `ENTRYPOINT cmd args` | 不推荐，会启动 shell 子进程 |
+
+**exec 格式的优势**：
+- 容器能正确接收 `SIGTERM`、`SIGINT` 等信号（优雅停止）
+- PID 1 就是你的程序，而不是 shell
+
+**shell 格式的问题**：
+```dockerfile
+# shell 格式：信号无法传递
+ENTRYPOINT python app.py
+# 容器停止时，python 进程收不到 SIGTERM，会被强制杀死
+```
+
+### 实战场景选择
+
+| 场景 | 推荐方案 | 示例 |
+|------|----------|------|
+| **Web 服务** | ENTRYPOINT + CMD | `ENTRYPOINT ["nginx"]` + `CMD ["-g", "daemon off;"]` |
+| **脚本工具** | ENTRYPOINT | `ENTRYPOINT ["./entrypoint.sh"]` |
+| **调试友好** | 只用 CMD | `CMD ["java", "-jar", "app.jar"]` |
+| **参数可变** | ENTRYPOINT + CMD | `ENTRYPOINT ["curl"]` + `CMD ["url"]` |
+
+---
+
 ## ENV
 
 格式有两种：
