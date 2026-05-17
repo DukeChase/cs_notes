@@ -16,6 +16,7 @@ tags:
 - [[linux/bash-basics|Bash 基础]]
 - [[linux/ls-command|ls 命令详解]]
 - [[linux/find-command|find 命令详解]]
+- [[linux/du-command|du 命令详解]]
 - [[linux/ln-links|ln 链接用法]]
 - [[linux/user-group-management|用户与用户组管理]]
 - [[linux/file-permissions|文件权限管理]]

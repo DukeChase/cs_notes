@@ -6,7 +6,6 @@ tags:
   - permissions
   - chmod
 ---
-
 # Linux 文件权限管理
 
 ## 1. 权限位与文件类型

@@ -6,7 +6,6 @@ tags:
   - devtools
 date: 2024-01-01
 ---
-
 # Docker Compose 配置详解
 
 Docker Compose 是用于定义和运行多容器 Docker 应用程序的工具。通过 Compose，您可以使用 YAML 文件配置应用程序的服务、网络和卷。
@@ -19,11 +18,11 @@ Docker Compose 是用于定义和运行多容器 Docker 应用程序的工具。
 
 Docker Compose 文件包含三个顶级元素：
 
-| 元素 | 说明 |
-|------|------|
+| 元素         | 说明            |
+| ---------- | ------------- |
 | `services` | 定义应用程序的服务（容器） |
-| `networks` | 定义网络配置 |
-| `volumes` | 定义数据卷配置 |
+| `networks` | 定义网络配置        |
+| `volumes`  | 定义数据卷配置       |
 
 ## 基础结构
 

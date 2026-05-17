@@ -6,7 +6,6 @@ tags:
   - vim
   - editor
 ---
-
 # vim 程序编辑器
 
 `vim`（Vi IMproved）是 Linux/Unix 系统中最常用的文本编辑器，是 `vi` 的增强版本。它是一款**模式化编辑器**，通过不同模式切换来执行不同的编辑操作。
