@@ -19,8 +19,14 @@ date: 2024-03-30
 - [[reinforcement-learning|强化学习 RL]]
 - [[llm-rl-vs-traditional-rl|大模型 RL vs 传统 RL]]
 
+accelerate with deepspeed
+https://huggingface.co/docs/accelerate/usage_guides/deepspeed
+
+
 ## 参考资源
 
 - [[../pytorch/index|PyTorch]]
 - [[../machine-learning/index|机器学习]]
 - [[../llm/index|LLM]]
+- [Agentic RL](../Agent/Agentic%20RL.md)
+

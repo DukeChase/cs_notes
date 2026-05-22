@@ -36,3 +36,4 @@ Python 编程语言在 AI 领域的应用。
 ### 进阶指南
 - [[os-module-guide|os 模块使用指南]]
 - [[os-path-guide|os.path 模块深度指南]]
+- [[logging-module-guide|logging 模块使用指南]]

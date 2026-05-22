@@ -1,0 +1,131 @@
+# ============================================================
+# CS Notes - robots.txt
+# 功能：控制搜索引擎爬虫对站点内容的索引
+#
+# 部署位置：
+#   根路径部署 → /var/www/cs-notes/robots.txt
+#   子路径部署 → /var/www/cs-notes/cs_notes/robots.txt
+#
+# 注意：robots.txt 只是「君子协定」，恶意爬虫不会遵守
+#       敏感内容的真正保护需要依赖 Nginx 访问控制（见 nginx.conf）
+# ============================================================
+
+# -------------------- 全局规则 --------------------
+User-agent: *
+# 允许抓取公开内容
+Allow: /
+# 禁止抓取考试资料（sys-analyst、sys-architect）
+Disallow: /sys-analyst/
+Disallow: /sys-architect/
+# 禁止抓取静态资源目录（无 SEO 价值）
+Disallow: /static/
+# 禁止抓取标签页面（避免重复内容）
+Disallow: /tags/
+# 禁止抓取 Clippings 目录
+Disallow: /Clippings/
+
+# -------------------- 主流搜索引擎特殊规则 --------------------
+
+# Google：遵守 robots.txt，允许适度抓取
+User-agent: Googlebot
+Allow: /
+Disallow: /sys-analyst/
+Disallow: /sys-architect/
+Disallow: /static/
+Disallow: /tags/
+Disallow: /Clippings/
+Crawl-delay: 1
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /sys-analyst/
+Disallow: /sys-architect/
+Disallow: /static/
+Disallow: /tags/
+Disallow: /Clippings/
+Crawl-delay: 2
+
+# 百度：爬取频率较高，增加延迟
+User-agent: Baiduspider
+Allow: /
+Disallow: /sys-analyst/
+Disallow: /sys-architect/
+Disallow: /static/
+Disallow: /tags/
+Disallow: /Clippings/
+Crawl-delay: 3
+
+# 搜狗
+User-agent: Sogou web spider
+Allow: /
+Disallow: /sys-analyst/
+Disallow: /sys-architect/
+Disallow: /static/
+Disallow: /tags/
+Disallow: /Clippings/
+Crawl-delay: 3
+
+# 360 搜索
+User-agent: 360Spider
+Allow: /
+Disallow: /sys-analyst/
+Disallow: /sys-architect/
+Disallow: /static/
+Disallow: /tags/
+Disallow: /Clippings/
+Crawl-delay: 3
+
+# -------------------- 禁止的爬虫 --------------------
+# 以下爬虫通常用于内容抓取/SEO 分析，对文档站无价值
+
+# SemrushBot（SEO 分析）
+User-agent: SemrushBot
+Disallow: /
+
+# AhrefsBot（SEO 分析）
+User-agent: AhrefsBot
+Disallow: /
+
+# MJ12bot（SEO 分析）
+User-agent: MJ12bot
+Disallow: /
+
+# DotBot（SEO 分析）
+User-agent: DotBot
+Disallow: /
+
+# SiteExplorerBot
+User-agent: SiteExplorerBot
+Disallow: /
+
+# MauiBot
+User-agent: MauiBot
+Disallow: /
+
+# -------------------- AI 训练爬虫 --------------------
+# 如果不希望内容被用于 AI 模型训练，可取消以下注释
+
+# User-agent: GPTBot          # OpenAI
+# Disallow: /
+
+# User-agent: ChatGPT-User    # OpenAI ChatGPT
+# Disallow: /
+
+# User-agent: CCBot           # Common Crawl
+# Disallow: /
+
+# User-agent: Google-Extended # Google AI 训练
+# Disallow: /
+
+# User-agent: Bytespider      # 字节跳动/抖音 AI
+# Disallow: /
+
+# User-agent: ClaudeBot       # Anthropic
+# Disallow: /
+
+# -------------------- Sitemap --------------------
+# 根路径部署
+Sitemap: https://your-domain.com/sitemap.xml
+# 子路径部署时取消注释下面一行，注释上面一行
+# Sitemap: https://your-domain.com/cs_notes/sitemap.xml
