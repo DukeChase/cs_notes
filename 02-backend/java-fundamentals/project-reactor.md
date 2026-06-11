@@ -1,8 +1,9 @@
 ---
 title: project-reactor
+tag:
+  - reactor
 ---
-
-https://easywheelsoft.github.io/reactor-core-zh/index.html#about-doc
+[Reactor 3 参考指南](https://easywheelsoft.github.io/reactor-core-zh/index.html#about-doc)
 
 ## reactive stream
 
@@ -22,12 +23,12 @@ https://easywheelsoft.github.io/reactor-core-zh/index.html#about-doc
 - ​**​问题​**​：生产者速度 > 消费者速度时，可能导致内存溢出或系统崩溃。
 - ​**​方案​**​：消费者通过​**​动态请求（Demand Signaling）​**​控制数据流速。
     
-   ```text
+```text
     示例流程：   
     1. 订阅者（Subscriber）向发布者（Publisher）订阅，并声明初始需求（如请求10个数据）。   
     2. 发布者按需求发送数据（最多10个）。   
     3. 订阅者处理完数据后，继续请求新数据（如再请求5个）。
-	```
+```
     
 
 #### 3. ​**​标准化接口​**​

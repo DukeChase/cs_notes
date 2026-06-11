@@ -17,7 +17,7 @@ ai原生架构
 - 数据处理
 - 训练/微调
 	- 微调框架
-	- pytorch PEFT/LOFA
+	- pytorch PEFT/LORA/ QLo
 - 推理
 
 零样本泛化、少样本 ICL、思维链（CoT）和指令遵循

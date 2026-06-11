@@ -2,7 +2,7 @@
 
 - [Docker 常用命令 与 `Dockerfile`](https://xiets.blog.csdn.net/article/details/122866186)
 - [Docker 环境清理的常用方法有哪些？](https://www.zhihu.com/tardis/bd/ans/2998335721)
-- [dockerfile](https://docs.docker.com/reference/dockerfile/)
+- [Dockerfile reference](https://docs.docker.com/reference/dockerfile/)
 
 # 架构
 
@@ -209,18 +209,255 @@ docker run -itd --rm --name container_name --env-file .env\
 image:tag
 ```
 
+# docker build
+
+`docker build` 命令用于从 Dockerfile 构建镜像。
+
+## 基本语法
+
+```bash
+docker build [OPTIONS] PATH | URL | -
+```
+
+## 常用选项
+
+| 选项 | 说明 | 示例 |
+|------|------|------|
+| `-t, --tag` | 镜像名称和标签 | `-t myapp:1.0` |
+| `-f, --file` | 指定 Dockerfile 路径 | `-f Dockerfile.prod .` |
+| `--build-arg` | 传递构建参数 | `--build-arg VERSION=2.0` |
+| `--no-cache` | 不使用构建缓存 | `--no-cache` |
+| `--platform` | 指定目标平台 | `--platform=linux/amd64` |
+| `--target` | 构建到指定阶段（多阶段构建） | `--target builder` |
+| `--progress` | 构建进度显示方式 | `--progress=plain` |
+| `-q, --quiet` | 静默模式，只输出镜像 ID | `-q` |
+| `--rm` | 构建成功后删除中间容器（默认 true） | `--rm=false` |
+
+## 常用示例
+
+```bash
+# 基本构建（当前目录的 Dockerfile）
+docker build -t myapp:1.0 .
+
+# 指定 Dockerfile 路径
+docker build -t myapp:1.0 -f docker/Dockerfile.prod .
+
+# 传递构建参数
+docker build -t myapp:1.0 --build-arg VERSION=2.0 .
+
+# 不使用缓存（全量重建）
+docker build --no-cache -t myapp:1.0 .
+
+# 跨平台构建
+docker build --platform=linux/amd64,linux/arm64 -t myapp:1.0 .
+
+# 多阶段构建：只构建到指定阶段
+docker build --target builder -t myapp:builder .
+
+# 查看 详细构建日志
+docker build --progress=plain -t myapp:1.0 .
+
+# 从 Git 仓库构建
+docker build -t myapp:1.0 https://github.com/user/repo.git#main
+
+# 从 stdin 读取 Dockerfile（无构建上下文）
+docker build -t myapp:1.0 - <<EOF
+FROM alpine
+RUN echo "hello"
+EOF
+```
+
+## 构建缓存与优化
+
+```dockerfile
+# ❌ 错误：每次代码变更都重新安装依赖
+COPY . /app
+RUN pip install -r requirements.txt
+
+# ✅ 正确：先复制依赖文件，利用缓存
+COPY requirements.txt /app/
+RUN pip install -r requirements.txt
+COPY . /app
+```
+
+**缓存失效规则**：
+- 指令本身变更 → 该层及后续所有层缓存失效
+- COPY/ADD 的源文件变更 → 该层及后续缓存失效
+- 尽量将变化频率低的指令放在前面
+
+## 多阶段构建
+
+```dockerfile
+# 阶段 1：构建
+FROM golang:1.21 AS builder
+WORKDIR /app
+COPY . .
+RUN go build -o myapp
+
+# 阶段 2：运行
+FROM alpine:3.19
+COPY --from=builder /app/myapp /usr/local/bin/myapp
+CMD ["myapp"]
+```
+
+```bash
+# 只构建到 builder 阶段（调试用）
+docker build --target builder -t myapp:builder .
+
+# 正常构建最终镜像
+docker build -t myapp:1.0 .
+```
+
+## .dockerignore
+
+在构建上下文根目录创建 `.dockerignore` 文件，排除不需要的文件：
+
+```text
+node_modules
+.git
+dist
+*.md
+.env
+.DS_Store
+__pycache__
+*.pyc
+.venv
+```
+
+**作用**：减小构建上下文大小，加速构建，避免敏感信息泄露。
+
+## docker builder prune
+
+清理构建缓存：
+
+```bash
+# 清理所有构建缓存
+docker builder prune
+
+# 清理超过 24 小时的缓存
+docker builder prune --filter "until=24h"
+
+# 强制清理，不确认
+docker builder prune -f
+```
+
 # docker pull
 
 ```bash
-docker pull --platform=linux/arm64 image:tag
-docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
+# 基本拉取
+docker pull nginx:latest
+
+# 指定平台拉取
+docker pull --platform=linux/arm64 nginx:latest
+docker pull --platform=linux/amd64 nginx:latest
+
+# 从私有仓库拉取
+docker pull [Docker Registry 地址[:端口号]/]仓库名[:标签]
+docker pull registry.example.com/myapp:1.0
+
+# 拉取所有标签
+docker pull --all-tags nginx
+
+# 静默模式
+docker pull -q nginx:latest
+```
+
+### 镜像加速配置
+
+国内拉取 Docker Hub 镜像较慢，可配置镜像加速器。配置文件路径：
+
+- **macOS**：`~/.docker/daemon.json`（Docker Desktop → Settings → Docker Engine）
+- **Linux**：`/etc/docker/daemon.json`
+
+配置示例见 [registry](#registry) 章节。
+
+# docker push
+
+```bash
+# 推送镜像到仓库
+docker push myapp:1.0
+
+# 推送到私有仓库
+docker tag myapp:1.0 registry.example.com/myapp:1.0
+docker push registry.example.com/myapp:1.0
+
+# 推送所有标签
+docker push --all-tags myapp
+```
+
+### 登录仓库
+
+```bash
+# 登录 Docker Hub
+docker login
+
+# 登录私有仓库
+docker login registry.example.com
+
+# 登出
+docker logout registry.example.com
 ```
 
 # docker image
 
-`docker image ls`
+```bash
+# 列出本地镜像
+docker image ls                    # 等同于 docker images
+docker image ls -a                 # 显示所有镜像（包括中间层）
+docker image ls -q                 # 只显示镜像 ID
+docker image ls --format "{{.Repository}}:{{.Tag}}"  # 自定义输出格式
+docker image ls --filter "dangling=true"             # 只显示悬空镜像（无标签）
 
-`docker image rm`
+# 删除镜像
+docker image rm <镜像名或ID>        # 等同于 docker rmi
+docker image rm $(docker image ls -q)  # 删除所有镜像（危险）
+docker image rm -f <ID>            # 强制删除（即使有容器在使用）
+
+# 构建镜像
+docker image build -t myapp:1.0 .  # 等同于 docker build
+
+# 查看镜像详情
+docker image inspect <镜像名或ID>
+
+# 查看镜像构建历史
+docker image history <镜像名或ID>
+
+# 清理悬空镜像
+docker image prune                 # 删除所有无标签的镜像
+docker image prune -a              # 删除所有未被容器使用的镜像
+
+# 标记镜像
+docker image tag source:tag target:tag   # 等同于 docker tag
+
+# 推送镜像
+docker image push <镜像名:标签>
+
+# 保存/加载镜像
+docker image save -o myapp.tar myapp:1.0   # 导出镜像为 tar 文件
+docker image load -i myapp.tar             # 从 tar 文件导入镜像
+
+# 查看镜像占用空间
+docker image ls --format "{{.Repository}}:{{.Tag}}\t{{.Size}}"
+```
+
+### 常用组合命令
+
+```bash
+# 批量删除悬空镜像
+docker image prune -f
+
+# 删除所有未被任何容器引用的镜像
+docker image prune -a -f
+
+# 查找并删除特定仓库的镜像
+docker image ls --filter "reference=myrepo/*" -q | xargs docker image rm
+
+# 导出多个镜像
+docker image save -o images.tar image1:tag image2:tag
+
+# 查看镜像层信息
+docker image inspect --format='{{json .RootFS.Layers}}' myapp:1.0
+```
 
 # `dockerfile`
 
@@ -705,28 +942,334 @@ docker inspect <image_name>
 
 # 操作容器
 
+## docker run
+
 `docker run [OPTIONS] IMAGE [COMMAND] [ARG...]`
-`docker container run -it --rm IMAGE [COMMAND] [ARG...]`
 
-- `-it`：这是两个参数，一个是 `-i`：交互式操作，一个是 `-t` 终端。我们这里打算进入 `bash` 执行一些命令并查看返回结果，因此我们需要交互式终端。
-- `--rm`：这个参数是说容器退出后随之将其删除。默认情况下，为了排障需求，退出的容器并不会立即删除，除非手动 `docker rm`。我们这里只是随便执行个命令，看看结果，不需要排障和保留结果，因此使用 `--rm` 可以避免浪费空间。
+```bash
+# 交互式运行（进入容器）
+docker run -it --rm ubuntu:latest /bin/bash
 
-`docker container start CONTAINER`
+# 后台运行
+docker run -d --name myapp -p 8080:80 nginx:latest
 
-`docker run -d`
+# 带环境变量
+docker run -d --name myapp \
+  -e MYSQL_ROOT_PASSWORD=root \
+  -e MYSQL_DATABASE=mydb \
+  mysql:latest
 
-`docker container stop`
+# 使用 env 文件
+docker run -d --name myapp --env-file .env myapp:1.0
 
-## docker container
+# 指定重启策略
+docker run -d --name myapp --restart=always nginx:latest
+# restart 策略：no | on-failure[:max-retries] | always | unless-stopped
 
-- `docker container attach [OPTIONS] CONTAINER`    *注意：* 如果从这个 stdin 中 exit，会导致容器的停止。
-- `docker container exec -it CONTAINER COMMAND`
-  - `docker container exec -itd CONTAINER /bin/bash`
+# 限制资源
+docker run -d --name myapp \
+  --cpus=2 \
+  --memory=512m \
+  --memory-swap=1g \
+  nginx:latest
 
-`docker container rm CONTAINER`
+# 使用 GPU
+docker run -d --name myapp --gpus all pytorch/pytorch:latest
+docker run -d --name myapp --gpus '"device=0,1"' pytorch/pytorch:latest
+```
 
-`docker container inspect`
-`docker container logs`
+- `-it`：`-i` 保持 STDIN 打开，`-t` 分配伪终端
+- `--rm`：容器退出后自动删除
+- `-d`：后台运行（detached 模式）
+- `--name`：指定容器名称
+- `-p`：端口映射（`宿主机端口:容器端口`）
+- `-v`：挂载卷
+- `-e`：设置环境变量
+- `--restart`：重启策略
+- `--network`：指定网络模式
+
+## docker ps
+
+列出容器信息：
+
+```bash
+# 列出运行中的容器
+docker ps
+
+# 列出所有容器（包括已停止的）
+docker ps -a
+
+# 只显示容器 ID
+docker ps -q
+
+# 显示最近创建的 N 个容器
+docker ps -n 5
+
+# 按状态过滤
+docker ps --filter "status=running"
+docker ps --filter "status=exited"
+docker ps --filter "status=paused"
+
+# 按名称过滤
+docker ps --filter "name=myapp"
+
+# 按镜像过滤
+docker ps --filter "ancestor=nginx:latest"
+
+# 自定义输出格式
+docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}"
+docker ps --format "{{.Names}}: {{.Status}}"
+
+# 显示容器文件大小
+docker ps -s
+```
+
+### 状态说明
+
+| 状态 | 含义 |
+|------|------|
+| `created` | 已创建但未启动 |
+| `running` | 正在运行 |
+| `paused` | 已暂停 |
+| `restarting` | 重启中 |
+| `removing` | 迁移中 |
+| `exited` | 已停止 |
+| `dead` | 无法启动（通常因资源不足） |
+
+## docker start / stop / restart
+
+```bash
+# 启动已停止的容器
+docker start <容器名或ID>
+docker start -ai <容器名或ID>   # 交互式启动（附加到终端）
+
+# 停止运行中的容器（发送 SIGTERM，超时后 SIGKILL）
+docker stop <容器名或ID>
+docker stop -t 30 <容器名或ID>  # 指定超时时间（秒）
+
+# 重启容器
+docker restart <容器名或ID>
+
+# 暂停/恢复容器（冻结/解冻进程）
+docker pause <容器名或ID>
+docker unpause <容器名或ID>
+
+# 强制终止容器（直接发送 SIGKILL）
+docker kill <容器名或ID>
+```
+
+## docker exec
+
+在运行中的容器内执行命令：
+
+```bash
+# 进入容器的交互式终端
+docker exec -it <容器名或ID> /bin/bash
+docker exec -it <容器名或ID> /bin/sh    # Alpine 等精简镜像无 bash
+
+# 在容器内执行单条命令
+docker exec <容器名或ID> ls /app
+docker exec <容器名或ID> cat /etc/os-release
+
+# 以指定用户执行
+docker exec -u root <容器名或ID> apt-get update
+
+# 设置环境变量
+docker exec -e DEBUG=1 <容器名或ID> python app.py
+
+# 指定工作目录
+docker exec -w /app <容器名或ID> ls
+
+# 后台执行
+docker exec -d <容器名或ID> python background_task.py
+```
+
+> **注意**：`docker exec` 是在运行中的容器内新开一个进程，不会影响容器的主进程。
+
+## docker attach
+
+附加到容器的主进程（PID 1）：
+
+```bash
+# 附加到容器
+docker attach <容器名或ID>
+```
+
+> **⚠️ 注意**：`docker attach` 连接的是容器主进程的 STDIN/STDOUT/STDERR，从 attach 的终端退出（`Ctrl+C` 或 `exit`）会导致**容器停止**。如需在容器内执行命令而不影响容器运行，请使用 `docker exec`。
+>
+> 安全退出 attach（不停止容器）：`Ctrl+P` → `Ctrl+Q`
+
+## docker logs
+
+查看容器日志：
+
+```bash
+# 查看全部日志
+docker logs <容器名或ID>
+
+# 实时跟踪日志（类似 tail -f）
+docker logs -f <容器名或ID>
+
+# 显示最近 N 行日志
+docker logs --tail 100 <容器名或ID>
+
+# 显示时间戳
+docker logs -t <容器名或ID>
+
+# 按时间范围过滤
+docker logs --since "2025-01-01T00:00:00" <容器名或ID>
+docker logs --since 30m <容器名或ID>            # 最近 30 分钟
+docker logs --until "2025-01-01T12:00:00" <容器名或ID>
+
+# 组合使用
+docker logs -f --tail 50 <容器名或ID>   # 实时跟踪最后 50 行
+```
+
+### 日志驱动
+
+```bash
+# 查看当前日志驱动
+docker inspect --format '{{.HostConfig.LogConfig.Type}}' <容器名或ID>
+
+# 运行时指定日志驱动
+docker run -d --log-driver=json-file \
+  --log-opt max-size=10m \
+  --log-opt max-file=3 \
+  nginx:latest
+
+# 常用日志驱动
+# json-file（默认）：JSON 格式，支持日志轮转
+# local：专为 Docker 优化，默认启用轮转
+# syslog：发送到 syslog
+# none：禁用日志
+```
+
+## docker cp
+
+在容器和宿主机之间复制文件/文件夹：
+
+```bash
+# 从容器复制到宿主机
+docker cp <容器名或ID>:/app/config.yml ./config.yml
+docker cp <容器名或ID>:/app/logs/ ./logs/
+
+# 从宿主机复制到容器
+docker cp ./config.yml <容器名或ID>:/app/config.yml
+docker cp ./data/ <容器名或ID>:/app/data/
+
+# 复制并保留权限
+docker cp -a <容器名或ID>:/app/data/ ./data/
+
+# 查看容器内文件（不复制）
+docker exec <容器名或ID> ls -la /app/
+docker exec <容器名或ID> cat /app/config.yml
+```
+
+> **注意**：`docker cp` 不要求容器正在运行，已停止的容器也可以复制文件。
+
+## docker rm
+
+删除容器：
+
+```bash
+# 删除已停止的容器
+docker rm <容器名或ID>
+
+# 强制删除运行中的容器（先停止再删除）
+docker rm -f <容器名或ID>
+
+# 删除容器时同时删除匿名卷
+docker rm -v <容器名或ID>
+
+# 批量删除所有已停止的容器
+docker container prune
+docker rm $(docker ps -a -q -f "status=exited")
+
+# 删除所有容器（危险）
+docker rm -f $(docker ps -aq)
+```
+
+## docker inspect
+
+查看容器/镜像详细信息：
+
+```bash
+# 查看容器详情
+docker inspect <容器名或ID>
+
+# 查看镜像详情
+docker inspect <镜像名:标签>
+
+# 提取特定字段
+docker inspect --format '{{.NetworkSettings.IPAddress}}' <容器名或ID>
+docker inspect --format '{{.State.Status}}' <容器名或ID>
+docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <容器名或ID>
+docker inspect --format '{{.Config.Env}}' <容器名或ID>
+docker inspect --format '{{json .State}}' <容器名或ID> | python3 -m json.tool
+
+# 查看端口映射
+docker port <容器名或ID>
+```
+
+## docker top / stats
+
+监控容器资源使用：
+
+```bash
+# 查看容器内进程
+docker top <容器名或ID>
+
+# 实时资源使用统计
+docker stats
+docker stats <容器名或ID>
+docker stats --no-stream   # 只显示一次，不持续刷新
+docker stats --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}"
+```
+
+## docker commit
+
+从容器创建新镜像：
+
+```bash
+# 基于容器当前状态创建镜像
+docker commit <容器名或ID> myapp:1.0
+
+# 附带提交信息
+docker commit -m "添加配置文件" -a "author" <容器名或ID> myapp:1.0
+
+# 修改启动命令
+docker commit --change 'CMD ["python", "app.py"]' <容器名或ID> myapp:1.0
+```
+
+> **注意**：`docker commit` 适合快速调试，**不建议**用于生产镜像构建。应优先使用 Dockerfile。
+
+## docker diff
+
+查看容器文件系统的变更：
+
+```bash
+docker diff <容器名或ID>
+# A = 新增文件
+# C = 修改文件
+# D = 删除文件
+```
+
+## docker export / import
+
+导出/导入容器文件系统：
+
+```bash
+# 导出容器为 tar 文件
+docker export <容器名或ID> -o myapp.tar
+
+# 从 tar 文件导入为镜像
+docker import myapp.tar myapp:1.0
+
+# 从 URL 导入
+docker import http://example.com/myapp.tar myapp:1.0
+```
+
+> **与 `docker save/load` 的区别**：`export/import` 操作容器快照（丢失历史和层信息），`save/load` 操作镜像（保留完整层信息）。
 
 # Repository
 
@@ -1356,12 +1899,32 @@ docker run -d --name my_container --network=none nginx
 
 ### ​**​常用命令​**​
 
-- 查看所有网络：
-    `docker network ls`
-- 查看网络详情：
-    `docker network inspect my_network`
-- 删除网络：
-    `docker network rm my_network`
+```bash
+# 列出所有网络
+docker network ls
+
+# 查看网络详情
+docker network inspect my_network
+docker network inspect bridge
+
+# 创建自定义网络
+docker network create my_network
+docker network create --driver bridge --subnet 172.20.0.0/16 my_network
+docker network create --driver bridge --subnet 172.20.0.0/16 --gateway 172.20.0.1 my_network
+
+# 连接/断开容器与网络
+docker network connect my_network my_container      # 将运行中容器加入网络
+docker network disconnect my_network my_container   # 将容器从网络断开
+
+# 运行时指定网络
+docker run -d --name app --network=my_network nginx
+
+# 删除网络（必须无容器使用）
+docker network rm my_network
+
+# 清理未使用的网络
+docker network prune
+```
 
 ---
 
@@ -1420,16 +1983,383 @@ docker run -d --name my_container --network=none nginx
 }
 ```
 
+# Docker Compose
+
+Docker Compose 是定义和运行多容器应用的工具，通过 `compose.yaml` 文件声明式管理服务。
+
+## compose.yaml 基本结构
+
+```yaml
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./html:/usr/share/nginx/html
+    depends_on:
+      - db
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydb
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - app-network
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+
+volumes:
+  db-data:
+  redis-data:
+
+networks:
+  app-network:
+    driver: bridge
+```
+
+## 常用命令
+
+```bash
+# 启动所有服务（后台运行）
+docker compose up -d
+
+# 启动并强制重建镜像
+docker compose up -d --build
+
+# 启动指定服务
+docker compose up -d web redis
+
+# 停止并删除所有容器
+docker compose down
+
+# 停止并删除容器+卷（清除数据）
+docker compose down -v
+
+# 查看服务状态
+docker compose ps
+
+# 查看服务日志
+docker compose logs
+docker compose logs -f web          # 跟踪指定服务日志
+docker compose logs --tail 50 web   # 最近 50 行
+
+# 在服务中执行命令
+docker compose exec web /bin/bash
+docker compose exec db mysql -uroot -proot
+
+# 运行一次性命令
+docker compose run --rm web python manage.py migrate
+
+# 重新构建镜像
+docker compose build
+docker compose build --no-cache     # 不使用缓存
+
+# 拉取最新镜像
+docker compose pull
+
+# 重启服务
+docker compose restart web
+
+# 暂停/恢复服务
+docker compose pause web
+docker compose unpause web
+
+# 查看服务配置（验证 yaml 是否正确）
+docker compose config
+
+# 查看服务资源使用
+docker compose top
+```
+
+## 多环境配置
+
+```bash
+# 使用不同配置文件
+docker compose -f compose.yaml -f compose.prod.yaml up -d
+
+# 指定项目名称（默认使用目录名）
+docker compose -p myproject up -d
+
+# 指定环境变量文件
+docker compose --env-file .env.prod up -d
+```
+
+### 环境变量优先级
+
+```
+1. compose.yaml 中硬编码的值
+2. shell 环境变量
+3. .env 文件
+4. Dockerfile 中的 ENV
+5. 上述都没有时使用变量定义的默认值
+```
+
+## 构建配置
+
+```yaml
+services:
+  app:
+    build:
+      context: .                    # 构建上下文
+      dockerfile: Dockerfile.prod   # 指定 Dockerfile
+      args:                         # 构建参数
+        VERSION: "2.0"
+      target: production            # 多阶段构建目标
+    image: myapp:2.0               # 构建后镜像名称
+```
+
+## 健康检查
+
+```yaml
+services:
+  web:
+    image: nginx:latest
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+```
+
+## 资源限制
+
+```yaml
+services:
+  app:
+    image: myapp:latest
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 512M
+        reservations:
+          cpus: "0.5"
+          memory: 256M
+```
+
+## 常用 compose.yaml 模板
+
+### Web + DB + Redis
+
+```yaml
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://user:pass@db:5432/mydb
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: mydb
+    volumes:
+      - pg-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis-data:/data
+
+volumes:
+  pg-data:
+  redis-data:
+```
+
+---
+
+# docker system
+
+Docker 系统级管理命令，用于清理磁盘空间和查看资源使用。
+
+## docker system df
+
+查看 Docker 磁盘使用情况：
+
+```bash
+# 概览
+docker system df
+
+# 详细信息（每个镜像/容器/卷/构建缓存的具体占用）
+docker system df -v
+```
+
+输出示例：
+
+```text
+TYPE            TOTAL   ACTIVE  SIZE    RECLAIMABLE
+Images          15      5       5.2GB   3.1GB (59%)
+Containers      8       3       120MB   80MB (66%)
+Local Volumes   6       3       800MB   400MB (50%)
+Build Cache     25      0       2.1GB   2.1GB (100%)
+```
+
+## docker system prune
+
+一键清理未使用的 Docker 资源：
+
+```bash
+# 清理已停止的容器、未使用的网络、悬空镜像、构建缓存
+docker system prune
+
+# 同时清理未被容器使用的镜像（常用）
+docker system prune -a
+
+# 同时清理卷（⚠️ 会删除数据）
+docker system prune --volumes
+
+# 全量清理（危险，需确认）
+docker system prune -a --volumes
+
+# 不需要确认提示
+docker system prune -f
+```
+
+### 清理范围对比
+
+| 命令 | 停止的容器 | 悬空镜像 | 未使用镜像 | 未使用网络 | 未使用卷 | 构建缓存 |
+|------|-----------|---------|-----------|-----------|---------|---------|
+| `docker system prune` | ✅ | ✅ | ❌ | ✅ | ❌ | ✅ |
+| `docker system prune -a` | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `docker system prune -a --volumes` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+
+## 分项清理命令
+
+```bash
+# 清理已停止的容器
+docker container prune
+
+# 清理悬空镜像（无标签）
+docker image prune
+
+# 清理所有未使用的镜像
+docker image prune -a
+
+# 清理未使用的卷
+docker volume prune
+
+# 清理未使用的网络
+docker network prune
+
+# 清理构建缓存
+docker builder prune
+```
+
+### 按条件过滤清理
+
+```bash
+# 清理超过 24 小时的构建缓存
+docker builder prune --filter "until=24h"
+
+# 清理 2025-01-01 之前创建的镜像
+docker image prune -a --filter "until=2025-01-01"
+
+# 清理指定标签的镜像
+docker image prune -a --filter "label!=keep"
+```
+
+## docker system info
+
+查看 Docker 系统信息：
+
+```bash
+docker system info      # 等同于 docker info
+```
+
+## 磁盘空间排查流程
+
+```bash
+# 1. 查看 Docker 整体占用
+docker system df -v
+
+# 2. 找出最大的镜像
+docker image ls --format "{{.Repository}}:{{.Tag}}\t{{.Size}}" | sort -k2 -h
+
+# 3. 清理不需要的资源
+docker system prune -a          # 清理未使用的镜像和容器
+
+# 4. 如需更深度的清理
+docker system prune -a --volumes  # 同时清理卷
+
+# 5. 清理构建缓存
+docker builder prune -a
+```
+
+---
+
 # other
 
-[# Docker cp命令详解：在Docker容器和主机之间复制文件/文件夹](https://blog.csdn.net/Tester_muller/article/details/131678630)
+## 参考链接
 
-[Mac 上构建Docker配置 linux/amd64](https://www.jianshu.com/p/3119635e2196)
+- [Docker cp 命令详解：在容器和主机之间复制文件/文件夹](https://blog.csdn.net/Tester_muller/article/details/131678630)
+- [Mac 上构建 Docker 配置 linux/amd64](https://www.jianshu.com/p/3119635e2196)
+- [Docker 深度清除镜像缓存](https://juejin.cn/post/7041119023286730782)
+- [Dockerfile 中更换国内源](https://blog.csdn.net/yyj108317/article/details/105984674)
 
-[Docker 深度清除镜像缓存](https://juejin.cn/post/7041119023286730782)
+## 常用技巧
 
-[Dockerfile中更换国内源](https://blog.csdn.net/yyj108317/article/details/105984674)
+### Mac 上构建 linux/amd64 镜像
 
-`docker builder prune`
+```bash
+# 方法 1：使用 --platform
+docker build --platform=linux/amd64 -t myapp:1.0 .
+docker run --platform=linux/amd64 myapp:1.0
+
+# 方法 2：使用 buildx 多平台构建
+docker buildx build --platform=linux/amd64,linux/arm64 -t myapp:1.0 .
+
+# 方法 3：Dockerfile 中指定
+FROM --platform=linux/amd64 python:3.11
+```
+
+### 清理构建缓存
+
+```bash
+docker builder prune
+docker builder prune -a            # 清理全部
+docker builder prune --filter "until=24h"
+```
+
+### Dockerfile 中更换国内源
+
+```dockerfile
+# Ubuntu/Debian 换源
+RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list
+
+# Alpine 换源
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+
+# pip 换源
+RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+
+# npm 换源
+RUN npm config set registry https://registry.npmmirror.com
+```
 
 [[k8s#k8s概述]]

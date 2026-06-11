@@ -1,6 +1,7 @@
 ---
 source: ollma-qwen3.5-cloud
 date: 2026-02-11
+question: 传统强化学习和大模型强化学习有什么区别
 ---
 
 
