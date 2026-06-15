@@ -1,3 +1,9 @@
+---
+tag:
+  - RL
+  - deep-learning
+---
+
 # 传统强化学习
 
 机器学习的一个分支，核心思想是**通过试错来学习**。
@@ -87,7 +93,7 @@ $$\pi_{\max} E \left[ \sum_{t=0}^{\infty} \gamma^t r_t \right]$$
 # 大模型强化学习
 
 
-[chatgpt answer 大模型强化学习 RLHF SFT PPO 这几个概念的逻辑关系](https://chatgpt.com/c/695dcd75-c954-8325-a028-a7e4c473d708)
+[chatgpt answer: 大模型强化学习 RLHF SFT PPO 这几个概念的逻辑关系](https://chatgpt.com/c/695dcd75-c954-8325-a028-a7e4c473d708)
 
 SFT 本质上就是强化学习力的 Imitation Learning  / Behavior Cloning
 
@@ -190,7 +196,12 @@ $A_i = \frac{r_i - \mu(R)}{\sigma(R)}$
 - $r_i$：第 i 个回答的**奖励分数**（正确 / 格式 / 语言）
 - μ(R)：一个组内所有回答奖励的**平均值**
 - σ(R)：一个组内所有回答奖励的**标准差**
-## RL framework
+# RL framework
 TRL (Transformer Reinforcement Learning)
 
 TRLX
+
+
+# reference
+https://unsloth.ai/docs/get-started/reinforcement-learning-rl-guide
+https://unsloth.ai/docs/zh/bo-ke/ai-engineers-2025

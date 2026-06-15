@@ -1,3 +1,11 @@
+---
+tag:
+  - RL
+  - RLHF
+  - deep-learning
+---
+
+
 https://huggingface.co/blog/zh/rlhf
 
 

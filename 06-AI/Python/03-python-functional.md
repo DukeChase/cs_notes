@@ -76,6 +76,7 @@ def fib(max):
 ### 可迭代对象（Iterable）
 
 可以直接作用于 `for` 循环的对象：
+
 - 集合数据类型：`list`、`tuple`、`dict`、`set`、`str`
 - `generator`
 
@@ -118,7 +119,101 @@ True
 
 ---
 
-## 4. map/reduce
+## 4. zip
+
+`zip()` 用于把多个可迭代对象按位置“打包”在一起，每次返回一个元组。
+它返回的是**惰性迭代器**，需要用 `list()`、`dict()` 或 `for` 循环消费。
+
+### 基本用法
+
+```python
+names = ["Alice", "Bob", "Charlie"]
+scores = [95, 87, 92]
+
+for name, score in zip(names, scores):
+    print(name, score)
+
+# 输出:
+# Alice 95
+# Bob 87
+# Charlie 92
+```
+
+### 生成字典
+
+当一个列表保存键、另一个列表保存值时，可以直接配合 `dict()` 创建字典。
+
+```python
+keys = ["name", "age", "city"]
+values = ["Alice", 20, "Shanghai"]
+
+user = dict(zip(keys, values))
+print(user)
+# {'name': 'Alice', 'age': 20, 'city': 'Shanghai'}
+```
+
+### 同时遍历多个列表
+
+`zip()` 常用于避免手动使用索引，让代码更清晰。
+
+```python
+products = ["book", "pen", "bag"]
+prices = [30, 5, 120]
+stocks = [10, 100, 8]
+
+for product, price, stock in zip(products, prices, stocks):
+    print(f"{product}: 单价 {price}, 库存 {stock}")
+```
+
+### 解包：矩阵转置
+
+`zip(*iterable)` 可以把二维结构按列重新组合，常用于矩阵转置。
+
+```python
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+]
+
+transposed = list(zip(*matrix))
+print(transposed)
+# [(1, 4), (2, 5), (3, 6)]
+```
+
+如果需要列表而不是元组，可以再转换一次：
+
+```python
+transposed = [list(row) for row in zip(*matrix)]
+print(transposed)
+# [[1, 4], [2, 5], [3, 6]]
+```
+
+### 长度不一致时的行为
+
+默认情况下，`zip()` 会在最短的可迭代对象耗尽时停止。
+
+```python
+names = ["Alice", "Bob", "Charlie"]
+scores = [95, 87]
+
+print(list(zip(names, scores)))
+# [('Alice', 95), ('Bob', 87)]
+```
+
+Python 3.10+ 可以使用 `strict=True`。当多个可迭代对象长度不一致时，
+它会抛出 `ValueError`，适合需要严格校验数据对齐的场景。
+
+```python
+names = ["Alice", "Bob", "Charlie"]
+scores = [95, 87]
+
+list(zip(names, scores, strict=True))
+# ValueError: zip() argument 2 is shorter than argument 1
+```
+
+---
+
+## 5. map/reduce
 
 ### map
 
@@ -148,7 +243,7 @@ True
 
 ---
 
-## 5. filter
+## 6. filter
 
 过滤序列：
 
@@ -162,7 +257,7 @@ True
 
 ---
 
-## 6. sorted
+## 7. sorted
 
 排序：
 
@@ -179,7 +274,7 @@ True
 
 ---
 
-## 7. 装饰器
+## 8. 装饰器
 
 装饰器是一种**在不修改函数代码的情况下扩展函数功能**的设计模式。
 
@@ -246,7 +341,7 @@ def my_task(duration):
 
 ---
 
-## 8. 偏函数
+## 9. 偏函数
 
 固定函数的某些参数：
 

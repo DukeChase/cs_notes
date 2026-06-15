@@ -16,9 +16,12 @@ ai原生架构
 大模型生命周期
 - 数据处理
 - 训练/微调
-	- 微调框架
-	- pytorch PEFT/LORA/ QLo
-- 推理
+	- 预训练 pre-training
+	- 后训练 post-training
+		- 微调框架
+		- pytorch PEFT/LORA/ QLoRA
+- 推理 inference
+
 
 零样本泛化、少样本 ICL、思维链（CoT）和指令遵循
 

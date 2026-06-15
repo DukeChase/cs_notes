@@ -428,3 +428,5 @@ tmux source-file ~/.tmux.conf
 - [Tmux 使用教程](https://www.ruanyifeng.com/blog/2019/10/tmux.html)
 - [tmux GitHub 仓库](https://github.com/tmux/tmux)
 - [tmux man page](https://man7.org/linux/man-pages/man1/tmux.1.html)
+- [tmux wiki get-started](https://github.com/tmux/tmux/wiki/Getting-Started)
+- [tmux man page](https://man.openbsd.org/OpenBSD-current/man1/tmux.1)
