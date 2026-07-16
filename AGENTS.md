@@ -44,7 +44,7 @@ This repository supports both Obsidian viewing and GitHub Pages publishing via Q
 1. Install Node.js 22+ (required by Quartz 4.0)
 2. Install dependencies:
    ```bash
-   nvm use 22 && npm install
+   fnm use 22 && npm install
    ```
 3. Build the site:
    ```bash
